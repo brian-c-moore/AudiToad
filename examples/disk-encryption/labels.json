@@ -1,0 +1,8 @@
+{
+  "schema":"auditoad-labels/1",
+  "dataset":{"id":"disk-encryption-example","revision":"1","split":"development","notes":"Public known-answer examples, already inspected; not a holdout."},
+  "labels":[
+    {"rule":"DISK-ENCRYPTED","target":"disk/boot","violation":false},
+    {"rule":"DISK-ENCRYPTED","target":"disk/backup","violation":true}
+  ]
+}

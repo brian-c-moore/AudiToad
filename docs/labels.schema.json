@@ -1,0 +1,30 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "title":"AudiToad external labels",
+  "type":"object","additionalProperties":false,"required":["schema","labels"],
+  "properties":{
+    "schema":{"const":"auditoad-labels/1"},
+    "dataset":{
+      "type":["object","null"],"additionalProperties":false,"required":["id","revision","split"],
+      "properties":{
+        "id":{"type":"string","pattern":"\\S"},
+        "revision":{"type":"string","pattern":"\\S"},
+        "split":{"enum":["development","calibration","holdout"]},
+        "notes":{"type":"string","pattern":"\\S"}
+      }
+    },
+    "labels":{"type":"array","minItems":1,"items":{
+      "type":"object","additionalProperties":false,"required":["rule","violation"],
+      "properties":{
+        "rule":{"type":"string","minLength":1},"violation":{"type":"boolean"},
+        "target":{"type":"string","minLength":1},"packet":{"type":"string","minLength":1},
+        "input":{"type":"string","minLength":1},"line":{"type":"integer","minimum":1}
+      },
+      "oneOf":[
+        {"required":["target"],"not":{"anyOf":[{"required":["packet"]},{"required":["input"]},{"required":["line"]}]}},
+        {"required":["packet"],"not":{"anyOf":[{"required":["target"]},{"required":["input"]},{"required":["line"]}]}},
+        {"required":["input","line"],"not":{"anyOf":[{"required":["target"]},{"required":["packet"]}]}}
+      ]
+    }}
+  }
+}

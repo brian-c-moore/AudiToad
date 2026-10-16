@@ -1,0 +1,105 @@
+{
+  "$schema": "../../docs/baseline.schema.json",
+  "schema": "auditoad-baseline/1",
+  "baseline": {
+    "id": "jev-native-images",
+    "version": "1",
+    "title": "Controlled native-image and Box development observations",
+    "publisher": "AudiToad examples",
+    "status": "draft"
+  },
+  "sources": {"scene": {"adapter": "evidence-bundle/1", "media": ["application/vnd.auditoad.bundle+json"]}},
+  "evidence": {"image": {"builder": "declared-parts/1", "builder_revision": "r1", "required_roles": ["subject"]}},
+  "groups": [{"id": "IMAGE", "title": "Native image placement"}, {"id": "GEOMETRY", "title": "Bounded local geometry observations"}],
+  "rules": [
+    {
+      "id": "IMAGE-STATE", "revision": "1", "source": "scene", "group": "IMAGE", "risk": "low", "scope_kind": "whole",
+      "title": "Image supplied only through state", "evidence": "image", "evaluator": {"kind": "model", "contract": "choice/1"},
+      "check": {"kind": "choice/1", "instructions": "Which object is on the left side of `photo`?",
+        "options": {"red_mug": {"description": "A red ceramic mug.", "result": "pass"}, "blue_book": {"description": "A closed blue book.", "result": "fail"}, "neither": {"description": "Neither of those objects.", "result": "fail"}, "insufficient": {"description": "The image does not provide enough information to identify the object on the left.", "result": "review"}},
+        "image_assets": {"auditoad_scene_mug_book_1": "/parts/0"}, "state_projection": {"photo": "/parts/0"},
+        "min_choice_probability": 0.9, "min_confidence": 0.9, "max_request_bytes": 8388608},
+      "applicability": {"include": ["controlled-image"], "exclude": []},
+      "falsifier": "The fixed left-object label differs from red_mug, or the source image/request identity is not preserved.", "fixtures": {"pass": [], "fail": []}
+    },
+    {
+      "id": "IMAGE-INSTRUCTIONS", "revision": "1", "source": "scene", "group": "IMAGE", "risk": "low", "scope_kind": "whole",
+      "title": "Image supplied only through instructions", "evidence": "image", "evaluator": {"kind": "model", "contract": "choice/1"},
+      "check": {"kind": "choice/1", "instructions": "Which object is on the left side of this image: auditoad_scene_mug_book_1?",
+        "options": {"red_mug": {"description": "A red ceramic mug.", "result": "pass"}, "blue_book": {"description": "A closed blue book.", "result": "fail"}, "neither": {"description": "Neither of those objects.", "result": "fail"}, "insufficient": {"description": "The image does not provide enough information to identify the object on the left.", "result": "review"}},
+        "image_assets": {"auditoad_scene_mug_book_1": "/parts/0"}, "state_projection": {"case": "/scope_kind"},
+        "min_choice_probability": 0.9, "min_confidence": 0.9, "max_request_bytes": 8388608},
+      "applicability": {"include": ["controlled-image"], "exclude": []},
+      "falsifier": "The instructions-only image cannot be encoded or the fixed left-object label differs from red_mug.", "fixtures": {"pass": [], "fail": []}
+    },
+    {
+      "id": "IMAGE-CRITERIA", "revision": "1", "source": "scene", "group": "IMAGE", "risk": "low", "scope_kind": "whole",
+      "title": "Image used as a choice criterion", "evidence": "image", "evaluator": {"kind": "model", "contract": "choice/1"},
+      "check": {"kind": "choice/1", "instructions": "Which option matches a scene with a red mug on the left and a closed blue book on the right?",
+        "options": {"matching_scene": {"description": "auditoad_scene_mug_book_1", "result": "pass"}, "different_scene": {"description": "A scene with a green apple on the left and no red mug.", "result": "fail"}, "insufficient": {"description": "The supplied evidence does not distinguish the scenes.", "result": "review"}},
+        "image_assets": {"auditoad_scene_mug_book_1": "/parts/0"}, "state_projection": {"case": "/scope_kind"},
+        "min_choice_probability": 0.9, "min_confidence": 0.9, "max_request_bytes": 8388608},
+      "applicability": {"include": ["controlled-image"], "exclude": []},
+      "falsifier": "The criterion-only image cannot be encoded or matching_scene is not selected for this fixed scene.", "fixtures": {"pass": [], "fail": []}
+    },
+    {
+      "id": "IMAGE-ABSENT", "revision": "1", "source": "scene", "group": "IMAGE", "risk": "low", "scope_kind": "whole",
+      "title": "Absent-object negative control", "evidence": "image", "evaluator": {"kind": "model", "contract": "yes-no/1"},
+      "check": {"kind": "yes-no/1", "instructions": "Is a green apple visible in `photo`?",
+        "criteria_true": "At least one green apple is visible.", "criteria_false": "No green apple is visible.",
+        "image_assets": {"auditoad_scene_mug_book_1": "/parts/0"}, "state_projection": {"photo": "/parts/0"},
+        "pass_below": 0.1, "fail_at_or_above": 0.9, "max_request_bytes": 8388608},
+      "applicability": {"include": ["controlled-image"], "exclude": []},
+      "falsifier": "The model reports a visible green apple despite the reviewed absent-object label.", "fixtures": {"pass": [], "fail": []}
+    },
+    {
+      "id": "IMAGE-BOX", "revision": "1", "source": "scene", "group": "IMAGE", "risk": "low", "scope_kind": "whole",
+      "title": "Locate the complete red mug", "evidence": "image", "evaluator": {"kind": "model", "contract": "box/1", "role": "helper"},
+      "check": {"kind": "box/1", "instructions": "Return a tight bounding box around the entire visible red ceramic mug in `photo`, including its handle and excluding the soft shadow.",
+        "image_assets": {"auditoad_scene_mug_book_1": "/parts/0"}, "state_projection": {"photo": "/parts/0"}, "max_request_bytes": 8388608},
+      "applicability": {"include": ["controlled-image"], "exclude": []},
+      "falsifier": "A malformed or mismatched response is accepted as a Box artifact; valid geometry alone is not a semantic pass.", "fixtures": {"pass": [], "fail": []}
+    },
+    {
+      "id": "BOX-LEFT", "revision": "1", "source": "scene", "group": "GEOMETRY", "risk": "low", "scope_kind": "whole", "title": "Reviewed mug left-edge interval", "evidence": "image",
+      "evaluator": {"kind": "json-number-range", "contract": "json-number-range/1"},
+      "check": {"kind": "json-number-range/1", "pointer": "/prior/0/observation/fields/box/left", "minimum": 0.075, "maximum": 0.13, "fail_when_outside": true},
+      "consult": {"rules": ["IMAGE-BOX"]}, "applicability": {"include": ["controlled-image"], "exclude": []},
+      "falsifier": "A missing, nonnumeric or out-of-interval Box left edge becomes a pass.",
+      "fixtures": {"pass": [{"path":"range-pass.json","corpus_revision":"1","source_sha256":"f316953d3132101ffd06221717e5eb74ca5ec2a29444de206c3f68b35161c9cd","evidence_sha256":"f316953d3132101ffd06221717e5eb74ca5ec2a29444de206c3f68b35161c9cd"}],"fail":[{"path":"range-fail.json","corpus_revision":"1","source_sha256":"ec9d9fd1c9049c08fb1c099e2c7a77b1b91dfbdeefd544b44d0b0698f5aa3179","evidence_sha256":"ec9d9fd1c9049c08fb1c099e2c7a77b1b91dfbdeefd544b44d0b0698f5aa3179"}]}
+    },
+    {
+      "id": "BOX-TOP", "revision": "1", "source": "scene", "group": "GEOMETRY", "risk": "low", "scope_kind": "whole", "title": "Reviewed mug top-edge interval", "evidence": "image",
+      "evaluator": {"kind": "json-number-range", "contract": "json-number-range/1"},
+      "check": {"kind": "json-number-range/1", "pointer": "/prior/0/observation/fields/box/top", "minimum": 0.30, "maximum": 0.36, "fail_when_outside": true},
+      "consult": {"rules": ["IMAGE-BOX"]}, "applicability": {"include": ["controlled-image"], "exclude": []},
+      "falsifier": "A missing, nonnumeric or out-of-interval Box top edge becomes a pass.",
+      "fixtures": {"pass": [{"path":"range-pass.json","corpus_revision":"1","source_sha256":"f316953d3132101ffd06221717e5eb74ca5ec2a29444de206c3f68b35161c9cd","evidence_sha256":"f316953d3132101ffd06221717e5eb74ca5ec2a29444de206c3f68b35161c9cd"}],"fail":[{"path":"range-fail.json","corpus_revision":"1","source_sha256":"ec9d9fd1c9049c08fb1c099e2c7a77b1b91dfbdeefd544b44d0b0698f5aa3179","evidence_sha256":"ec9d9fd1c9049c08fb1c099e2c7a77b1b91dfbdeefd544b44d0b0698f5aa3179"}]}
+    },
+    {
+      "id": "BOX-RIGHT", "revision": "1", "source": "scene", "group": "GEOMETRY", "risk": "low", "scope_kind": "whole", "title": "Reviewed mug right-edge interval", "evidence": "image",
+      "evaluator": {"kind": "json-number-range", "contract": "json-number-range/1"},
+      "check": {"kind": "json-number-range/1", "pointer": "/prior/0/observation/fields/box/right", "minimum": 0.42, "maximum": 0.48, "fail_when_outside": true},
+      "consult": {"rules": ["IMAGE-BOX"]}, "applicability": {"include": ["controlled-image"], "exclude": []},
+      "falsifier": "A missing, nonnumeric or out-of-interval Box right edge becomes a pass.",
+      "fixtures": {"pass": [{"path":"range-pass.json","corpus_revision":"1","source_sha256":"f316953d3132101ffd06221717e5eb74ca5ec2a29444de206c3f68b35161c9cd","evidence_sha256":"f316953d3132101ffd06221717e5eb74ca5ec2a29444de206c3f68b35161c9cd"}],"fail":[{"path":"range-fail.json","corpus_revision":"1","source_sha256":"ec9d9fd1c9049c08fb1c099e2c7a77b1b91dfbdeefd544b44d0b0698f5aa3179","evidence_sha256":"ec9d9fd1c9049c08fb1c099e2c7a77b1b91dfbdeefd544b44d0b0698f5aa3179"}]}
+    },
+    {
+      "id": "BOX-BOTTOM", "revision": "1", "source": "scene", "group": "GEOMETRY", "risk": "low", "scope_kind": "whole", "title": "Reviewed mug bottom-edge interval", "evidence": "image",
+      "evaluator": {"kind": "json-number-range", "contract": "json-number-range/1"},
+      "check": {"kind": "json-number-range/1", "pointer": "/prior/0/observation/fields/box/bottom", "minimum": 0.65, "maximum": 0.70, "fail_when_outside": true},
+      "consult": {"rules": ["IMAGE-BOX"]}, "applicability": {"include": ["controlled-image"], "exclude": []},
+      "falsifier": "A missing, nonnumeric or out-of-interval Box bottom edge becomes a pass.",
+      "fixtures": {"pass": [{"path":"range-pass.json","corpus_revision":"1","source_sha256":"f316953d3132101ffd06221717e5eb74ca5ec2a29444de206c3f68b35161c9cd","evidence_sha256":"f316953d3132101ffd06221717e5eb74ca5ec2a29444de206c3f68b35161c9cd"}],"fail":[{"path":"range-fail.json","corpus_revision":"1","source_sha256":"ec9d9fd1c9049c08fb1c099e2c7a77b1b91dfbdeefd544b44d0b0698f5aa3179","evidence_sha256":"ec9d9fd1c9049c08fb1c099e2c7a77b1b91dfbdeefd544b44d0b0698f5aa3179"}]}
+    },
+    {
+      "id": "BOX-CONFIDENCE", "revision": "1", "source": "scene", "group": "GEOMETRY", "risk": "low", "scope_kind": "whole", "title": "Reported Box confidence observation", "evidence": "image",
+      "evaluator": {"kind": "json-number-range", "contract": "json-number-range/1"},
+      "check": {"kind": "json-number-range/1", "pointer": "/prior/0/observation/fields/confidence", "minimum": 0.5, "maximum": 1.0, "fail_when_outside": true},
+      "consult": {"rules": ["IMAGE-BOX"]}, "applicability": {"include": ["controlled-image"], "exclude": []},
+      "falsifier": "Missing, nonfinite or below-threshold reported confidence becomes a pass; confidence is not location accuracy.",
+      "fixtures": {"pass": [{"path":"range-pass.json","corpus_revision":"1","source_sha256":"f316953d3132101ffd06221717e5eb74ca5ec2a29444de206c3f68b35161c9cd","evidence_sha256":"f316953d3132101ffd06221717e5eb74ca5ec2a29444de206c3f68b35161c9cd"}],"fail":[{"path":"range-fail.json","corpus_revision":"1","source_sha256":"ec9d9fd1c9049c08fb1c099e2c7a77b1b91dfbdeefd544b44d0b0698f5aa3179","evidence_sha256":"ec9d9fd1c9049c08fb1c099e2c7a77b1b91dfbdeefd544b44d0b0698f5aa3179"}]}
+    }
+  ],
+  "profiles": [{"id": "development", "select": ["*"], "block_on": ["fail", "review", "error", "not_evaluated"], "allowed_egress": ["https://api.typesafe.ai"]}]
+}

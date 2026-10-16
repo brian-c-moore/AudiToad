@@ -1,0 +1,11 @@
+{
+  "schema":"auditoad-collection/1",
+  "inputs":{
+    "bash":{"adapter":"text/1","path":"example.bash"},
+    "zsh":{"adapter":"text/1","path":"example.zsh"},
+    "powershell":{"adapter":"text/1","path":"example.ps1"},
+    "python":{"adapter":"text/1","path":"example.py"},
+    "rust":{"adapter":"text/1","path":"example.rs"},
+    "tlaplus":{"adapter":"text/1","path":"example.tla"}
+  }
+}

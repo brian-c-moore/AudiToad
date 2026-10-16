@@ -1,0 +1,40 @@
+{
+  "schema": "auditoad-evidence-bundle/1",
+  "files": {
+    "article-a.md": "2ab3c3c3a1707c1026f9bc2b2acb2d53326083be2fbe29c6f2fd7eba3ebb6d24",
+    "brief.md": "20b227420cf6d1648c3cca0cd259bbecf0bae2c76e1782bd427e599396fafa26",
+    "article-b.md": "e9a73fd6ecbd010b2305f62cef141c1b81a19337465ddb8df14980658280d4cd"
+  },
+  "packets": [
+    {
+      "id": "article-a",
+      "kind": "writing",
+      "scope_kind": "site",
+      "parts": [
+        {
+          "role": "subject",
+          "path": "article-a.md"
+        },
+        {
+          "role": "policy",
+          "path": "brief.md"
+        }
+      ]
+    },
+    {
+      "id": "article-b",
+      "kind": "writing",
+      "scope_kind": "site",
+      "parts": [
+        {
+          "role": "subject",
+          "path": "article-b.md"
+        },
+        {
+          "role": "policy",
+          "path": "brief.md"
+        }
+      ]
+    }
+  ]
+}

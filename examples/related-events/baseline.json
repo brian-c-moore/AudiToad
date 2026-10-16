@@ -1,0 +1,172 @@
+{
+  "$schema": "../../docs/baseline.schema.json",
+  "schema": "auditoad-baseline/1",
+  "baseline": {"id":"related-events","version":"2","title":"Unapproved encoded PowerShell with a TXT query","publisher":"AudiToad examples","status":"draft"},
+  "sources": {"events":{"adapter":"collection/1","media":["application/vnd.auditoad.collection+json"]}},
+  "evidence": {
+    "input":{"builder":"scoped-input/1","builder_revision":"r1"},
+    "answers":{"builder":"answers/1","builder_revision":"r1"}
+  },
+  "groups": [{"id":"ACTIVITY","title":"Related process and DNS activity"}],
+  "command_grammars": {
+    "windows": {
+      "windows-powershell":{"executables":["powershell.exe","powershell"],"option_prefixes":["-","/","–","—","―"],"repeated_prefix":true,"options":[
+        {"name":"Version","matches":[{"word":"version","shortest":"v"}],"value":"value"},
+        {"name":"Help","matches":[{"word":"help","shortest":"h"},{"word":"?","shortest":"?"}],"value":"rest"},
+        {"name":"NoExit","matches":[{"word":"noexit","shortest":"noe"}],"value":"none"},
+        {"name":"NoProfile","matches":[{"word":"noprofile","shortest":"nop"}],"value":"none"},
+        {"name":"NoLogo","matches":[{"word":"nologo","shortest":"nol"}],"value":"none"},
+        {"name":"NonInteractive","matches":[{"word":"noninteractive","shortest":"noni"}],"value":"none"},
+        {"name":"PSConsoleFile","matches":[{"word":"psconsolefile","shortest":"psc"}],"value":"value"},
+        {"name":"ConfigurationName","matches":[{"word":"configurationname","shortest":"config"}],"value":"value"},
+        {"name":"Command","matches":[{"word":"command","shortest":"c"}],"value":"rest"},
+        {"name":"WindowStyle","matches":[{"word":"windowstyle","shortest":"w"}],"value":"value"},
+        {"name":"File","matches":[{"word":"file","shortest":"f"}],"value":"rest"},
+        {"name":"OutputFormat","matches":[{"word":"outputformat","shortest":"o"}],"value":"value"},
+        {"name":"InputFormat","matches":[{"word":"inputformat","shortest":"inp"}],"value":"value"},
+        {"name":"ExecutionPolicy","matches":[{"word":"executionpolicy","shortest":"ex"},{"word":"ep","shortest":"ep"}],"value":"value"},
+        {"name":"EncodedCommand","matches":[{"word":"encodedcommand","shortest":"e"},{"word":"ec","shortest":"e"}],"value":"value"},
+        {"name":"EncodedArguments","matches":[{"word":"encodedarguments","shortest":"encodeda"},{"word":"ea","shortest":"ea"}],"value":"value"},
+        {"name":"Sta","matches":[{"word":"sta","shortest":"sta"}],"value":"none"},
+        {"name":"Mta","matches":[{"word":"mta","shortest":"mta"}],"value":"none"}],
+        "unmatched":"rest","positional":"rest"},
+      "pwsh":{"executables":["pwsh.exe","pwsh"],"option_prefixes":["-","/","–","—","―"],"repeated_prefix":true,"options":[
+        {"name":"Version","matches":[{"word":"version","shortest":"v"}],"value":"rest"},
+        {"name":"Help","matches":[{"word":"help","shortest":"h"},{"word":"?","shortest":"?"}],"value":"rest"},
+        {"name":"Login","matches":[{"word":"login","shortest":"l"}],"value":"none"},
+        {"name":"NoExit","matches":[{"word":"noexit","shortest":"noe"}],"value":"none"},
+        {"name":"NoProfile","matches":[{"word":"noprofile","shortest":"nop"}],"value":"none"},
+        {"name":"NoLogo","matches":[{"word":"nologo","shortest":"nol"}],"value":"none"},
+        {"name":"NonInteractive","matches":[{"word":"noninteractive","shortest":"noni"}],"value":"none"},
+        {"name":"SocketServerMode","matches":[{"word":"socketservermode","shortest":"so"}],"value":"none"},
+        {"name":"V2SocketServerMode","matches":[{"word":"v2socketservermode","shortest":"v2so"}],"value":"none"},
+        {"name":"ServerMode","matches":[{"word":"servermode","shortest":"s"}],"value":"none"},
+        {"name":"NamedPipeServerMode","matches":[{"word":"namedpipeservermode","shortest":"nam"}],"value":"none"},
+        {"name":"SSHServerMode","matches":[{"word":"sshservermode","shortest":"sshs"}],"value":"none"},
+        {"name":"NoProfileLoadTime","matches":[{"word":"noprofileloadtime","shortest":"noprofileloadtime"}],"value":"none"},
+        {"name":"Interactive","matches":[{"word":"interactive","shortest":"i"}],"value":"none"},
+        {"name":"ConfigurationFile","matches":[{"word":"configurationfile","shortest":"configurationfile"}],"value":"value"},
+        {"name":"ConfigurationName","matches":[{"word":"configurationname","shortest":"config"}],"value":"value"},
+        {"name":"CustomPipeName","matches":[{"word":"custompipename","shortest":"cus"}],"value":"value"},
+        {"name":"CommandWithArgs","matches":[{"word":"commandwithargs","shortest":"commandwithargs"},{"word":"cwa","shortest":"cwa"}],"value":"rest"},
+        {"name":"Command","matches":[{"word":"command","shortest":"c"}],"value":"rest"},
+        {"name":"WindowStyle","matches":[{"word":"windowstyle","shortest":"w"}],"value":"value"},
+        {"name":"File","matches":[{"word":"file","shortest":"f"}],"value":"rest"},
+        {"name":"OutputFormat","matches":[{"word":"outputformat","shortest":"o"},{"word":"of","shortest":"o"}],"value":"value"},
+        {"name":"InputFormat","matches":[{"word":"inputformat","shortest":"inp"},{"word":"if","shortest":"if"}],"value":"value"},
+        {"name":"ExecutionPolicy","matches":[{"word":"executionpolicy","shortest":"ex"},{"word":"ep","shortest":"ep"}],"value":"value"},
+        {"name":"EncodedCommand","matches":[{"word":"encodedcommand","shortest":"e"},{"word":"ec","shortest":"e"}],"value":"value"},
+        {"name":"EncodedArguments","matches":[{"word":"encodedarguments","shortest":"encodeda"},{"word":"ea","shortest":"ea"}],"value":"value"},
+        {"name":"SettingsFile","matches":[{"word":"settingsfile","shortest":"settings"}],"value":"value"},
+        {"name":"Sta","matches":[{"word":"sta","shortest":"sta"}],"value":"none"},
+        {"name":"Mta","matches":[{"word":"mta","shortest":"mta"}],"value":"none"},
+        {"name":"WorkingDirectory","matches":[{"word":"workingdirectory","shortest":"wo"},{"word":"wd","shortest":"wd"}],"value":"value"}],
+        "unmatched":"rest","positional":"rest"},
+      "cmd":{"executables":["cmd.exe","cmd"],"option_prefixes":["/"],"repeated_prefix":false,"options":[
+        {"name":"C","matches":[{"word":"c","shortest":"c"}],"value":"cmd_command"},
+        {"name":"K","matches":[{"word":"k","shortest":"k"}],"value":"cmd_command"},
+        {"name":"S","matches":[{"word":"s","shortest":"s"}],"value":"cmd_strip_quotes"}],
+        "unmatched":"none","positional":"none"},
+      "cmd-start":{"executables":["start"],"option_prefixes":["/"],"repeated_prefix":false,"options":[
+        {"name":"D","matches":[{"word":"d","shortest":"d"}],"value":"value"},
+        {"name":"Node","matches":[{"word":"node","shortest":"node"}],"value":"value"},
+        {"name":"Affinity","matches":[{"word":"affinity","shortest":"affinity"}],"value":"value"}],
+        "unmatched":"none","positional":"launch","title_argument":true},
+      "cmd-call":{"executables":["call"],"option_prefixes":["/"],"repeated_prefix":false,"options":[],
+        "unmatched":"none","positional":"launch"},
+      "conhost":{"executables":["conhost.exe","conhost"],"option_prefixes":["-"],"repeated_prefix":true,"options":[
+        {"name":"Width","matches":[{"word":"width","shortest":"width"}],"value":"value"},
+        {"name":"Height","matches":[{"word":"height","shortest":"height"}],"value":"value"},
+        {"name":"Signal","matches":[{"word":"signal","shortest":"signal"}],"value":"value"},
+        {"name":"Server","matches":[{"word":"server","shortest":"server"}],"value":"value"},
+        {"name":"Feature","matches":[{"word":"feature","shortest":"feature"}],"value":"value"}],
+        "unmatched":"none","positional":"launch"}
+    }
+  },
+  "rules": [
+    {
+      "id":"TXT-QUERY","revision":"r1","source":"events","group":"ACTIVITY","risk":"low",
+      "scope_kind":"site","scope":{"input":"dns","unit":"record","context":"none"},
+      "title":"DNS TXT query","evidence":"input","evaluator":{"kind":"json-pointer-equals","contract":"json-pointer-equals/1"},
+      "check":{"kind":"json-pointer-equals/1","pointer":"/subject/type","expected":"TXT","fail_when":"equal"},
+      "applicability":{"include":["*"],"exclude":[]},"falsifier":"A different DNS type is reported as TXT, or a TXT request is missed.",
+      "fixtures":{"pass":[{"path":"listed-a.json","corpus_revision":"known-answers-1","source_sha256":"830a1aa7c3fe8ce0980457385228267f2d1d78e57b6fe13996494a281574190f","evidence_sha256":"830a1aa7c3fe8ce0980457385228267f2d1d78e57b6fe13996494a281574190f"}],"fail":[{"path":"unlisted-txt.json","corpus_revision":"known-answers-1","source_sha256":"a8209b25534b4cba150a041d0303da13972ee96661f6c209d48ce5c1d0d0d3f9","evidence_sha256":"a8209b25534b4cba150a041d0303da13972ee96661f6c209d48ce5c1d0d0d3f9"}]}
+    },
+    {
+      "id":"POWERSHELL-RUNS","revision":"r2","source":"events","group":"ACTIVITY","risk":"low",
+      "scope_kind":"site","scope":{"input":"dns","unit":"record","context":"none","related":[
+        {"role":"process","input":"processes","unit":"record","on":[{"subject":"/host","related":"/host"},{"subject":"/process_instance","related":"/instance"}],"allow_empty":false}
+      ]},
+      "title":"PowerShell execution","evidence":"input","evaluator":{"kind":"command-line","contract":"command-line/1"},
+      "check":{"kind":"command-line/1","json_array_pointer":"/related/process","item_string_pointer":"/command","grammar":"windows",
+        "predicate":{"kind":"invokes","programs":["windows-powershell","pwsh"]}},
+      "applicability":{"include":["*"],"exclude":[]},"falsifier":"Mentioning PowerShell is mistaken for running it, or an actual invocation is missed.",
+      "fixtures":{"pass":[{"path":"printed-mention.json","corpus_revision":"known-answers-1","source_sha256":"019307a5e270f5c6f2e90adc73d3fc4df8717ea0074b2aa7c8f7ce2a84c119f3","evidence_sha256":"019307a5e270f5c6f2e90adc73d3fc4df8717ea0074b2aa7c8f7ce2a84c119f3"}],"fail":[{"path":"encoded-invocation.json","corpus_revision":"known-answers-1","source_sha256":"dbaafb734b6d6c77d2701c5114ee39a4714702c6050c3bcda43bac8f30798f6e","evidence_sha256":"dbaafb734b6d6c77d2701c5114ee39a4714702c6050c3bcda43bac8f30798f6e"}]}
+    },
+    {
+      "id":"POWERSHELL-CODE","revision":"r1","source":"events","group":"ACTIVITY","risk":"low",
+      "scope_kind":"site","scope":{"input":"dns","unit":"record","context":"none","related":[
+        {"role":"process","input":"processes","unit":"record","on":[{"subject":"/host","related":"/host"},{"subject":"/process_instance","related":"/instance"}],"allow_empty":false}
+      ]},
+      "title":"PowerShell runs code text","evidence":"input","evaluator":{"kind":"command-line","contract":"command-line/1"},
+      "check":{"kind":"command-line/1","json_array_pointer":"/related/process","item_string_pointer":"/command","grammar":"windows",
+        "predicate":{"kind":"option","programs":["windows-powershell","pwsh"],"option":"Command"}},
+      "applicability":{"include":["*"],"exclude":[]},"falsifier":"PowerShell code passed with -Command is not selected for review, or other arguments are treated as code.",
+      "fixtures":{"pass":[{"path":"encoded-invocation.json","corpus_revision":"known-answers-1","source_sha256":"dbaafb734b6d6c77d2701c5114ee39a4714702c6050c3bcda43bac8f30798f6e","evidence_sha256":"dbaafb734b6d6c77d2701c5114ee39a4714702c6050c3bcda43bac8f30798f6e"}],"fail":[{"path":"nested-code.json","corpus_revision":"known-answers-1","source_sha256":"b3f258311acbd6b77d5ee43bbe34a742d8cc90432d8969ae698518617b26afa5","evidence_sha256":"b3f258311acbd6b77d5ee43bbe34a742d8cc90432d8969ae698518617b26afa5"}]}
+    },
+    {
+      "id":"ENCODED-OPTION","revision":"r1","source":"events","group":"ACTIVITY","risk":"low",
+      "scope_kind":"site","scope":{"input":"dns","unit":"record","context":"none","related":[
+        {"role":"process","input":"processes","unit":"record","on":[{"subject":"/host","related":"/host"},{"subject":"/process_instance","related":"/instance"}],"allow_empty":false}
+      ]},
+      "title":"Encoded command startup option","evidence":"input","evaluator":{"kind":"command-line","contract":"command-line/1"},
+      "check":{"kind":"command-line/1","json_array_pointer":"/related/process","item_string_pointer":"/command","grammar":"windows",
+        "predicate":{"kind":"option","programs":["windows-powershell","pwsh"],"option":"EncodedCommand"}},
+      "applicability":{"include":["*"],"exclude":[]},"falsifier":"A script argument or printed text is treated as the startup option, or a bound option is missed.",
+      "fixtures":{"pass":[{"path":"script-argument.json","corpus_revision":"known-answers-1","source_sha256":"f69ac5de609c4adaec3b9c15d05e430823a0cac74cdaffa9432c71448566da67","evidence_sha256":"f69ac5de609c4adaec3b9c15d05e430823a0cac74cdaffa9432c71448566da67"}],"fail":[{"path":"encoded-invocation.json","corpus_revision":"known-answers-1","source_sha256":"dbaafb734b6d6c77d2701c5114ee39a4714702c6050c3bcda43bac8f30798f6e","evidence_sha256":"dbaafb734b6d6c77d2701c5114ee39a4714702c6050c3bcda43bac8f30798f6e"}]}
+    },
+    {
+      "id":"ENCODED-IN-CODE","revision":"r1","source":"events","group":"ACTIVITY","risk":"low",
+      "scope_kind":"site","scope":{"input":"dns","unit":"record","context":"none","related":[
+        {"role":"process","input":"processes","unit":"record","on":[{"subject":"/host","related":"/host"},{"subject":"/process_instance","related":"/instance"}],"allow_empty":false}
+      ]},
+      "title":"PowerShell code starts encoded PowerShell","evidence":"input","evaluator":{"kind":"model","contract":"yes-no/1"},
+      "consult":{"rules":["POWERSHELL-CODE"],"run_when":"any_fail"},
+      "check":{"kind":"yes-no/1","instructions":"parsed_commands lists process commands already split into program invocations. Where an invocation has the Command option, its remainder arguments are PowerShell code. Does that PowerShell code start PowerShell with an encoded command?","criteria_true":"The code starts powershell or pwsh, directly or through Start-Process or another launcher, and passes -EncodedCommand or an accepted abbreviation such as -e, -enc or -ec with a value.","criteria_false":"The code does not start PowerShell with that option. Text that is only printed, written, stored or compared does not start PowerShell.","state_projection":{"parsed_commands":"/prior/0/observation/commands"},"pass_below":0.1,"fail_at_or_above":0.9,"max_request_bytes":16384},
+      "applicability":{"include":["*"],"exclude":[]},"falsifier":"Printed text in PowerShell code is treated as starting PowerShell, or code that starts encoded PowerShell is missed.","fixtures":{"pass":[],"fail":[]}
+    },
+    {
+      "id":"ENCODED-COMMAND","revision":"r2","source":"events","group":"ACTIVITY","risk":"low",
+      "scope_kind":"site","scope":{"input":"dns","unit":"record","context":"none"},
+      "title":"Encoded PowerShell command","evidence":"answers","evaluator":{"kind":"answers","contract":"answers/1"},
+      "check":{"kind":"answers/1","rules":["ENCODED-OPTION","ENCODED-IN-CODE"],"fail_when":"any_fail","resolution":"decisive",
+        "coverage":"PowerShell receives an encoded command either as a startup option on the process command line, which the parser decides exactly, or from PowerShell code that starts another PowerShell, which Jev judges only when such code exists."},
+      "applicability":{"include":["*"],"exclude":[]},"falsifier":"An encoded invocation is missed by both premises, or a premise reports one that is not present.","fixtures":{"pass":[],"fail":[]}
+    },
+    {
+      "id":"OUTSIDE-ALLOWLIST","revision":"r1","source":"events","group":"ACTIVITY","risk":"low",
+      "scope_kind":"site","scope":{"input":"dns","unit":"record","context":"none","related":[
+        {"role":"allowlist","input":"allowlist","unit":"record","on":[{"subject":"/host","related":"/host"},{"subject":"/process_instance","related":"/instance"}],"allow_empty":true}
+      ]},
+      "title":"Process absent from allowlist","evidence":"input","evaluator":{"kind":"json-pointer-equals","contract":"json-pointer-equals/1"},
+      "check":{"kind":"json-pointer-equals/1","pointer":"/related/allowlist","expected":[],"fail_when":"equal"},
+      "applicability":{"include":["*"],"exclude":[]},"falsifier":"An approved process is reported as absent, or an unlisted process is reported as approved.",
+      "fixtures":{"pass":[{"path":"listed-a.json","corpus_revision":"known-answers-1","source_sha256":"830a1aa7c3fe8ce0980457385228267f2d1d78e57b6fe13996494a281574190f","evidence_sha256":"830a1aa7c3fe8ce0980457385228267f2d1d78e57b6fe13996494a281574190f"}],"fail":[{"path":"unlisted-txt.json","corpus_revision":"known-answers-1","source_sha256":"a8209b25534b4cba150a041d0303da13972ee96661f6c209d48ce5c1d0d0d3f9","evidence_sha256":"a8209b25534b4cba150a041d0303da13972ee96661f6c209d48ce5c1d0d0d3f9"}]}
+    },
+    {
+      "id":"RELATED-ACTIVITY","revision":"r1","source":"events","group":"ACTIVITY","risk":"medium",
+      "scope_kind":"site","scope":{"input":"dns","unit":"record","context":"none"},
+      "title":"Unapproved encoded PowerShell with a TXT query","evidence":"answers","evaluator":{"kind":"answers","contract":"answers/1"},
+      "check":{"kind":"answers/1","rules":["TXT-QUERY","POWERSHELL-RUNS","ENCODED-COMMAND","OUTSIDE-ALLOWLIST"],"fail_when":"all_fail","coverage":"For the same DNS event, require a TXT request, execution of PowerShell, use of its EncodedCommand startup option, and absence from the supplied allowlist. The two command questions concern the same matched process command. This establishes the described activity, not compromise."},
+      "applicability":{"include":["*"],"exclude":[]},"falsifier":"The combined observation is reported when any premise is false or unresolved, or the premises concern different processes.","fixtures":{"pass":[],"fail":[]}
+    },
+    {
+      "id":"ANY-RELATED-ACTIVITY","revision":"r1","source":"events","group":"ACTIVITY","risk":"medium",
+      "scope_kind":"whole","scope":{"input":"dns","unit":"document","context":"none"},
+      "title":"Any matching activity in this input","evidence":"answers","evaluator":{"kind":"answers","contract":"answers/1"},
+      "check":{"kind":"answers/1","rules":["RELATED-ACTIVITY"],"fail_when":"any_fail","coverage":"Consider every DNS event. Report whether any one event satisfies all four premises; every event must have resolved prerequisites."},
+      "applicability":{"include":["*"],"exclude":[]},"falsifier":"The document result omits an event or clears an unresolved prerequisite.","fixtures":{"pass":[],"fail":[]}
+    }
+  ],
+  "profiles":[{"id":"all","select":["ANY-RELATED-ACTIVITY"],"block_on":["fail","review","error","not_evaluated"],"allowed_egress":["https://api.typesafe.ai","loopback"]}]
+}

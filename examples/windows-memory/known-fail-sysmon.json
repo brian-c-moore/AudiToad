@@ -1,0 +1,1 @@
+{"subject":{"Channel":"Microsoft-Windows-Sysmon/Operational","EventID":1,"TargetFilename":"C:\\Temp\\memory.DMP","TargetImage":"C:\\Windows\\System32\\LSASS.EXE","GrantedAccess":"0x1010"}}

@@ -1,0 +1,1 @@
+{"subject":{"type":"TXT"},"related":{"process":[{"command":"cmd.exe /c echo powershell -e RwBlAHQALQBEAGEAdABlAA=="},{"command":"notepad.exe D:\\Notes\\powershell.txt"}]}}

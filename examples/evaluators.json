@@ -1,0 +1,17 @@
+{
+  "$schema": "../docs/evaluators.schema.json",
+  "schema": "auditoad-evaluators/1",
+  "evaluators": {
+    "jev": {
+      "backend": "typesafe-jev",
+      "model": "jev-1.13.0",
+      "endpoint": "https://api.typesafe.ai/v1/systemone",
+      "max_request_bytes": 120000,
+      "key": {"env": "TYPESAFE_API_KEY"}
+    }
+  },
+  "roles": {
+    "default": {"use": "jev"},
+    "helper": {"off": true}
+  }
+}

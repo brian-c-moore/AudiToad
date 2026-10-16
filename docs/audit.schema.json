@@ -1,0 +1,28 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "title":"AudiToad audit file",
+  "description":"A finite list of ordinary scans. Paths are relative to this file. Live consent and operator ceilings come from the CLI/evaluator file.",
+  "type":"object", "additionalProperties":false,
+  "required":["schema","report","runs"],
+  "properties":{
+    "$schema":{"type":"string","minLength":1},
+    "schema":{"const":"auditoad-audit/1"},
+    "report":{"$ref":"#/$defs/path"},
+    "evaluators":{"$ref":"#/$defs/path"},
+    "reuse":{"$ref":"#/$defs/paths","description":"Earlier reports whose identical exchanges answer every run that declares no reuse of its own."},
+    "runs":{"type":"array","minItems":1,"items":{
+      "type":"object","additionalProperties":false,"required":["name","baseline","input","report"],
+      "properties":{
+        "name":{"type":"string","minLength":1,"pattern":"\\S"},
+        "baseline":{"$ref":"#/$defs/path"},"input":{"$ref":"#/$defs/path"},"report":{"$ref":"#/$defs/path"},
+        "profile":{"type":"string","minLength":1},"source":{"type":"string","minLength":1},
+        "project_root":{"$ref":"#/$defs/path"},"evaluators":{"$ref":"#/$defs/path"},
+        "labels":{"$ref":"#/$defs/path"},"mock":{"$ref":"#/$defs/path"},
+        "replay":{"$ref":"#/$defs/path"},
+        "reuse":{"$ref":"#/$defs/paths"}
+      }
+    }}
+  },
+  "$defs":{"path":{"type":"string","minLength":1},
+    "paths":{"type":"array","items":{"$ref":"#/$defs/path"},"uniqueItems":true}}
+}

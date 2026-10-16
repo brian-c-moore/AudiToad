@@ -1,0 +1,10 @@
+{
+  "schema": "auditoad-inventory/1",
+  "snapshot_id": "scanner-policy-example-r1",
+  "items": [
+    {"id":"scan/clear","kind":"scanner.result","facts":{"scanner":"example-scanner/r1","target":"host-a","status":"complete","scope_complete":true,"findings":[]}},
+    {"id":"scan/finding","kind":"scanner.result","facts":{"scanner":"example-scanner/r1","target":"host-b","status":"complete","scope_complete":true,"findings":[{"rule":"EXAMPLE-001","severity":"high","message":"Required setting is absent."}]}},
+    {"id":"scan/incomplete","kind":"scanner.result","facts":{"scanner":"example-scanner/r1","target":"host-c","status":"interrupted","scope_complete":false,"findings":[]}},
+    {"id":"scan/missing","kind":"scanner.result","facts":{"scanner":"example-scanner/r1","target":"host-d","status":"complete","scope_complete":true}}
+  ]
+}

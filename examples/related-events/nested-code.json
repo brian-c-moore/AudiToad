@@ -1,0 +1,1 @@
+{"subject":{"type":"TXT"},"related":{"process":[{"command":"pwsh.exe -NoProfile -Command \"Get-Date\""}]}}

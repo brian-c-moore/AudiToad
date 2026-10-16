@@ -1,0 +1,1 @@
+{"schema":"auditoad-collection/1","inputs":{"events":{"adapter":"json-lines/1","path":"events.jsonl"}}}

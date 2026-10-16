@@ -1,0 +1,1 @@
+{"schema":"auditoad-collection/1","inputs":{"aliases":{"adapter":"json-lines/1","path":"aliases.jsonl"},"conjuncts":{"adapter":"json-lines/1","path":"conjuncts.jsonl"},"fairness":{"adapter":"json-lines/1","path":"fairness.jsonl"}}}

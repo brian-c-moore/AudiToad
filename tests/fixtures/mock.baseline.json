@@ -1,0 +1,17 @@
+{
+  "schema": "auditoad-baseline/1",
+  "baseline": { "id": "mock-pipeline", "version": "1", "title": "Experimental provider plumbing", "publisher": "AudiToad examples", "status": "draft" },
+  "sources": { "bytes": { "adapter": "raw-bytes/1", "media": ["application/octet-stream"] } },
+  "evidence": { "bytes": { "builder": "bytes/1", "builder_revision": "r1" } },
+  "groups": [{ "id": "MOCK", "title": "Local mock" }],
+  "rules": [{
+    "id": "MOCK-001", "revision": "r1", "source": "bytes", "group": "MOCK", "risk": "low", "scope_kind": "site",
+    "title": "Exercise a scripted typed reply", "evidence": "bytes",
+    "evaluator": { "kind": "mock-model", "contract": "yes-no/1" },
+    "check": { "kind": "mock-model/1", "instructions": "Does this input violate the supplied policy?", "pass_below": 0.1, "fail_at_or_above": 0.9 },
+    "applicability": { "include": ["*"], "exclude": [] },
+    "falsifier": "This mock has no semantic rule admission; it tests only request and response handling.",
+    "fixtures": { "fail": [], "pass": [] }
+  }],
+  "profiles": [{ "id": "development", "select": ["*"], "block_on": ["fail", "review", "error", "not_evaluated"], "allowed_egress": [] }]
+}

@@ -1,0 +1,12 @@
+{
+  "$schema":"../docs/audit.schema.json",
+  "schema":"auditoad-audit/1",
+  "report":"suite-report.json",
+  "evaluators":"evaluators.json",
+  "runs":[
+    {"name":"inventory","baseline":"disk-encryption/baseline.json","input":"disk-encryption/inventory.json","labels":"disk-encryption/labels.json","report":"inventory-report.json"},
+    {"name":"code-requirement","baseline":"shipping-policy/baseline.json","input":"shipping-policy/bundle.json","report":"shipping-report.json"},
+    {"name":"writing-format","baseline":"no-slop/baseline.json","profile":"format","input":"no-slop/bundle.json","report":"writing-report.json"},
+    {"name":"related-events","baseline":"related-events/baseline.json","input":"related-events/inputs.json","report":"events-report.json"}
+  ]
+}

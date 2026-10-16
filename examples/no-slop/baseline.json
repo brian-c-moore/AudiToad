@@ -1,0 +1,3630 @@
+{
+  "schema": "auditoad-baseline/1",
+  "baseline": {
+    "id": "no-slop",
+    "version": "2",
+    "title": "Writing audit based on Dan Lovejoy's no-slop rules",
+    "publisher": "AudiToad examples",
+    "status": "draft"
+  },
+  "sources": {
+    "evidence": {
+      "adapter": "evidence-bundle/1",
+      "media": [
+        "application/vnd.auditoad.bundle+json"
+      ]
+    }
+  },
+  "evidence": {
+    "FRAME-01-SENTENCE": {
+      "builder": "scoped-input/1",
+      "builder_revision": "r1"
+    },
+    "FRAME-01": {
+      "builder": "answers/1",
+      "builder_revision": "r1"
+    },
+    "FRAME-02-SENTENCE": {
+      "builder": "scoped-input/1",
+      "builder_revision": "r1"
+    },
+    "FRAME-02": {
+      "builder": "answers/1",
+      "builder_revision": "r1"
+    },
+    "FRAME-03-SENTENCE": {
+      "builder": "scoped-input/1",
+      "builder_revision": "r1"
+    },
+    "FRAME-03": {
+      "builder": "answers/1",
+      "builder_revision": "r1"
+    },
+    "FRAME-04-SENTENCE": {
+      "builder": "scoped-input/1",
+      "builder_revision": "r1"
+    },
+    "FRAME-04": {
+      "builder": "answers/1",
+      "builder_revision": "r1"
+    },
+    "FRAME-05": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject",
+        "policy"
+      ]
+    },
+    "FRAME-06-SENTENCE": {
+      "builder": "scoped-input/1",
+      "builder_revision": "r1"
+    },
+    "FRAME-06": {
+      "builder": "answers/1",
+      "builder_revision": "r1"
+    },
+    "FRAME-07": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject",
+        "policy"
+      ]
+    },
+    "FRAME-08": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject"
+      ]
+    },
+    "FRAME-09": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject"
+      ]
+    },
+    "FRAME-10": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject",
+        "policy"
+      ]
+    },
+    "FRAME-11-SENTENCE": {
+      "builder": "scoped-input/1",
+      "builder_revision": "r1"
+    },
+    "FRAME-11": {
+      "builder": "answers/1",
+      "builder_revision": "r1"
+    },
+    "FRAME-12-SENTENCE": {
+      "builder": "scoped-input/1",
+      "builder_revision": "r1"
+    },
+    "FRAME-12": {
+      "builder": "answers/1",
+      "builder_revision": "r1"
+    },
+    "FRAME-13-SENTENCE": {
+      "builder": "scoped-input/1",
+      "builder_revision": "r1"
+    },
+    "FRAME-13": {
+      "builder": "answers/1",
+      "builder_revision": "r1"
+    },
+    "FRAME-14-SENTENCE": {
+      "builder": "scoped-input/1",
+      "builder_revision": "r1"
+    },
+    "FRAME-14": {
+      "builder": "answers/1",
+      "builder_revision": "r1"
+    },
+    "FRAME-15-PARAGRAPH": {
+      "builder": "scoped-input/1",
+      "builder_revision": "r1"
+    },
+    "FRAME-15": {
+      "builder": "answers/1",
+      "builder_revision": "r1"
+    },
+    "FRAME-16-PARAGRAPH": {
+      "builder": "scoped-input/1",
+      "builder_revision": "r1"
+    },
+    "FRAME-16": {
+      "builder": "answers/1",
+      "builder_revision": "r1"
+    },
+    "FRAME-17-SENTENCE": {
+      "builder": "scoped-input/1",
+      "builder_revision": "r1"
+    },
+    "FRAME-17": {
+      "builder": "answers/1",
+      "builder_revision": "r1"
+    },
+    "FRAME-18-SENTENCE": {
+      "builder": "scoped-input/1",
+      "builder_revision": "r1"
+    },
+    "FRAME-18": {
+      "builder": "answers/1",
+      "builder_revision": "r1"
+    },
+    "WORDS-01": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject"
+      ]
+    },
+    "WORDS-02": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject"
+      ]
+    },
+    "WORDS-03-SENTENCE": {
+      "builder": "scoped-input/1",
+      "builder_revision": "r1"
+    },
+    "WORDS-03": {
+      "builder": "answers/1",
+      "builder_revision": "r1"
+    },
+    "WORDS-04": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject"
+      ]
+    },
+    "WORDS-05": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject"
+      ]
+    },
+    "WORDS-06-SENTENCE": {
+      "builder": "scoped-input/1",
+      "builder_revision": "r1"
+    },
+    "WORDS-06": {
+      "builder": "answers/1",
+      "builder_revision": "r1"
+    },
+    "WORDS-07-PARAGRAPH": {
+      "builder": "scoped-input/1",
+      "builder_revision": "r1"
+    },
+    "WORDS-07": {
+      "builder": "answers/1",
+      "builder_revision": "r1"
+    },
+    "WORDS-08-SENTENCE": {
+      "builder": "scoped-input/1",
+      "builder_revision": "r1"
+    },
+    "WORDS-08": {
+      "builder": "answers/1",
+      "builder_revision": "r1"
+    },
+    "WORDS-09-SENTENCE": {
+      "builder": "scoped-input/1",
+      "builder_revision": "r1"
+    },
+    "WORDS-09": {
+      "builder": "answers/1",
+      "builder_revision": "r1"
+    },
+    "GROUND-01-SENTENCE": {
+      "builder": "scoped-input/1",
+      "builder_revision": "r1"
+    },
+    "GROUND-01": {
+      "builder": "answers/1",
+      "builder_revision": "r1"
+    },
+    "GROUND-02-PARAGRAPH": {
+      "builder": "scoped-input/1",
+      "builder_revision": "r1"
+    },
+    "GROUND-02": {
+      "builder": "answers/1",
+      "builder_revision": "r1"
+    },
+    "GROUND-03": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject",
+        "policy"
+      ]
+    },
+    "GROUND-04-INSTRUCTION": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject",
+        "policy"
+      ]
+    },
+    "GROUND-04": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject",
+        "policy"
+      ]
+    },
+    "FORMAT-01": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject"
+      ]
+    },
+    "FORMAT-02": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject",
+        "policy"
+      ]
+    },
+    "FORMAT-03": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject",
+        "policy"
+      ]
+    },
+    "FORMAT-04": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject"
+      ]
+    },
+    "FORMAT-05": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject"
+      ]
+    },
+    "FORMAT-06": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject",
+        "policy"
+      ]
+    },
+    "FORMAT-07": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject"
+      ]
+    },
+    "TONE-01-SENTENCE": {
+      "builder": "scoped-input/1",
+      "builder_revision": "r1"
+    },
+    "TONE-01": {
+      "builder": "answers/1",
+      "builder_revision": "r1"
+    },
+    "TONE-02-PARAGRAPH": {
+      "builder": "scoped-input/1",
+      "builder_revision": "r1"
+    },
+    "TONE-02": {
+      "builder": "answers/1",
+      "builder_revision": "r1"
+    },
+    "TONE-03-PARAGRAPH": {
+      "builder": "scoped-input/1",
+      "builder_revision": "r1"
+    },
+    "TONE-03": {
+      "builder": "answers/1",
+      "builder_revision": "r1"
+    },
+    "TONE-04-PARAGRAPH": {
+      "builder": "scoped-input/1",
+      "builder_revision": "r1"
+    },
+    "TONE-04": {
+      "builder": "answers/1",
+      "builder_revision": "r1"
+    },
+    "TONE-05-PARAGRAPH": {
+      "builder": "scoped-input/1",
+      "builder_revision": "r1"
+    },
+    "TONE-05": {
+      "builder": "answers/1",
+      "builder_revision": "r1"
+    },
+    "TONE-06": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject"
+      ]
+    },
+    "TONE-07": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject",
+        "policy"
+      ]
+    },
+    "RHYTHM-01": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject",
+        "policy"
+      ]
+    },
+    "EDIT-01-SENTENCE": {
+      "builder": "scoped-input/1",
+      "builder_revision": "r1"
+    },
+    "EDIT-01": {
+      "builder": "answers/1",
+      "builder_revision": "r1"
+    }
+  },
+  "groups": [
+    {
+      "id": "frames",
+      "title": "Frames"
+    },
+    {
+      "id": "grammar",
+      "title": "Grammar"
+    },
+    {
+      "id": "structure",
+      "title": "Structure"
+    },
+    {
+      "id": "vocabulary",
+      "title": "Vocabulary"
+    },
+    {
+      "id": "words",
+      "title": "Words"
+    },
+    {
+      "id": "language",
+      "title": "Language"
+    },
+    {
+      "id": "paragraphs",
+      "title": "Paragraphs"
+    },
+    {
+      "id": "grounding",
+      "title": "Grounding"
+    },
+    {
+      "id": "format",
+      "title": "Format"
+    },
+    {
+      "id": "tone",
+      "title": "Tone"
+    },
+    {
+      "id": "editing",
+      "title": "Editing"
+    }
+  ],
+  "rules": [
+    {
+      "id": "FRAME-01-SENTENCE",
+      "revision": "2",
+      "source": "evidence",
+      "group": "frames",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Not only, but also",
+      "evidence": "FRAME-01-SENTENCE",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "Does this sentence use 'not only ... but also' to make a point sound bigger, rather than to join two separate facts the reader needs?",
+        "criteria_true": "The construction adds emphasis.",
+        "criteria_false": "The sentence does not use it, or uses it to join two needed facts.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 32000,
+        "state_projection": {
+          "sentence": "/subject"
+        }
+      },
+      "applicability": {
+        "include": [
+          "writing"
+        ],
+        "exclude": []
+      },
+      "falsifier": "The construction adds emphasis.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      },
+      "scope": {
+        "unit": "sentence",
+        "context": "none"
+      }
+    },
+    {
+      "id": "FRAME-01",
+      "revision": "2",
+      "source": "evidence",
+      "group": "frames",
+      "risk": "medium",
+      "scope_kind": "whole",
+      "title": "Not only, but also",
+      "evidence": "FRAME-01",
+      "evaluator": {
+        "kind": "answers",
+        "contract": "answers/1"
+      },
+      "check": {
+        "kind": "answers/1",
+        "rules": [
+          "FRAME-01-SENTENCE"
+        ],
+        "fail_when": "any_fail",
+        "resolution": "decisive",
+        "coverage": "Every sentence of this complete article is checked; the article contains the pattern if any sentence contains it."
+      },
+      "applicability": {
+        "include": [
+          "writing"
+        ],
+        "exclude": []
+      },
+      "falsifier": "The construction adds emphasis.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      },
+      "scope": {
+        "unit": "document",
+        "context": "none"
+      }
+    },
+    {
+      "id": "FRAME-02-SENTENCE",
+      "revision": "2",
+      "source": "evidence",
+      "group": "frames",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Not just",
+      "evidence": "FRAME-02-SENTENCE",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "Does this sentence use 'not just' to make something sound grander than the facts it states?",
+        "criteria_true": "'Not just' inflates the description.",
+        "criteria_false": "The sentence does not use 'not just', or uses it to add a stated fact.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 32000,
+        "state_projection": {
+          "sentence": "/subject"
+        }
+      },
+      "applicability": {
+        "include": [
+          "writing"
+        ],
+        "exclude": []
+      },
+      "falsifier": "'Not just' inflates the description.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      },
+      "scope": {
+        "unit": "sentence",
+        "context": "none"
+      }
+    },
+    {
+      "id": "FRAME-02",
+      "revision": "2",
+      "source": "evidence",
+      "group": "frames",
+      "risk": "medium",
+      "scope_kind": "whole",
+      "title": "Not just",
+      "evidence": "FRAME-02",
+      "evaluator": {
+        "kind": "answers",
+        "contract": "answers/1"
+      },
+      "check": {
+        "kind": "answers/1",
+        "rules": [
+          "FRAME-02-SENTENCE"
+        ],
+        "fail_when": "any_fail",
+        "resolution": "decisive",
+        "coverage": "Every sentence of this complete article is checked; the article contains the pattern if any sentence contains it."
+      },
+      "applicability": {
+        "include": [
+          "writing"
+        ],
+        "exclude": []
+      },
+      "falsifier": "'Not just' inflates the description.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      },
+      "scope": {
+        "unit": "document",
+        "context": "none"
+      }
+    },
+    {
+      "id": "FRAME-03-SENTENCE",
+      "revision": "2",
+      "source": "evidence",
+      "group": "grammar",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Sentence-opening range",
+      "evidence": "FRAME-03-SENTENCE",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "Does this sentence start with a 'from ... to ...' range?",
+        "criteria_true": "The sentence starts with a range introduced by 'from' and 'to'.",
+        "criteria_false": "The sentence does not start with that range construction.",
+        "pass_below": 0.2,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 32000,
+        "state_projection": {
+          "sentence": "/subject"
+        }
+      },
+      "applicability": {
+        "include": [
+          "writing"
+        ],
+        "exclude": []
+      },
+      "falsifier": "The sentence starts with a range introduced by 'from' and 'to'.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      },
+      "scope": {
+        "unit": "sentence",
+        "context": "none"
+      }
+    },
+    {
+      "id": "FRAME-03",
+      "revision": "2",
+      "source": "evidence",
+      "group": "grammar",
+      "risk": "medium",
+      "scope_kind": "whole",
+      "title": "Sentence-opening range",
+      "evidence": "FRAME-03",
+      "evaluator": {
+        "kind": "answers",
+        "contract": "answers/1"
+      },
+      "check": {
+        "kind": "answers/1",
+        "rules": [
+          "FRAME-03-SENTENCE"
+        ],
+        "fail_when": "any_fail",
+        "resolution": "decisive",
+        "coverage": "Every sentence of this complete article is checked; the article contains the pattern if any sentence contains it."
+      },
+      "applicability": {
+        "include": [
+          "writing"
+        ],
+        "exclude": []
+      },
+      "falsifier": "The sentence starts with a range introduced by 'from' and 'to'.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      },
+      "scope": {
+        "unit": "document",
+        "context": "none"
+      }
+    },
+    {
+      "id": "FRAME-04-SENTENCE",
+      "revision": "2",
+      "source": "evidence",
+      "group": "frames",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Whether you are",
+      "evidence": "FRAME-04-SENTENCE",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "Does this sentence address the reader with 'whether you are X or Y' or a similar pair of reader types?",
+        "criteria_true": "The sentence addresses the reader with such a pair.",
+        "criteria_false": "The sentence does not address the reader that way.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 32000,
+        "state_projection": {
+          "sentence": "/subject"
+        }
+      },
+      "applicability": {
+        "include": [
+          "writing"
+        ],
+        "exclude": []
+      },
+      "falsifier": "The sentence addresses the reader with such a pair.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      },
+      "scope": {
+        "unit": "sentence",
+        "context": "none"
+      }
+    },
+    {
+      "id": "FRAME-04",
+      "revision": "2",
+      "source": "evidence",
+      "group": "frames",
+      "risk": "medium",
+      "scope_kind": "whole",
+      "title": "Whether you are",
+      "evidence": "FRAME-04",
+      "evaluator": {
+        "kind": "answers",
+        "contract": "answers/1"
+      },
+      "check": {
+        "kind": "answers/1",
+        "rules": [
+          "FRAME-04-SENTENCE"
+        ],
+        "fail_when": "any_fail",
+        "resolution": "decisive",
+        "coverage": "Every sentence of this complete article is checked; the article contains the pattern if any sentence contains it."
+      },
+      "applicability": {
+        "include": [
+          "writing"
+        ],
+        "exclude": []
+      },
+      "falsifier": "The sentence addresses the reader with such a pair.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      },
+      "scope": {
+        "unit": "document",
+        "context": "none"
+      }
+    },
+    {
+      "id": "FRAME-05",
+      "revision": "2",
+      "source": "evidence",
+      "group": "frames",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Today's landscape",
+      "evidence": "FRAME-05",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "The passage is the text of the subject part; the reader's brief is in the policy part. Does the article introduce its topic with a vague claim about today's world?",
+        "criteria_true": "It uses a vague claim about today's world as an introduction.",
+        "criteria_false": "It does not use that introduction.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 32000
+      },
+      "applicability": {
+        "include": [
+          "writing"
+        ],
+        "exclude": []
+      },
+      "falsifier": "It uses a vague claim about today's world as an introduction.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      }
+    },
+    {
+      "id": "FRAME-06-SENTENCE",
+      "revision": "2",
+      "source": "evidence",
+      "group": "grammar",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Trailing -ing clause",
+      "evidence": "FRAME-06-SENTENCE",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "Does the sentence end with a comma followed by a present-participle clause?",
+        "criteria_true": "A complete main clause is followed by a comma and a trailing clause whose verb is a present participle.",
+        "criteria_false": "No such trailing clause appears.",
+        "pass_below": 0.2,
+        "fail_at_or_above": 0.6,
+        "max_request_bytes": 32000,
+        "state_projection": {
+          "sentence": "/subject"
+        }
+      },
+      "applicability": {
+        "include": [
+          "writing"
+        ],
+        "exclude": []
+      },
+      "falsifier": "A complete main clause is followed by a comma and a trailing clause whose verb is a present participle.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      },
+      "scope": {
+        "unit": "sentence",
+        "context": "none"
+      }
+    },
+    {
+      "id": "FRAME-06",
+      "revision": "2",
+      "source": "evidence",
+      "group": "grammar",
+      "risk": "medium",
+      "scope_kind": "whole",
+      "title": "Trailing -ing clause",
+      "evidence": "FRAME-06",
+      "evaluator": {
+        "kind": "answers",
+        "contract": "answers/1"
+      },
+      "check": {
+        "kind": "answers/1",
+        "rules": [
+          "FRAME-06-SENTENCE"
+        ],
+        "fail_when": "any_fail",
+        "resolution": "decisive",
+        "coverage": "Every sentence of this complete article is checked; the article contains the pattern if any sentence contains it."
+      },
+      "applicability": {
+        "include": [
+          "writing"
+        ],
+        "exclude": []
+      },
+      "falsifier": "A complete main clause is followed by a comma and a trailing clause whose verb is a present participle.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      },
+      "scope": {
+        "unit": "document",
+        "context": "none"
+      }
+    },
+    {
+      "id": "FRAME-07",
+      "revision": "2",
+      "source": "evidence",
+      "group": "frames",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Opening rhetorical question",
+      "evidence": "FRAME-07",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "The passage is the text of the subject part; the reader's brief is in the policy part. Does the opening ask a rhetorical question?",
+        "criteria_true": "The opening asks a question for effect.",
+        "criteria_false": "The opening does not ask a question for effect.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 32000
+      },
+      "applicability": {
+        "include": [
+          "writing"
+        ],
+        "exclude": []
+      },
+      "falsifier": "The opening asks a question for effect.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      }
+    },
+    {
+      "id": "FRAME-08",
+      "revision": "2",
+      "source": "evidence",
+      "group": "structure",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Recap ending",
+      "evidence": "FRAME-08",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "Does the article end with a paragraph that summarizes earlier points?",
+        "criteria_true": "The closing paragraph recaps points already made in the article, even if it also adds a next step.",
+        "criteria_false": "The closing paragraph gives new information or actions without recapping earlier points.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 32000,
+        "state_projection": {
+          "article": "/parts/0/text"
+        }
+      },
+      "applicability": {
+        "include": [
+          "writing"
+        ],
+        "exclude": []
+      },
+      "falsifier": "The closing paragraph recaps points already made in the article, even if it also adds a next step.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      }
+    },
+    {
+      "id": "FRAME-09",
+      "revision": "2",
+      "source": "evidence",
+      "group": "structure",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Preview promises",
+      "evidence": "FRAME-09",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "Does the article tell the reader what it will explain or cover later?",
+        "criteria_true": "The writer announces the article's later content or promises what it will teach.",
+        "criteria_false": "The article gives information directly, describes future events or actions, or quotes someone else's promise without making its own preview.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 32000,
+        "state_projection": {
+          "article": "/parts/0/text"
+        }
+      },
+      "applicability": {
+        "include": [
+          "writing"
+        ],
+        "exclude": []
+      },
+      "falsifier": "The writer announces the article's later content or promises what it will teach.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      }
+    },
+    {
+      "id": "FRAME-10",
+      "revision": "2",
+      "source": "evidence",
+      "group": "structure",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Repeating the request",
+      "evidence": "FRAME-10",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "Does the article restate the reader's request before answering it?",
+        "criteria_true": "The opening repeats or paraphrases the reader's request before giving the answer.",
+        "criteria_false": "The opening gives an answer or relevant facts directly, without restating the request.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 32000,
+        "state_projection": {
+          "article": "/parts/0/text",
+          "request": "/parts/1/text"
+        }
+      },
+      "applicability": {
+        "include": [
+          "writing"
+        ],
+        "exclude": []
+      },
+      "falsifier": "The opening repeats or paraphrases the reader's request before giving the answer.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      }
+    },
+    {
+      "id": "FRAME-11-SENTENCE",
+      "revision": "2",
+      "source": "evidence",
+      "group": "frames",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Vague hands-on claim",
+      "evidence": "FRAME-11-SENTENCE",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "Does this sentence say 'hands-on' without saying what the reader will do?",
+        "criteria_true": "It says 'hands-on' without naming an activity.",
+        "criteria_false": "The phrase is absent, or the sentence names a specific activity.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 32000,
+        "state_projection": {
+          "sentence": "/subject"
+        }
+      },
+      "applicability": {
+        "include": [
+          "writing"
+        ],
+        "exclude": []
+      },
+      "falsifier": "It says 'hands-on' without naming an activity.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      },
+      "scope": {
+        "unit": "sentence",
+        "context": "none"
+      }
+    },
+    {
+      "id": "FRAME-11",
+      "revision": "2",
+      "source": "evidence",
+      "group": "frames",
+      "risk": "medium",
+      "scope_kind": "whole",
+      "title": "Vague hands-on claim",
+      "evidence": "FRAME-11",
+      "evaluator": {
+        "kind": "answers",
+        "contract": "answers/1"
+      },
+      "check": {
+        "kind": "answers/1",
+        "rules": [
+          "FRAME-11-SENTENCE"
+        ],
+        "fail_when": "any_fail",
+        "resolution": "decisive",
+        "coverage": "Every sentence of this complete article is checked; the article contains the pattern if any sentence contains it."
+      },
+      "applicability": {
+        "include": [
+          "writing"
+        ],
+        "exclude": []
+      },
+      "falsifier": "It says 'hands-on' without naming an activity.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      },
+      "scope": {
+        "unit": "document",
+        "context": "none"
+      }
+    },
+    {
+      "id": "FRAME-12-SENTENCE",
+      "revision": "2",
+      "source": "evidence",
+      "group": "frames",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Vague real-world claim",
+      "evidence": "FRAME-12-SENTENCE",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "Does this sentence say 'real-world' without naming a specific situation?",
+        "criteria_true": "It says 'real-world' without naming a situation.",
+        "criteria_false": "The phrase is absent, or the sentence names a specific situation.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 32000,
+        "state_projection": {
+          "sentence": "/subject"
+        }
+      },
+      "applicability": {
+        "include": [
+          "writing"
+        ],
+        "exclude": []
+      },
+      "falsifier": "It says 'real-world' without naming a situation.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      },
+      "scope": {
+        "unit": "sentence",
+        "context": "none"
+      }
+    },
+    {
+      "id": "FRAME-12",
+      "revision": "2",
+      "source": "evidence",
+      "group": "frames",
+      "risk": "medium",
+      "scope_kind": "whole",
+      "title": "Vague real-world claim",
+      "evidence": "FRAME-12",
+      "evaluator": {
+        "kind": "answers",
+        "contract": "answers/1"
+      },
+      "check": {
+        "kind": "answers/1",
+        "rules": [
+          "FRAME-12-SENTENCE"
+        ],
+        "fail_when": "any_fail",
+        "resolution": "decisive",
+        "coverage": "Every sentence of this complete article is checked; the article contains the pattern if any sentence contains it."
+      },
+      "applicability": {
+        "include": [
+          "writing"
+        ],
+        "exclude": []
+      },
+      "falsifier": "It says 'real-world' without naming a situation.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      },
+      "scope": {
+        "unit": "document",
+        "context": "none"
+      }
+    },
+    {
+      "id": "FRAME-13-SENTENCE",
+      "revision": "2",
+      "source": "evidence",
+      "group": "frames",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "That's it",
+      "evidence": "FRAME-13-SENTENCE",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "Does this sentence use 'that's it' to close a passage?",
+        "criteria_true": "The sentence uses 'that's it' as a closing phrase.",
+        "criteria_false": "The sentence does not, or uses the words literally within a statement.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 32000,
+        "state_projection": {
+          "sentence": "/subject"
+        }
+      },
+      "applicability": {
+        "include": [
+          "writing"
+        ],
+        "exclude": []
+      },
+      "falsifier": "The sentence uses 'that's it' as a closing phrase.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      },
+      "scope": {
+        "unit": "sentence",
+        "context": "none"
+      }
+    },
+    {
+      "id": "FRAME-13",
+      "revision": "2",
+      "source": "evidence",
+      "group": "frames",
+      "risk": "medium",
+      "scope_kind": "whole",
+      "title": "That's it",
+      "evidence": "FRAME-13",
+      "evaluator": {
+        "kind": "answers",
+        "contract": "answers/1"
+      },
+      "check": {
+        "kind": "answers/1",
+        "rules": [
+          "FRAME-13-SENTENCE"
+        ],
+        "fail_when": "any_fail",
+        "resolution": "decisive",
+        "coverage": "Every sentence of this complete article is checked; the article contains the pattern if any sentence contains it."
+      },
+      "applicability": {
+        "include": [
+          "writing"
+        ],
+        "exclude": []
+      },
+      "falsifier": "The sentence uses 'that's it' as a closing phrase.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      },
+      "scope": {
+        "unit": "document",
+        "context": "none"
+      }
+    },
+    {
+      "id": "FRAME-14-SENTENCE",
+      "revision": "2",
+      "source": "evidence",
+      "group": "frames",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Plays a role",
+      "evidence": "FRAME-14-SENTENCE",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "Does this sentence say that something plays a significant, crucial, vital or central role?",
+        "criteria_true": "The sentence uses such a plays-a-role phrase.",
+        "criteria_false": "The sentence uses no such phrase.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 32000,
+        "state_projection": {
+          "sentence": "/subject"
+        }
+      },
+      "applicability": {
+        "include": [
+          "writing"
+        ],
+        "exclude": []
+      },
+      "falsifier": "The sentence uses such a plays-a-role phrase.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      },
+      "scope": {
+        "unit": "sentence",
+        "context": "none"
+      }
+    },
+    {
+      "id": "FRAME-14",
+      "revision": "2",
+      "source": "evidence",
+      "group": "frames",
+      "risk": "medium",
+      "scope_kind": "whole",
+      "title": "Plays a role",
+      "evidence": "FRAME-14",
+      "evaluator": {
+        "kind": "answers",
+        "contract": "answers/1"
+      },
+      "check": {
+        "kind": "answers/1",
+        "rules": [
+          "FRAME-14-SENTENCE"
+        ],
+        "fail_when": "any_fail",
+        "resolution": "decisive",
+        "coverage": "Every sentence of this complete article is checked; the article contains the pattern if any sentence contains it."
+      },
+      "applicability": {
+        "include": [
+          "writing"
+        ],
+        "exclude": []
+      },
+      "falsifier": "The sentence uses such a plays-a-role phrase.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      },
+      "scope": {
+        "unit": "document",
+        "context": "none"
+      }
+    },
+    {
+      "id": "FRAME-15-PARAGRAPH",
+      "revision": "2",
+      "source": "evidence",
+      "group": "frames",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Contrast as a slogan",
+      "evidence": "FRAME-15-PARAGRAPH",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "Does this paragraph use an 'it is not X, it is Y' contrast as a slogan, rather than to correct a misunderstanding it states?",
+        "criteria_true": "The contrast works as a slogan.",
+        "criteria_false": "There is no such contrast, or it corrects a stated misunderstanding.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 32000,
+        "state_projection": {
+          "paragraph": "/subject"
+        }
+      },
+      "applicability": {
+        "include": [
+          "writing"
+        ],
+        "exclude": []
+      },
+      "falsifier": "The contrast works as a slogan.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      },
+      "scope": {
+        "unit": "paragraph",
+        "context": "none"
+      }
+    },
+    {
+      "id": "FRAME-15",
+      "revision": "2",
+      "source": "evidence",
+      "group": "frames",
+      "risk": "medium",
+      "scope_kind": "whole",
+      "title": "Contrast as a slogan",
+      "evidence": "FRAME-15",
+      "evaluator": {
+        "kind": "answers",
+        "contract": "answers/1"
+      },
+      "check": {
+        "kind": "answers/1",
+        "rules": [
+          "FRAME-15-PARAGRAPH"
+        ],
+        "fail_when": "any_fail",
+        "resolution": "decisive",
+        "coverage": "Every paragraph of this complete article is checked; the article contains the pattern if any paragraph contains it."
+      },
+      "applicability": {
+        "include": [
+          "writing"
+        ],
+        "exclude": []
+      },
+      "falsifier": "The contrast works as a slogan.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      },
+      "scope": {
+        "unit": "document",
+        "context": "none"
+      }
+    },
+    {
+      "id": "FRAME-16-PARAGRAPH",
+      "revision": "2",
+      "source": "evidence",
+      "group": "frames",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Dramatic fragments",
+      "evidence": "FRAME-16-PARAGRAPH",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "Does this paragraph repeat sentence fragments for dramatic effect?",
+        "criteria_true": "The paragraph repeats fragments for effect.",
+        "criteria_false": "The paragraph uses complete sentences, or a fragment only once for a stated purpose.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 32000,
+        "state_projection": {
+          "paragraph": "/subject"
+        }
+      },
+      "applicability": {
+        "include": [
+          "writing"
+        ],
+        "exclude": []
+      },
+      "falsifier": "The paragraph repeats fragments for effect.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      },
+      "scope": {
+        "unit": "paragraph",
+        "context": "none"
+      }
+    },
+    {
+      "id": "FRAME-16",
+      "revision": "2",
+      "source": "evidence",
+      "group": "frames",
+      "risk": "medium",
+      "scope_kind": "whole",
+      "title": "Dramatic fragments",
+      "evidence": "FRAME-16",
+      "evaluator": {
+        "kind": "answers",
+        "contract": "answers/1"
+      },
+      "check": {
+        "kind": "answers/1",
+        "rules": [
+          "FRAME-16-PARAGRAPH"
+        ],
+        "fail_when": "any_fail",
+        "resolution": "decisive",
+        "coverage": "Every paragraph of this complete article is checked; the article contains the pattern if any paragraph contains it."
+      },
+      "applicability": {
+        "include": [
+          "writing"
+        ],
+        "exclude": []
+      },
+      "falsifier": "The paragraph repeats fragments for effect.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      },
+      "scope": {
+        "unit": "document",
+        "context": "none"
+      }
+    },
+    {
+      "id": "FRAME-17-SENTENCE",
+      "revision": "2",
+      "source": "evidence",
+      "group": "frames",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Paired no phrases",
+      "evidence": "FRAME-17-SENTENCE",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "Does this sentence pair two 'no X' phrases as a slogan, such as 'No fuss, no hassle'?",
+        "criteria_true": "Two 'no X' phrases form a slogan.",
+        "criteria_false": "The sentence has no such pair, or states two literal absences.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 32000,
+        "state_projection": {
+          "sentence": "/subject"
+        }
+      },
+      "applicability": {
+        "include": [
+          "writing"
+        ],
+        "exclude": []
+      },
+      "falsifier": "Two 'no X' phrases form a slogan.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      },
+      "scope": {
+        "unit": "sentence",
+        "context": "none"
+      }
+    },
+    {
+      "id": "FRAME-17",
+      "revision": "2",
+      "source": "evidence",
+      "group": "frames",
+      "risk": "medium",
+      "scope_kind": "whole",
+      "title": "Paired no phrases",
+      "evidence": "FRAME-17",
+      "evaluator": {
+        "kind": "answers",
+        "contract": "answers/1"
+      },
+      "check": {
+        "kind": "answers/1",
+        "rules": [
+          "FRAME-17-SENTENCE"
+        ],
+        "fail_when": "any_fail",
+        "resolution": "decisive",
+        "coverage": "Every sentence of this complete article is checked; the article contains the pattern if any sentence contains it."
+      },
+      "applicability": {
+        "include": [
+          "writing"
+        ],
+        "exclude": []
+      },
+      "falsifier": "Two 'no X' phrases form a slogan.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      },
+      "scope": {
+        "unit": "document",
+        "context": "none"
+      }
+    },
+    {
+      "id": "FRAME-18-SENTENCE",
+      "revision": "2",
+      "source": "evidence",
+      "group": "frames",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Adjective triplet",
+      "evidence": "FRAME-18-SENTENCE",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "Does this sentence describe one thing with three praising adjectives in a row?",
+        "criteria_true": "Three praising adjectives describe the same thing.",
+        "criteria_false": "The sentence has no such run of three praising adjectives.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 32000,
+        "state_projection": {
+          "sentence": "/subject"
+        }
+      },
+      "applicability": {
+        "include": [
+          "writing"
+        ],
+        "exclude": []
+      },
+      "falsifier": "Three praising adjectives describe the same thing.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      },
+      "scope": {
+        "unit": "sentence",
+        "context": "none"
+      }
+    },
+    {
+      "id": "FRAME-18",
+      "revision": "2",
+      "source": "evidence",
+      "group": "frames",
+      "risk": "medium",
+      "scope_kind": "whole",
+      "title": "Adjective triplet",
+      "evidence": "FRAME-18",
+      "evaluator": {
+        "kind": "answers",
+        "contract": "answers/1"
+      },
+      "check": {
+        "kind": "answers/1",
+        "rules": [
+          "FRAME-18-SENTENCE"
+        ],
+        "fail_when": "any_fail",
+        "resolution": "decisive",
+        "coverage": "Every sentence of this complete article is checked; the article contains the pattern if any sentence contains it."
+      },
+      "applicability": {
+        "include": [
+          "writing"
+        ],
+        "exclude": []
+      },
+      "falsifier": "Three praising adjectives describe the same thing.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      },
+      "scope": {
+        "unit": "document",
+        "context": "none"
+      }
+    },
+    {
+      "id": "WORDS-01",
+      "revision": "2",
+      "source": "evidence",
+      "group": "vocabulary",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Listed stock vocabulary",
+      "evidence": "WORDS-01",
+      "evaluator": {
+        "kind": "markdown",
+        "contract": "markdown/1"
+      },
+      "check": {
+        "kind": "markdown/1",
+        "json_string_pointer": "/parts/0/text",
+        "predicate": {
+          "kind": "forbidden_terms",
+          "terms": [
+            "delve",
+            "tapestry",
+            "leverage",
+            "foster",
+            "empower",
+            "revolutionize",
+            "optimize",
+            "enhance",
+            "transform",
+            "showcase",
+            "highlight",
+            "underscore",
+            "bolster",
+            "garner",
+            "embark",
+            "realm",
+            "landscape",
+            "testament",
+            "meticulous",
+            "intricate",
+            "interplay",
+            "vibrant",
+            "nuanced",
+            "pivotal",
+            "crucial",
+            "vital",
+            "robust",
+            "seamless",
+            "comprehensive",
+            "cornerstone",
+            "catalyst",
+            "harness",
+            "unpack",
+            "dive into",
+            "shed light on",
+            "pave the way",
+            "groundbreaking",
+            "cutting-edge",
+            "game-changing",
+            "innovative",
+            "multifaceted",
+            "holistic",
+            "thriving",
+            "nestled"
+          ]
+        }
+      },
+      "applicability": {
+        "include": [
+          "writing"
+        ],
+        "exclude": []
+      },
+      "falsifier": "A listed term occurs in visible Markdown prose, including headings, lists and quoted prose.",
+      "fixtures": {
+        "pass": [
+          {
+            "path": "local-checks-pass.json",
+            "corpus_revision": "known-answers-1",
+            "source_sha256": "909d2793ab1111c65dbf38f9b9a376a91519075de164470ff806f463b0a5c5fa",
+            "evidence_sha256": "909d2793ab1111c65dbf38f9b9a376a91519075de164470ff806f463b0a5c5fa"
+          }
+        ],
+        "fail": [
+          {
+            "path": "local-checks-fail.json",
+            "corpus_revision": "known-answers-1",
+            "source_sha256": "5dd9fedae7262c6fe71d7a72941072082ec947c5cd78b6bdc9996f4e8eaaa3bf",
+            "evidence_sha256": "5dd9fedae7262c6fe71d7a72941072082ec947c5cd78b6bdc9996f4e8eaaa3bf"
+          }
+        ]
+      }
+    },
+    {
+      "id": "WORDS-02",
+      "revision": "2",
+      "source": "evidence",
+      "group": "vocabulary",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Buffer phrases",
+      "evidence": "WORDS-02",
+      "evaluator": {
+        "kind": "markdown",
+        "contract": "markdown/1"
+      },
+      "check": {
+        "kind": "markdown/1",
+        "json_string_pointer": "/parts/0/text",
+        "predicate": {
+          "kind": "forbidden_terms",
+          "terms": [
+            "it's important to note",
+            "it's worth remembering",
+            "essentially",
+            "ultimately",
+            "it appears that",
+            "I was wondering if",
+            "keep in mind that",
+            "let's explore",
+            "let's take a look at",
+            "now let's turn to",
+            "before we dive in"
+          ]
+        }
+      },
+      "applicability": {
+        "include": [
+          "writing"
+        ],
+        "exclude": []
+      },
+      "falsifier": "A listed buffer occurs in visible Markdown prose.",
+      "fixtures": {
+        "pass": [
+          {
+            "path": "local-checks-pass.json",
+            "corpus_revision": "known-answers-1",
+            "source_sha256": "909d2793ab1111c65dbf38f9b9a376a91519075de164470ff806f463b0a5c5fa",
+            "evidence_sha256": "909d2793ab1111c65dbf38f9b9a376a91519075de164470ff806f463b0a5c5fa"
+          }
+        ],
+        "fail": [
+          {
+            "path": "local-checks-fail.json",
+            "corpus_revision": "known-answers-1",
+            "source_sha256": "5dd9fedae7262c6fe71d7a72941072082ec947c5cd78b6bdc9996f4e8eaaa3bf",
+            "evidence_sha256": "5dd9fedae7262c6fe71d7a72941072082ec947c5cd78b6bdc9996f4e8eaaa3bf"
+          }
+        ]
+      }
+    },
+    {
+      "id": "WORDS-03-SENTENCE",
+      "revision": "2",
+      "source": "evidence",
+      "group": "words",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Filler transitions",
+      "evidence": "WORDS-03-SENTENCE",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "Does this sentence use one of these filler phrases: at the end of the day, when it comes to, at its core, let's break it down, or this is where X comes in, where X is any subject?",
+        "criteria_true": "A listed filler phrase appears.",
+        "criteria_false": "None of those phrases appears.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 32000,
+        "state_projection": {
+          "sentence": "/subject"
+        }
+      },
+      "applicability": {
+        "include": [
+          "writing"
+        ],
+        "exclude": []
+      },
+      "falsifier": "A listed filler phrase appears.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      },
+      "scope": {
+        "unit": "sentence",
+        "context": "none"
+      }
+    },
+    {
+      "id": "WORDS-03",
+      "revision": "2",
+      "source": "evidence",
+      "group": "words",
+      "risk": "medium",
+      "scope_kind": "whole",
+      "title": "Filler transitions",
+      "evidence": "WORDS-03",
+      "evaluator": {
+        "kind": "answers",
+        "contract": "answers/1"
+      },
+      "check": {
+        "kind": "answers/1",
+        "rules": [
+          "WORDS-03-SENTENCE"
+        ],
+        "fail_when": "any_fail",
+        "resolution": "decisive",
+        "coverage": "Every sentence of this complete article is checked; the article contains the pattern if any sentence contains it."
+      },
+      "applicability": {
+        "include": [
+          "writing"
+        ],
+        "exclude": []
+      },
+      "falsifier": "A listed filler phrase appears.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      },
+      "scope": {
+        "unit": "document",
+        "context": "none"
+      }
+    },
+    {
+      "id": "WORDS-04",
+      "revision": "2",
+      "source": "evidence",
+      "group": "vocabulary",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Banned adverbs",
+      "evidence": "WORDS-04",
+      "evaluator": {
+        "kind": "markdown",
+        "contract": "markdown/1"
+      },
+      "check": {
+        "kind": "markdown/1",
+        "json_string_pointer": "/parts/0/text",
+        "predicate": {
+          "kind": "forbidden_terms",
+          "terms": [
+            "extremely",
+            "quite",
+            "very",
+            "actually",
+            "basically",
+            "potentially"
+          ]
+        }
+      },
+      "applicability": {
+        "include": [
+          "writing"
+        ],
+        "exclude": []
+      },
+      "falsifier": "A listed adverb occurs in visible Markdown prose.",
+      "fixtures": {
+        "pass": [
+          {
+            "path": "local-checks-pass.json",
+            "corpus_revision": "known-answers-1",
+            "source_sha256": "909d2793ab1111c65dbf38f9b9a376a91519075de164470ff806f463b0a5c5fa",
+            "evidence_sha256": "909d2793ab1111c65dbf38f9b9a376a91519075de164470ff806f463b0a5c5fa"
+          }
+        ],
+        "fail": [
+          {
+            "path": "local-checks-fail.json",
+            "corpus_revision": "known-answers-1",
+            "source_sha256": "5dd9fedae7262c6fe71d7a72941072082ec947c5cd78b6bdc9996f4e8eaaa3bf",
+            "evidence_sha256": "5dd9fedae7262c6fe71d7a72941072082ec947c5cd78b6bdc9996f4e8eaaa3bf"
+          }
+        ]
+      }
+    },
+    {
+      "id": "WORDS-05",
+      "revision": "2",
+      "source": "evidence",
+      "group": "language",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Software and mathematics personification",
+      "evidence": "WORDS-05",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "Does the article say that software or mathematics thinks, intends, wants, believes, decides, understands or prefers?",
+        "criteria_true": "It assigns a model, algorithm, program or mathematical object a thought, intention, desire, opinion, understanding or preference.",
+        "criteria_false": "It describes only computation or human mental abilities, or explicitly denies those abilities to software or mathematics.",
+        "pass_below": 0.5,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 32000,
+        "state_projection": {
+          "article": "/parts/0/text"
+        }
+      },
+      "applicability": {
+        "include": [
+          "writing"
+        ],
+        "exclude": []
+      },
+      "falsifier": "It assigns a model, algorithm, program or mathematical object a thought, intention, desire, opinion, understanding or preference.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      }
+    },
+    {
+      "id": "WORDS-06-SENTENCE",
+      "revision": "2",
+      "source": "evidence",
+      "group": "words",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Inflated substitutes for is",
+      "evidence": "WORDS-06-SENTENCE",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "Does this sentence use 'serves as', 'featuring', 'boasting' or 'presenting' to say what something is?",
+        "criteria_true": "A listed phrase says what something is.",
+        "criteria_false": "Those phrases are absent, or describe an action rather than what something is.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 32000,
+        "state_projection": {
+          "sentence": "/subject"
+        }
+      },
+      "applicability": {
+        "include": [
+          "writing"
+        ],
+        "exclude": []
+      },
+      "falsifier": "A listed phrase says what something is.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      },
+      "scope": {
+        "unit": "sentence",
+        "context": "none"
+      }
+    },
+    {
+      "id": "WORDS-06",
+      "revision": "2",
+      "source": "evidence",
+      "group": "words",
+      "risk": "medium",
+      "scope_kind": "whole",
+      "title": "Inflated substitutes for is",
+      "evidence": "WORDS-06",
+      "evaluator": {
+        "kind": "answers",
+        "contract": "answers/1"
+      },
+      "check": {
+        "kind": "answers/1",
+        "rules": [
+          "WORDS-06-SENTENCE"
+        ],
+        "fail_when": "any_fail",
+        "resolution": "decisive",
+        "coverage": "Every sentence of this complete article is checked; the article contains the pattern if any sentence contains it."
+      },
+      "applicability": {
+        "include": [
+          "writing"
+        ],
+        "exclude": []
+      },
+      "falsifier": "A listed phrase says what something is.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      },
+      "scope": {
+        "unit": "document",
+        "context": "none"
+      }
+    },
+    {
+      "id": "WORDS-07-PARAGRAPH",
+      "revision": "2",
+      "source": "evidence",
+      "group": "paragraphs",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Synonym cycling",
+      "evidence": "WORDS-07-PARAGRAPH",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "Does this paragraph use different words to name the same person, group, or thing?",
+        "criteria_true": "Different synonymous nouns name the same person, group, or thing.",
+        "criteria_false": "There are no interchangeable names for the same subject. Pronouns and nouns for different subjects do not count.",
+        "pass_below": 0.2,
+        "fail_at_or_above": 0.8,
+        "max_request_bytes": 32000,
+        "state_projection": {
+          "paragraph": "/subject"
+        }
+      },
+      "applicability": {
+        "include": [
+          "writing"
+        ],
+        "exclude": []
+      },
+      "falsifier": "Different synonymous nouns name the same person, group, or thing.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      },
+      "scope": {
+        "unit": "paragraph",
+        "context": "none"
+      }
+    },
+    {
+      "id": "WORDS-07",
+      "revision": "2",
+      "source": "evidence",
+      "group": "paragraphs",
+      "risk": "medium",
+      "scope_kind": "whole",
+      "title": "Synonym cycling",
+      "evidence": "WORDS-07",
+      "evaluator": {
+        "kind": "answers",
+        "contract": "answers/1"
+      },
+      "check": {
+        "kind": "answers/1",
+        "rules": [
+          "WORDS-07-PARAGRAPH"
+        ],
+        "fail_when": "any_fail",
+        "resolution": "decisive",
+        "coverage": "Every paragraph of this complete article is checked; the article contains the pattern if any paragraph contains it."
+      },
+      "applicability": {
+        "include": [
+          "writing"
+        ],
+        "exclude": []
+      },
+      "falsifier": "Different synonymous nouns name the same person, group, or thing.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      },
+      "scope": {
+        "unit": "document",
+        "context": "none"
+      }
+    },
+    {
+      "id": "WORDS-08-SENTENCE",
+      "revision": "2",
+      "source": "evidence",
+      "group": "words",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Unnamed authority",
+      "evidence": "WORDS-08-SENTENCE",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "Does this sentence support a claim by referring to experts, studies or research without naming them?",
+        "criteria_true": "It relies on unnamed experts, studies or research.",
+        "criteria_false": "It names its source, or makes no such appeal.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 32000,
+        "state_projection": {
+          "sentence": "/subject"
+        }
+      },
+      "applicability": {
+        "include": [
+          "writing"
+        ],
+        "exclude": []
+      },
+      "falsifier": "It relies on unnamed experts, studies or research.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      },
+      "scope": {
+        "unit": "sentence",
+        "context": "none"
+      }
+    },
+    {
+      "id": "WORDS-08",
+      "revision": "2",
+      "source": "evidence",
+      "group": "words",
+      "risk": "medium",
+      "scope_kind": "whole",
+      "title": "Unnamed authority",
+      "evidence": "WORDS-08",
+      "evaluator": {
+        "kind": "answers",
+        "contract": "answers/1"
+      },
+      "check": {
+        "kind": "answers/1",
+        "rules": [
+          "WORDS-08-SENTENCE"
+        ],
+        "fail_when": "any_fail",
+        "resolution": "decisive",
+        "coverage": "Every sentence of this complete article is checked; the article contains the pattern if any sentence contains it."
+      },
+      "applicability": {
+        "include": [
+          "writing"
+        ],
+        "exclude": []
+      },
+      "falsifier": "It relies on unnamed experts, studies or research.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      },
+      "scope": {
+        "unit": "document",
+        "context": "none"
+      }
+    },
+    {
+      "id": "WORDS-09-SENTENCE",
+      "revision": "2",
+      "source": "evidence",
+      "group": "words",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Vague instructions",
+      "evidence": "WORDS-09-SENTENCE",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "Is this sentence an instruction whose main verb is generic, such as 'do', 'handle' or 'deal with', instead of naming the action?",
+        "criteria_true": "The instruction uses a generic verb instead of a specific action.",
+        "criteria_false": "The sentence is not an instruction, or it names a specific action.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 32000,
+        "state_projection": {
+          "sentence": "/subject"
+        }
+      },
+      "applicability": {
+        "include": [
+          "writing"
+        ],
+        "exclude": []
+      },
+      "falsifier": "The instruction uses a generic verb instead of a specific action.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      },
+      "scope": {
+        "unit": "sentence",
+        "context": "none"
+      }
+    },
+    {
+      "id": "WORDS-09",
+      "revision": "2",
+      "source": "evidence",
+      "group": "words",
+      "risk": "medium",
+      "scope_kind": "whole",
+      "title": "Vague instructions",
+      "evidence": "WORDS-09",
+      "evaluator": {
+        "kind": "answers",
+        "contract": "answers/1"
+      },
+      "check": {
+        "kind": "answers/1",
+        "rules": [
+          "WORDS-09-SENTENCE"
+        ],
+        "fail_when": "any_fail",
+        "resolution": "decisive",
+        "coverage": "Every sentence of this complete article is checked; the article contains the pattern if any sentence contains it."
+      },
+      "applicability": {
+        "include": [
+          "writing"
+        ],
+        "exclude": []
+      },
+      "falsifier": "The instruction uses a generic verb instead of a specific action.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      },
+      "scope": {
+        "unit": "document",
+        "context": "none"
+      }
+    },
+    {
+      "id": "GROUND-01-SENTENCE",
+      "revision": "2",
+      "source": "evidence",
+      "group": "grounding",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Unsupported factual claim",
+      "evidence": "GROUND-01-SENTENCE",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "Does this sentence state a fact that the brief does not support? The brief field holds the reader's brief.",
+        "criteria_true": "The sentence states a fact the brief does not support.",
+        "criteria_false": "The sentence states no fact, or the brief supports it.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 32000,
+        "state_projection": {
+          "sentence": "/subject",
+          "brief": "/supporting/0/text"
+        }
+      },
+      "applicability": {
+        "include": [
+          "writing"
+        ],
+        "exclude": []
+      },
+      "falsifier": "The sentence states a fact the brief does not support.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      },
+      "scope": {
+        "unit": "sentence",
+        "context": "none"
+      }
+    },
+    {
+      "id": "GROUND-01",
+      "revision": "2",
+      "source": "evidence",
+      "group": "grounding",
+      "risk": "medium",
+      "scope_kind": "whole",
+      "title": "Unsupported factual claim",
+      "evidence": "GROUND-01",
+      "evaluator": {
+        "kind": "answers",
+        "contract": "answers/1"
+      },
+      "check": {
+        "kind": "answers/1",
+        "rules": [
+          "GROUND-01-SENTENCE"
+        ],
+        "fail_when": "any_fail",
+        "resolution": "decisive",
+        "coverage": "Every sentence of this complete article is checked; the article contains the pattern if any sentence contains it."
+      },
+      "applicability": {
+        "include": [
+          "writing"
+        ],
+        "exclude": []
+      },
+      "falsifier": "The sentence states a fact the brief does not support.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      },
+      "scope": {
+        "unit": "document",
+        "context": "none"
+      }
+    },
+    {
+      "id": "GROUND-02-PARAGRAPH",
+      "revision": "2",
+      "source": "evidence",
+      "group": "grounding",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Announcing a topic",
+      "evidence": "GROUND-02-PARAGRAPH",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "Does this paragraph say what will be discussed instead of giving the information itself?",
+        "criteria_true": "The paragraph announces a topic without giving its information.",
+        "criteria_false": "The paragraph gives facts or instructions directly.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 32000,
+        "state_projection": {
+          "paragraph": "/subject"
+        }
+      },
+      "applicability": {
+        "include": [
+          "writing"
+        ],
+        "exclude": []
+      },
+      "falsifier": "The paragraph announces a topic without giving its information.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      },
+      "scope": {
+        "unit": "paragraph",
+        "context": "none"
+      }
+    },
+    {
+      "id": "GROUND-02",
+      "revision": "2",
+      "source": "evidence",
+      "group": "grounding",
+      "risk": "medium",
+      "scope_kind": "whole",
+      "title": "Announcing a topic",
+      "evidence": "GROUND-02",
+      "evaluator": {
+        "kind": "answers",
+        "contract": "answers/1"
+      },
+      "check": {
+        "kind": "answers/1",
+        "rules": [
+          "GROUND-02-PARAGRAPH"
+        ],
+        "fail_when": "any_fail",
+        "resolution": "decisive",
+        "coverage": "Every paragraph of this complete article is checked; the article contains the pattern if any paragraph contains it."
+      },
+      "applicability": {
+        "include": [
+          "writing"
+        ],
+        "exclude": []
+      },
+      "falsifier": "The paragraph announces a topic without giving its information.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      },
+      "scope": {
+        "unit": "document",
+        "context": "none"
+      }
+    },
+    {
+      "id": "GROUND-03",
+      "revision": "2",
+      "source": "evidence",
+      "group": "grounding",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Here is preamble",
+      "evidence": "GROUND-03",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "The passage is the text of the subject part; the reader's brief is in the policy part. Does the opening announce the answer with wording such as 'here is' or 'below you will find'?",
+        "criteria_true": "The opening announces the answer before giving it.",
+        "criteria_false": "The opening gives information directly.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 32000
+      },
+      "applicability": {
+        "include": [
+          "writing"
+        ],
+        "exclude": []
+      },
+      "falsifier": "The opening announces the answer before giving it.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      }
+    },
+    {
+      "id": "GROUND-04-INSTRUCTION",
+      "revision": "2",
+      "source": "evidence",
+      "group": "grounding",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "First requested instruction",
+      "evidence": "GROUND-04-INSTRUCTION",
+      "evaluator": {
+        "kind": "model",
+        "contract": "extract/1",
+        "role": "helper"
+      },
+      "check": {
+        "kind": "extract/1",
+        "instructions": "The article field holds an article and the brief field holds the reader's brief. Copy the first sentence of the article that gives the reader an instruction the brief asks for.",
+        "fields": {
+          "first_instruction": {
+            "type": "quote_list",
+            "description": "That sentence, copied exactly from the article, as a list of one item. Empty when the article gives no such instruction."
+          }
+        },
+        "max_request_bytes": 32000,
+        "state_projection": {
+          "article": "/parts/0/text",
+          "brief": "/parts/1/text"
+        }
+      },
+      "applicability": {
+        "include": [
+          "writing"
+        ],
+        "exclude": []
+      },
+      "falsifier": "A later sentence, an invented sentence or one that is not a requested instruction is copied, or the first one is missed.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      }
+    },
+    {
+      "id": "GROUND-04",
+      "revision": "2",
+      "source": "evidence",
+      "group": "grounding",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Delayed answer",
+      "evidence": "GROUND-04",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "The article field holds an article and the brief field holds the reader's brief. Does background the brief did not ask for come before the article's first requested instruction? When first_instruction is present, a helper copied that instruction from the article; rely on it only where the article confirms it.",
+        "criteria_true": "Background the reader did not ask for delays the first requested instruction.",
+        "criteria_false": "The first requested instruction comes first, or only requested context precedes it.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 32000,
+        "state_projection": {
+          "article": "/parts/0/text",
+          "brief": "/parts/1/text",
+          "first_instruction": {
+            "pointer": "/prior/0/observation/fields/first_instruction",
+            "optional": true
+          }
+        }
+      },
+      "applicability": {
+        "include": [
+          "writing"
+        ],
+        "exclude": []
+      },
+      "falsifier": "Background the reader did not ask for delays the first requested instruction.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      },
+      "consult": {
+        "rules": [
+          "GROUND-04-INSTRUCTION"
+        ]
+      }
+    },
+    {
+      "id": "FORMAT-01",
+      "revision": "2",
+      "source": "evidence",
+      "group": "format",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Three-item list",
+      "evidence": "FORMAT-01",
+      "evaluator": {
+        "kind": "markdown",
+        "contract": "markdown/1"
+      },
+      "check": {
+        "kind": "markdown/1",
+        "json_string_pointer": "/parts/0/text",
+        "predicate": {
+          "kind": "list_length",
+          "forbidden_length": 3
+        }
+      },
+      "applicability": {
+        "include": [
+          "writing"
+        ],
+        "exclude": []
+      },
+      "falsifier": "A CommonMark list contains exactly three direct items, with nested lists counted separately.",
+      "fixtures": {
+        "pass": [
+          {
+            "path": "local-checks-pass.json",
+            "corpus_revision": "known-answers-1",
+            "source_sha256": "909d2793ab1111c65dbf38f9b9a376a91519075de164470ff806f463b0a5c5fa",
+            "evidence_sha256": "909d2793ab1111c65dbf38f9b9a376a91519075de164470ff806f463b0a5c5fa"
+          }
+        ],
+        "fail": [
+          {
+            "path": "local-checks-fail.json",
+            "corpus_revision": "known-answers-1",
+            "source_sha256": "5dd9fedae7262c6fe71d7a72941072082ec947c5cd78b6bdc9996f4e8eaaa3bf",
+            "evidence_sha256": "5dd9fedae7262c6fe71d7a72941072082ec947c5cd78b6bdc9996f4e8eaaa3bf"
+          }
+        ]
+      }
+    },
+    {
+      "id": "FORMAT-02",
+      "revision": "2",
+      "source": "evidence",
+      "group": "format",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Narrative broken into bullets",
+      "evidence": "FORMAT-02",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "The passage is the text of the subject part; the reader's brief is in the policy part. Does a bullet list tell a continuous story instead of listing separate points?",
+        "criteria_true": "Bullets split a continuous story into pieces.",
+        "criteria_false": "Bullets are absent or list separate points.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 32000
+      },
+      "applicability": {
+        "include": [
+          "writing"
+        ],
+        "exclude": []
+      },
+      "falsifier": "Bullets split a continuous story into pieces.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      }
+    },
+    {
+      "id": "FORMAT-03",
+      "revision": "2",
+      "source": "evidence",
+      "group": "format",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Bold label and colon bullets",
+      "evidence": "FORMAT-03",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "The passage is the text of the subject part; the reader's brief is in the policy part. Does a bullet begin with a bold label followed by a colon and an explanatory sentence?",
+        "criteria_true": "That bold-label bullet pattern appears.",
+        "criteria_false": "That pattern is absent.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 32000
+      },
+      "applicability": {
+        "include": [
+          "writing"
+        ],
+        "exclude": []
+      },
+      "falsifier": "That bold-label bullet pattern appears.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      }
+    },
+    {
+      "id": "FORMAT-04",
+      "revision": "2",
+      "source": "evidence",
+      "group": "format",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Bold emphasis in prose",
+      "evidence": "FORMAT-04",
+      "evaluator": {
+        "kind": "markdown",
+        "contract": "markdown/1"
+      },
+      "check": {
+        "kind": "markdown/1",
+        "json_string_pointer": "/parts/0/text",
+        "predicate": {
+          "kind": "prose_bold"
+        }
+      },
+      "applicability": {
+        "include": [
+          "writing"
+        ],
+        "exclude": []
+      },
+      "falsifier": "A prose phrase uses bold for emphasis.",
+      "fixtures": {
+        "pass": [
+          {
+            "path": "local-checks-pass.json",
+            "corpus_revision": "known-answers-1",
+            "source_sha256": "909d2793ab1111c65dbf38f9b9a376a91519075de164470ff806f463b0a5c5fa",
+            "evidence_sha256": "909d2793ab1111c65dbf38f9b9a376a91519075de164470ff806f463b0a5c5fa"
+          }
+        ],
+        "fail": [
+          {
+            "path": "local-checks-fail.json",
+            "corpus_revision": "known-answers-1",
+            "source_sha256": "5dd9fedae7262c6fe71d7a72941072082ec947c5cd78b6bdc9996f4e8eaaa3bf",
+            "evidence_sha256": "5dd9fedae7262c6fe71d7a72941072082ec947c5cd78b6bdc9996f4e8eaaa3bf"
+          }
+        ]
+      }
+    },
+    {
+      "id": "FORMAT-05",
+      "revision": "2",
+      "source": "evidence",
+      "group": "format",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "More than one em dash",
+      "evidence": "FORMAT-05",
+      "evaluator": {
+        "kind": "yara-x",
+        "contract": "yara-x/1.20.0"
+      },
+      "check": {
+        "kind": "yara-x/1.20.0",
+        "source": "rule excess_em_dashes { strings: $dash = { E2 80 94 } condition: #dash > 1 }",
+        "rule_name": "excess_em_dashes",
+        "fail_when": "match",
+        "json_string_pointer": "/parts/0/text"
+      },
+      "applicability": {
+        "include": [
+          "writing"
+        ],
+        "exclude": []
+      },
+      "falsifier": "There are at least two em dashes.",
+      "fixtures": {
+        "pass": [
+          {
+            "path": "local-checks-pass.json",
+            "corpus_revision": "known-answers-1",
+            "source_sha256": "909d2793ab1111c65dbf38f9b9a376a91519075de164470ff806f463b0a5c5fa",
+            "evidence_sha256": "909d2793ab1111c65dbf38f9b9a376a91519075de164470ff806f463b0a5c5fa"
+          }
+        ],
+        "fail": [
+          {
+            "path": "local-checks-fail.json",
+            "corpus_revision": "known-answers-1",
+            "source_sha256": "5dd9fedae7262c6fe71d7a72941072082ec947c5cd78b6bdc9996f4e8eaaa3bf",
+            "evidence_sha256": "5dd9fedae7262c6fe71d7a72941072082ec947c5cd78b6bdc9996f4e8eaaa3bf"
+          }
+        ]
+      }
+    },
+    {
+      "id": "FORMAT-06",
+      "revision": "2",
+      "source": "evidence",
+      "group": "format",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Unnecessary headings",
+      "evidence": "FORMAT-06",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "The passage is the text of the subject part; the reader's brief is in the policy part. Does the article have headings that add clutter without helping the reader find information?",
+        "criteria_true": "Headings add clutter without useful navigation.",
+        "criteria_false": "Headings are absent or help the reader find information.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 32000
+      },
+      "applicability": {
+        "include": [
+          "writing"
+        ],
+        "exclude": []
+      },
+      "falsifier": "Headings add clutter without useful navigation.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      }
+    },
+    {
+      "id": "FORMAT-07",
+      "revision": "2",
+      "source": "evidence",
+      "group": "format",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Paragraph sentence-length rule",
+      "evidence": "FORMAT-07",
+      "evaluator": {
+        "kind": "markdown",
+        "contract": "markdown/1"
+      },
+      "check": {
+        "kind": "markdown/1",
+        "json_string_pointer": "/parts/0/text",
+        "predicate": {
+          "kind": "paragraph_sentence_lengths",
+          "shorter_than": 7,
+          "longer_than": 30
+        }
+      },
+      "applicability": {
+        "include": [
+          "writing"
+        ],
+        "exclude": []
+      },
+      "falsifier": "A CommonMark prose paragraph outside lists lacks either required sentence length under the documented Unicode counting convention.",
+      "fixtures": {
+        "pass": [
+          {
+            "path": "local-checks-pass.json",
+            "corpus_revision": "known-answers-1",
+            "source_sha256": "909d2793ab1111c65dbf38f9b9a376a91519075de164470ff806f463b0a5c5fa",
+            "evidence_sha256": "909d2793ab1111c65dbf38f9b9a376a91519075de164470ff806f463b0a5c5fa"
+          }
+        ],
+        "fail": [
+          {
+            "path": "local-checks-fail.json",
+            "corpus_revision": "known-answers-1",
+            "source_sha256": "5dd9fedae7262c6fe71d7a72941072082ec947c5cd78b6bdc9996f4e8eaaa3bf",
+            "evidence_sha256": "5dd9fedae7262c6fe71d7a72941072082ec947c5cd78b6bdc9996f4e8eaaa3bf"
+          }
+        ]
+      }
+    },
+    {
+      "id": "TONE-01-SENTENCE",
+      "revision": "2",
+      "source": "evidence",
+      "group": "tone",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Stiff wording",
+      "evidence": "TONE-01-SENTENCE",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "Does this sentence write out a phrase that would normally be a contraction in plain writing, such as 'we will', 'it is' or 'do not'?",
+        "criteria_true": "The sentence writes out such a phrase.",
+        "criteria_false": "The sentence uses contractions, or writes nothing out that would normally be contracted.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 32000,
+        "state_projection": {
+          "sentence": "/subject"
+        }
+      },
+      "applicability": {
+        "include": [
+          "writing"
+        ],
+        "exclude": []
+      },
+      "falsifier": "The sentence writes out such a phrase.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      },
+      "scope": {
+        "unit": "sentence",
+        "context": "none"
+      }
+    },
+    {
+      "id": "TONE-01",
+      "revision": "2",
+      "source": "evidence",
+      "group": "tone",
+      "risk": "medium",
+      "scope_kind": "whole",
+      "title": "Stiff wording",
+      "evidence": "TONE-01",
+      "evaluator": {
+        "kind": "answers",
+        "contract": "answers/1"
+      },
+      "check": {
+        "kind": "answers/1",
+        "rules": [
+          "TONE-01-SENTENCE"
+        ],
+        "fail_when": "any_fail",
+        "resolution": "decisive",
+        "coverage": "Every sentence of this complete article is checked; the article contains the pattern if any sentence contains it."
+      },
+      "applicability": {
+        "include": [
+          "writing"
+        ],
+        "exclude": []
+      },
+      "falsifier": "The sentence writes out such a phrase.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      },
+      "scope": {
+        "unit": "document",
+        "context": "none"
+      }
+    },
+    {
+      "id": "TONE-02-PARAGRAPH",
+      "revision": "2",
+      "source": "evidence",
+      "group": "tone",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Promotional tone",
+      "evidence": "TONE-02-PARAGRAPH",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "Does this paragraph promote its subject with praise or excitement instead of facts?",
+        "criteria_true": "The paragraph praises or hypes its subject.",
+        "criteria_false": "The paragraph explains its subject without praise or hype.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 32000,
+        "state_projection": {
+          "paragraph": "/subject"
+        }
+      },
+      "applicability": {
+        "include": [
+          "writing"
+        ],
+        "exclude": []
+      },
+      "falsifier": "The paragraph praises or hypes its subject.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      },
+      "scope": {
+        "unit": "paragraph",
+        "context": "none"
+      }
+    },
+    {
+      "id": "TONE-02",
+      "revision": "2",
+      "source": "evidence",
+      "group": "tone",
+      "risk": "medium",
+      "scope_kind": "whole",
+      "title": "Promotional tone",
+      "evidence": "TONE-02",
+      "evaluator": {
+        "kind": "answers",
+        "contract": "answers/1"
+      },
+      "check": {
+        "kind": "answers/1",
+        "rules": [
+          "TONE-02-PARAGRAPH"
+        ],
+        "fail_when": "any_fail",
+        "resolution": "decisive",
+        "coverage": "Every paragraph of this complete article is checked; the article contains the pattern if any paragraph contains it."
+      },
+      "applicability": {
+        "include": [
+          "writing"
+        ],
+        "exclude": []
+      },
+      "falsifier": "The paragraph praises or hypes its subject.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      },
+      "scope": {
+        "unit": "document",
+        "context": "none"
+      }
+    },
+    {
+      "id": "TONE-03-PARAGRAPH",
+      "revision": "2",
+      "source": "evidence",
+      "group": "tone",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Explaining what the audience knows",
+      "evidence": "TONE-03-PARAGRAPH",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "Does this paragraph explain a concept that the brief says the audience already understands? The brief field holds the reader's brief.",
+        "criteria_true": "The paragraph teaches a concept the brief says the audience knows.",
+        "criteria_false": "The paragraph assumes that knowledge, or explains something else.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 32000,
+        "state_projection": {
+          "paragraph": "/subject",
+          "brief": "/supporting/0/text"
+        }
+      },
+      "applicability": {
+        "include": [
+          "writing"
+        ],
+        "exclude": []
+      },
+      "falsifier": "The paragraph teaches a concept the brief says the audience knows.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      },
+      "scope": {
+        "unit": "paragraph",
+        "context": "none"
+      }
+    },
+    {
+      "id": "TONE-03",
+      "revision": "2",
+      "source": "evidence",
+      "group": "tone",
+      "risk": "medium",
+      "scope_kind": "whole",
+      "title": "Explaining what the audience knows",
+      "evidence": "TONE-03",
+      "evaluator": {
+        "kind": "answers",
+        "contract": "answers/1"
+      },
+      "check": {
+        "kind": "answers/1",
+        "rules": [
+          "TONE-03-PARAGRAPH"
+        ],
+        "fail_when": "any_fail",
+        "resolution": "decisive",
+        "coverage": "Every paragraph of this complete article is checked; the article contains the pattern if any paragraph contains it."
+      },
+      "applicability": {
+        "include": [
+          "writing"
+        ],
+        "exclude": []
+      },
+      "falsifier": "The paragraph teaches a concept the brief says the audience knows.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      },
+      "scope": {
+        "unit": "document",
+        "context": "none"
+      }
+    },
+    {
+      "id": "TONE-04-PARAGRAPH",
+      "revision": "2",
+      "source": "evidence",
+      "group": "paragraphs",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Repeated idea",
+      "evidence": "TONE-04-PARAGRAPH",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "Does a sentence in this paragraph repeat an earlier sentence's meaning without adding information?",
+        "criteria_true": "A sentence restates the same idea without adding anything.",
+        "criteria_false": "No sentence repeats an earlier sentence's meaning without adding a fact, action or reason. Repeating a topic word alone does not count.",
+        "pass_below": 0.3,
+        "fail_at_or_above": 0.8,
+        "max_request_bytes": 32000,
+        "state_projection": {
+          "paragraph": "/subject"
+        }
+      },
+      "applicability": {
+        "include": [
+          "writing"
+        ],
+        "exclude": []
+      },
+      "falsifier": "A sentence restates the same idea without adding anything.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      },
+      "scope": {
+        "unit": "paragraph",
+        "context": "none"
+      }
+    },
+    {
+      "id": "TONE-04",
+      "revision": "2",
+      "source": "evidence",
+      "group": "paragraphs",
+      "risk": "medium",
+      "scope_kind": "whole",
+      "title": "Repeated idea",
+      "evidence": "TONE-04",
+      "evaluator": {
+        "kind": "answers",
+        "contract": "answers/1"
+      },
+      "check": {
+        "kind": "answers/1",
+        "rules": [
+          "TONE-04-PARAGRAPH"
+        ],
+        "fail_when": "any_fail",
+        "resolution": "decisive",
+        "coverage": "Every paragraph of this complete article is checked; the article contains the pattern if any paragraph contains it."
+      },
+      "applicability": {
+        "include": [
+          "writing"
+        ],
+        "exclude": []
+      },
+      "falsifier": "A sentence restates the same idea without adding anything.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      },
+      "scope": {
+        "unit": "document",
+        "context": "none"
+      }
+    },
+    {
+      "id": "TONE-05-PARAGRAPH",
+      "revision": "2",
+      "source": "evidence",
+      "group": "tone",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Unsupported importance",
+      "evidence": "TONE-05-PARAGRAPH",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "Does this paragraph call something important without saying why?",
+        "criteria_true": "The paragraph claims importance without giving a reason.",
+        "criteria_false": "The paragraph gives a reason, or makes no importance claim.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 32000,
+        "state_projection": {
+          "paragraph": "/subject"
+        }
+      },
+      "applicability": {
+        "include": [
+          "writing"
+        ],
+        "exclude": []
+      },
+      "falsifier": "The paragraph claims importance without giving a reason.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      },
+      "scope": {
+        "unit": "paragraph",
+        "context": "none"
+      }
+    },
+    {
+      "id": "TONE-05",
+      "revision": "2",
+      "source": "evidence",
+      "group": "tone",
+      "risk": "medium",
+      "scope_kind": "whole",
+      "title": "Unsupported importance",
+      "evidence": "TONE-05",
+      "evaluator": {
+        "kind": "answers",
+        "contract": "answers/1"
+      },
+      "check": {
+        "kind": "answers/1",
+        "rules": [
+          "TONE-05-PARAGRAPH"
+        ],
+        "fail_when": "any_fail",
+        "resolution": "decisive",
+        "coverage": "Every paragraph of this complete article is checked; the article contains the pattern if any paragraph contains it."
+      },
+      "applicability": {
+        "include": [
+          "writing"
+        ],
+        "exclude": []
+      },
+      "falsifier": "The paragraph claims importance without giving a reason.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      },
+      "scope": {
+        "unit": "document",
+        "context": "none"
+      }
+    },
+    {
+      "id": "TONE-06",
+      "revision": "2",
+      "source": "evidence",
+      "group": "language",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Generic sympathy and reassurance",
+      "evidence": "TONE-06",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "Does the article offer generic sympathy or reassurance about the reader's difficulties?",
+        "criteria_true": "It uses a stock expression of understanding, sympathy or reassurance about the reader's difficulties. Giving practical advice does not cancel that expression.",
+        "criteria_false": "It contains no such generic expression. A specific factual account of someone's experience is not generic sympathy.",
+        "pass_below": 0.4,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 32000,
+        "state_projection": {
+          "article": "/parts/0/text"
+        }
+      },
+      "applicability": {
+        "include": [
+          "writing"
+        ],
+        "exclude": []
+      },
+      "falsifier": "It uses a stock expression of understanding, sympathy or reassurance about the reader's difficulties. Giving practical advice does not cancel that expression.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      }
+    },
+    {
+      "id": "TONE-07",
+      "revision": "2",
+      "source": "evidence",
+      "group": "tone",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Chatbot greeting",
+      "evidence": "TONE-07",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "The passage is the text of the subject part; the reader's brief is in the policy part. Does the article start with a stock assistant greeting?",
+        "criteria_true": "It starts with a stock assistant greeting.",
+        "criteria_false": "It starts with the subject matter.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 32000
+      },
+      "applicability": {
+        "include": [
+          "writing"
+        ],
+        "exclude": []
+      },
+      "falsifier": "It starts with a stock assistant greeting.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      }
+    },
+    {
+      "id": "RHYTHM-01",
+      "revision": "2",
+      "source": "evidence",
+      "group": "editing",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Repeated paragraph shape",
+      "evidence": "RHYTHM-01",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "The passage is the text of the subject part; the reader's brief is in the policy part. Do several paragraphs in a row use the same sentence pattern?",
+        "criteria_true": "Several paragraphs repeat the same sentence pattern without a reason.",
+        "criteria_false": "Paragraph patterns vary or the repetition serves the content.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 32000
+      },
+      "applicability": {
+        "include": [
+          "writing"
+        ],
+        "exclude": []
+      },
+      "falsifier": "Several paragraphs repeat the same sentence pattern without a reason.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      }
+    },
+    {
+      "id": "EDIT-01-SENTENCE",
+      "revision": "2",
+      "source": "evidence",
+      "group": "editing",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Unnecessary wording",
+      "evidence": "EDIT-01-SENTENCE",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "Could this sentence be removed without losing information the reader needs for the task in the brief? The brief field holds the reader's brief.",
+        "criteria_true": "The sentence adds nothing the reader needs for the task.",
+        "criteria_false": "The sentence gives information the reader needs for the task.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 32000,
+        "state_projection": {
+          "sentence": "/subject",
+          "brief": "/supporting/0/text"
+        }
+      },
+      "applicability": {
+        "include": [
+          "writing"
+        ],
+        "exclude": []
+      },
+      "falsifier": "The sentence adds nothing the reader needs for the task.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      },
+      "scope": {
+        "unit": "sentence",
+        "context": "none"
+      }
+    },
+    {
+      "id": "EDIT-01",
+      "revision": "2",
+      "source": "evidence",
+      "group": "editing",
+      "risk": "medium",
+      "scope_kind": "whole",
+      "title": "Unnecessary wording",
+      "evidence": "EDIT-01",
+      "evaluator": {
+        "kind": "answers",
+        "contract": "answers/1"
+      },
+      "check": {
+        "kind": "answers/1",
+        "rules": [
+          "EDIT-01-SENTENCE"
+        ],
+        "fail_when": "any_fail",
+        "resolution": "decisive",
+        "coverage": "Every sentence of this complete article is checked; the article contains the pattern if any sentence contains it."
+      },
+      "applicability": {
+        "include": [
+          "writing"
+        ],
+        "exclude": []
+      },
+      "falsifier": "The sentence adds nothing the reader needs for the task.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      },
+      "scope": {
+        "unit": "document",
+        "context": "none"
+      }
+    }
+  ],
+  "profiles": [
+    {
+      "id": "all",
+      "select": [
+        "*"
+      ],
+      "block_on": [
+        "fail",
+        "review",
+        "error",
+        "not_evaluated"
+      ],
+      "allowed_egress": [
+        "https://api.typesafe.ai",
+        "loopback"
+      ]
+    },
+    {
+      "id": "frames",
+      "select": [
+        "frames/*"
+      ],
+      "block_on": [
+        "fail",
+        "review",
+        "error",
+        "not_evaluated"
+      ],
+      "allowed_egress": [
+        "https://api.typesafe.ai",
+        "loopback"
+      ]
+    },
+    {
+      "id": "grammar",
+      "select": [
+        "grammar/*"
+      ],
+      "block_on": [
+        "fail",
+        "review",
+        "error",
+        "not_evaluated"
+      ],
+      "allowed_egress": [
+        "https://api.typesafe.ai",
+        "loopback"
+      ]
+    },
+    {
+      "id": "structure",
+      "select": [
+        "structure/*"
+      ],
+      "block_on": [
+        "fail",
+        "review",
+        "error",
+        "not_evaluated"
+      ],
+      "allowed_egress": [
+        "https://api.typesafe.ai",
+        "loopback"
+      ]
+    },
+    {
+      "id": "vocabulary",
+      "select": [
+        "vocabulary/*"
+      ],
+      "block_on": [
+        "fail",
+        "review",
+        "error",
+        "not_evaluated"
+      ],
+      "allowed_egress": [
+        "https://api.typesafe.ai",
+        "loopback"
+      ]
+    },
+    {
+      "id": "words",
+      "select": [
+        "words/*"
+      ],
+      "block_on": [
+        "fail",
+        "review",
+        "error",
+        "not_evaluated"
+      ],
+      "allowed_egress": [
+        "https://api.typesafe.ai",
+        "loopback"
+      ]
+    },
+    {
+      "id": "language",
+      "select": [
+        "language/*"
+      ],
+      "block_on": [
+        "fail",
+        "review",
+        "error",
+        "not_evaluated"
+      ],
+      "allowed_egress": [
+        "https://api.typesafe.ai",
+        "loopback"
+      ]
+    },
+    {
+      "id": "paragraphs",
+      "select": [
+        "paragraphs/*"
+      ],
+      "block_on": [
+        "fail",
+        "review",
+        "error",
+        "not_evaluated"
+      ],
+      "allowed_egress": [
+        "https://api.typesafe.ai",
+        "loopback"
+      ]
+    },
+    {
+      "id": "grounding",
+      "select": [
+        "grounding/*"
+      ],
+      "block_on": [
+        "fail",
+        "review",
+        "error",
+        "not_evaluated"
+      ],
+      "allowed_egress": [
+        "https://api.typesafe.ai",
+        "loopback"
+      ]
+    },
+    {
+      "id": "format",
+      "select": [
+        "format/*"
+      ],
+      "block_on": [
+        "fail",
+        "review",
+        "error",
+        "not_evaluated"
+      ],
+      "allowed_egress": [
+        "https://api.typesafe.ai",
+        "loopback"
+      ]
+    },
+    {
+      "id": "tone",
+      "select": [
+        "tone/*"
+      ],
+      "block_on": [
+        "fail",
+        "review",
+        "error",
+        "not_evaluated"
+      ],
+      "allowed_egress": [
+        "https://api.typesafe.ai",
+        "loopback"
+      ]
+    },
+    {
+      "id": "editing",
+      "select": [
+        "editing/*"
+      ],
+      "block_on": [
+        "fail",
+        "review",
+        "error",
+        "not_evaluated"
+      ],
+      "allowed_egress": [
+        "https://api.typesafe.ai",
+        "loopback"
+      ]
+    }
+  ]
+}

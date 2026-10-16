@@ -1,0 +1,17 @@
+{
+  "schema":"auditoad-labels/1",
+  "dataset":{"id":"scanner-policy-example","revision":"1","split":"development","notes":"Supplied declarations under the README policy; already inspected synthetic examples, not a security benchmark or holdout. Missing findings have no boolean label."},
+  "labels":[
+    {"rule":"SCAN-COMPLETED","target":"scan/clear","violation":false},
+    {"rule":"SCOPE-DECLARED","target":"scan/clear","violation":false},
+    {"rule":"NO-FINDINGS","target":"scan/clear","violation":false},
+    {"rule":"SCAN-COMPLETED","target":"scan/finding","violation":false},
+    {"rule":"SCOPE-DECLARED","target":"scan/finding","violation":false},
+    {"rule":"NO-FINDINGS","target":"scan/finding","violation":true},
+    {"rule":"SCAN-COMPLETED","target":"scan/incomplete","violation":true},
+    {"rule":"SCOPE-DECLARED","target":"scan/incomplete","violation":true},
+    {"rule":"NO-FINDINGS","target":"scan/incomplete","violation":false},
+    {"rule":"SCAN-COMPLETED","target":"scan/missing","violation":false},
+    {"rule":"SCOPE-DECLARED","target":"scan/missing","violation":false}
+  ]
+}

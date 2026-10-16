@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AudiToad input collection",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "inputs"],
+  "properties": {
+    "schema": {"const": "auditoad-collection/1"},
+    "inputs": {
+      "type": "object", "minProperties": 1,
+      "propertyNames": {"type": "string", "pattern": "\\S"},
+      "additionalProperties": {
+        "type": "object", "additionalProperties": false, "required": ["adapter"],
+        "properties": {
+          "adapter": {"enum": ["text/1", "json/1", "json-lines/1"]},
+          "path": {"type": "string", "minLength": 1},
+          "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+          "json_pointer": {"type": "string", "pattern": "^(?:/(?:[^~]|~[01])*)?$"},
+          "unavailable": {"type": "string", "pattern": "\\S"}
+        },
+        "allOf": [{"if": {"required": ["json_pointer"]},
+                   "then": {"required": ["path"], "properties": {"adapter": {"const": "json/1"}}}}],
+        "oneOf": [{"required": ["path"], "not": {"required": ["unavailable"]}},
+                  {"required": ["unavailable"], "not": {"anyOf": [{"required": ["path"]}, {"required": ["sha256"]}]}}]
+      }
+    }
+  }
+}

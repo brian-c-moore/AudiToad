@@ -1,0 +1,24 @@
+{
+  "schema": "auditoad-evidence-bundle/1",
+  "files": {
+    "shipping.py": "fb7003a88cb320d4269482cfe4c8143536c4db9f84c317058b1824817056e73a",
+    "policy.md": "0d5a6dc82ffeacf6fa0a3e777590354e70f08999c5a4f726a41a4ef1fbe07e5b"
+  },
+  "packets": [
+    {
+      "id": "shipping-fee",
+      "kind": "python-function",
+      "scope_kind": "site",
+      "parts": [
+        {
+          "role": "subject",
+          "path": "shipping.py"
+        },
+        {
+          "role": "policy",
+          "path": "policy.md"
+        }
+      ]
+    }
+  ]
+}

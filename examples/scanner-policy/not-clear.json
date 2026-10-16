@@ -1,0 +1,1 @@
+{"id":"fixture","kind":"scanner.result","facts":{"status":"interrupted","scope_complete":false,"findings":[{"rule":"EXAMPLE-001"}]}}

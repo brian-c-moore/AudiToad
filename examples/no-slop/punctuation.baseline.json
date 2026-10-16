@@ -1,0 +1,20 @@
+{
+  "schema": "auditoad-baseline/1",
+  "baseline": {"id":"no-slop-punctuation","version":"1","title":"At most one UTF-8 em dash per document","publisher":"AudiToad examples","status":"admitted"},
+  "sources": {"document":{"adapter":"raw-bytes/1","media":["application/octet-stream"]}},
+  "evidence": {"document":{"builder":"bytes/1","builder_revision":"r1"}},
+  "groups": [{"id":"PUNCTUATION","title":"Exact punctuation rule"}],
+  "rules": [{
+    "id":"FORMAT-05","revision":"local-1","source":"document","group":"PUNCTUATION","risk":"low","scope_kind":"site",
+    "title":"More than one em dash","evidence":"document",
+    "evaluator":{"kind":"yara-x","contract":"yara-x/1.20.0"},
+    "check":{"kind":"yara-x/1.20.0","source":"rule excess_em_dashes { strings: $dash = { E2 80 94 } condition: #dash > 1 }","rule_name":"excess_em_dashes","fail_when":"match"},
+    "applicability":{"include":["*"],"exclude":[]},
+    "falsifier":"The UTF-8 input contains at least two U+2014 em dash characters, including any quoted or code text.",
+    "fixtures":{
+      "fail":[{"path":"article-a.md","corpus_revision":"articles-1","source_sha256":"2ab3c3c3a1707c1026f9bc2b2acb2d53326083be2fbe29c6f2fd7eba3ebb6d24","evidence_sha256":"2ab3c3c3a1707c1026f9bc2b2acb2d53326083be2fbe29c6f2fd7eba3ebb6d24"}],
+      "pass":[{"path":"article-b.md","corpus_revision":"articles-1","source_sha256":"e9a73fd6ecbd010b2305f62cef141c1b81a19337465ddb8df14980658280d4cd","evidence_sha256":"e9a73fd6ecbd010b2305f62cef141c1b81a19337465ddb8df14980658280d4cd"}]
+    }
+  }],
+  "profiles":[{"id":"all","select":["*"],"block_on":["fail","review","error","not_evaluated"],"allowed_egress":[]}]
+}

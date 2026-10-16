@@ -1,0 +1,24 @@
+{
+  "schema": "auditoad-controlled-image-labels/1",
+  "image": "scene.png",
+  "sha256": "7c680de82a55ea662609e880c0bbe2e6bd4cc7b7b53398c362f9955a711371c3",
+  "width": 1254,
+  "height": 1254,
+  "label_basis": "Visual review of the retained synthetic image before provider calls; these are broad reviewed edge intervals, not pixel-segmented ground truth.",
+  "scene": "A red ceramic mug with a visible handle on the left and a closed blue book on the right, against a white background. No green apple is visible.",
+  "questions": {
+    "IMAGE-STATE": "red_mug",
+    "IMAGE-INSTRUCTIONS": "red_mug",
+    "IMAGE-CRITERIA": "matching_scene",
+    "IMAGE-ABSENT": false,
+    "IMAGE-BOX": "The entire visible red mug, including its handle and excluding the soft shadow."
+  },
+  "normalized_mug_edge_intervals": {
+    "left": [0.075, 0.13],
+    "top": [0.30, 0.36],
+    "right": [0.42, 0.48],
+    "bottom": [0.65, 0.70]
+  },
+  "minimum_reported_box_confidence": 0.5,
+  "ceiling": "One generated scene and fixed questions test protocol placement and this bounded observation only; no general image accuracy, JPEG live result or production acceptance is inferred."
+}

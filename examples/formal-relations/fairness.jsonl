@@ -1,0 +1,8 @@
+{"source":"---- MODULE F ----\nVARIABLE done\nFinish == done' = TRUE\nProgress == WF_done(Finish)\n====","operator":"Progress","action":"Finish","subscript":"done"}
+{"source":"---- MODULE F ----\nVARIABLE done\nFinish == done' = TRUE\nProgress == SF_done(Finish)\n====","operator":"Progress","action":"Finish","subscript":"done"}
+{"source":"---- MODULE F ----\nVARIABLE done\nFinish == done' = TRUE\nIdle == UNCHANGED done\nProgress == WF_done(Idle)\n====","operator":"Progress","action":"Finish","subscript":"done"}
+{"source":"---- MODULE F ----\nVARIABLE done, other\nFinish == done' = TRUE\nProgress == WF_other(Finish)\n====","operator":"Progress","action":"Finish","subscript":"done"}
+{"source":"---- MODULE F ----\nVARIABLE done\nFinish == done' = TRUE\nProgress == \"WF_done(Finish)\"\n====","operator":"Progress","action":"Finish","subscript":"done"}
+{"source":"---- MODULE F ----\nVARIABLE done\nFinish == done' = TRUE\nProgress == (WF_done(Finish))\n====","operator":"Progress","action":"Finish","subscript":"done"}
+{"source":"---- MODULE F ----\nVARIABLE done\nFinish == done' = TRUE\nProgress == WF_done( Finish )\n====","operator":"Progress","action":"Finish","subscript":"done"}
+{"source":"---- MODULE F ----\nVARIABLE done\nFinish == done' = TRUE\nProgress == WF_done(Finish)\n\\* SF_done(Idle)\n====","operator":"Progress","action":"Finish","subscript":"done"}

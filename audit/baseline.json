@@ -1,0 +1,1212 @@
+{
+  "schema": "auditoad-baseline/1",
+  "baseline": {
+    "id": "self-audit",
+    "version": "4",
+    "title": "AudiToad implementation checks",
+    "publisher": "AudiToad examples",
+    "status": "draft"
+  },
+  "sources": {
+    "evidence": {
+      "adapter": "evidence-bundle/1",
+      "media": [
+        "application/vnd.auditoad.bundle+json"
+      ]
+    }
+  },
+  "evidence": {
+    "selected": {"builder":"declared-parts/1","builder_revision":"r1","required_roles":["subject","policy"]},
+    "credentials": {"builder":"declared-parts/1","builder_revision":"r1","required_roles":["subject","credentials"]},
+    "SELF-EGRESS": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject",
+        "policy"
+      ]
+    },
+    "SELF-ORIGIN": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject",
+        "policy"
+      ]
+    },
+    "SELF-RESPONSE": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject",
+        "policy"
+      ]
+    },
+    "SELF-ANSWER-ID": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject",
+        "policy"
+      ]
+    },
+    "SELF-ANSWER-COUNT": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject",
+        "policy"
+      ]
+    },
+    "SELF-ANSWER-TYPE": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject",
+        "policy"
+      ]
+    },
+    "SELF-PROBABILITY": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject",
+        "policy"
+      ]
+    },
+    "SELF-FINITE": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject",
+        "policy"
+      ]
+    },
+    "SELF-INPUT-USAGE": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject",
+        "policy"
+      ]
+    },
+    "SELF-OUTPUT-USAGE": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject",
+        "policy"
+      ]
+    },
+    "SELF-COVERAGE": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject",
+        "policy"
+      ]
+    },
+    "SELF-EVIDENCE-BUDGET": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject",
+        "policy"
+      ]
+    },
+    "SELF-RECORD-COUNT": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject",
+        "policy"
+      ]
+    },
+    "SELF-DRAFT": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject",
+        "policy"
+      ]
+    },
+    "SELF-EXPERIMENTAL": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject",
+        "policy"
+      ]
+    },
+    "SELF-PUBLISH": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject",
+        "policy"
+      ]
+    },
+    "SELF-PERSIST": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject",
+        "policy"
+      ]
+    },
+    "SELF-ACK": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject",
+        "policy"
+      ]
+    },
+    "SELF-INPUTS": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject",
+        "policy"
+      ]
+    },
+    "SELF-SOURCE-INPUT": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject",
+        "policy"
+      ]
+    },
+    "SELF-KNOWN-ANSWERS": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject",
+        "policy"
+      ]
+    },
+    "SELF-MOCK-INPUT": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject",
+        "policy"
+      ]
+    },
+    "SELF-KEY-INPUT": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject",
+        "policy"
+      ]
+    },
+    "SELF-JSON": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject",
+        "policy"
+      ]
+    }
+  },
+  "groups": [
+    {
+      "id": "provider",
+      "title": "Provider"
+    },
+    {
+      "id": "completion",
+      "title": "Completion"
+    },
+    {
+      "id": "publication",
+      "title": "Publication"
+    },
+    {
+      "id": "validation",
+      "title": "Validation"
+    }
+  ],
+  "rules": [
+    {"id":"SELF-EGRESS-SYNTAX","revision":"1","source":"evidence","group":"provider","risk":"low","scope_kind":"site","title":"Select request and egress owners","evidence":"selected","evaluator":{"kind":"syntax","contract":"syntax/1"},
+      "check":{"kind":"syntax/1","language":"rust","json_string_pointer":"/parts/0/text","query":"((function_item) @function (#match? @function \"^(pub([(][^)]*[)])? +)?fn (ask_model|model_observation|admit_pool|scan_bound)[<(]\"))"},"applicability":{"include":["egress"],"exclude":[]},"falsifier":"A named complete owner function is missing or changed in capture.","fixtures":{"pass":[],"fail":[]}},
+    {"id":"SELF-RESPONSE-SYNTAX","revision":"1","source":"evidence","group":"provider","risk":"low","scope_kind":"site","title":"Select TypeSafe decoder and response declarations","evidence":"selected","evaluator":{"kind":"syntax","contract":"syntax/1"},
+      "check":{"kind":"syntax/1","language":"rust","json_string_pointer":"/parts/0/text","query":"((function_item) @function (#match? @function \"^fn (probability|typesafe_probability)[(]\")) ((attribute_item) @derive . (attribute_item) @validation . (struct_item name: (type_identifier) @name) @structure (#any-of? @name \"Response\" \"TypesafeAnswer\" \"TokenUsage\"))"},"applicability":{"include":["response"],"exclude":[]},"falsifier":"The decoder, response fields or their validation attributes are missing or changed in capture.","fixtures":{"pass":[],"fail":[]}},
+    {"id":"SELF-COVERAGE-SYNTAX","revision":"1","source":"evidence","group":"completion","risk":"low","scope_kind":"site","title":"Select complete work-accounting owners","evidence":"selected","evaluator":{"kind":"syntax","contract":"syntax/1"},
+      "check":{"kind":"syntax/1","language":"rust","json_string_pointer":"/parts/0/text","query":"((function_item) @function (#match? @function \"^(pub([(][^)]*[)])? +)?fn (scan_bound|charge|begin|append|effect_allocation|coupling|register|reduce|reduce_bound|reused_usage|admit_pool)[<(]\"))"},"applicability":{"include":["coverage"],"exclude":[]},"falsifier":"A named complete owner function is missing or changed in capture.","fixtures":{"pass":[],"fail":[]}},
+    {"id":"SELF-DRAFT-SYNTAX","revision":"1","source":"evidence","group":"completion","risk":"low","scope_kind":"site","title":"Select experimental result owners","evidence":"selected","evaluator":{"kind":"syntax","contract":"syntax/1"},
+      "check":{"kind":"syntax/1","language":"rust","json_string_pointer":"/parts/0/text","query":"((function_item) @function (#match? @function \"^(pub([(][^)]*[)])? +)?fn (ask_model|model_observation|combined_members|scan_bound)[<(]\"))"},"applicability":{"include":["draft"],"exclude":[]},"falsifier":"A named complete owner function is missing or changed in capture.","fixtures":{"pass":[],"fail":[]}},
+    {"id":"SELF-PUBLICATION-SYNTAX","revision":"1","source":"evidence","group":"publication","risk":"low","scope_kind":"site","title":"Select publication and protected-input owners","evidence":"selected","evaluator":{"kind":"syntax","contract":"syntax/1"},
+      "check":{"kind":"syntax/1","language":"rust","json_string_pointer":"/parts/0/text","query":"((function_item) @function (#match? @function \"^(pub([(][^)]*[)])? +)?fn (scan_to_file|scan_to_file_with_evaluators|scan_to_file_with_progress|scan_to_file_with_preparation|protected_inputs|publish_bound|publish_bytes|publish_bytes_bound)[<(]\"))"},"applicability":{"include":["publication"],"exclude":[]},"falsifier":"A named complete owner function is missing or changed in capture.","fixtures":{"pass":[],"fail":[]}},
+    {"id":"SELF-CREDENTIAL-SYNTAX","revision":"1","source":"evidence","group":"publication","risk":"low","scope_kind":"site","title":"Select credential_paths","evidence":"credentials","evaluator":{"kind":"syntax","contract":"syntax/1"},
+      "check":{"kind":"syntax/1","language":"rust","json_string_pointer":"/parts/1/text","query":"((function_item) @function (#match? @function \"^pub[(]crate[)] fn credential_paths[(]\"))"},"applicability":{"include":["publication"],"exclude":[]},"falsifier":"The complete credential-path function is missing or changed in capture.","fixtures":{"pass":[],"fail":[]}},
+    {"id":"SELF-JSON-SYNTAX","revision":"1","source":"evidence","group":"validation","risk":"low","scope_kind":"site","title":"Select JSON parser and duplicate-key visitor","evidence":"selected","evaluator":{"kind":"syntax","contract":"syntax/1"},
+      "check":{"kind":"syntax/1","language":"rust","json_string_pointer":"/parts/0/text","query":"((function_item) @function (#match? @function \"^(pub([(][^)]*[)])? +)?fn (parse|deserialize)[<(]\"))"},"applicability":{"include":["json"],"exclude":[]},"falsifier":"The complete parser or duplicate-key visitor is missing or changed in capture.","fixtures":{"pass":[],"fail":[]}},
+    {"id":"SELF-EGRESS-CONTEXT","revision":"3","source":"evidence","group":"provider","risk":"low","scope_kind":"site","title":"Egress guard context","evidence":"selected","evaluator":{"kind":"model","contract":"extract/1","role":"helper"},"consult":{"rules":["SELF-EGRESS-SYNTAX"]},
+      "check":{"kind":"extract/1","instructions":"In ask_model, copy one contiguous source excerpt containing the backend.filter expression controlled by live, replay and reused, followed by the provider-is-absent/no-mock branch that returns the prepared request without a provider call. This task concerns only that preparation guard. Return exactly one shortest source excerpt in context. Preserve whitespace exactly. Do not use ellipses, join excerpts, reformat or repair code; do not decide compliance.","fields":{"context":{"type":"quote_list","description":"One literal contiguous excerpt containing the provider filter and its preparation-only return branch."}},"max_request_bytes":120000,"state_projection":{"code_0":"/prior/0/observation/fields/captures/0/text","code_1":"/prior/0/observation/fields/captures/1/text","code_2":"/prior/0/observation/fields/captures/2/text","code_3":"/prior/0/observation/fields/captures/3/text"}},
+      "applicability":{"include":["egress"],"exclude":[]},"falsifier":"The excerpt omits or alters the specified preparation guard, joins separate source spans or invents text.","fixtures":{"pass":[],"fail":[]}},
+    {"id":"SELF-RESPONSE-CONTEXT","revision":"2","source":"evidence","group":"provider","risk":"low","scope_kind":"site","title":"TypeSafe response validation context","evidence":"selected","evaluator":{"kind":"model","contract":"extract/1","role":"helper"},"consult":{"rules":["SELF-RESPONSE-SYNTAX"]},
+      "check":{"kind":"extract/1","instructions":"From the selected decoder and declarations, copy the response identity, answer-set, type, probability and usage validation paths, including refusal branches and field-validation attributes. Return source quotes only; do not decide compliance.","fields":{"context":{"type":"quote_list","description":"Exact validation and refusal excerpts from the decoder and response declarations."}},"max_request_bytes":120000,"state_projection":{"code_0":"/prior/0/observation/fields/captures/0/text","code_1":"/prior/0/observation/fields/captures/1/text","code_2":"/prior/0/observation/fields/captures/2/text","code_3":"/prior/0/observation/fields/captures/3/text","code_4":"/prior/0/observation/fields/captures/4/text","code_5":"/prior/0/observation/fields/captures/5/text","code_6":"/prior/0/observation/fields/captures/6/text","code_7":"/prior/0/observation/fields/captures/7/text","code_8":"/prior/0/observation/fields/captures/8/text","code_9":"/prior/0/observation/fields/captures/9/text","code_10":"/prior/0/observation/fields/captures/10/text","code_11":"/prior/0/observation/fields/captures/11/text","code_12":"/prior/0/observation/fields/captures/12/text","code_13":"/prior/0/observation/fields/captures/13/text"}},
+      "applicability":{"include":["response"],"exclude":[]},"falsifier":"A controlling validation is omitted or a quote is invented.","fixtures":{"pass":[],"fail":[]}},
+    {"id":"SELF-COVERAGE-CONTEXT","revision":"3","source":"evidence","group":"completion","risk":"low","scope_kind":"site","title":"Terminal accounting context","evidence":"selected","evaluator":{"kind":"model","contract":"extract/1","role":"helper"},"consult":{"rules":["SELF-COVERAGE-SYNTAX"]},
+      "check":{"kind":"extract/1","instructions":"In scan_bound, copy only the final coupling invocation that checks sink validation and agreement of sink, records and manifest lengths, including its failure message and ? propagation. Return that one invocation as the shortest contiguous source excerpt in context. This task concerns only that final coverage guard. Preserve whitespace exactly. Do not use ellipses, join excerpts, reformat or repair code; do not decide compliance.","fields":{"context":{"type":"quote_list","description":"One literal contiguous excerpt of the final sink/records/manifest coverage coupling invocation."}},"max_request_bytes":120000,"state_projection":{"code_0":"/prior/0/observation/fields/captures/0/text","code_1":"/prior/0/observation/fields/captures/1/text","code_2":"/prior/0/observation/fields/captures/2/text","code_3":"/prior/0/observation/fields/captures/3/text","code_4":"/prior/0/observation/fields/captures/4/text","code_5":"/prior/0/observation/fields/captures/5/text","code_6":"/prior/0/observation/fields/captures/6/text","code_7":"/prior/0/observation/fields/captures/7/text","code_8":"/prior/0/observation/fields/captures/8/text","code_9":"/prior/0/observation/fields/captures/9/text","code_10":"/prior/0/observation/fields/captures/10/text"}},
+      "applicability":{"include":["coverage"],"exclude":[]},"falsifier":"The excerpt omits or alters the specified final coverage invocation, joins separate source spans or invents text.","fixtures":{"pass":[],"fail":[]}},
+    {"id":"SELF-DRAFT-CONTEXT","revision":"5","source":"evidence","group":"completion","risk":"low","scope_kind":"site","title":"Select experimental outcome declarations","evidence":"selected","evaluator":{"kind":"syntax","contract":"syntax/1"},
+      "check":{"kind":"syntax/1","language":"rust","json_string_pointer":"/parts/0/text","query":"((let_declaration) @experimental_outcome (#match? @experimental_outcome \"^let unresolved = outcome_reason[.]is_some[(][)]\")) ((let_declaration) @experimental_outcome (#match? @experimental_outcome \"^let outcome = if unresolved\"))"},
+      "applicability":{"include":["draft"],"exclude":[]},"falsifier":"The captures differ from the complete unresolved and outcome declarations inside scan_bound.","fixtures":{"pass":[],"fail":[]}},
+    {"id":"SELF-PUBLICATION-CONTEXT","revision":"2","source":"evidence","group":"publication","risk":"low","scope_kind":"site","title":"Protected publication context","evidence":"selected","evaluator":{"kind":"model","contract":"extract/1","role":"helper"},"consult":{"rules":["SELF-PUBLICATION-SYNTAX","SELF-CREDENTIAL-SYNTAX"]},
+      "check":{"kind":"extract/1","instructions":"From the complete selected publication and credential functions, copy the protected-input comparison, write, persist and acknowledgment paths with their refusal handling. Return source quotes only; do not decide compliance.","fields":{"context":{"type":"quote_list","description":"Exact protected-input and publication success/refusal excerpts."}},"max_request_bytes":120000,"state_projection":{"code_0":"/prior/0/observation/fields/captures/0/text","code_1":"/prior/0/observation/fields/captures/1/text","code_2":"/prior/0/observation/fields/captures/2/text","code_3":"/prior/0/observation/fields/captures/3/text","code_4":"/prior/0/observation/fields/captures/4/text","code_5":"/prior/0/observation/fields/captures/5/text","code_6":"/prior/0/observation/fields/captures/6/text","code_7":"/prior/0/observation/fields/captures/7/text","credentials":"/prior/1/observation/fields/captures/0/text"}},
+      "applicability":{"include":["publication"],"exclude":[]},"falsifier":"A controlling protected-input or publication path is omitted or a quote is invented.","fixtures":{"pass":[],"fail":[]}},
+    {"id":"SELF-JSON-CONTEXT","revision":"2","source":"evidence","group":"validation","risk":"low","scope_kind":"site","title":"JSON duplicate-key context","evidence":"selected","evaluator":{"kind":"model","contract":"extract/1","role":"helper"},"consult":{"rules":["SELF-JSON-SYNTAX"]},
+      "check":{"kind":"extract/1","instructions":"From the complete selected parser and visitor, copy the duplicate-key refusal and typed deserialization paths. Return source quotes only; do not decide compliance.","fields":{"context":{"type":"quote_list","description":"Exact duplicate-key refusal and typed-deserialization excerpts."}},"max_request_bytes":120000,"state_projection":{"code_0":"/prior/0/observation/fields/captures/0/text","code_1":"/prior/0/observation/fields/captures/1/text"}},
+      "applicability":{"include":["json"],"exclude":[]},"falsifier":"A controlling validation path is omitted or a quote is invented.","fixtures":{"pass":[],"fail":[]}},
+    {
+      "id": "SELF-EGRESS",
+      "revision": "4",
+      "consult": {"rules":["SELF-EGRESS-SYNTAX","SELF-EGRESS-CONTEXT"]},
+      "source": "evidence",
+      "group": "provider",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Live opt-in",
+      "evidence": "SELF-EGRESS",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "Does this code send a model request when live evaluation is not enabled?",
+        "criteria_true": "A model request is sent without live opt-in.",
+        "criteria_false": "Model requests are sent only when live evaluation is enabled.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 120000,
+        "state_projection": {"code_0":"/prior/0/observation/fields/captures/0/text","code_1":"/prior/0/observation/fields/captures/1/text","code_2":"/prior/0/observation/fields/captures/2/text","code_3":"/prior/0/observation/fields/captures/3/text","policy":"/parts/1/text","context":{"pointer":"/prior/1/observation/fields/context","optional":true}}
+      },
+      "applicability": {
+        "include": [
+          "egress"
+        ],
+        "exclude": []
+      },
+      "falsifier": "A model request is sent without live opt-in.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      }
+    },
+    {
+      "id": "SELF-ORIGIN",
+      "revision": "4",
+      "consult": {"rules":["SELF-EGRESS-SYNTAX","SELF-EGRESS-CONTEXT"]},
+      "source": "evidence",
+      "group": "provider",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Allowed provider origin",
+      "evidence": "SELF-ORIGIN",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "Does this code allow a live model call to an endpoint whose origin the profile's allowed_egress does not permit?",
+        "criteria_true": "It allows a different origin.",
+        "criteria_false": "It rejects a different origin.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 120000,
+        "state_projection": {"code_0":"/prior/0/observation/fields/captures/0/text","code_1":"/prior/0/observation/fields/captures/1/text","code_2":"/prior/0/observation/fields/captures/2/text","code_3":"/prior/0/observation/fields/captures/3/text","policy":"/parts/1/text","context":{"pointer":"/prior/1/observation/fields/context","optional":true}}
+      },
+      "applicability": {
+        "include": [
+          "egress"
+        ],
+        "exclude": []
+      },
+      "falsifier": "It allows a different origin.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      }
+    },
+    {
+      "id": "SELF-RESPONSE",
+      "revision": "3",
+      "consult": {"rules":["SELF-RESPONSE-SYNTAX","SELF-RESPONSE-CONTEXT"]},
+      "source": "evidence",
+      "group": "provider",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Response model",
+      "evidence": "SELF-RESPONSE",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "Does this decoder accept a response naming a model other than the configured one?",
+        "criteria_true": "It accepts a different model name.",
+        "criteria_false": "It rejects a different model name.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 120000,
+        "state_projection": {"code_0":"/prior/0/observation/fields/captures/0/text","code_1":"/prior/0/observation/fields/captures/1/text","code_2":"/prior/0/observation/fields/captures/2/text","code_3":"/prior/0/observation/fields/captures/3/text","code_4":"/prior/0/observation/fields/captures/4/text","code_5":"/prior/0/observation/fields/captures/5/text","code_6":"/prior/0/observation/fields/captures/6/text","code_7":"/prior/0/observation/fields/captures/7/text","code_8":"/prior/0/observation/fields/captures/8/text","code_9":"/prior/0/observation/fields/captures/9/text","code_10":"/prior/0/observation/fields/captures/10/text","code_11":"/prior/0/observation/fields/captures/11/text","code_12":"/prior/0/observation/fields/captures/12/text","code_13":"/prior/0/observation/fields/captures/13/text","policy":"/parts/1/text","context":{"pointer":"/prior/1/observation/fields/context","optional":true}}
+      },
+      "applicability": {
+        "include": [
+          "response"
+        ],
+        "exclude": []
+      },
+      "falsifier": "It accepts a different model name.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      }
+    },
+    {
+      "id": "SELF-ANSWER-ID",
+      "revision": "3",
+      "consult": {"rules":["SELF-RESPONSE-SYNTAX","SELF-RESPONSE-CONTEXT"]},
+      "source": "evidence",
+      "group": "provider",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Requested answer",
+      "evidence": "SELF-ANSWER-ID",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "Does this decoder accept a response that lacks the requested check ID?",
+        "criteria_true": "It accepts a missing check ID.",
+        "criteria_false": "It rejects a missing check ID.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 120000,
+        "state_projection": {"code_0":"/prior/0/observation/fields/captures/0/text","code_1":"/prior/0/observation/fields/captures/1/text","code_2":"/prior/0/observation/fields/captures/2/text","code_3":"/prior/0/observation/fields/captures/3/text","code_4":"/prior/0/observation/fields/captures/4/text","code_5":"/prior/0/observation/fields/captures/5/text","code_6":"/prior/0/observation/fields/captures/6/text","code_7":"/prior/0/observation/fields/captures/7/text","code_8":"/prior/0/observation/fields/captures/8/text","code_9":"/prior/0/observation/fields/captures/9/text","code_10":"/prior/0/observation/fields/captures/10/text","code_11":"/prior/0/observation/fields/captures/11/text","code_12":"/prior/0/observation/fields/captures/12/text","code_13":"/prior/0/observation/fields/captures/13/text","policy":"/parts/1/text","context":{"pointer":"/prior/1/observation/fields/context","optional":true}}
+      },
+      "applicability": {
+        "include": [
+          "response"
+        ],
+        "exclude": []
+      },
+      "falsifier": "It accepts a missing check ID.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      }
+    },
+    {
+      "id": "SELF-ANSWER-COUNT",
+      "revision": "3",
+      "consult": {"rules":["SELF-RESPONSE-SYNTAX","SELF-RESPONSE-CONTEXT"]},
+      "source": "evidence",
+      "group": "provider",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Extra answers",
+      "evidence": "SELF-ANSWER-COUNT",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "Can more than one answer pass this decoder?",
+        "criteria_true": "It accepts more than one answer.",
+        "criteria_false": "It requires exactly one answer.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 120000,
+        "state_projection": {"code_0":"/prior/0/observation/fields/captures/0/text","code_1":"/prior/0/observation/fields/captures/1/text","code_2":"/prior/0/observation/fields/captures/2/text","code_3":"/prior/0/observation/fields/captures/3/text","code_4":"/prior/0/observation/fields/captures/4/text","code_5":"/prior/0/observation/fields/captures/5/text","code_6":"/prior/0/observation/fields/captures/6/text","code_7":"/prior/0/observation/fields/captures/7/text","code_8":"/prior/0/observation/fields/captures/8/text","code_9":"/prior/0/observation/fields/captures/9/text","code_10":"/prior/0/observation/fields/captures/10/text","code_11":"/prior/0/observation/fields/captures/11/text","code_12":"/prior/0/observation/fields/captures/12/text","code_13":"/prior/0/observation/fields/captures/13/text","policy":"/parts/1/text","context":{"pointer":"/prior/1/observation/fields/context","optional":true}}
+      },
+      "applicability": {
+        "include": [
+          "response"
+        ],
+        "exclude": []
+      },
+      "falsifier": "It accepts more than one answer.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      }
+    },
+    {
+      "id": "SELF-ANSWER-TYPE",
+      "revision": "3",
+      "consult": {"rules":["SELF-RESPONSE-SYNTAX","SELF-RESPONSE-CONTEXT"]},
+      "source": "evidence",
+      "group": "provider",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Answer type",
+      "evidence": "SELF-ANSWER-TYPE",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "Does this decoder accept an answer whose type is not noul?",
+        "criteria_true": "It accepts a different answer type.",
+        "criteria_false": "It rejects a different answer type.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 120000,
+        "state_projection": {"code_0":"/prior/0/observation/fields/captures/0/text","code_1":"/prior/0/observation/fields/captures/1/text","code_2":"/prior/0/observation/fields/captures/2/text","code_3":"/prior/0/observation/fields/captures/3/text","code_4":"/prior/0/observation/fields/captures/4/text","code_5":"/prior/0/observation/fields/captures/5/text","code_6":"/prior/0/observation/fields/captures/6/text","code_7":"/prior/0/observation/fields/captures/7/text","code_8":"/prior/0/observation/fields/captures/8/text","code_9":"/prior/0/observation/fields/captures/9/text","code_10":"/prior/0/observation/fields/captures/10/text","code_11":"/prior/0/observation/fields/captures/11/text","code_12":"/prior/0/observation/fields/captures/12/text","code_13":"/prior/0/observation/fields/captures/13/text","policy":"/parts/1/text","context":{"pointer":"/prior/1/observation/fields/context","optional":true}}
+      },
+      "applicability": {
+        "include": [
+          "response"
+        ],
+        "exclude": []
+      },
+      "falsifier": "It accepts a different answer type.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      }
+    },
+    {
+      "id": "SELF-PROBABILITY",
+      "revision": "3",
+      "consult": {"rules":["SELF-RESPONSE-SYNTAX","SELF-RESPONSE-CONTEXT"]},
+      "source": "evidence",
+      "group": "provider",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Probability range",
+      "evidence": "SELF-PROBABILITY",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "Does this decoder accept a probability outside zero through one?",
+        "criteria_true": "It accepts a value outside the range.",
+        "criteria_false": "It rejects a value outside the range.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 120000,
+        "state_projection": {"code_0":"/prior/0/observation/fields/captures/0/text","code_1":"/prior/0/observation/fields/captures/1/text","code_2":"/prior/0/observation/fields/captures/2/text","code_3":"/prior/0/observation/fields/captures/3/text","code_4":"/prior/0/observation/fields/captures/4/text","code_5":"/prior/0/observation/fields/captures/5/text","code_6":"/prior/0/observation/fields/captures/6/text","code_7":"/prior/0/observation/fields/captures/7/text","code_8":"/prior/0/observation/fields/captures/8/text","code_9":"/prior/0/observation/fields/captures/9/text","code_10":"/prior/0/observation/fields/captures/10/text","code_11":"/prior/0/observation/fields/captures/11/text","code_12":"/prior/0/observation/fields/captures/12/text","code_13":"/prior/0/observation/fields/captures/13/text","policy":"/parts/1/text","context":{"pointer":"/prior/1/observation/fields/context","optional":true}}
+      },
+      "applicability": {
+        "include": [
+          "response"
+        ],
+        "exclude": []
+      },
+      "falsifier": "It accepts a value outside the range.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      }
+    },
+    {
+      "id": "SELF-FINITE",
+      "revision": "3",
+      "consult": {"rules":["SELF-RESPONSE-SYNTAX","SELF-RESPONSE-CONTEXT"]},
+      "source": "evidence",
+      "group": "provider",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Finite probability",
+      "evidence": "SELF-FINITE",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "Does this decoder omit a check that the probability is finite?",
+        "criteria_true": "There is no finite-number check.",
+        "criteria_false": "There is a finite-number check.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 120000,
+        "state_projection": {"code_0":"/prior/0/observation/fields/captures/0/text","code_1":"/prior/0/observation/fields/captures/1/text","code_2":"/prior/0/observation/fields/captures/2/text","code_3":"/prior/0/observation/fields/captures/3/text","code_4":"/prior/0/observation/fields/captures/4/text","code_5":"/prior/0/observation/fields/captures/5/text","code_6":"/prior/0/observation/fields/captures/6/text","code_7":"/prior/0/observation/fields/captures/7/text","code_8":"/prior/0/observation/fields/captures/8/text","code_9":"/prior/0/observation/fields/captures/9/text","code_10":"/prior/0/observation/fields/captures/10/text","code_11":"/prior/0/observation/fields/captures/11/text","code_12":"/prior/0/observation/fields/captures/12/text","code_13":"/prior/0/observation/fields/captures/13/text","policy":"/parts/1/text","context":{"pointer":"/prior/1/observation/fields/context","optional":true}}
+      },
+      "applicability": {
+        "include": [
+          "response"
+        ],
+        "exclude": []
+      },
+      "falsifier": "There is no finite-number check.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      }
+    },
+    {
+      "id": "SELF-INPUT-USAGE",
+      "revision": "3",
+      "consult": {"rules":["SELF-RESPONSE-SYNTAX","SELF-RESPONSE-CONTEXT"]},
+      "source": "evidence",
+      "group": "provider",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Input token usage",
+      "evidence": "SELF-INPUT-USAGE",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "Does this decoder accept zero input tokens?",
+        "criteria_true": "It accepts zero input tokens.",
+        "criteria_false": "It rejects zero input tokens.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 120000,
+        "state_projection": {"code_0":"/prior/0/observation/fields/captures/0/text","code_1":"/prior/0/observation/fields/captures/1/text","code_2":"/prior/0/observation/fields/captures/2/text","code_3":"/prior/0/observation/fields/captures/3/text","code_4":"/prior/0/observation/fields/captures/4/text","code_5":"/prior/0/observation/fields/captures/5/text","code_6":"/prior/0/observation/fields/captures/6/text","code_7":"/prior/0/observation/fields/captures/7/text","code_8":"/prior/0/observation/fields/captures/8/text","code_9":"/prior/0/observation/fields/captures/9/text","code_10":"/prior/0/observation/fields/captures/10/text","code_11":"/prior/0/observation/fields/captures/11/text","code_12":"/prior/0/observation/fields/captures/12/text","code_13":"/prior/0/observation/fields/captures/13/text","policy":"/parts/1/text","context":{"pointer":"/prior/1/observation/fields/context","optional":true}}
+      },
+      "applicability": {
+        "include": [
+          "response"
+        ],
+        "exclude": []
+      },
+      "falsifier": "It accepts zero input tokens.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      }
+    },
+    {
+      "id": "SELF-OUTPUT-USAGE",
+      "revision": "3",
+      "consult": {"rules":["SELF-RESPONSE-SYNTAX","SELF-RESPONSE-CONTEXT"]},
+      "source": "evidence",
+      "group": "provider",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Output token usage",
+      "evidence": "SELF-OUTPUT-USAGE",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "Does this decoder accept zero output tokens?",
+        "criteria_true": "It accepts zero output tokens.",
+        "criteria_false": "It rejects zero output tokens.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 120000,
+        "state_projection": {"code_0":"/prior/0/observation/fields/captures/0/text","code_1":"/prior/0/observation/fields/captures/1/text","code_2":"/prior/0/observation/fields/captures/2/text","code_3":"/prior/0/observation/fields/captures/3/text","code_4":"/prior/0/observation/fields/captures/4/text","code_5":"/prior/0/observation/fields/captures/5/text","code_6":"/prior/0/observation/fields/captures/6/text","code_7":"/prior/0/observation/fields/captures/7/text","code_8":"/prior/0/observation/fields/captures/8/text","code_9":"/prior/0/observation/fields/captures/9/text","code_10":"/prior/0/observation/fields/captures/10/text","code_11":"/prior/0/observation/fields/captures/11/text","code_12":"/prior/0/observation/fields/captures/12/text","code_13":"/prior/0/observation/fields/captures/13/text","policy":"/parts/1/text","context":{"pointer":"/prior/1/observation/fields/context","optional":true}}
+      },
+      "applicability": {
+        "include": [
+          "response"
+        ],
+        "exclude": []
+      },
+      "falsifier": "It accepts zero output tokens.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      }
+    },
+    {
+      "id": "SELF-COVERAGE",
+      "revision": "5",
+      "consult": {"rules":["SELF-COVERAGE-SYNTAX","SELF-COVERAGE-CONTEXT"]},
+      "source": "evidence",
+      "group": "completion",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Check budget refusal",
+      "evidence": "SELF-COVERAGE",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "Does running out of the check budget skip recording the affected work item?",
+        "criteria_true": "The work item gets no record.",
+        "criteria_false": "The work item gets a record even when the budget is exhausted.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 120000,
+        "state_projection": {"code_0":"/prior/0/observation/fields/captures/0/text","code_1":"/prior/0/observation/fields/captures/1/text","code_2":"/prior/0/observation/fields/captures/2/text","code_3":"/prior/0/observation/fields/captures/3/text","code_4":"/prior/0/observation/fields/captures/4/text","code_5":"/prior/0/observation/fields/captures/5/text","code_6":"/prior/0/observation/fields/captures/6/text","code_7":"/prior/0/observation/fields/captures/7/text","code_8":"/prior/0/observation/fields/captures/8/text","code_9":"/prior/0/observation/fields/captures/9/text","code_10":"/prior/0/observation/fields/captures/10/text","policy":"/parts/1/text","context":{"pointer":"/prior/1/observation/fields/context","optional":true}}
+      },
+      "applicability": {
+        "include": [
+          "coverage"
+        ],
+        "exclude": []
+      },
+      "falsifier": "The work item gets no record.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      }
+    },
+    {
+      "id": "SELF-EVIDENCE-BUDGET",
+      "revision": "5",
+      "consult": {"rules":["SELF-COVERAGE-SYNTAX","SELF-COVERAGE-CONTEXT"]},
+      "source": "evidence",
+      "group": "completion",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Evidence budget refusal",
+      "evidence": "SELF-EVIDENCE-BUDGET",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "Does running out of the evidence budget skip recording the affected work item?",
+        "criteria_true": "The work item gets no record.",
+        "criteria_false": "The work item gets a record even when the budget is exhausted.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 120000,
+        "state_projection": {"code_0":"/prior/0/observation/fields/captures/0/text","code_1":"/prior/0/observation/fields/captures/1/text","code_2":"/prior/0/observation/fields/captures/2/text","code_3":"/prior/0/observation/fields/captures/3/text","code_4":"/prior/0/observation/fields/captures/4/text","code_5":"/prior/0/observation/fields/captures/5/text","code_6":"/prior/0/observation/fields/captures/6/text","code_7":"/prior/0/observation/fields/captures/7/text","code_8":"/prior/0/observation/fields/captures/8/text","code_9":"/prior/0/observation/fields/captures/9/text","code_10":"/prior/0/observation/fields/captures/10/text","policy":"/parts/1/text","context":{"pointer":"/prior/1/observation/fields/context","optional":true}}
+      },
+      "applicability": {
+        "include": [
+          "coverage"
+        ],
+        "exclude": []
+      },
+      "falsifier": "The work item gets no record.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      }
+    },
+    {
+      "id": "SELF-RECORD-COUNT",
+      "revision": "5",
+      "consult": {"rules":["SELF-COVERAGE-SYNTAX","SELF-COVERAGE-CONTEXT"]},
+      "source": "evidence",
+      "group": "completion",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Complete record count",
+      "evidence": "SELF-RECORD-COUNT",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "Does this code omit checking the record count against the work manifest?",
+        "criteria_true": "It does not check that the counts agree.",
+        "criteria_false": "It checks that the record and manifest counts agree.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 120000,
+        "state_projection": {"code_0":"/prior/0/observation/fields/captures/0/text","code_1":"/prior/0/observation/fields/captures/1/text","code_2":"/prior/0/observation/fields/captures/2/text","code_3":"/prior/0/observation/fields/captures/3/text","code_4":"/prior/0/observation/fields/captures/4/text","code_5":"/prior/0/observation/fields/captures/5/text","code_6":"/prior/0/observation/fields/captures/6/text","code_7":"/prior/0/observation/fields/captures/7/text","code_8":"/prior/0/observation/fields/captures/8/text","code_9":"/prior/0/observation/fields/captures/9/text","code_10":"/prior/0/observation/fields/captures/10/text","policy":"/parts/1/text","context":{"pointer":"/prior/1/observation/fields/context","optional":true}}
+      },
+      "applicability": {
+        "include": [
+          "coverage"
+        ],
+        "exclude": []
+      },
+      "falsifier": "It does not check that the counts agree.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      }
+    },
+    {
+      "id": "SELF-DRAFT",
+      "revision": "6",
+      "consult": {"rules":["SELF-DRAFT-SYNTAX","SELF-DRAFT-CONTEXT"]},
+      "source": "evidence",
+      "group": "completion",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Semantic result",
+      "evidence": "SELF-DRAFT",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "Does this code return a terminal Pass for a successful model answer?",
+        "criteria_true": "A model answer becomes a terminal Pass.",
+        "criteria_false": "A model answer remains NotEvaluated.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 120000,
+        "state_projection": {"code_0":"/prior/0/observation/fields/captures/0/text","code_1":"/prior/0/observation/fields/captures/1/text","code_2":"/prior/0/observation/fields/captures/2/text","code_3":"/prior/0/observation/fields/captures/3/text","policy":"/parts/1/text","outcome_guard":"/prior/1/observation/fields/captures/0/text","outcome_assignment":"/prior/1/observation/fields/captures/1/text"}
+      },
+      "applicability": {
+        "include": [
+          "draft"
+        ],
+        "exclude": []
+      },
+      "falsifier": "A model answer becomes a terminal Pass.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      }
+    },
+    {
+      "id": "SELF-EXPERIMENTAL",
+      "revision": "6",
+      "consult": {"rules":["SELF-DRAFT-SYNTAX","SELF-DRAFT-CONTEXT"]},
+      "source": "evidence",
+      "group": "completion",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Experimental outcome",
+      "evidence": "SELF-EXPERIMENTAL",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "Does this code allow an experimental scan to clear?",
+        "criteria_true": "An experimental scan can clear.",
+        "criteria_false": "An experimental scan remains unresolved.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 120000,
+        "state_projection": {"code_0":"/prior/0/observation/fields/captures/0/text","code_1":"/prior/0/observation/fields/captures/1/text","code_2":"/prior/0/observation/fields/captures/2/text","code_3":"/prior/0/observation/fields/captures/3/text","policy":"/parts/1/text","outcome_guard":"/prior/1/observation/fields/captures/0/text","outcome_assignment":"/prior/1/observation/fields/captures/1/text"}
+      },
+      "applicability": {
+        "include": [
+          "draft"
+        ],
+        "exclude": []
+      },
+      "falsifier": "An experimental scan can clear.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      }
+    },
+    {
+      "id": "SELF-PUBLISH",
+      "revision": "3",
+      "consult": {"rules":["SELF-PUBLICATION-SYNTAX","SELF-CREDENTIAL-SYNTAX","SELF-PUBLICATION-CONTEXT"]},
+      "source": "evidence",
+      "group": "publication",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Write failure",
+      "evidence": "SELF-PUBLISH",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "Does this function return a successful receipt after a failed write?",
+        "criteria_true": "It returns a receipt after a write error.",
+        "criteria_false": "A write error stops it from returning a receipt.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 120000,
+        "state_projection": {"code_0":"/prior/0/observation/fields/captures/0/text","code_1":"/prior/0/observation/fields/captures/1/text","code_2":"/prior/0/observation/fields/captures/2/text","code_3":"/prior/0/observation/fields/captures/3/text","code_4":"/prior/0/observation/fields/captures/4/text","code_5":"/prior/0/observation/fields/captures/5/text","code_6":"/prior/0/observation/fields/captures/6/text","code_7":"/prior/0/observation/fields/captures/7/text","credentials":"/prior/1/observation/fields/captures/0/text","policy":"/parts/1/text","context":{"pointer":"/prior/2/observation/fields/context","optional":true}}
+      },
+      "applicability": {
+        "include": [
+          "publication"
+        ],
+        "exclude": []
+      },
+      "falsifier": "It returns a receipt after a write error.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      }
+    },
+    {
+      "id": "SELF-PERSIST",
+      "revision": "3",
+      "consult": {"rules":["SELF-PUBLICATION-SYNTAX","SELF-CREDENTIAL-SYNTAX","SELF-PUBLICATION-CONTEXT"]},
+      "source": "evidence",
+      "group": "publication",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Replace failure",
+      "evidence": "SELF-PERSIST",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "Does this function return a successful receipt after persist fails?",
+        "criteria_true": "It returns a receipt after a persist error.",
+        "criteria_false": "A persist error stops it from returning a receipt.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 120000,
+        "state_projection": {"code_0":"/prior/0/observation/fields/captures/0/text","code_1":"/prior/0/observation/fields/captures/1/text","code_2":"/prior/0/observation/fields/captures/2/text","code_3":"/prior/0/observation/fields/captures/3/text","code_4":"/prior/0/observation/fields/captures/4/text","code_5":"/prior/0/observation/fields/captures/5/text","code_6":"/prior/0/observation/fields/captures/6/text","code_7":"/prior/0/observation/fields/captures/7/text","credentials":"/prior/1/observation/fields/captures/0/text","policy":"/parts/1/text","context":{"pointer":"/prior/2/observation/fields/context","optional":true}}
+      },
+      "applicability": {
+        "include": [
+          "publication"
+        ],
+        "exclude": []
+      },
+      "falsifier": "It returns a receipt after a persist error.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      }
+    },
+    {
+      "id": "SELF-ACK",
+      "revision": "3",
+      "consult": {"rules":["SELF-PUBLICATION-SYNTAX","SELF-CREDENTIAL-SYNTAX","SELF-PUBLICATION-CONTEXT"]},
+      "source": "evidence",
+      "group": "publication",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Acknowledgment failure",
+      "evidence": "SELF-ACK",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "Does this function return a successful receipt if the publication acknowledgment check fails?",
+        "criteria_true": "It returns a receipt despite the failed check.",
+        "criteria_false": "The failed check stops it from returning a receipt.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 120000,
+        "state_projection": {"code_0":"/prior/0/observation/fields/captures/0/text","code_1":"/prior/0/observation/fields/captures/1/text","code_2":"/prior/0/observation/fields/captures/2/text","code_3":"/prior/0/observation/fields/captures/3/text","code_4":"/prior/0/observation/fields/captures/4/text","code_5":"/prior/0/observation/fields/captures/5/text","code_6":"/prior/0/observation/fields/captures/6/text","code_7":"/prior/0/observation/fields/captures/7/text","credentials":"/prior/1/observation/fields/captures/0/text","policy":"/parts/1/text","context":{"pointer":"/prior/2/observation/fields/context","optional":true}}
+      },
+      "applicability": {
+        "include": [
+          "publication"
+        ],
+        "exclude": []
+      },
+      "falsifier": "It returns a receipt despite the failed check.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      }
+    },
+    {
+      "id": "SELF-INPUTS",
+      "revision": "3",
+      "consult": {"rules":["SELF-PUBLICATION-SYNTAX","SELF-CREDENTIAL-SYNTAX","SELF-PUBLICATION-CONTEXT"]},
+      "source": "evidence",
+      "group": "publication",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Protected baseline",
+      "evidence": "SELF-INPUTS",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "Is the baseline file omitted from the destination-overlap check?",
+        "criteria_true": "The baseline file is not checked.",
+        "criteria_false": "The baseline file is checked.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 120000,
+        "state_projection": {"code_0":"/prior/0/observation/fields/captures/0/text","code_1":"/prior/0/observation/fields/captures/1/text","code_2":"/prior/0/observation/fields/captures/2/text","code_3":"/prior/0/observation/fields/captures/3/text","code_4":"/prior/0/observation/fields/captures/4/text","code_5":"/prior/0/observation/fields/captures/5/text","code_6":"/prior/0/observation/fields/captures/6/text","code_7":"/prior/0/observation/fields/captures/7/text","credentials":"/prior/1/observation/fields/captures/0/text","policy":"/parts/1/text","context":{"pointer":"/prior/2/observation/fields/context","optional":true}}
+      },
+      "applicability": {
+        "include": [
+          "publication"
+        ],
+        "exclude": []
+      },
+      "falsifier": "The baseline file is not checked.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      }
+    },
+    {
+      "id": "SELF-SOURCE-INPUT",
+      "revision": "3",
+      "consult": {"rules":["SELF-PUBLICATION-SYNTAX","SELF-CREDENTIAL-SYNTAX","SELF-PUBLICATION-CONTEXT"]},
+      "source": "evidence",
+      "group": "publication",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Protected source inputs",
+      "evidence": "SELF-SOURCE-INPUT",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "Are the snapshot's input paths omitted from the destination-overlap check?",
+        "criteria_true": "The snapshot's input paths are not checked.",
+        "criteria_false": "The snapshot's input paths are checked.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 120000,
+        "state_projection": {"code_0":"/prior/0/observation/fields/captures/0/text","code_1":"/prior/0/observation/fields/captures/1/text","code_2":"/prior/0/observation/fields/captures/2/text","code_3":"/prior/0/observation/fields/captures/3/text","code_4":"/prior/0/observation/fields/captures/4/text","code_5":"/prior/0/observation/fields/captures/5/text","code_6":"/prior/0/observation/fields/captures/6/text","code_7":"/prior/0/observation/fields/captures/7/text","credentials":"/prior/1/observation/fields/captures/0/text","policy":"/parts/1/text","context":{"pointer":"/prior/2/observation/fields/context","optional":true}}
+      },
+      "applicability": {
+        "include": [
+          "publication"
+        ],
+        "exclude": []
+      },
+      "falsifier": "The snapshot's input paths are not checked.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      }
+    },
+    {
+      "id": "SELF-KNOWN-ANSWERS",
+      "revision": "3",
+      "consult": {"rules":["SELF-PUBLICATION-SYNTAX","SELF-CREDENTIAL-SYNTAX","SELF-PUBLICATION-CONTEXT"]},
+      "source": "evidence",
+      "group": "publication",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Protected known-answer inputs",
+      "evidence": "SELF-KNOWN-ANSWERS",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "Are the rule's known-answer files omitted from the destination-overlap check?",
+        "criteria_true": "The known-answer files are not checked.",
+        "criteria_false": "The known-answer files are checked.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 120000,
+        "state_projection": {"code_0":"/prior/0/observation/fields/captures/0/text","code_1":"/prior/0/observation/fields/captures/1/text","code_2":"/prior/0/observation/fields/captures/2/text","code_3":"/prior/0/observation/fields/captures/3/text","code_4":"/prior/0/observation/fields/captures/4/text","code_5":"/prior/0/observation/fields/captures/5/text","code_6":"/prior/0/observation/fields/captures/6/text","code_7":"/prior/0/observation/fields/captures/7/text","credentials":"/prior/1/observation/fields/captures/0/text","policy":"/parts/1/text","context":{"pointer":"/prior/2/observation/fields/context","optional":true}}
+      },
+      "applicability": {
+        "include": [
+          "publication"
+        ],
+        "exclude": []
+      },
+      "falsifier": "The known-answer files are not checked.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      }
+    },
+    {
+      "id": "SELF-MOCK-INPUT",
+      "revision": "3",
+      "consult": {"rules":["SELF-PUBLICATION-SYNTAX","SELF-CREDENTIAL-SYNTAX","SELF-PUBLICATION-CONTEXT"]},
+      "source": "evidence",
+      "group": "publication",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Protected mock input",
+      "evidence": "SELF-MOCK-INPUT",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "Is the mock-response file omitted from the destination-overlap check?",
+        "criteria_true": "The mock-response file is not checked.",
+        "criteria_false": "The mock-response file is checked.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 120000,
+        "state_projection": {"code_0":"/prior/0/observation/fields/captures/0/text","code_1":"/prior/0/observation/fields/captures/1/text","code_2":"/prior/0/observation/fields/captures/2/text","code_3":"/prior/0/observation/fields/captures/3/text","code_4":"/prior/0/observation/fields/captures/4/text","code_5":"/prior/0/observation/fields/captures/5/text","code_6":"/prior/0/observation/fields/captures/6/text","code_7":"/prior/0/observation/fields/captures/7/text","credentials":"/prior/1/observation/fields/captures/0/text","policy":"/parts/1/text","context":{"pointer":"/prior/2/observation/fields/context","optional":true}}
+      },
+      "applicability": {
+        "include": [
+          "publication"
+        ],
+        "exclude": []
+      },
+      "falsifier": "The mock-response file is not checked.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      }
+    },
+    {
+      "id": "SELF-KEY-INPUT",
+      "revision": "3",
+      "consult": {"rules":["SELF-PUBLICATION-SYNTAX","SELF-CREDENTIAL-SYNTAX","SELF-PUBLICATION-CONTEXT"]},
+      "source": "evidence",
+      "group": "publication",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Protected credential file",
+      "evidence": "SELF-KEY-INPUT",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "Is the credential file omitted from the destination-overlap check?",
+        "criteria_true": "The credential file is not checked.",
+        "criteria_false": "The credential file is checked.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 120000,
+        "state_projection": {"code_0":"/prior/0/observation/fields/captures/0/text","code_1":"/prior/0/observation/fields/captures/1/text","code_2":"/prior/0/observation/fields/captures/2/text","code_3":"/prior/0/observation/fields/captures/3/text","code_4":"/prior/0/observation/fields/captures/4/text","code_5":"/prior/0/observation/fields/captures/5/text","code_6":"/prior/0/observation/fields/captures/6/text","code_7":"/prior/0/observation/fields/captures/7/text","credentials":"/prior/1/observation/fields/captures/0/text","policy":"/parts/1/text","context":{"pointer":"/prior/2/observation/fields/context","optional":true}}
+      },
+      "applicability": {
+        "include": [
+          "publication"
+        ],
+        "exclude": []
+      },
+      "falsifier": "The credential file is not checked.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      }
+    },
+    {
+      "id": "SELF-JSON",
+      "revision": "3",
+      "consult": {"rules":["SELF-JSON-SYNTAX","SELF-JSON-CONTEXT"]},
+      "source": "evidence",
+      "group": "validation",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Duplicate JSON keys",
+      "evidence": "SELF-JSON",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "Does this JSON visitor accept duplicate object keys?",
+        "criteria_true": "It accepts duplicate keys.",
+        "criteria_false": "It rejects duplicate keys.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 120000,
+        "state_projection": {"code_0":"/prior/0/observation/fields/captures/0/text","code_1":"/prior/0/observation/fields/captures/1/text","policy":"/parts/1/text","context":{"pointer":"/prior/1/observation/fields/context","optional":true}}
+      },
+      "applicability": {
+        "include": [
+          "json"
+        ],
+        "exclude": []
+      },
+      "falsifier": "It accepts duplicate keys.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      }
+    }
+  ],
+  "profiles": [
+    {
+      "id": "all",
+      "select": [
+        "*"
+      ],
+      "block_on": [
+        "fail",
+        "review",
+        "error",
+        "not_evaluated"
+      ],
+      "allowed_egress": [
+        "https://api.typesafe.ai",
+        "loopback"
+      ]
+    },
+    {
+      "id": "provider",
+      "select": [
+        "provider/*"
+      ],
+      "block_on": [
+        "fail",
+        "review",
+        "error",
+        "not_evaluated"
+      ],
+      "allowed_egress": [
+        "https://api.typesafe.ai",
+        "loopback"
+      ]
+    },
+    {
+      "id": "completion",
+      "select": [
+        "completion/*"
+      ],
+      "block_on": [
+        "fail",
+        "review",
+        "error",
+        "not_evaluated"
+      ],
+      "allowed_egress": [
+        "https://api.typesafe.ai",
+        "loopback"
+      ]
+    },
+    {
+      "id": "publication",
+      "select": [
+        "publication/*"
+      ],
+      "block_on": [
+        "fail",
+        "review",
+        "error",
+        "not_evaluated"
+      ],
+      "allowed_egress": [
+        "https://api.typesafe.ai",
+        "loopback"
+      ]
+    },
+    {
+      "id": "validation",
+      "select": [
+        "validation/*"
+      ],
+      "block_on": [
+        "fail",
+        "review",
+        "error",
+        "not_evaluated"
+      ],
+      "allowed_egress": [
+        "https://api.typesafe.ai",
+        "loopback"
+      ]
+    }
+  ]
+}

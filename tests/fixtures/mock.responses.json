@@ -1,0 +1,10 @@
+{
+  "schema": "auditoad-mock-model/1",
+  "replies": [{
+    "rule": "MOCK-001",
+    "revision": "r1",
+    "evidence_sha256": "106675dc1490d5cdd6d1f0410731316ce93fc964c6cf6726e2b0d53e19688feb",
+    "instructions_sha256": "7e6c95a8c23026eb11c70ce69f87c77044e63f3806db490643bdfd97156b6b1b",
+    "response": { "kind": "probability", "value": 0.01 }
+  }]
+}

@@ -1,0 +1,20 @@
+{
+  "$schema": "../docs/evaluators.schema.json",
+  "schema": "auditoad-evaluators/1",
+  "evaluators": {
+    "local": {
+      "backend": "openai-compatible",
+      "model": "qwen2.5-coder-7b-instruct-q4_k_m",
+      "endpoint": "http://127.0.0.1:8080/v1/chat/completions",
+      "capabilities": ["extract/1"],
+      "max_provider_calls": 100,
+      "max_request_bytes": 120000,
+      "max_output_tokens": 4096,
+      "timeout_seconds": 60
+    }
+  },
+  "roles": {
+    "default": {"off": true},
+    "helper": {"use": "local"}
+  }
+}
