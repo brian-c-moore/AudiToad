@@ -1,15 +1,3 @@
-# Evidence and known-answer checks bind exact bytes on every checkout.
-/examples/disk-encryption/*.json -text
-/examples/shipping-policy/shipping.py -text
-/examples/shipping-policy/policy.md -text
-/tests/fixtures/fixtures/* -text
-/examples/python-review/orders.py -text
-/examples/python-review/policy.md -text
-/examples/no-slop/*.md -text
-/examples/related-events/*.json -text
-/examples/related-events/*.jsonl -text
-/examples/windows-memory/*.json -text
-/examples/windows-memory/*.jsonl -text
-# The self-audit bundle pins exact source bytes across checkout platforms.
-/src/*.rs -text
-/audit/policy.md -text
+# Evidence, known-answer inputs and source packets bind exact file bytes.
+# Preserve those bytes on every platform, including newly added audit inputs.
+* -text
