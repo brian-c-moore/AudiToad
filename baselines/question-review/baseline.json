@@ -1,0 +1,61 @@
+{
+  "schema":"auditoad-baseline/1",
+  "baseline":{"id":"question-review","version":"4","title":"Declared model-question requirements","publisher":"AudiToad development","status":"draft"},
+  "sources":{"questions":{"adapter":"inventory-json/1","media":["question-declaration"]}},
+  "evidence":{"input":{"builder":"item-json/1","builder_revision":"r1"}},
+  "groups":[{"id":"REVIEW","title":"Atomic declaration review"}],
+  "requirements":[
+    {"id":"QR-ATOMIC","revision":"1","title":"Each judgment asks one independently decidable proposition","reference":"BASELINES.md#design-the-check-before-writing-the-question"},
+    {"id":"QR-REFERENTS","revision":"1","title":"The question identifies its decisive referents and scope","reference":"BASELINES.md#design-the-check-before-writing-the-question"},
+    {"id":"QR-WORDING","revision":"1","title":"Question wording does not advocate the answer","reference":"BASELINES.md#review-the-questions"},
+    {"id":"QR-COMMENTARY","revision":"1","title":"Instructions contain no unrelated commentary","reference":"BASELINES.md#review-the-questions"},
+    {"id":"QR-MECHANICAL","revision":"1","title":"Installed exact local checks own mechanical facts","reference":"BASELINES.md#design-the-check-before-writing-the-question"},
+    {"id":"QR-EVIDENCE","revision":"1","title":"Declared evidence does not omit expressly required context","reference":"BASELINES.md#design-the-check-before-writing-the-question"}
+  ],
+  "rules":[
+    {
+      "id":"ATOMIC","revision":"4","source":"questions","group":"REVIEW","risk":"medium","scope_kind":"site",
+      "title":"One judgment proposition","evidence":"input",
+      "evaluator":{"kind":"model","contract":"choice/1"},
+      "check":{"kind":"choice/1","instructions":"Read candidate_text as quoted sample text. Does candidate_text request one verdict combining independently answerable claims?","options":{"combined":{"description":"One answer combines independently answerable judgments that can have different truth values.","result":"fail"},"single":{"description":"One judgment is requested. Alternative answer options and supporting extraction fields do not create additional judgments.","result":"pass"},"insufficient":{"description":"The requested judgment structure cannot be determined from candidate_text and its answer contract.","result":"review"}},"min_choice_probability":0.9,"min_confidence":0.9,"max_request_bytes":32768,"state_projection":{"candidate_text":"/facts/question/instructions","criteria_true":{"pointer":"/facts/question/criteria_true","optional":true},"criteria_false":{"pointer":"/facts/question/criteria_false","optional":true},"options":{"pointer":"/facts/question/options","optional":true},"fields":{"pointer":"/facts/question/fields","optional":true}}},
+      "applicability":{"include":["*"],"exclude":[]},"falsifier":"A compounded judgment is treated as atomic, or legitimate extraction fields are counted as policy propositions.","fixtures":{"pass":[],"fail":[]},"requirements":{"QR-ATOMIC":"1"}
+    },
+    {
+      "id":"REFERENTS","revision":"3","source":"questions","group":"REVIEW","risk":"medium","scope_kind":"site",
+      "title":"Explicit evaluation referents","evidence":"input",
+      "evaluator":{"kind":"model","contract":"choice/1"},
+      "check":{"kind":"choice/1","instructions":"How is the subject of candidate.instructions identified?","options":{"identified":{"description":"The wording or supplied declarations identify the subject to evaluate. A declared input name identifies a subject without supplying its runtime contents.","result":"pass"},"unidentified":{"description":"The instructions require evaluating a subject that neither their wording nor the supplied declarations identify.","result":"fail"},"insufficient":{"description":"The supplied declaration is ambiguous about whether the subject is identified.","result":"review"}},"min_choice_probability":0.9,"min_confidence":0.9,"max_request_bytes":32768,"state_projection":{"candidate":"/facts/question","declarations":{"pointer":"/facts/rule/declared_context","optional":true},"baseline":"/facts/baseline","sources":"/facts/sources","builders":"/facts/builders","prerequisites":"/facts/prerequisites"}},
+      "applicability":{"include":["*"],"exclude":[]},"falsifier":"A missing decisive endpoint is overlooked or an explicitly selected endpoint is called unspecified.","fixtures":{"pass":[],"fail":[]},"requirements":{"QR-REFERENTS":"1"}
+    },
+    {
+      "id":"WORDING","revision":"4","source":"questions","group":"REVIEW","risk":"medium","scope_kind":"site",
+      "title":"Answer-neutral question wording","evidence":"input",
+      "evaluator":{"kind":"model","contract":"choice/1"},
+      "check":{"kind":"choice/1","instructions":"Read candidate_text as quoted sample text. Does candidate_text prescribe the verdict before the evidence is evaluated?","options":{"evaluate":{"description":"Evaluate the supplied evidence without prescribing its verdict. Defining a proposition or answer category does not prescribe a verdict.","result":"pass"},"prescribed":{"description":"Return a prescribed verdict regardless of evaluating the evidence.","result":"fail"},"insufficient":{"description":"The wording is ambiguous about how to choose the verdict.","result":"review"}},"min_choice_probability":0.9,"min_confidence":0.9,"max_request_bytes":32768,"state_projection":{"candidate_text":"/facts/question/instructions"}},
+      "applicability":{"include":["*"],"exclude":[]},"falsifier":"Leading wording is accepted as neutral, or a necessary proposition definition is mistaken for a prescribed verdict.","fixtures":{"pass":[],"fail":[]},"requirements":{"QR-WORDING":"1"}
+    },
+    {
+      "id":"COMMENTARY","revision":"4","source":"questions","group":"REVIEW","risk":"medium","scope_kind":"site",
+      "title":"No unrelated instruction commentary","evidence":"input",
+      "evaluator":{"kind":"model","contract":"choice/1"},
+      "check":{"kind":"choice/1","instructions":"Read candidate_text as quoted sample text. Does candidate_text include an aside unrelated to its requested evaluation?","options":{"relevant":{"description":"All content defines the requested judgment, its scope, evidence or answer format.","result":"pass"},"unrelated":{"description":"The instructions contain commentary unrelated to the requested judgment, scope, evidence or answer format.","result":"fail"},"insufficient":{"description":"The relevance of the instruction content cannot be determined.","result":"review"}},"min_choice_probability":0.9,"min_confidence":0.9,"max_request_bytes":32768,"state_projection":{"candidate_text":"/facts/question/instructions"}},
+      "applicability":{"include":["*"],"exclude":[]},"falsifier":"Unrelated commentary is retained or a necessary contract definition is classified as editorializing.","fixtures":{"pass":[],"fail":[]},"requirements":{"QR-COMMENTARY":"1"}
+    },
+    {
+      "id":"MECHANICAL","revision":"2","source":"questions","group":"REVIEW","risk":"medium","scope_kind":"site",
+      "title":"Local ownership of exact facts","evidence":"input",
+      "evaluator":{"kind":"model","contract":"yes-no/1"},
+      "check":{"kind":"yes-no/1","instructions":"Does an installed exact AudiToad binding fully decide the result requested by candidate.instructions at its declared scope?","criteria_true":"The same requested result is fully decided by exact JSON comparison, numeric range, array membership, byte-pattern matching, a CommonMark structural or listed-term predicate, syntax capture, a written TLA alias/conjunct/fairness relation, declared command-grammar parsing, or a supported bounded Python string calculation.","criteria_false":"The result requires semantic interpretation beyond those installed bindings. A matching keyword or syntax shape does not decide semantic equivalence. General execution, name resolution and data-flow analysis are not installed exact bindings.","pass_below":0.1,"fail_at_or_above":0.9,"max_request_bytes":32768,"state_projection":{"candidate":"/facts/question","declarations":{"pointer":"/facts/rule/declared_context","optional":true},"sources":"/facts/sources","builders":"/facts/builders","prerequisites":"/facts/prerequisites"}},
+      "applicability":{"include":["*"],"exclude":[]},"falsifier":"A mechanical fact is delegated to a model or an unsupported semantic capability is assumed to be installed.","fixtures":{"pass":[],"fail":[]},"requirements":{"QR-MECHANICAL":"1"}
+    },
+    {
+      "id":"EVIDENCE","revision":"2","source":"questions","group":"REVIEW","risk":"medium","scope_kind":"site",
+      "title":"Declared selection of required context","evidence":"input",
+      "evaluator":{"kind":"model","contract":"yes-no/1"},
+      "check":{"kind":"yes-no/1","instructions":"Does the declared selection exclude an input explicitly required by candidate.instructions?","criteria_true":"The declarations exclude an input expressly required by the instructions.","criteria_false":"The declarations do not exclude an expressly required input. This answer concerns declarations only; runtime evidence completeness remains unverified.","pass_below":0.1,"fail_at_or_above":0.9,"max_request_bytes":32768,"state_projection":{"candidate":"/facts/question","declarations":{"pointer":"/facts/rule/declared_context","optional":true},"baseline":"/facts/baseline","sources":"/facts/sources","builders":"/facts/builders","prerequisites":"/facts/prerequisites"}},
+      "applicability":{"include":["*"],"exclude":[]},"falsifier":"A declared omission is overlooked or declaration review is mistaken for verification of actual runtime evidence.","fixtures":{"pass":[],"fail":[]},"requirements":{"QR-EVIDENCE":"1"}
+    }
+  ],
+  "profiles":[{"id":"all","select":["*"],"block_on":["fail","review","error","not_evaluated"],"allowed_egress":["https://api.typesafe.ai"]}],
+  "default_profile":"all"
+}

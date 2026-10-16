@@ -20,32 +20,52 @@ aliases, imports, dynamic calls, types or runtime reachability. Rust macros rema
 the selected Rust query does not match method or macro invocations. A complete query can
 legitimately return no matches without proving that the program has no relevant behavior.
 
-To prepare the Python question using its helper:
+The optional `review` profile compares two source identifiers locally:
 
 ```console
-auditoad scan --baseline baseline.json --profile review --input inputs.json --report prepared.json
+auditoad scan --baseline baseline.json --profile review --input inputs.json --report review-report.json
 ```
 
-The question receives the full Python source and exact captures. It asks only whether the
-displayed argument is the enclosing parameter. It does not establish exploitability or which
-runtime function `open` names. With an evaluator configured, add `--evaluators ../evaluators.json
---live` to ask it. The evaluator and model are operator choices; this is an authoring example,
-not a measured accuracy claim.
+Its dedicated syntax query selects a function with one plain identifier parameter and a
+direct top-level return of `open(identifier, ...)` or a method call on that expression.
+It captures the parameter, callee and first argument in source order and requires the callee
+spelling `open`. Each candidate parameter/call pair retains three captures, so the limit
+refuses multiple plain parameters or matching calls. Missing, malformed or
+unsupported shapes supply no comparison operands and remain `not_evaluated`.
+`PY-PATH` uses `json-pointer-compare/1` to compare the parameter and argument spellings.
+Equal spellings produce `fail` and different spellings produce `pass`: the positive predicate
+is being demonstrated, not a vulnerability finding. This proves neither unchanged parameter
+value nor runtime name binding. A parameter may have been reassigned, and `open` may name
+something other than the built-in function. The default Python helper remains unchanged.
 
-`consult` adds a helper's committed observation under `prior`. This question requires the
-capture field, so malformed syntax or helper refusal prevents the model call. Other baselines
-can declare optional helper fields and keep missing evidence explicit.
+`consult` adds the dedicated helper's committed observation under `prior`. The pinned
+`python-identifiers-*.json` fixtures check the comparison consumer's equal and unequal cases;
+they are declared observations, not independently parsed source receipts.
 
-The `formal` profile prepares one question about whether the displayed `Spec` definition
-directly refers to `Progress`. Its TLA+ helper supplies the exact operator names and bodies:
+The `formal` profile checks one narrower written TLA+ relationship locally: whether the
+declared reference is a positive conjunct of the declared zero-argument top-level definition:
 
 ```console
-auditoad scan --baseline baseline.json --profile formal --input inputs.json --report formal-prepared.json
+auditoad scan --baseline baseline.json --profile formal --input inputs.json --report formal-report.json
 ```
 
-This is one source relationship, not a liveness check. The helper does not read TLC
-configurations, resolve module instances or prove TLAPS obligations. An unused fairness
-definition cannot establish fairness of the selected specification. The Rust helper also
-does not parse the contents of `verus!` into a Verus proof tree.
+`tlaplus-operands.json` supplies the singleton operand object, currently `Spec` and `Progress`.
+The collection relates that complete JSON document to the unchanged TLA+ source. An array,
+missing peer, missing name or malformed name cannot supply the required operands and refuses
+evaluation. An unavailable peer is an evidence-preparation `error`; a supplied object with
+missing or malformed names remains `not_evaluated`. The parser also refuses duplicate
+selected definitions and parameterized operators.
+The pinned positive and negative fixtures distinguish `/\` from `\/`. The current source
+matches and produces `fail` because the check declares `fail_when: true` for this relationship.
+
+This is written syntax, not a general direct-reference or liveness check. It does not expand
+aliases, resolve module instances, read TLC configurations or prove TLAPS obligations. An
+unused fairness definition cannot establish fairness of a selected specification. The Rust
+helper does not parse the contents of `verus!` into a Verus proof tree.
+
+All three profiles make zero provider calls and permit no egress. They exit 2 because this
+baseline is a draft. The supplied `formal` demonstration has one deterministic `fail` and
+no syntax-only prerequisite; `review` also retains its syntax helper's `not_evaluated`
+alongside the local comparison's `fail`. Neither profile makes a model-accuracy claim.
 
 See [syntax helper authoring](../../BASELINES.md#use-syntax-helpers) for limits and coverage.

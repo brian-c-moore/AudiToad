@@ -20,6 +20,8 @@ other event schemas and command forms require their own validation.
 | `inputs.json` | Names that file and its format |
 | `baseline.json` | The local checks, the model question, their combinations and input summaries |
 | `known-pass.json`, `known-fail-*.json` | Known-answer records for the local checks |
+| `labels.json` | Reviewed expectations for 552 event decisions and three input summaries |
+| `v2.score.json` | Retained version-2 score, with report and evidence hashes and no raw event or provider payloads |
 | `LICENSE-OTRF.txt` | The dataset's MIT license and attribution |
 
 ## Run
@@ -38,6 +40,7 @@ file to use another model:
 
 ```console
 auditoad scan --baseline baseline.json --profile all --source logs --input inputs.json --evaluators ../evaluators.json --live --max-provider-calls 2 --provider-timeout-seconds 10 --report report.json
+auditoad score --report report.json --labels labels.json --max-input-bytes 67108864
 ```
 
 The run makes two requests, one for each process-creation event in this capture. Each request
@@ -92,12 +95,28 @@ answer would look accurate as a percentage while missing every requested signal.
 
 ## Recorded results
 
-With version 2, a preparation run with no model finds all six LSASS read-access records and the
-one `.dmp` creation from local checks alone, with no false alarms, and selects exactly the two
-process-creation records that carry the dump commands. The model's two answers have not yet
-been recorded.
+The retained version-2 run used Jev `jev-1.13.0` for the two selected command lines. Both
+answers were 0.98. Local checks supplied the access and file predicates; the final combinations
+matched **552/552 event labels**, with nine true positives, 543 true negatives, no wrong
+decisions and no unresolved event decisions. All three input summaries also matched their
+positive labels. These are experimental suggestions, not admitted audit decisions.
 
-Version 1 of this baseline asked a model all three questions about every record. Two live runs matched **485/552** and **484/552 answers (87.9% and 87.7%)**, with 67 and 68 reviews
+| Version-2 event check | Correct positive | Correct negative | Wrong | Unresolved |
+|---|---:|---:|---:|---:|
+| `DUMP-COMMAND` | 2 | 182 | 0 | 0 |
+| `LSASS-MEMORY-ACCESS` | 6 | 178 | 0 | 0 |
+| `DUMP-FILE` | 1 | 183 | 0 | 0 |
+| Event total | 9 | 543 | 0 | 0 |
+
+[v2.score.json](v2.score.json) records all 555 labelled decisions separately, including the
+three input summaries. It was produced by `auditoad score` from the retained original report,
+whose SHA-256 is `e4ae80fd448e19f2ce36cc866a9f9a4a0283a2f443f34a11b988ffd0452be97f`.
+The score contains report/evidence identities and decisions; the full retained report is private.
+Use the score command above to check a fresh report against the same [labels.json](labels.json).
+This result concerns one capture, including two provider observations of the same command;
+it does not estimate detection accuracy across Windows attacks.
+
+Historical version 1 asked a model all three questions about every record. Two live runs matched **485/552** and **484/552 answers (87.9% and 87.7%)**, with 67 and 68 reviews
 and no wrong resolved answers. All three input summaries resolved correctly in the second run.
 The table below shows the first run.
 All nine positive labels were found. These counts describe one capture, with repeated observations

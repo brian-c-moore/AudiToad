@@ -12,13 +12,15 @@ categories = ["command-line-utilities", "development-tools"]
 license = "MIT OR Apache-2.0"
 build = "build.rs"
 include = [
-    "src/**", "tests/**", "docs/**", "vendor/tree-sitter-verus/**", "build.rs",
+    "src/**", "tests/**", "docs/**", "baselines/**", "vendor/tree-sitter-verus/**", "build.rs",
     "examples/README.md", "examples/*/*.md", "examples/*/*.py",
     "examples/evaluators.json", "examples/evaluators.local.json",
     "examples/evaluators.helpers.json",
-    "examples/audit.json", "examples/*/labels.json",
+    "examples/audit.json", "examples/*/labels.json", "examples/*/*.labels.json", "examples/*/*.score.json",
     "examples/*/baseline.json", "examples/*/bundle.json", "examples/*/observations.json",
+    "examples/web-security/benchmark*.json",
     "examples/no-slop/punctuation.baseline.json",
+    "examples/no-slop/phrase-fixtures/*.json",
     "examples/no-slop/local-checks-pass.json", "examples/no-slop/local-checks-fail.json",
     "examples/related-events/inputs.json", "examples/related-events/dns.jsonl",
     "examples/related-events/processes.json", "examples/related-events/allowlist.json",
@@ -28,6 +30,8 @@ include = [
     "examples/windows-memory/inputs.json", "examples/windows-memory/events.jsonl",
     "examples/windows-memory/LICENSE-OTRF.txt", "examples/windows-memory/known-*.json",
     "examples/language-helpers/inputs.json", "examples/language-helpers/example.bash",
+    "examples/language-helpers/tlaplus-operands.json",
+    "examples/language-helpers/tla-conjunct-*.json", "examples/language-helpers/python-identifiers-*.json",
     "examples/language-helpers/example.zsh", "examples/language-helpers/example.ps1",
     "examples/language-helpers/example.rs",
     "examples/language-helpers/example.tla",
@@ -42,7 +46,7 @@ include = [
     "examples/disk-encryption/inventory.json",
     "examples/disk-encryption/encrypted.json", "examples/disk-encryption/unencrypted.json",
     "examples/scanner-policy/*.json",
-    "audit/*.md", "audit/baseline.json", "audit/bundle.json", "audit/observations.json",
+    "audit/*.md", "audit/baseline.json", "audit/bundle.json", "audit/observations.json", "audit/labels.json", "audit/*.score.json",
     "Cargo.toml", "Cargo.lock", "rust-toolchain.toml", ".cargo/config.toml",
     "README.md", "BASELINES.md", "ROADMAP.md", "CHANGELOG.md", "CONTRIBUTING.md", "LICENSE-*",
 ]

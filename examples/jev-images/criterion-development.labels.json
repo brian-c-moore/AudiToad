@@ -1,0 +1,12 @@
+{
+  "schema": "auditoad-labels/1",
+  "dataset": {
+    "id": "jev-native-image-criterion",
+    "revision": "jev-native-images-v2",
+    "split": "development",
+    "notes": "Fixed before the revised question's first call: the retained image shows a red ceramic mug on the left, so option_a is the expected choice and its mapped decision is pass. Only IMAGE-CRITERIA is scored. The original visual scene, version-1 question labels and Box edge intervals remain in labels.json; original image SHA-256 7c680de82a55ea662609e880c0bbe2e6bd4cc7b7b53398c362f9955a711371c3."
+  },
+  "labels": [
+    {"rule":"IMAGE-CRITERIA","packet":"mug-and-book","violation":false}
+  ]
+}

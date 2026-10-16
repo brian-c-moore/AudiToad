@@ -176,7 +176,7 @@ fn reuse_sources<'a>(definition: &'a RunDefinition, options: &'a RunOptions) -> 
         .unwrap_or_default()
 }
 
-fn load(definition: &RunDefinition, options: &RunOptions) -> Result<Loaded, ScanError> {
+fn validate_options(options: &RunOptions) -> Result<(), ScanError> {
     if options
         .timeout_seconds
         .is_some_and(|value| !(1..=120).contains(&value))
@@ -185,6 +185,11 @@ fn load(definition: &RunDefinition, options: &RunOptions) -> Result<Loaded, Scan
             "provider timeout must be 1..120 seconds",
         ));
     }
+    Ok(())
+}
+
+fn load(definition: &RunDefinition, options: &RunOptions) -> Result<Loaded, ScanError> {
+    validate_options(options)?;
     let baseline =
         ValidatedBaseline::from_file_with_limit(&definition.baseline, options.max_baseline_bytes)?;
     if baseline.content.baseline.status == Admission::Retired {
@@ -235,6 +240,17 @@ fn load(definition: &RunDefinition, options: &RunOptions) -> Result<Loaded, Scan
         )?,
         adapter => Snapshot::from_file(adapter, &definition.input, &options.limits)?,
     };
+    load_bound(definition, options, baseline, snapshot, profile, source)
+}
+
+fn load_bound(
+    definition: &RunDefinition,
+    options: &RunOptions,
+    baseline: ValidatedBaseline,
+    snapshot: Snapshot,
+    profile: String,
+    source: String,
+) -> Result<Loaded, ScanError> {
     let environment = std::env::var_os("AUDITOAD_EVALUATORS").map(PathBuf::from);
     let evaluator_path = options
         .evaluators
@@ -312,6 +328,32 @@ pub fn run_one(
         ));
     }
     let loaded = load(definition, options)?;
+    scan_to_file_with_preparation(
+        loaded.request(options),
+        &definition.report,
+        loaded.evaluators.as_ref(),
+        preparation,
+        progress,
+    )
+}
+
+/// Static application wiring for an already frozen domain input and installed baseline.
+/// Evaluators, consent, ceilings and reuse follow the same loader as file-based scans.
+pub(crate) fn run_bound(
+    definition: &RunDefinition,
+    options: &RunOptions,
+    baseline: ValidatedBaseline,
+    snapshot: Snapshot,
+    preparation: impl FnMut(&Preparation),
+    progress: impl FnMut(&Record),
+) -> Result<PublishedScan, ScanError> {
+    validate_options(options)?;
+    let profile = baseline.profile(definition.profile.as_deref())?.to_owned();
+    let source = definition
+        .source
+        .clone()
+        .ok_or_else(|| ScanError::invalid("bound scan requires a source alias"))?;
+    let loaded = load_bound(definition, options, baseline, snapshot, profile, source)?;
     scan_to_file_with_preparation(
         loaded.request(options),
         &definition.report,

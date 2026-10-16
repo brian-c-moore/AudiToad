@@ -9,20 +9,34 @@ The two articles answer the same operational request. One contains examples of t
 writing patterns; the other is a shorter comparison. Neither article contains comments or
 labels identifying the answers. The brief provides the audience, requested task and known facts.
 
-[The results note](RESULTS.md) maps every rule to its example passage and records the results of
-version 1 of this baseline, which matched 77 of 94 document-level expected answers (81.9%), with
-17 reviews and no wrong answers. Version 2 breaks the whole-article questions that were really
-about individual sentences or paragraphs into per-sentence or per-paragraph questions, and gives
-finding the first requested instruction to a helper. It has not yet been measured.
+[The results note](RESULTS.md) maps each rule to its example passage and keeps historical
+measurements separate from the current version 3 design. Version 1 matched 77 of 94 final
+policy labels, with zero wrong and 17 unresolved. The retained version 2 Jev-only run matched
+71 of 94, with zero wrong and 23 unresolved. Those observations concern their original
+questions, evidence and decision policies.
+
+Version 3 supplies the reader's brief to the emphasis question, supplies article context to
+the closing-expression question, and distinguishes a bare heading from prose that previews
+later discussion. Literal paired/closing phrase presence and the enumerated role/filler phrases use
+local YARA predicates. Every current yes/no policy uses fixed 0.1/0.9 thresholds, chosen before
+new calls. On 2026-10-16 one development run of the five revised families made 31 Jev calls
+and matched all ten final policy expectations across these two authored articles, with zero
+wrong and zero unresolved. That focused result does not measure all 94 policies or establish
+accuracy on unfamiliar writing; see the [results note](RESULTS.md#current-version-3).
+The shipped [focused version-3 score](v3-focused.score.json) records those ten decisions
+and their source/report identities. Full provider reports remain local output.
 
 | File | Why it is here |
 |---|---|
 | `article-a.md`, `article-b.md` | The prose being audited |
 | `brief.md` | Audience, task and evidence available to the writer |
-| `baseline.json` | 40 semantic questions, one helper task, 26 document summaries and seven exact local checks |
+| `baseline.json` | Semantic questions, optional quotation helper, document combinations and exact local predicates |
 | `bundle.json` | Pairs each article with the brief and pins their hashes |
 | `punctuation.baseline.json` | Exact local implementation of the em-dash limit |
 | `local-checks-pass.json`, `local-checks-fail.json` | Small known-answer inputs for vocabulary, list, bold, sentence-length and em-dash checks |
+| `phrase-fixtures/` | Pinned positive and near-miss inputs for paired, role and filler phrase predicates |
+| `labels.json` | 94 final policy expectations, excluding unit observations and helpers |
+| `revision-3.labels.json` | Ten final policy expectations for the five revised families |
 
 ## Run it
 
@@ -56,14 +70,28 @@ auditoad scan --baseline baseline.json --profile all --source evidence --input b
 ```
 
 Both commands exit 2 because semantic checks remain experimental. The live report keeps each
-probability and suggested result. The seven local checks record a pass or failure,
-including during preparation. Their two known-answer files are sanity checks; the articles are
+probability and suggested result. Local checks record a pass or failure,
+including during preparation. Their pinned known-answer files are controls; the articles are
 the documents being audited. A review or error remains unresolved. You can run one group
 with `--profile grammar`, `paragraphs`, `language`, `structure`, `vocabulary`, `frames`, `words`, `grounding`, `format`, `tone` or `editing` to inspect fewer rules.
-The supplied articles require 1,288 provider calls: one per sentence or paragraph for each
-scoped question, one per article for each whole-article question, and one helper extraction per
-article. With the helper role switched off, as in `evaluators.json`, they require 1,286. Longer articles may require a higher explicit
-call allowance; exhausted allowances remain unresolved.
+The preparation output gives the call ceiling for the selected profile. Local phrase gates
+can settle absent-pattern cases without a model call. The default evaluator file disables the
+optional helper. Longer articles may require a higher explicit allowance; exhausted allowances
+remain unresolved.
+
+The `revision-3` profile isolates the five changed families. Prepare it, inspect its requests,
+then add `--live` for one development observation of the new questions:
+
+```console
+auditoad scan --baseline baseline.json --profile revision-3 --source evidence --input bundle.json --project-root . --evaluators ../evaluators.json --report revision-3.prepared.json
+auditoad scan --baseline baseline.json --profile revision-3 --source evidence --input bundle.json --project-root . --evaluators ../evaluators.json --live --max-provider-calls 143 --provider-timeout-seconds 10 --report revision-3.report.json
+auditoad score --report revision-3.report.json --labels revision-3.labels.json
+```
+
+Use `labels.json` to score all 94 final policies in a complete report. Keep sentence/paragraph
+observations and parent policies separate. A changed threshold alone does not require repeating
+an unchanged model question. Retained responses require the scanner's exact reuse identity;
+an incompatible historical wire identity remains a provenance limitation.
 
 ## How the rules become checks
 
@@ -78,6 +106,11 @@ matched wording and the containing source block. Run it without a provider:
 ```console
 auditoad scan --baseline baseline.json --profile vocabulary --source evidence --input bundle.json --project-root . --report vocabulary.json
 ```
+
+The role and filler phrase predicates instead inspect the selected sentence's original bytes,
+case-insensitively, including quoted or code text in that sentence. They match declared literal
+forms, with word boundaries; they do not infer whether a phrase is appropriate in context.
+The filler predicate accepts straight and curly apostrophes in "let's break it down".
 
 The `structure` profile checks whether the article ends with a recap, previews later content,
 or repeats the reader's request before answering it. Each question receives the complete

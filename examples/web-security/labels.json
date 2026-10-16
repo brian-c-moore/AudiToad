@@ -1,0 +1,25 @@
+{
+  "schema": "auditoad-labels/1",
+  "dataset": {
+    "id": "web-security-handlers",
+    "revision": "4",
+    "split": "development",
+    "notes": "Fourteen expected handler judgments retained from the original example. These authored examples are development cases, not an independent accuracy evaluation."
+  },
+  "labels": [
+    {"rule":"WEB-CODE","packet":"calculate","violation":true},
+    {"rule":"WEB-COMMAND","packet":"ping_host","violation":false},
+    {"rule":"WEB-COOKIE","packet":"remember_theme","violation":true},
+    {"rule":"WEB-DESERIALIZE","packet":"restore_cart","violation":true},
+    {"rule":"WEB-HASH","packet":"fingerprint","violation":false},
+    {"rule":"WEB-LDAP","packet":"find_user","violation":false},
+    {"rule":"WEB-PATH","packet":"read_report","violation":true},
+    {"rule":"WEB-RANDOM","packet":"reset_token","violation":false},
+    {"rule":"WEB-REDIRECT","packet":"continue_to","violation":true},
+    {"rule":"WEB-SQL","packet":"list_orders","violation":false},
+    {"rule":"WEB-TRUST","packet":"login_hint","violation":true},
+    {"rule":"WEB-XPATH","packet":"catalog_lookup","violation":true},
+    {"rule":"WEB-XSS","packet":"greet","violation":true},
+    {"rule":"WEB-XXE","packet":"import_feed","violation":false}
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "schema":"auditoad-labels/1",
+  "dataset":{"id":"related-events-public-example","revision":"2","split":"development","notes":"The same 21 expectations as the original four-event example, already inspected during development. Baseline v2 SHA-256 5ea17c169749b807c125de8c20e71c061a75823ec79f3c15f759e419a6e537ef; inputs.json 0e422b29356091b5072058174de04f9bf6eb5767514f375b565f1d119f6fa311; dns.jsonl 205396f030fa42653eb2a70b8f11fa19c20b87b02277777a39ef0facdbc40b5f; processes.json 959e4bb7abef9605ae8b419598ac385011cc4575b1501d3873d205f9274c6731; allowlist.json cab379ad3a6f140a64c22658a3b5f239ad8dc983bff03062e0da498f5123bd32. Pins identify this authored dataset and are provenance, not scorer-enforced bindings or current semantic acceptance. Positive premises do not by themselves establish compromise. The summary target is the whole DNS input, not its first event."},
+  "labels":[
+    {"rule":"TXT-QUERY","input":"dns","line":1,"violation":true},
+    {"rule":"TXT-QUERY","input":"dns","line":2,"violation":true},
+    {"rule":"TXT-QUERY","input":"dns","line":3,"violation":false},
+    {"rule":"TXT-QUERY","input":"dns","line":4,"violation":true},
+    {"rule":"POWERSHELL-RUNS","input":"dns","line":1,"violation":true},
+    {"rule":"POWERSHELL-RUNS","input":"dns","line":2,"violation":true},
+    {"rule":"POWERSHELL-RUNS","input":"dns","line":3,"violation":true},
+    {"rule":"POWERSHELL-RUNS","input":"dns","line":4,"violation":true},
+    {"rule":"ENCODED-COMMAND","input":"dns","line":1,"violation":true},
+    {"rule":"ENCODED-COMMAND","input":"dns","line":2,"violation":true},
+    {"rule":"ENCODED-COMMAND","input":"dns","line":3,"violation":true},
+    {"rule":"ENCODED-COMMAND","input":"dns","line":4,"violation":false},
+    {"rule":"OUTSIDE-ALLOWLIST","input":"dns","line":1,"violation":true},
+    {"rule":"OUTSIDE-ALLOWLIST","input":"dns","line":2,"violation":false},
+    {"rule":"OUTSIDE-ALLOWLIST","input":"dns","line":3,"violation":true},
+    {"rule":"OUTSIDE-ALLOWLIST","input":"dns","line":4,"violation":true},
+    {"rule":"RELATED-ACTIVITY","input":"dns","line":1,"violation":true},
+    {"rule":"RELATED-ACTIVITY","input":"dns","line":2,"violation":false},
+    {"rule":"RELATED-ACTIVITY","input":"dns","line":3,"violation":false},
+    {"rule":"RELATED-ACTIVITY","input":"dns","line":4,"violation":false},
+    {"rule":"ANY-RELATED-ACTIVITY","target":"collection/scope/0/unit/0","violation":true}
+  ]
+}

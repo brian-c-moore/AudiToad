@@ -15,6 +15,7 @@ pub(crate) enum CompiledCheck {
     Json,
     Markdown,
     Syntax(crate::syntax::CompiledSyntax),
+    PythonConstantString(crate::syntax::CompiledSyntax),
     TlaplusRelation(crate::syntax::CompiledSyntax),
     CommandLine(std::collections::BTreeMap<String, CommandProgram>),
     Mock,
@@ -70,7 +71,8 @@ fn digest(value: &str) -> bool {
 
 fn json_evidence_binding(source: &str, evidence: &str) -> bool {
     source == "inventory-json/1" && evidence == "item-json/1"
-        || source == "evidence-bundle/1" && evidence == "declared-parts/1"
+        || source == "evidence-bundle/1"
+            && matches!(evidence, "declared-parts/1" | "scoped-input/1")
         || crate::scoped::media(source).is_some() && evidence == "scoped-input/1"
 }
 
@@ -533,6 +535,34 @@ impl ValidatedBaseline {
                             .map_err(ScanError::invalid)?,
                     )
                 }
+                Check::PythonConstantString {
+                    json_string_pointer,
+                    query,
+                    limits,
+                } => {
+                    require(
+                        (if let Some(pointer) = json_string_pointer {
+                            pointer_valid(pointer)
+                                && json_evidence_binding(&source.adapter, &evidence.builder)
+                        } else {
+                            source.adapter == "raw-bytes/1" && evidence.builder == "bytes/1"
+                        }) && rule.evaluator.kind == "syntax"
+                            && rule.evaluator.contract == "python-constant-string/1",
+                        "Python constant-string source/evidence/evaluator contract mismatch",
+                    )?;
+                    require(
+                        content.baseline.status == Admission::Draft,
+                        "Python constant-string checks require a draft baseline",
+                    )?;
+                    require(
+                        rule.fixtures.fail.is_empty() && rule.fixtures.pass.is_empty(),
+                        "Python constant-string checks prove only passes; use labelled audit cases",
+                    )?;
+                    CompiledCheck::PythonConstantString(
+                        crate::syntax::CompiledSyntax::python_constant_string(query, limits)
+                            .map_err(ScanError::invalid)?,
+                    )
+                }
                 Check::CommandLine {
                     json_string_pointer,
                     json_array_pointer,
@@ -679,13 +709,7 @@ impl ValidatedBaseline {
                     ..
                 } => {
                     require(
-                        (source.adapter == "evidence-bundle/1"
-                            && matches!(
-                                evidence.builder.as_str(),
-                                "declared-parts/1" | "scoped-input/1"
-                            )
-                            || crate::scoped::media(&source.adapter).is_some()
-                                && evidence.builder == "scoped-input/1")
+                        json_evidence_binding(&source.adapter, &evidence.builder)
                             && rule.evaluator.kind == "model"
                             && rule.evaluator.contract
                                 == match rule.check {
@@ -819,6 +843,7 @@ impl ValidatedBaseline {
                     | CompiledCheck::Model
                     | CompiledCheck::Answers
                     | CompiledCheck::Syntax(_)
+                    | CompiledCheck::PythonConstantString(_)
             ) {
                 require(
                     !rule.fixtures.fail.is_empty() && !rule.fixtures.pass.is_empty(),
@@ -1133,57 +1158,49 @@ fn coverage_graph(content: &Baseline) -> Result<RelationshipGraph, ScanError> {
 fn dependency_graph(content: &Baseline) -> Result<RelationshipGraph, ScanError> {
     let mut graph = RelationshipGraph::new(content.rules.len(), 1);
     for (index, rule) in content.rules.iter().enumerate() {
-        let declared = match (&rule.check, &rule.consult) {
-            (Check::Answers { .. }, Some(_)) => {
-                return Err(ScanError::invalid(
-                    "answer combinations already read their prerequisites; consult applies to evaluated rules",
-                ));
-            }
-            (
-                Check::Answers {
-                    rules,
-                    fail_when,
-                    resolution,
-                    ..
-                },
-                None,
-            ) => {
-                require(
-                    *fail_when != AnswerCombination::FirstResolved
-                        || *resolution == AnswerResolution::AllAnswers,
-                    "first_resolved takes the first decision in order; resolution does not apply",
-                )?;
-                require(
-                    rules.iter().all(|id| {
-                        content.rules.iter().find(|r| r.id == *id).is_none_or(|r| {
-                            !matches!(
-                                r.check,
-                                Check::Extract { .. } | Check::Box { .. } | Check::Syntax { .. }
-                            )
-                        })
+        let mut declared = Vec::new();
+        if let Check::Answers {
+            rules,
+            fail_when,
+            resolution,
+            ..
+        } = &rule.check
+        {
+            require(
+                *fail_when != AnswerCombination::FirstResolved
+                    || *resolution == AnswerResolution::AllAnswers,
+                "first_resolved takes the first decision in order; resolution does not apply",
+            )?;
+            require(
+                rules.iter().all(|id| {
+                    content.rules.iter().find(|r| r.id == *id).is_none_or(|r| {
+                        !matches!(
+                            r.check,
+                            Check::Extract { .. } | Check::Box { .. } | Check::Syntax { .. }
+                        )
+                    })
+                }),
+                "answer combinations combine decisions; an extraction or syntax helper makes none",
+            )?;
+            declared.push(rules);
+        }
+        if let Some(consult) = &rule.consult {
+            require(
+                content
+                    .evidence
+                    .get(&rule.evidence)
+                    .is_some_and(|evidence| {
+                        matches!(
+                            evidence.builder.as_str(),
+                            "scoped-input/1" | "declared-parts/1"
+                        ) || evidence.builder == "answers/1"
+                            && matches!(rule.check, Check::Answers { .. })
                     }),
-                    "answer combinations combine decisions; an extraction or syntax helper makes none",
-                )?;
-                Some(rules)
-            }
-            (_, Some(consult)) => {
-                require(
-                    content
-                        .evidence
-                        .get(&rule.evidence)
-                        .is_some_and(|evidence| {
-                            matches!(
-                                evidence.builder.as_str(),
-                                "scoped-input/1" | "declared-parts/1"
-                            )
-                        }),
-                    "consult requires a JSON evidence frame from scoped-input/1 or declared-parts/1",
-                )?;
-                Some(&consult.rules)
-            }
-            (_, None) => None,
-        };
-        if let Some(rules) = declared {
+                "consult requires scoped-input/1, declared-parts/1 or an answers/1 combination frame",
+            )?;
+            declared.push(&consult.rules);
+        }
+        for rules in declared {
             require(
                 !rules.is_empty(),
                 "answer combination and consult require dependencies",
@@ -1234,9 +1251,11 @@ fn dependency_graph(content: &Baseline) -> Result<RelationshipGraph, ScanError> 
                     },
                     "answer dependencies require compatible automatic units or the same bundle packet scope kind; scope modes cannot be mixed",
                 )?;
-                graph
-                    .add_edge(dependency, index, 1)
-                    .map_err(|e| ScanError::invalid(e.to_string()))?;
+                if !graph.contains(dependency, index) {
+                    graph
+                        .add_edge(dependency, index, 1)
+                        .map_err(|e| ScanError::invalid(e.to_string()))?;
+                }
                 require(
                     graph.contains(dependency, index),
                     "dependency edge witness absent",

@@ -154,6 +154,185 @@ fn ordinary_cli_prepares_a_draft_bundle_without_redundant_flags() -> TestResult 
 #[test]
 #[expect(
     clippy::panic_in_result_fn,
+    reason = "assertions check installed question-review assets and default local preparation from another directory"
+)]
+fn ordinary_cli_reviews_a_baseline_from_an_unrelated_directory() -> TestResult {
+    let dir = directory();
+    let input =
+        Path::new(env!("CARGO_MANIFEST_DIR")).join("examples/shipping-policy/baseline.json");
+    let output = Command::new(env!("CARGO_BIN_EXE_auditoad"))
+        .current_dir(dir.path())
+        .args(["baseline", "review"])
+        .arg(&input)
+        .env_remove("AUDITOAD_EVALUATORS")
+        .output()?;
+    assert_eq!(
+        output.status.code(),
+        Some(2),
+        "{}",
+        String::from_utf8_lossy(&output.stderr)
+    );
+    let report_bytes = fs::read(dir.path().join("review.json"))?;
+    let report: Value = serde_json::from_slice(&report_bytes)?;
+    assert_eq!(report.pointer("/usage/provider_calls"), Some(&json!(0)));
+    let text = String::from_utf8(report_bytes)?;
+    assert!(text.contains("SHIPPING-FREE-THRESHOLD"));
+    assert!(text.contains(&auditoad::sha256(&fs::read(&input)?)));
+    Ok(())
+}
+
+#[test]
+#[expect(
+    clippy::panic_in_result_fn,
+    reason = "assertions check standalone question-set CLI handling and input overwrite refusal"
+)]
+fn ordinary_cli_reviews_a_question_set_and_protects_its_input() -> TestResult {
+    let dir = directory();
+    let input = dir.path().join("questions.json");
+    write(
+        &input,
+        &json!({"schema":"auditoad-question-set/1","id":"chapter-review",
+            "declared_context":{"subject":"one paragraph"},
+            "questions":[{"id":"narrator","instructions":"Does the paragraph identify its narrator?",
+                "criteria_true":"The paragraph identifies its narrator.",
+                "criteria_false":"The paragraph does not identify its narrator."}]}),
+    )?;
+    let original = fs::read(&input)?;
+    let output = Command::new(env!("CARGO_BIN_EXE_auditoad"))
+        .current_dir(dir.path())
+        .args([
+            "baseline",
+            "review",
+            "questions.json",
+            "--report",
+            "result.json",
+        ])
+        .env_remove("AUDITOAD_EVALUATORS")
+        .output()?;
+    assert_eq!(
+        output.status.code(),
+        Some(2),
+        "{}",
+        String::from_utf8_lossy(&output.stderr)
+    );
+    let report: Value = serde_json::from_slice(&fs::read(dir.path().join("result.json"))?)?;
+    assert_eq!(report.pointer("/usage/provider_calls"), Some(&json!(0)));
+    assert!(report.to_string().contains("narrator"));
+    let overwrite = Command::new(env!("CARGO_BIN_EXE_auditoad"))
+        .current_dir(dir.path())
+        .args([
+            "baseline",
+            "review",
+            "questions.json",
+            "--report",
+            "questions.json",
+        ])
+        .env_remove("AUDITOAD_EVALUATORS")
+        .output()?;
+    assert_eq!(overwrite.status.code(), Some(3));
+    assert_eq!(fs::read(&input)?, original);
+    Ok(())
+}
+
+#[test]
+#[expect(
+    clippy::panic_in_result_fn,
+    reason = "assertions check shared operator settings route live consent and bounded input refusal"
+)]
+fn ordinary_cli_review_requires_live_configuration_and_honors_input_ceiling() -> TestResult {
+    let dir = directory();
+    let input =
+        Path::new(env!("CARGO_MANIFEST_DIR")).join("examples/shipping-policy/baseline.json");
+    let live = Command::new(env!("CARGO_BIN_EXE_auditoad"))
+        .current_dir(dir.path())
+        .args(["baseline", "review"])
+        .arg(&input)
+        .args(["--live", "--report", "live.json"])
+        .env_remove("AUDITOAD_EVALUATORS")
+        .output()?;
+    assert_eq!(live.status.code(), Some(3));
+    assert!(!dir.path().join("live.json").exists());
+    let bounded = Command::new(env!("CARGO_BIN_EXE_auditoad"))
+        .current_dir(dir.path())
+        .args(["baseline", "review"])
+        .arg(&input)
+        .args(["--max-input-bytes", "1", "--report", "bounded.json"])
+        .env_remove("AUDITOAD_EVALUATORS")
+        .output()?;
+    assert_eq!(bounded.status.code(), Some(2));
+    assert!(!dir.path().join("bounded.json").exists());
+    Ok(())
+}
+
+#[test]
+#[expect(
+    clippy::panic_in_result_fn,
+    reason = "assertions check review-only explicit egress replacement and disallowed live origin refusal before HTTP"
+)]
+fn ordinary_cli_review_routes_explicit_egress_without_implicit_endpoint_permissions() -> TestResult
+{
+    let dir = directory();
+    let input =
+        Path::new(env!("CARGO_MANIFEST_DIR")).join("examples/shipping-policy/baseline.json");
+    let evaluators = dir.path().join("evaluators.json");
+    for (endpoint, report) in [
+        ("http://127.0.0.1:9/evaluate", "local.json"),
+        ("https://review.example.test/evaluate", "remote.json"),
+    ] {
+        write(
+            &evaluators,
+            &json!({"schema":"auditoad-evaluators/1","evaluators":{
+                "default":{"backend":"auditoad-compatible","model":"review-model","endpoint":endpoint}}}),
+        )?;
+        let output = Command::new(env!("CARGO_BIN_EXE_auditoad"))
+            .current_dir(dir.path())
+            .args(["baseline", "review"])
+            .arg(&input)
+            .arg("--evaluators")
+            .arg(&evaluators)
+            .args([
+                "--allowed-egress",
+                "loopback",
+                "--allowed-egress",
+                "https://review.example.test",
+                "--report",
+                report,
+            ])
+            .env_remove("AUDITOAD_EVALUATORS")
+            .output()?;
+        assert_eq!(
+            output.status.code(),
+            Some(2),
+            "{}",
+            String::from_utf8_lossy(&output.stderr)
+        );
+        let prepared: Value = serde_json::from_slice(&fs::read(dir.path().join(report))?)?;
+        assert_eq!(prepared.pointer("/usage/provider_calls"), Some(&json!(0)));
+    }
+    let refused = Command::new(env!("CARGO_BIN_EXE_auditoad"))
+        .current_dir(dir.path())
+        .args(["baseline", "review"])
+        .arg(&input)
+        .arg("--evaluators")
+        .arg(&evaluators)
+        .args([
+            "--allowed-egress",
+            "loopback",
+            "--live",
+            "--report",
+            "refused.json",
+        ])
+        .env_remove("AUDITOAD_EVALUATORS")
+        .output()?;
+    assert_eq!(refused.status.code(), Some(3));
+    assert!(String::from_utf8_lossy(&refused.stderr).contains("allowed_egress"));
+    assert!(!dir.path().join("refused.json").exists());
+    Ok(())
+}
+
+#[test]
+#[expect(
+    clippy::panic_in_result_fn,
     reason = "assertions check filename-only product inputs from their ordinary working directory"
 )]
 fn filename_only_input_defaults_its_root_to_the_current_directory() -> TestResult {
@@ -485,6 +664,37 @@ fn readable_label_selectors_preserve_missing_cases_and_refuse_ambiguity() -> Tes
         mixed.pointer("/overall/decision_coverage"),
         Some(&json!(2.0 / 3.0))
     );
+    Ok(())
+}
+
+#[test]
+#[expect(
+    clippy::panic_in_result_fn,
+    reason = "assertions check rule isolation, packet metadata, source-name fallback and explicit input precedence"
+)]
+fn readable_label_selectors_keep_rule_isolation_and_input_fallbacks() -> TestResult {
+    let report = json!({"schema":"auditoad-report/2","source":{"metadata":{"name":"events"}},"records":[
+        {"rule":{"id":"R"},"target":{"id":"derived-packet","metadata":{"packet":"case"}},"result":"fail"},
+        {"rule":{"id":"OTHER-PACKET"},"target":{"id":"other-packet","metadata":{"packet":"case"}},"result":"pass"},
+        {"rule":{"id":"E"},"target":{"id":"fallback-line","metadata":{"location":{"line":3}}},"result":"pass"},
+        {"rule":{"id":"E"},"target":{"id":"explicit-line","metadata":{"input":"other-events","location":{"line":3}}},"result":"fail"},
+        {"rule":{"id":"OTHER-LINE"},"target":{"id":"other-line","metadata":{"location":{"line":3}}},"result":"fail"}]});
+    let labels = json!({"schema":"auditoad-labels/1","labels":[
+        {"rule":"R","packet":"case","violation":true},
+        {"rule":"E","input":"events","line":3,"violation":false},
+        {"rule":"ABSENT","packet":"case","violation":false}]});
+    let summary = auditoad::score(report.to_string().as_bytes(), labels.to_string().as_bytes())?;
+    for (pointer, expected) in [
+        ("/overall/correct", json!(2)),
+        ("/overall/unresolved_negative", json!(1)),
+        ("/unlabelled_records", json!(3)),
+        ("/cases/0/target", json!("derived-packet")),
+        ("/cases/1/target", json!("fallback-line")),
+        ("/cases/2/missing", json!(true)),
+        ("/label_coverage_complete", json!(false)),
+    ] {
+        assert_eq!(summary.pointer(pointer), Some(&expected), "{pointer}");
+    }
     Ok(())
 }
 

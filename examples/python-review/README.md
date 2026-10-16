@@ -4,6 +4,14 @@ This example checks ten Python functions against five written requirements. Five
 contain policy violations; five provide comparison cases. The source has no explanatory comments
 or answer labels. AudiToad reads the selected functions as text and does not run them.
 
+The current version-6 Jev development run matched **12 of 14 policy labels**, with zero
+wrong and two unresolved. It made four new calls for the revised list questions and reused
+12 unchanged exchanges, with no execution errors. `shipping_fee` and the combined list
+requirement for `add_message` remain unresolved. The shipped [version-6 policy score](v6.score.json)
+retains every policy decision and its source/report identities. [The results note](RESULTS.md)
+records its hashes and the separate list diagnostics. These are authored development cases;
+the result does not establish accuracy on unfamiliar Python code.
+
 [The results note](RESULTS.md) records 13 matching policy results out of 14, with one review, for
 version 1 of this baseline. Version 2 added Python truthiness context. Version 3 selects
 functions locally by name, adds source-quote helpers and uses the fixed 0.1/0.9 decision
@@ -11,7 +19,14 @@ thresholds. Version 4 requires a selected function before dispatch; an import or
 context cannot satisfy that prerequisite. A retained version 3 Qwen helper-only check returned
 ten valid source quotations with zero errors. Earlier Cisco development runs exposed a refused invented quotation and a wrong
 shipping suggestion; see the results note. Neither observation qualifies policy accuracy.
-Current Jev measurements remain pending. A separate historical test on new
+Version 5 clarifies shipping equality, separates case normalization from whitespace, and
+names two successive omitted-list calls in the list questions. Its Jev-only development run
+matched 12 of the 14 final policy labels, with zero wrong and two unresolved. Four list
+prerequisites are scored separately. Shipped [version-4](v4.score.json) and
+[version-5](v5.score.json) policy scores retain the fourteen decisions and their
+source/report identities. Version 6 specifies completed calls of the unchanged function with
+distinct string arguments, retained results and no caller mutation between calls. It preserves
+the source, expected labels and thresholds. Full provider reports remain local output. A separate historical test on new
 implementations resolved 21 of 24 policy results correctly,
 with two reviews and one wrong answer. The public example alone does not establish accuracy
 on unfamiliar Python code.
@@ -22,6 +37,7 @@ on unfamiliar Python code.
 | `policy.md` | Shipping, discount, decoding, normalization and list-lifetime requirements |
 | `baseline.json` | Function selectors, five quote helpers, eight policy questions and one combination |
 | `bundle.json` | Complete source and policy files, target names and file hashes |
+| `labels.json`, `diagnostic.labels.json` | Final policy expectations and separate list prerequisite diagnostics |
 
 ## Run it
 

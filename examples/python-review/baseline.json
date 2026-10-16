@@ -2,7 +2,7 @@
   "schema": "auditoad-baseline/1",
   "baseline": {
     "id": "python-review",
-    "version": "4",
+    "version": "6",
     "title": "Python order-processing policy audit",
     "publisher": "AudiToad examples",
     "status": "draft"
@@ -172,7 +172,7 @@
       "applicability":{"include":["add_note","add_message"],"exclude":[]},"falsifier":"A lifetime-relevant statement is omitted or a quote is invented.","fixtures":{"pass":[],"fail":[]}},
     {
       "id": "PY-SHIPPING",
-      "revision": "5",
+      "revision": "6",
       "consult": {"rules":["PY-SELECT-SHIPPING","PY-SELECT-EXPRESS","PY-SHIPPING-CONTEXT"]},
       "source": "evidence",
       "group": "orders",
@@ -186,9 +186,9 @@
       },
       "check": {
         "kind": "yes-no/1",
-        "instructions": "The complete selected function is in the populated code_a or code_b field; its requirements are in policy. Context quotes are advisory; check them against the function. In Python comparisons, < and > exclude equality; <= and >= include equality. Does this function charge shipping at the policy's free-shipping threshold?",
-        "criteria_true": "An order exactly at the threshold is charged shipping.",
-        "criteria_false": "Shipping is free for an order exactly at the threshold.",
+        "instructions": "The complete selected function is the populated code_a or code_b field. Read its free-shipping requirement in policy. Context quotations are advisory. Python < and > exclude equality; <= and >= include equality. Does the free-shipping condition exclude an order exactly at the policy's threshold?",
+        "criteria_true": "An order exactly at the threshold is excluded from free shipping.",
+        "criteria_false": "An order exactly at the threshold qualifies for free shipping.",
         "pass_below": 0.1,
         "fail_at_or_above": 0.9,
         "max_request_bytes": 32000,
@@ -384,7 +384,7 @@
     },
     {
       "id": "PY-EMAIL-CASE",
-      "revision": "5",
+      "revision": "6",
       "consult": {"rules":["PY-SELECT-CONTACT","PY-SELECT-BILLING","PY-EMAIL-CONTEXT"]},
       "source": "evidence",
       "group": "normalization",
@@ -398,9 +398,9 @@
       },
       "check": {
         "kind": "yes-no/1",
-        "instructions": "The complete selected function is in the populated code_a or code_b field; its requirements are in policy. Context quotes are advisory; check them against the function. Can the returned email still contain uppercase letters?",
-        "criteria_true": "The function can leave uppercase letters in the output.",
-        "criteria_false": "The function converts uppercase letters to lowercase.",
+        "instructions": "The complete selected function is the populated code_a or code_b field. The input value is a Python string. Consider only lowercase normalization of the returned email; leading and trailing whitespace are separate questions. Does this function omit lowercase normalization?",
+        "criteria_true": "The returned email is not normalized to lowercase.",
+        "criteria_false": "The returned email is normalized to lowercase.",
         "pass_below": 0.1,
         "fail_at_or_above": 0.9,
         "max_request_bytes": 32000,
@@ -426,7 +426,7 @@
     },
     {
       "id": "PY-LIST-IDENTITY",
-      "revision": "5",
+      "revision": "7",
       "consult": {"rules":["PY-SELECT-NOTE","PY-SELECT-MESSAGE","PY-LIST-CONTEXT"]},
       "source": "evidence",
       "group": "state",
@@ -440,9 +440,9 @@
       },
       "check": {
         "kind": "yes-no/1",
-        "instructions": "The complete selected function is in the populated code_a or code_b field. Context quotes are advisory; check them against the function. Python default argument values are created once, when the function is defined. append, extend, += and clear modify the same list; list(), copy(), slicing and + create a new list. Consider calls that omit the list argument. Is the returned list object reused by later calls?",
-        "criteria_true": "Separate omitted-list calls can return the same object.",
-        "criteria_false": "Each omitted-list call returns a distinct list object.",
+        "instructions": "The complete selected function is the populated code_a or code_b field. Python default argument values are created once when the function is defined. A list literal [] in the function body creates a new list each time that statement executes. append modifies its list. Consider two successive completed calls of this unchanged function: the first supplies the string 'first' and the second supplies the string 'second', both omitting the list argument. The caller retains both returned lists and does not mutate either between calls. Do these calls return the same list object?",
+        "criteria_true": "The two specified calls return the same list object.",
+        "criteria_false": "The two specified calls return distinct list objects.",
         "pass_below": 0.1,
         "fail_at_or_above": 0.9,
         "max_request_bytes": 32000,
@@ -467,7 +467,7 @@
     },
     {
       "id": "PY-LIST-CONTENT",
-      "revision": "5",
+      "revision": "7",
       "consult": {"rules":["PY-SELECT-NOTE","PY-SELECT-MESSAGE","PY-LIST-CONTEXT"]},
       "source": "evidence",
       "group": "state",
@@ -481,9 +481,9 @@
       },
       "check": {
         "kind": "yes-no/1",
-        "instructions": "The complete selected function is in the populated code_a or code_b field. Context quotes are advisory; check them against the function. Python default argument values are created once, when the function is defined. append, extend, += and clear modify the same list; list(), copy(), slicing and + create a new list. Consider calls that omit the list argument. Can the returned list contain items added by earlier calls?",
-        "criteria_true": "Items added by earlier calls can appear in the returned list.",
-        "criteria_false": "The returned list contains no items carried over from earlier calls.",
+        "instructions": "The complete selected function is the populated code_a or code_b field. Python default argument values are created once when the function is defined. A list literal [] in the function body creates a new list each time that statement executes. append modifies its list. Consider two successive completed calls of this unchanged function: the first supplies the string 'first' and the second supplies the string 'second', both omitting the list argument. The caller retains both returned lists and does not mutate either between calls. Does the list returned by the second call contain the string 'first' appended by the first call?",
+        "criteria_true": "The second returned list contains the first call's string 'first'.",
+        "criteria_false": "The second returned list does not contain the first call's string 'first'.",
         "pass_below": 0.1,
         "fail_at_or_above": 0.9,
         "max_request_bytes": 32000,

@@ -289,6 +289,14 @@ pub fn score(report: &[u8], labels: &[u8]) -> Result<Value, ScanError> {
         .get("records")
         .and_then(Value::as_array)
         .ok_or_else(|| ScanError::invalid("report has no records"))?;
+    // Borrow a rule projection of the frozen report; selector and duplicate
+    // validation below remain the authority over matching records.
+    let mut records_by_rule = BTreeMap::<&str, Vec<&Value>>::new();
+    for record in records {
+        if let Some(rule) = record.pointer("/rule/id").and_then(Value::as_str) {
+            records_by_rule.entry(rule).or_default().push(record);
+        }
+    }
     let mut resolved = Vec::new();
     let mut unmatched = Vec::new();
     let mut cases: Vec<Value> = declared
@@ -303,8 +311,11 @@ pub fn score(report: &[u8], labels: &[u8]) -> Result<Value, ScanError> {
         let target = if let Some(target) = &label.target {
             Some(target.clone())
         } else {
-            let matches: Vec<_> = records
-                .iter()
+            let matches: Vec<_> = records_by_rule
+                .get(label.rule.as_str())
+                .into_iter()
+                .flatten()
+                .copied()
                 .filter(|r| {
                     r.pointer("/rule/id").and_then(Value::as_str) == Some(label.rule.as_str())
                 })

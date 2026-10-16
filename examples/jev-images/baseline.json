@@ -3,11 +3,12 @@
   "schema": "auditoad-baseline/1",
   "baseline": {
     "id": "jev-native-images",
-    "version": "1",
+    "version": "2",
     "title": "Controlled native-image and Box development observations",
     "publisher": "AudiToad examples",
     "status": "draft"
   },
+  "default_profile": "development",
   "sources": {"scene": {"adapter": "evidence-bundle/1", "media": ["application/vnd.auditoad.bundle+json"]}},
   "evidence": {"image": {"builder": "declared-parts/1", "builder_revision": "r1", "required_roles": ["subject"]}},
   "groups": [{"id": "IMAGE", "title": "Native image placement"}, {"id": "GEOMETRY", "title": "Bounded local geometry observations"}],
@@ -33,14 +34,14 @@
       "falsifier": "The instructions-only image cannot be encoded or the fixed left-object label differs from red_mug.", "fixtures": {"pass": [], "fail": []}
     },
     {
-      "id": "IMAGE-CRITERIA", "revision": "1", "source": "scene", "group": "IMAGE", "risk": "low", "scope_kind": "whole",
-      "title": "Image used as a choice criterion", "evidence": "image", "evaluator": {"kind": "model", "contract": "choice/1"},
-      "check": {"kind": "choice/1", "instructions": "Which option matches a scene with a red mug on the left and a closed blue book on the right?",
-        "options": {"matching_scene": {"description": "auditoad_scene_mug_book_1", "result": "pass"}, "different_scene": {"description": "A scene with a green apple on the left and no red mug.", "result": "fail"}, "insufficient": {"description": "The supplied evidence does not distinguish the scenes.", "result": "review"}},
+      "id": "IMAGE-CRITERIA", "revision": "2", "source": "scene", "group": "IMAGE", "risk": "low", "scope_kind": "whole",
+      "title": "Criterion image shows a red mug on the left", "evidence": "image", "evaluator": {"kind": "model", "contract": "choice/1"},
+      "check": {"kind": "choice/1", "instructions": "Which option shows a red ceramic mug on the left?",
+        "options": {"option_a": {"description": "auditoad_scene_mug_book_1", "result": "pass"}, "option_b": {"description": "A view with no red ceramic mug on its left side.", "result": "fail"}, "insufficient": {"description": "The supplied evidence does not distinguish the options.", "result": "review"}},
         "image_assets": {"auditoad_scene_mug_book_1": "/parts/0"}, "state_projection": {"case": "/scope_kind"},
         "min_choice_probability": 0.9, "min_confidence": 0.9, "max_request_bytes": 8388608},
       "applicability": {"include": ["controlled-image"], "exclude": []},
-      "falsifier": "The criterion-only image cannot be encoded or matching_scene is not selected for this fixed scene.", "fixtures": {"pass": [], "fail": []}
+      "falsifier": "The criterion-only image cannot be encoded or the selected option contradicts the fixed red-mug-on-left label.", "fixtures": {"pass": [], "fail": []}
     },
     {
       "id": "IMAGE-ABSENT", "revision": "1", "source": "scene", "group": "IMAGE", "risk": "low", "scope_kind": "whole",
@@ -101,5 +102,8 @@
       "fixtures": {"pass": [{"path":"range-pass.json","corpus_revision":"1","source_sha256":"f316953d3132101ffd06221717e5eb74ca5ec2a29444de206c3f68b35161c9cd","evidence_sha256":"f316953d3132101ffd06221717e5eb74ca5ec2a29444de206c3f68b35161c9cd"}],"fail":[{"path":"range-fail.json","corpus_revision":"1","source_sha256":"ec9d9fd1c9049c08fb1c099e2c7a77b1b91dfbdeefd544b44d0b0698f5aa3179","evidence_sha256":"ec9d9fd1c9049c08fb1c099e2c7a77b1b91dfbdeefd544b44d0b0698f5aa3179"}]}
     }
   ],
-  "profiles": [{"id": "development", "select": ["*"], "block_on": ["fail", "review", "error", "not_evaluated"], "allowed_egress": ["https://api.typesafe.ai"]}]
+  "profiles": [
+    {"id": "development", "select": ["*"], "block_on": ["fail", "review", "error", "not_evaluated"], "allowed_egress": ["https://api.typesafe.ai"]},
+    {"id": "criterion-development", "select": ["IMAGE-CRITERIA"], "block_on": ["fail", "review", "error", "not_evaluated"], "allowed_egress": ["https://api.typesafe.ai"]}
+  ]
 }

@@ -1,0 +1,7 @@
+{
+  "schema":"auditoad-labels/1",
+  "dataset":{"id":"shipping-policy-public-example","revision":"2","split":"development","notes":"One known boundary defect, already inspected during development. The supplied Python condition uses a strict comparison with 5,000 cents; at exactly 5,000 it returns a 500-cent fee, while the policy requires free shipping. This expectation concerns that boundary, not every possible Python input or full numeric correctness. Baseline v2 SHA-256 3b6254cf04c914221692cb89c78dd8e9dd7e9d591aa9c4f23f6d7b392f5b2259; bundle.json 535557f6a653e9a3c39d19cecc96d7fbeea9a84990640358827b90d04a505bc0; shipping.py fb7003a88cb320d4269482cfe4c8143536c4db9f84c317058b1824817056e73a; policy.md 0d5a6dc82ffeacf6fa0a3e777590354e70f08999c5a4f726a41a4ef1fbe07e5b. Pins are dataset provenance, not scorer-enforced bindings or current semantic acceptance."},
+  "labels":[
+    {"rule":"SHIPPING-FREE-THRESHOLD","packet":"shipping-fee","violation":true}
+  ]
+}

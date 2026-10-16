@@ -1,0 +1,124 @@
+{
+  "schema": "auditoad-score/1",
+  "report_sha256": "e1109b0e6ed296910dfceeeca02c4eafc014924b3f3ea05a915e7bd04c8df247",
+  "scan_id": "b9ab0bb8-be38-409c-8944-f18fc34d0170",
+  "baseline": {
+    "id": "jev-native-images",
+    "version": "2",
+    "sha256": "77e93f986d68dc4a35fbb92146feffd5155a29066f92b3c10972fa0727e337f6"
+  },
+  "profile": "criterion-development",
+  "source": {
+    "binding": "evidence-bundle/1",
+    "input_sha256": "850e9e05809d2cc1887d12c3384dd10493cdfc312acefdc89fa17b340907569f",
+    "snapshot_id": "850e9e05809d2cc1887d12c3384dd10493cdfc312acefdc89fa17b340907569f"
+  },
+  "usage": {
+    "checks": 1,
+    "evidence_bytes": 4000633,
+    "provider_calls": 1
+  },
+  "model_usage": {
+    "jev-images": {
+      "checks": 0,
+      "evidence_bytes": 1639644,
+      "provider_calls": 1
+    }
+  },
+  "cases": [
+    {
+      "label": {
+        "rule": "IMAGE-CRITERIA",
+        "target": null,
+        "packet": "mug-and-book",
+        "input": null,
+        "line": null,
+        "violation": false
+      },
+      "target": "mug-and-book",
+      "decision": "pass",
+      "comparison": "correct",
+      "missing": false,
+      "reason": "semantic observation only; live control admission remains open",
+      "terminal_result": "not_evaluated",
+      "evidence_sha256": "5b48f4986684483c0b6593dbe32880e7fd9732f2245dc12bccb6a90b6de57d84",
+      "suggested_result": "pass",
+      "probability": null,
+      "choice": "option_a",
+      "confidence": 0.92,
+      "request_sha256": "32e804e3b17b608b29a8fa23907d67dc0b7aae34a6f0e29c606f09d94902ad04",
+      "mock": false,
+      "replay": null,
+      "reuse": null
+    }
+  ],
+  "labels_sha256": "64ca9b88cc9cdb764bcae7d3ecfe503f36e2937c1fc4be7f61c727b093d3bdef",
+  "dataset": {
+    "id": "jev-native-image-criterion",
+    "revision": "jev-native-images-v2",
+    "split": "development",
+    "notes": "Fixed before the revised question's first call: the retained image shows a red ceramic mug on the left, so option_a is the expected choice and its mapped decision is pass. Only IMAGE-CRITERIA is scored. The original visual scene, version-1 question labels and Box edge intervals remain in labels.json; original image SHA-256 7c680de82a55ea662609e880c0bbe2e6bd4cc7b7b53398c362f9955a711371c3."
+  },
+  "labelled_records": 1,
+  "labels_expected": 1,
+  "label_coverage_complete": true,
+  "unlabelled_records": 0,
+  "labels_without_records": [],
+  "overall": {
+    "total": 1,
+    "true_positive": 0,
+    "false_positive": 0,
+    "true_negative": 1,
+    "false_negative": 0,
+    "unresolved_positive": 0,
+    "unresolved_negative": 0,
+    "correct": 1,
+    "wrong": 0,
+    "unresolved": 0,
+    "resolved_accuracy": 1.0,
+    "decision_coverage": 1.0,
+    "true_positive_rate": null,
+    "false_positive_rate": 0.0,
+    "scorecard": null
+  },
+  "rules": {
+    "IMAGE-CRITERIA": {
+      "total": 1,
+      "true_positive": 0,
+      "false_positive": 0,
+      "true_negative": 1,
+      "false_negative": 0,
+      "unresolved_positive": 0,
+      "unresolved_negative": 0,
+      "correct": 1,
+      "wrong": 0,
+      "unresolved": 0,
+      "resolved_accuracy": 1.0,
+      "decision_coverage": 1.0,
+      "true_positive_rate": null,
+      "false_positive_rate": 0.0,
+      "scorecard": null
+    }
+  },
+  "models": {
+    "jev-images": {
+      "total": 1,
+      "true_positive": 0,
+      "false_positive": 0,
+      "true_negative": 1,
+      "false_negative": 0,
+      "unresolved_positive": 0,
+      "unresolved_negative": 0,
+      "correct": 1,
+      "wrong": 0,
+      "unresolved": 0,
+      "resolved_accuracy": 1.0,
+      "decision_coverage": 1.0,
+      "true_positive_rate": null,
+      "false_positive_rate": 0.0,
+      "scorecard": null
+    }
+  },
+  "policies": {},
+  "scope": "Overall and rule totals include every supplied label; missing records count as unresolved. Model rows cover recorded model observations only. A policy row is simulated from combined runs in which every model answered; it is not a separate run. Complete label coverage does not establish coverage of an entire audit subject."
+}

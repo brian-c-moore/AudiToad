@@ -404,9 +404,28 @@ fn prerequisite_answers(
         .rules
         .get(work.rule)
         .ok_or("prerequisite dependent rule is not bound")?;
-    for (dependency, dependent, _) in baseline.dependencies.edges() {
-        if dependent != work.rule {
-            continue;
+    let declared = if observations {
+        &rule
+            .consult
+            .as_ref()
+            .ok_or("consult prerequisites are absent")?
+            .rules
+    } else if let Check::Answers { rules, .. } = &rule.check {
+        rules
+    } else {
+        return Err("answer prerequisites require an answers check".into());
+    };
+    // The shared graph admits every prerequisite edge; each frame selects its declared
+    // role and order. A consultation gate must not become a combination operand.
+    for id in declared {
+        let dependency = baseline
+            .content
+            .rules
+            .iter()
+            .position(|candidate| candidate.id == *id)
+            .ok_or("declared prerequisite rule is absent")?;
+        if !baseline.dependencies.contains(dependency, work.rule) {
+            return Err("declared prerequisite has no admitted graph edge".into());
         }
         let mut required = Vec::new();
         for (ordinal, candidate) in manifest.iter().enumerate() {
@@ -1071,19 +1090,21 @@ fn scan_bound(
                                         &bytes,
                                     ) {
                                         Ok((state, observation)) => {
-                                            if matches!(rule.check, Check::Syntax { .. })
-                                                && !admit_pool(
-                                                    &mut evidence_budget,
-                                                    0,
-                                                    serde_json::to_vec(&observation)
-                                                        .map_err(|e| {
-                                                            ScanError::unresolved(e.to_string())
-                                                        })?
-                                                        .len()
-                                                        as u64,
-                                                    None,
-                                                )?
-                                            {
+                                            if matches!(
+                                                rule.check,
+                                                Check::Syntax { .. }
+                                                    | Check::PythonConstantString { .. }
+                                            ) && !admit_pool(
+                                                &mut evidence_budget,
+                                                0,
+                                                serde_json::to_vec(&observation)
+                                                    .map_err(|e| {
+                                                        ScanError::unresolved(e.to_string())
+                                                    })?
+                                                    .len()
+                                                    as u64,
+                                                None,
+                                            )? {
                                                 (ResultState::NotEvaluated, None, Some(
                                                     "cumulative evidence byte budget exhausted by syntax output; no partial fields supplied".into(),
                                                 ))
@@ -1123,7 +1144,10 @@ fn scan_bound(
                         "experimental consulted evidence; not an admitted audit decision".into(),
                     );
                 }
-                if matches!(rule.check, Check::Syntax { .. }) {
+                if matches!(
+                    rule.check,
+                    Check::Syntax { .. } | Check::PythonConstantString { .. }
+                ) {
                     let after = serde_json::to_vec(details)
                         .map_err(|e| ScanError::unresolved(e.to_string()))?
                         .len();

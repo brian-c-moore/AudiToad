@@ -134,6 +134,13 @@ pub(crate) fn identity(
         ),
         Check::Markdown { .. } => ("markdown", crate::markdown::VERSION.into()),
         Check::Syntax { language, .. } => ("syntax", crate::syntax::version(language)),
+        Check::PythonConstantString { .. } => (
+            "syntax",
+            format!(
+                "python-constant-string/1/{}",
+                crate::syntax::version(SyntaxLanguage::Python)
+            ),
+        ),
         Check::CommandLine { .. } => ("command-line", crate::command_line::VERSION.into()),
         Check::MockModel { .. } => ("mock-model", "1".into()),
         Check::YesNo { .. } | Check::Choice { .. } | Check::Extract { .. } | Check::Box { .. } => (
@@ -358,6 +365,14 @@ pub(crate) fn deterministic(
             },
             CompiledCheck::Markdown,
         ) => crate::markdown::evaluate(bytes, json_string_pointer.as_deref(), predicate),
+        (
+            Check::PythonConstantString {
+                json_string_pointer,
+                limits,
+                ..
+            },
+            CompiledCheck::PythonConstantString(compiled),
+        ) => compiled.constant_string(bytes, json_string_pointer.as_deref(), limits),
         (
             Check::Syntax {
                 json_string_pointer,
