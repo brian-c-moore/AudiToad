@@ -59,10 +59,22 @@ Local JSON, inventory, YARA and text predicates evaluate supplied evidence direc
 checks can report `pass` or `fail`; missing evidence and refused work remain explicit.
 Syntax helpers select source text for later checks and retain its identity and byte offsets.
 
-Model judgments and external helper results remain experimental suggestions. Their terminal
-result is `not_evaluated`, and dependent checks retain that experimental status. Scans with
-these results exit 2. Use the retained evidence and labelled scores to assess them. The
-[roadmap](ROADMAP.md) describes the remaining release and baseline-research work.
+Model-assisted audits work today. AudiToad sends live requests when enabled, decodes answers,
+applies the baseline's thresholds, connects helper results to later questions, and retains
+the evidence and model suggestions. Retained exchanges can be replayed, and suggestions can
+be scored against labels.
+
+The final status is a separate policy. This release retains model judgments and external
+helper results as suggestions and does not promote them to accepted final audit decisions.
+A successful model evaluation can therefore have a `suggested_result` of `pass`, `fail` or
+`review` while its terminal result remains `not_evaluated`. That status alone does not mean
+the model was never called; inspect the retained answer and reason. Dependent checks retain
+the experimental status, and scans with these results exit 2.
+
+The [web-security example](examples/web-security/README.md#results-on-the-owasp-benchmark-for-python)
+already includes labelled Jev benchmark measurements, with failures and reviews. Those results
+belong to the recorded baseline revisions and do not establish current or general model accuracy.
+The [roadmap](ROADMAP.md) separates baseline qualification from the implemented model workflow.
 
 That roadmap includes broader baselines for indicators of compromise (IoCs), OWASP and
 MITRE ATT&CK, and screenshot-assisted review of selected manual STIG checks. Experimental

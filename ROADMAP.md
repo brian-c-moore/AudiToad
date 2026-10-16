@@ -19,8 +19,14 @@ Future capabilities below are proposals until implemented and qualified.
 The CLI and library scan supplied text, byte and structured inventory evidence with local
 checks, configurable model roles and helpers, audit suites, labelled scoring, matched
 comparison and exchange reuse. Baselines can declare requirements, and reports block on any
-requirement left missing, unasked, stale, unsupported or unresolved. Model answers remain
-experimental suggestions with terminal `not_evaluated`.
+requirement left missing, unasked, stale, unsupported or unresolved.
+
+Model-assisted audits are implemented and have been exercised in live runs. The engine sends
+requests, decodes answers, applies thresholds, connects helpers, retains suggestions and scores
+them against labels. This release deliberately keeps model judgments as experimental
+suggestions with terminal `not_evaluated`; that status is separate from whether a model
+evaluation ran. Promoting those judgments to accepted final audit decisions is later product
+work. New accuracy measurements alone do not enable that path in the current release.
 
 The neutral helper protocol, experimental PNG/JPEG evidence, native Jev image/Box bindings and
 experimental-evidence propagation exist with development controls. The

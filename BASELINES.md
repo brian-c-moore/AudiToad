@@ -1061,6 +1061,13 @@ fixtures. Semantic questions and external extraction remain `draft`; setting the
 to `admitted` is refused. `retired` baselines cannot scan. A status label is not independently
 authenticated qualification, and mechanical admission does not prove a supplied record is true.
 
+Model execution and admission are separate. Live model calls, decoded answers, threshold-based
+suggestions, helper consultation, replay and labelled scoring are implemented. A successful
+model judgment retains its `suggested_result` while its terminal result remains `not_evaluated`.
+Inspect its observation and reason to distinguish an evaluated suggestion from a question
+that was not asked. This release has no path for promoting semantic baselines to `admitted`;
+additional measurements alone cannot change that behavior.
+
 Experimental status follows consulted model/helper output through later local checks, helpers
 and conditional gates. These consumers retain `experimental_inputs: true`; pass/fail decisions
 become `suggested_result` with terminal `not_evaluated`, available to scoring. A deterministic

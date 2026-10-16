@@ -469,9 +469,14 @@ unless the field is declared optional.
 
 A backend returns either a yes/no probability or a named choice with probabilities and confidence.
 AudiToad applies the rule's thresholds and answer mappings to suggest pass, failure or review.
-All semantic rules remain experimental:
-their terminal result is `not_evaluated`, and the scan exits 2. A suggestion is an observation
-to inspect, not an admitted compliance result.
+This model workflow is implemented. The report retains the answer and its `suggested_result`,
+which can be scored against labels and reused or replayed under the recorded identities.
+
+This release deliberately withholds accepted final audit decisions from model judgments.
+Semantic rules remain experimental with terminal `not_evaluated`, and the scan exits 2 even
+when the model answered successfully. That status alone does not establish whether a request
+was sent; inspect the observation, reason and provider-call accounting. Additional accuracy
+measurements do not enable semantic admission in this release; that path requires a product change.
 
 ## Read the report
 
