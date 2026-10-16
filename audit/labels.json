@@ -1,0 +1,30 @@
+{
+  "schema": "auditoad-labels/1",
+  "dataset": {"id":"self-audit-current-source","revision":"5","split":"development","notes":"24 author-reviewed negative implementation controls on the pinned source and selected owners. These labels measure false alarms on the named paths, not detection of defects or whole-source correctness. Syntax captures and optional quotation helpers are excluded. Expectations were fixed before current Jev calls."},
+  "labels": [
+    {"rule":"SELF-EGRESS","target":"provider-entry","violation":false},
+    {"rule":"SELF-ORIGIN","target":"provider-entry","violation":false},
+    {"rule":"SELF-RESPONSE","target":"response-decoder","violation":false},
+    {"rule":"SELF-ANSWER-ID","target":"response-decoder","violation":false},
+    {"rule":"SELF-ANSWER-COUNT","target":"response-decoder","violation":false},
+    {"rule":"SELF-ANSWER-TYPE","target":"response-decoder","violation":false},
+    {"rule":"SELF-PROBABILITY","target":"response-decoder","violation":false},
+    {"rule":"SELF-FINITE","target":"response-decoder","violation":false},
+    {"rule":"SELF-INPUT-USAGE","target":"response-decoder","violation":false},
+    {"rule":"SELF-OUTPUT-USAGE","target":"response-decoder","violation":false},
+    {"rule":"SELF-COVERAGE","target":"scan-accounting","violation":false},
+    {"rule":"SELF-EVIDENCE-BUDGET","target":"scan-accounting","violation":false},
+    {"rule":"SELF-RECORD-COUNT","target":"scan-accounting","violation":false},
+    {"rule":"SELF-DRAFT","target":"draft-result","violation":false},
+    {"rule":"SELF-EXPERIMENTAL","target":"draft-result","violation":false},
+    {"rule":"SELF-PUBLISH","target":"report-publication","violation":false},
+    {"rule":"SELF-PERSIST","target":"report-publication","violation":false},
+    {"rule":"SELF-ACK","target":"report-publication","violation":false},
+    {"rule":"SELF-INPUTS","target":"report-publication","violation":false},
+    {"rule":"SELF-SOURCE-INPUT","target":"report-publication","violation":false},
+    {"rule":"SELF-KNOWN-ANSWERS","target":"report-publication","violation":false},
+    {"rule":"SELF-MOCK-INPUT","target":"report-publication","violation":false},
+    {"rule":"SELF-KEY-INPUT","target":"report-publication","violation":false},
+    {"rule":"SELF-JSON","target":"json-decoder","violation":false}
+  ]
+}

@@ -21,6 +21,36 @@ Call the CLI or Rust library from your own tools, a CI/CD pipeline or a SOAR wor
 reports and exit codes let the calling system route findings and unresolved checks. Start with
 the [user guide](docs/user-guide.md) or a [self-contained example](examples/README.md).
 
+## Measured examples
+
+The examples include measured runs against a public security benchmark, a Windows capture from
+a published attack simulation and authored audit controls. The results below compare recorded suggestions and local
+decisions with expected labels, including answers left unresolved.
+
+| Example | Evidence and measured baseline | Recorded result |
+|---|---|---|
+| [LSASS memory-dump activity](examples/windows-memory/README.md#recorded-results) | 184 events from an unmodified OTRF capture; baseline v2 | **552/552 event decisions correct**, including all nine positive signals, with zero false alarms or unresolved decisions and **two Jev calls**. The three input summaries also matched. |
+| [OWASP web security](examples/web-security/README.md#results-on-the-owasp-benchmark-for-python) | All 1,230 BenchmarkPython v0.1 cases; baseline v11 | **351/452 vulnerabilities reported (77.7%)**, with **19/778 safe cases flagged (2.4%)**. **568 cases remained unresolved**, including 101 vulnerabilities. |
+| [Formal relationships](examples/formal-relations/README.md) | 28 authored written TLA+ relationships | **28/28 expected decisions matched**, using local parsing and no model calls. These checks concern written relationships, not proof success. |
+| [Writing checks](examples/no-slop/RESULTS.md#current-version-3) | Five revised rule families on two authored articles; baseline v3 | **10/10 final policy expectations matched**, with zero wrong or unresolved final outcomes and 31 Jev calls. |
+| [Python requirements](examples/python-review/RESULTS.md#current-development-measurement) | 14 policy expectations over ten authored functions; baseline v6 | **12 correct, zero wrong, two unresolved**. The revision used four new Jev calls and twelve exact reused exchanges. |
+
+The linked guides include source-bound scores, revisions and measurement limits. These are
+development measurements; the authored sets test the listed cases. Earlier OWASP v1 runs
+reported 93.4% of vulnerabilities with 22.9–23.0% false alarms. Version 11 reports fewer false
+alarms and leaves more cases unresolved; its 101 unresolved vulnerable cases are unreported
+findings. Its complete report reuses unchanged original exchanges, so this is a development
+measurement after question revisions, not an independent acceptance test. Model judgments
+remain suggestions under the policy described below.
+
+The results also guide the design. An earlier related-events baseline asked the model about
+exact command syntax and matched 41/64 answers, with five false positives and 18 reviews.
+After moving that syntax to a local parser, a separate 88-event development set matched 83
+decisions, with zero wrong and five reviews; the [example](examples/related-events/README.md)
+records those cohorts separately. The Windows baseline applies the same approach: version 2 decides
+exact event facts locally and selects just two command questions for this capture, compared
+with version 1's 552 live requests. Both answers resolved correctly at the fixed thresholds.
+
 ## Built with Automation Structures
 
 AudiToad's audit engine is built by composing the reusable
@@ -108,6 +138,18 @@ record. This example checks supplied inventory data and makes no network request
 A baseline specifies what to check, which evidence to use and how to evaluate each result.
 Profiles select groups of checks and determine which results block a scan. See
 [Writing baselines](BASELINES.md) for the format, examples and guidance on choosing questions.
+
+Review the questions in a baseline before running it:
+
+```console
+auditoad baseline review baseline.json --report review.json
+```
+
+This prepares the review locally. Add `--evaluators <file> --live` to obtain model
+suggestions; unanswered checks remain unresolved. The same command accepts a
+[standalone question set](BASELINES.md#review-the-questions). Reviewing declarations does
+not establish the audit's accuracy or evidence completeness. For another provider, explicitly
+set its permitted origin with `--allowed-egress`; use `--allowed-egress loopback` locally.
 
 | Exit code | Meaning |
 |---|---|

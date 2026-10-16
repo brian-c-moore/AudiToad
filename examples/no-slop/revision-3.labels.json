@@ -1,0 +1,11 @@
+{
+  "schema": "auditoad-labels/1",
+  "dataset": {"id":"no-slop-revised-families","revision":"3","split":"development","notes":"Ten final policy judgments for the revision-3 profile. Three semantic families changed decisive evidence/question wording; two exact phrase families now use local predicates. Sentence/paragraph judgments, literal-presence gates and helper outputs are not independent policy cases. Authored development expectations were fixed before calls."},
+  "labels": [
+    {"rule":"FRAME-01","target":"article-a/input/document/0/alone","violation":true},{"rule":"FRAME-01","target":"article-b/input/document/0/alone","violation":false},
+    {"rule":"FRAME-13","target":"article-a/input/document/0/alone","violation":true},{"rule":"FRAME-13","target":"article-b/input/document/0/alone","violation":false},
+    {"rule":"FRAME-14","target":"article-a/input/document/0/alone","violation":true},{"rule":"FRAME-14","target":"article-b/input/document/0/alone","violation":false},
+    {"rule":"WORDS-03","target":"article-a/input/document/0/alone","violation":true},{"rule":"WORDS-03","target":"article-b/input/document/0/alone","violation":false},
+    {"rule":"GROUND-02","target":"article-a/input/document/0/alone","violation":true},{"rule":"GROUND-02","target":"article-b/input/document/0/alone","violation":false}
+  ]
+}

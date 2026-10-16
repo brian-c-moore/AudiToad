@@ -6,6 +6,7 @@
     "powershell":{"adapter":"text/1","path":"example.ps1"},
     "python":{"adapter":"text/1","path":"example.py"},
     "rust":{"adapter":"text/1","path":"example.rs"},
-    "tlaplus":{"adapter":"text/1","path":"example.tla"}
+    "tlaplus":{"adapter":"text/1","path":"example.tla"},
+    "tlaplus-operands":{"adapter":"json/1","path":"tlaplus-operands.json","sha256":"08adce1374bb56c6c0ff2c688bd4c50ca81556c89ec446dda980d46a6033bc4f"}
   }
 }

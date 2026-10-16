@@ -291,6 +291,16 @@ pub enum Check {
         #[serde(default)]
         limits: SyntaxLimits,
     },
+    /// Prove that every selected reaching expression contains only source-authored strings.
+    /// Unsupported expressions remain unresolved and retain syntax evidence for a fallback.
+    #[serde(rename = "python-constant-string/1")]
+    PythonConstantString {
+        #[serde(skip_serializing_if = "Option::is_none")]
+        json_string_pointer: Option<String>,
+        query: String,
+        #[serde(default)]
+        limits: SyntaxLimits,
+    },
     /// Interpret command lines with declared program grammars.
     #[serde(rename = "command-line/1")]
     CommandLine {

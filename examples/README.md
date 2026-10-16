@@ -1,7 +1,8 @@
 # Examples
 
-Each example is self-contained. Open its directory, read its README, and run the commands
-there with `auditoad` installed. The baseline and its audit inputs are in the same directory.
+Open an example's directory, read its README, and run the commands there with `auditoad`
+installed. The supplied demonstration inputs are in the same directory as the baseline.
+The full web-security benchmark also requires the pinned upstream corpus described in its README.
 
 Run several examples together with `auditoad run examples/audit.json` from the repository root.
 The [audit file](audit.json) covers inventory, code, writing format and related events. It makes
@@ -18,8 +19,8 @@ compare evaluator configurations against the same inputs and external labels.
 | [Writing audit](no-slop/README.md) | A no-slop style baseline applied to articles and an audience brief |
 | [Related events](related-events/README.md) | Connect DNS activity, process commands and an allowlist, then combine the answers |
 | [Windows memory activity](windows-memory/README.md) | Decide exact event facts locally and ask a model only about the records that need it |
-| [Web security](web-security/README.md) | Break each OWASP Top 10 weakness into premises, with a helper tracing data for the questions |
-| [Language helpers](language-helpers/README.md) | Extract exact syntax spans in six languages, including TLA+, and consult them in focused questions |
+| [Web security](web-security/README.md) | Break each OWASP Top 10 weakness into premises; judge complete source directly or consult optional helper quotations |
+| [Language helpers](language-helpers/README.md) | Extract syntax spans in six languages and check exact TLA+ and Python source relationships locally |
 | [Native Jev images](jev-images/README.md) | Send a pinned PNG in state, instructions and criteria; consume a Box helper with local numeric checks |
 | [Formal relationships](formal-relations/README.md) | Check 28 written TLA+ relationships locally, with exact witnesses and external labels |
 | [Formal claims](formal-claims/README.md) | Distinguish sound, obvious and subtle overclaims, and disclosed limitations in TLA+, TLAPS and Verus |

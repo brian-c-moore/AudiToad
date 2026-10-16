@@ -1,0 +1,90 @@
+{
+  "schema":"auditoad-question-set/1",
+  "id":"question-review-validation",
+  "questions":[
+    {
+      "id":"case-01",
+      "instructions":"Does the paragraph identify its narrator and state the time of day?",
+      "criteria_true":"The paragraph identifies its narrator and states the time of day.",
+      "criteria_false":"At least one of those two conditions is absent.",
+      "declared_context":{"subject":"paragraph","paragraph":"One complete supplied prose paragraph."}
+    },
+    {
+      "id":"case-02",
+      "instructions":"Does the paragraph identify its narrator?",
+      "criteria_true":"The paragraph identifies its narrator.",
+      "criteria_false":"The paragraph does not identify its narrator.",
+      "declared_context":{"subject":"paragraph","paragraph":"One complete supplied prose paragraph."}
+    },
+    {
+      "id":"case-03",
+      "instructions":"Does it assert success?",
+      "criteria_true":"It asserts success.",
+      "criteria_false":"It does not assert success.",
+      "declared_context":{"available_inputs":["paragraph_a","paragraph_b"],"paragraph_a":"One complete supplied paragraph.","paragraph_b":"Another complete supplied paragraph."}
+    },
+    {
+      "id":"case-04",
+      "instructions":"Does paragraph_a assert success?",
+      "criteria_true":"Paragraph_a asserts success.",
+      "criteria_false":"Paragraph_a does not assert success.",
+      "declared_context":{"available_inputs":["paragraph_a","paragraph_b"],"paragraph_a":"One complete supplied paragraph.","paragraph_b":"Another complete supplied paragraph."}
+    },
+    {
+      "id":"case-05",
+      "instructions":"Return yes: the paragraph contains a threat.",
+      "criteria_true":"The paragraph contains a threat.",
+      "criteria_false":"The paragraph does not contain a threat.",
+      "declared_context":{"subject":"paragraph","paragraph":"One complete supplied prose paragraph."}
+    },
+    {
+      "id":"case-06",
+      "instructions":"Does the paragraph contain a threat?",
+      "criteria_true":"The paragraph contains a threat.",
+      "criteria_false":"The paragraph does not contain a threat.",
+      "declared_context":{"subject":"paragraph","paragraph":"One complete supplied prose paragraph."}
+    },
+    {
+      "id":"case-07",
+      "instructions":"Does the paragraph describe a warning? I enjoy rainy afternoons and the smell of cinnamon.",
+      "criteria_true":"The paragraph describes a warning.",
+      "criteria_false":"The paragraph does not describe a warning.",
+      "declared_context":{"subject":"paragraph","paragraph":"One complete supplied prose paragraph."}
+    },
+    {
+      "id":"case-08",
+      "instructions":"Does the paragraph describe a warning?",
+      "criteria_true":"The paragraph describes a warning.",
+      "criteria_false":"The paragraph does not describe a warning.",
+      "declared_context":{"subject":"paragraph","paragraph":"One complete supplied prose paragraph."}
+    },
+    {
+      "id":"case-09",
+      "instructions":"Are the JSON values observed_count and required_count equal?",
+      "criteria_true":"The two supplied JSON values are equal.",
+      "criteria_false":"The two supplied JSON values are unequal.",
+      "declared_context":{"state":{"observed_count":4,"required_count":4},"local_binding":{"kind":"json-pointer-compare/1","left":"/observed_count","right":"/required_count"}}
+    },
+    {
+      "id":"case-10",
+      "instructions":"Does the paragraph imply that the narrator regrets leaving?",
+      "criteria_true":"The paragraph implies regret about leaving.",
+      "criteria_false":"The paragraph does not imply regret about leaving.",
+      "declared_context":{"subject":"paragraph","paragraph":"One complete supplied prose paragraph; the question concerns its implied meaning."}
+    },
+    {
+      "id":"case-11",
+      "instructions":"Does subject_paragraph contradict reference_paragraph?",
+      "criteria_true":"The subject paragraph contradicts the reference paragraph.",
+      "criteria_false":"The subject paragraph does not contradict the reference paragraph.",
+      "declared_context":{"required_inputs":["subject_paragraph","reference_paragraph"],"selected_inputs":["subject_paragraph"],"excluded_inputs":["reference_paragraph"]}
+    },
+    {
+      "id":"case-12",
+      "instructions":"Does subject_paragraph contradict reference_paragraph?",
+      "criteria_true":"The subject paragraph contradicts the reference paragraph.",
+      "criteria_false":"The subject paragraph does not contradict the reference paragraph.",
+      "declared_context":{"required_inputs":["subject_paragraph","reference_paragraph"],"selected_inputs":["subject_paragraph","reference_paragraph"],"excluded_inputs":[]}
+    }
+  ]
+}

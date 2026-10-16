@@ -7,6 +7,112 @@ function checked against a written policy. The [writing example](examples/no-slo
 applies the same format to prose, and the [Python review](examples/python-review/README.md)
 shows several independent rules and comparison cases.
 
+## Review the questions
+
+The shipped [question-review baseline](baselines/question-review/README.md) includes
+its criteria, development controls and measured results.
+
+Review an AudiToad baseline with the built-in question checks:
+
+```console
+auditoad baseline review baseline.json --report review.json
+```
+
+Without `--live`, this writes the prepared review to `review.json` and makes no provider
+requests. `--report` can be omitted to use `review.json` in the current directory. To obtain
+model suggestions, supply an evaluator configuration and explicit live consent:
+
+```console
+auditoad baseline review baseline.json --evaluators evaluators.json --live --report review.json
+```
+
+The default review profile permits `https://api.typesafe.ai`. For another provider, explicitly
+replace that list with `--allowed-egress <ORIGIN>`. Repeat the flag for each permitted HTTPS
+origin, or use `loopback` for a local provider:
+
+```console
+auditoad baseline review baseline.json --evaluators local-evaluators.json \
+  --allowed-egress loopback --live --report review.json
+```
+
+The override applies only to this review. It accepts exact origins without paths and rejects
+wildcards; it does not infer permissions from the evaluator configuration. Multiple flags
+replace the complete default list. Disallowed live destinations refuse before dispatch.
+
+The checks assess one judgment per question, an identified subject, answer-neutral wording,
+unrelated commentary, facts that belong in local checks and declared selection of required
+context. Extraction fields and alternative answer options are not counted as separate policy
+judgments. The review reads question declarations; it does not run the original audit or
+establish that its actual evidence is complete. It also does not replace
+`auditoad baseline validate baseline.json`, which checks baseline structure and bindings.
+
+The command accepts the usual operator limits, evaluator settings and exact answer reuse:
+
+```console
+auditoad baseline review baseline.json --evaluators evaluators.json --live \
+  --reuse earlier-review.json --max-provider-calls 100 --report updated-review.json
+```
+
+Unchanged exchanges are reused only when their complete identities match. Review suggestions
+remain experimental, and unresolved results exit 2. Inspect the retained suggestions and
+source identity before revising the questions; a review does not establish baseline accuracy.
+Its suggestions do not prove that the reviewed questions will be accurate on their evidence.
+Answered checks retain their suggested decisions while their terminal results remain
+`not_evaluated`; a live review can therefore exit 2 even with clear suggestions.
+Resource-ceiling refusals also exit 2. Malformed or unsupported input declarations exit 3.
+
+For questions that are not yet an AudiToad baseline, use
+[`auditoad-question-set/1`](docs/question-set.schema.json):
+
+```json
+{
+  "schema": "auditoad-question-set/1",
+  "id": "manuscript-review",
+  "declared_context": {"subject": "one selected paragraph", "context": "its complete chapter"},
+  "questions": [
+    {
+      "id": "narrator",
+      "instructions": "Does the selected paragraph identify its narrator?",
+      "criteria_true": "The paragraph identifies its narrator.",
+      "criteria_false": "The paragraph does not identify its narrator."
+    }
+  ]
+}
+```
+
+The question set requires a nonblank `id` and nonempty `questions` array. Each question needs
+a unique nonblank `id` and nonblank `instructions`. Optional true/false criteria must be
+nonblank strings and appear together. Alternatively, `options` supplies at least two named,
+nonblank description strings; it cannot be combined with true/false criteria. `declared_context`
+can supply JSON context for the complete set or an individual question. Unknown fields and
+duplicate JSON keys are refused.
+
+```console
+auditoad baseline review questions.json --report questions-review.json
+```
+
+Reviewing a question set evaluates its wording and declarations. It does not answer the
+questions or verify the referenced artifacts. Both input formats use the installed review
+checks and require no separate review baseline or files in the current directory.
+
+The shipped [validation questions](baselines/question-review/validation.questions.json) and
+[separate labels](baselines/question-review/validation.labels.json) provide a defective and
+comparison declaration for each of the six criteria. Each pair labels only its corresponding
+criterion. These are authored development controls, not a measurement of general review accuracy.
+
+One version-4 development run with `jev-1.14.0` matched **10 of the 12 labelled controls**,
+with zero wrong and two unresolved. The [source-bound score](baselines/question-review/validation-v4.score.json)
+retains those outcomes. This result measures the authored controls, not general qualification
+of question wording or evidence accuracy.
+
+```console
+auditoad baseline review baselines/question-review/validation.questions.json --report validation-review.json
+auditoad score --report validation-review.json --labels baselines/question-review/validation.labels.json
+```
+
+The first command prepares locally; add `--evaluators <file> --live` to obtain answers.
+Scoring retains unresolved labels when the review has no resolved suggestion.
+
 ## Start with a rule you can check
 
 An optional top-level `"default_profile": "all"` selects an existing profile for ordinary
@@ -389,6 +495,11 @@ ordering, source and scope requirements as `answers/1` prerequisites. The eviden
 must be `scoped-input/1` or `declared-parts/1`. `prior` omits provider request and response
 bytes and their hashes, per-scan check IDs and timing, so the same input produces the same
 evidence hash in every scan.
+
+An `answers/1` rule can also declare `consult`. The consulted rules control its gate;
+the ordered `check.rules` list supplies its answer operands. Both sets retain their
+source and scope checks. This lets a fallback stay ineligible while a revised question
+is active, even when that question remains unresolved.
 
 `run_when` controls whether the rule is evaluated at all:
 
@@ -1080,6 +1191,52 @@ policy invalidate matching reuse. Preserved hashes check consistency, not indepe
 attestation. No automatic semantic admission or model accuracy percentage is a beta gate.
 
 ## Use syntax helpers
+
+### Prove source-authored Python string content locally
+
+`python-constant-string/1` is a draft, pass-only local predicate. Declare the `syntax`
+evaluator with contract `python-constant-string/1`, a Python query and optional syntax limits:
+
+```json
+{"kind":"python-constant-string/1","json_string_pointer":"/parts/1/text",
+ "query":"((function_definition name: (identifier) @_name body: (block (return_statement (_) @value))) @scope (#eq? @_name \"handler\"))"}
+```
+
+The query must name one unique complete function as `@scope` and one or more complete
+expressions as `@value`. Select the actual sink argument or response-body expression,
+including all concatenation/interpolation components. Selecting only a convenient variable
+does not establish the origin of a larger argument. Additional captures are retained for
+model fallback. Duplicate references to the same scope node are allowed; distinct scopes,
+missing matches and values in another or nested function remain unresolved.
+
+The bounded ordinary-Python profile supports string literals and immutable copies, string
+concatenation and interpolation of known primitive values, literal lists with `append`,
+`pop`, `copy` and known integer indexing, and `if`/`else` branches. All possible continuing
+branches must supply source-authored string content. Choice between fixed server strings
+does not introduce client-supplied characters. List assignment aliases, unknown indices,
+unknown calls, unknown truthiness and unsupported mutation never supply an optimistic proof.
+Unknown calls and truthiness invalidate retained state; later explicit assignments can
+establish new facts. Loops, exception handling and other unsupported control flow stop
+the interpretation. Returns stop a path; unused nested function bodies are not executed.
+
+`fields.constant_string.values` lists each selected expression, its byte span and its proof
+status. `constant` contains the exact computed string when established; otherwise it is
+`null`. A proof of source-authored content does not invent an exact value.
+
+Only a proved selected string records `pass`; every unresolved, unsupported or unvisited
+selected expression records `not_evaluated`. Complete syntax captures are retained under
+`fields.captures`, with the predicate result under `fields.constant_string`. This permits
+the existing `any_unresolved` consultation gate and ordered `first_resolved` combination
+to use a model fallback. The predicate never records `fail`, and its fixture lists are empty;
+product tests and external labelled audit cases exercise positive and refusal boundaries.
+
+Input, query, output, node-work and cooperative timeout limits use the syntax helper's
+existing bounds; interpretation also refuses nesting above 128. This predicate does not
+resolve imports, external helper constants, arbitrary library calls, byte transforms,
+framework MIME behavior or general Python data flow. It assumes ordinary Python literal
+and built-in list/string semantics, excluding reflective frame mutation and runtime
+monkeypatching. It establishes source-content independence within that profile, not
+runtime completion or a Flask response contract; those premises remain separate.
 
 Use `syntax/1` when a question needs exact source spans selected by syntax. It runs locally
 with a pinned Tree-sitter grammar; it does not execute the supplied code. Supported `language`

@@ -60,10 +60,15 @@ impl<'de> Deserialize<'de> for Unique {
 }
 
 pub(crate) fn parse<T: serde::de::DeserializeOwned>(bytes: &[u8]) -> Result<T, String> {
+    serde_json::from_value(parse_value(bytes)?).map_err(|e| e.to_string())
+}
+
+/// Return the strictly parsed value without reconstructing an already validated JSON tree.
+pub(crate) fn parse_value(bytes: &[u8]) -> Result<Value, String> {
     let mut parser = serde_json::Deserializer::from_slice(bytes);
     let Unique(value) = Unique::deserialize(&mut parser).map_err(|e| e.to_string())?;
     parser.end().map_err(|e| e.to_string())?;
-    serde_json::from_value(value).map_err(|e| e.to_string())
+    Ok(value)
 }
 
 /// Borrow a declared output object without creating members on a non-object value.
@@ -71,4 +76,66 @@ pub(crate) fn object_mut(value: &mut Value) -> Result<&mut Map<String, Value>, S
     value
         .as_object_mut()
         .ok_or_else(|| "JSON output record is not an object".into())
+}
+
+#[cfg(test)]
+mod tests {
+    use super::{parse, parse_value};
+    use serde::Deserialize;
+    use serde_json::{Value, json};
+
+    #[derive(Debug, Deserialize, PartialEq)]
+    #[serde(deny_unknown_fields)]
+    struct Envelope {
+        payload: Value,
+    }
+
+    #[test]
+    #[expect(
+        clippy::panic_in_result_fn,
+        reason = "assertions check exact JSON content and typed decoding equivalence"
+    )]
+    fn strict_value_and_typed_parsing_preserve_nested_content() -> Result<(), String> {
+        let bytes = br#"{"payload":{"items":[null,true,-2,1.25,{"text":"a\u0062"}]}}"#;
+        let direct = parse_value(bytes)?;
+        let typed: Envelope = parse(bytes)?;
+        assert_eq!(
+            direct,
+            json!({"payload":{"items":[null,true,-2,1.25,{"text":"ab"}]}})
+        );
+        assert_eq!(parse::<Value>(bytes)?, direct);
+        assert_eq!(direct.get("payload"), Some(&typed.payload));
+        Ok(())
+    }
+
+    #[test]
+    fn strict_value_and_typed_parsing_refuse_the_same_invalid_json() {
+        let invalid: &[&[u8]] = &[
+            br#"{"payload":1,"payload":2}"#,
+            br#"{"payload":{"same":1,"sa\u006de":2}}"#,
+            br#"{"payload":[{"same":1,"same":2}]}"#,
+            br#"{"payload":1} {"payload":2}"#,
+            br#"{"payload":1} trailing"#,
+            br#"{"payload":[true,]}"#,
+        ];
+        for bytes in invalid {
+            let direct = parse_value(bytes);
+            let typed = parse::<Envelope>(bytes);
+            assert!(direct.is_err());
+            assert_eq!(direct.err(), typed.err());
+        }
+    }
+
+    #[test]
+    #[expect(
+        clippy::panic_in_result_fn,
+        reason = "assertions preserve typed shape and unknown-field refusals after strict value parsing"
+    )]
+    fn typed_contracts_remain_required_after_value_validation() -> Result<(), String> {
+        for bytes in [br#"[1,2]"#.as_slice(), br#"{"other":1}"#.as_slice()] {
+            parse_value(bytes)?;
+            assert!(parse::<Envelope>(bytes).is_err());
+        }
+        Ok(())
+    }
 }

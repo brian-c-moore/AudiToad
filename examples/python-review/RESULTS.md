@@ -1,14 +1,104 @@
 # Python audit observations
 
+## Current development measurement
+
+Version 6 on 2026-10-16 specifies two successive completed calls of the unchanged selected
+function, using distinct strings, retaining both returned lists and excluding caller mutation
+between calls. Only the two list questions changed. Source functions, expected answers,
+shipping question and fixed 0.1/0.9 thresholds remain unchanged.
+
+The Jev-only development run made four new calls and reused 12 unchanged exchanges under their
+complete identities. It matched **12 of 14 final policy labels, with zero wrong and two
+unresolved**, and reported no transport or decoding errors. `shipping_fee` remains unresolved
+at 0.58. The `add_message` list parent remains unresolved because its identity and content
+premises returned 0.49 and 0.25. The separate four list diagnostics matched two answers and
+left two unresolved, with zero wrong; they are not additional policy cases.
+
+The [version-6 policy score](v6.score.json) SHA-256 is
+`8aaae06b26e686284e07ed975fb1b05cc1913a7de72d40d2deb014ae192eef8c`.
+Its original report SHA-256 is
+`f279017506819ebb245181c8519c614629b2c4752016c494e597ae29679e186d`.
+The version-6 baseline SHA-256 is
+`8dbfc3ae915eb79ab91ef8efdbddbb821e59ee3f26cb141c1f5f2026d75aa84d`.
+The bundle and both label sets retain the identities recorded below. This is one further
+development run on the same authored examples, with no improvement in policy coverage.
+All semantic terminal outcomes remain `not_evaluated`; source reading does not establish
+numeric execution or complete Python object-lifetime analysis.
+
+## Recorded version-4 and version-5 measurements
+
+On 2026-10-16 the version 4 Jev-only run made 16 calls with no transport or
+decoding errors. It matched 10 of 14 final policy labels, with zero wrong and
+four unresolved. Version 5 clarified four question families before one further
+development run: shipping equality, lowercase normalization and the two separate
+list-lifetime premises. Source functions, expected answers and 0.1/0.9 thresholds
+stayed fixed. Eight unchanged exchanges were reused under their complete identities;
+eight revised questions were sent to `jev-1.13.0`.
+
+| Measure | Version 4 | Version 5 |
+|---|---:|---:|
+| Final policy labels | 14 | 14 |
+| Correct suggestions | 10 | 12 |
+| Wrong suggestions | 0 | 0 |
+| Unresolved suggestions | 4 | 2 |
+| New provider calls | 16 | 8 |
+| Reused exchanges | 0 | 8 |
+| Transport/decoding errors | 0 | 0 |
+
+Direct product scoring against the current 14-label `labels.json` reproduces these totals
+for both retained reports. The paired comparison identifies two policy changes from review
+to correct pass: `PY-EMAIL-CASE` on `contact_email` changed from 0.19 to 0.06, and
+`PY-SHIPPING` on `express_shipping_fee` changed from 0.13 to 0.07. Both retain the same
+source evidence and have revised requests.
+
+The defective shipping function remains unresolved (0.58), and the fresh-list
+comparison remains unresolved because its identity and content premises returned
+0.25 and 0.33. Those are retained reviews. In each version, the separate four list prerequisite
+labels matched two answers and left two unresolved, with zero wrong; they are not added to the
+policy denominator. Use `labels.json` for final policy scoring and
+`diagnostic.labels.json` for those prerequisites.
+
+The version 4 report SHA-256 is
+`e8ea2c5588271584c7f72267111612f8c4085d1fd6495b40741f79ec45c51674`.
+The version 5 report SHA-256 is
+`ba397511f0cfb7b316d9950485e79fe541aa8fc021740da6df23fe5b0c99b34b`.
+
+The current 14-policy labels SHA-256 is
+`6edadc0a76a8653b292f24913d3a7fede5c3cc07e57d47f779fb3da9685de99d`;
+the separate four-diagnostic labels SHA-256 is
+`45cc0a980fdaf5b1c2dd3aa142900fd12330c2da66e3077fb531496510afb467`.
+Earlier scores that combined all 18 labels retain that historical denominator. The current
+policy scores and comparison use only the 14 final policy expectations:
+
+| Retained product artifact | SHA-256 |
+|---|---|
+| [Version 4 policy score](v4.score.json) | `7e047c9d3d607b337d71a6401dbde434d1aea0a5b4057e7ad81b8d66c1d2c6cc` |
+| [Version 5 policy score](v5.score.json) | `52e04328656f036ec83ac6ad525888fcbcab1b83e014c9f07ca4aab914b74f66` |
+| Version 4 diagnostic score | `1abc4c60adc694caf1543b1973805cddeeb5600ac84ff247f4d394a60f97c89c` |
+| Version 5 diagnostic score | `cd7f18eb3e5cfb5bf6b1cfa631cce5140606d53047bf59351a21f541c4a49f3d` |
+| Version 5 versus 4 policy comparison | `aa07018bd6123e8e83d58dcc92e3eedd1fb6d7413cecd8216c3ea22be05f5568` |
+
+Both reports use bundle SHA-256
+`e640f2a9ed39eab5321c19fbdef4c66d90649638c7e326cdd93e118043780c7f`.
+The version 4 baseline SHA-256 is
+`a5203522ded191592510d9c745dcf978a14c539fd94eb32dae83295a0584cc70`;
+the version 5 baseline SHA-256 is
+`55f0213c4e557c206a73bb3291caac3d40832713b64a24a679b0642b31741efb`.
+This comparison uses the same authored development cases. It does not establish
+accuracy on unfamiliar code. All semantic terminal outcomes remain `not_evaluated`.
+
+## Earlier observations and design
+
 This note separates current design from retained development observations and historical
 measurements. Version 2 added Python truthiness context. Version 3 replaced hand-selected
 lines with local function-name queries and source-quote helpers and fixed decision thresholds
-at 0.1/0.9. Version 4 adds a mandatory selected-function prerequisite to each helper and policy
+at 0.1/0.9. Version 4 introduced a mandatory selected-function prerequisite to each helper and policy
 question: either `code_a` or `code_b` must be non-null before dispatch. Imports and optional
-helper context cannot substitute for a missing function. Questions, thresholds, queries and
-source are unchanged. The new dispatch prerequisite has not been measured against a model
-or semantically admitted.
-Projections now select unique `function` and `imports` capture labels, independent of their
+helper context cannot substitute for a missing function. That revision kept version 3's
+questions, thresholds, queries and source; its Jev development measurement is reported above.
+Versions 5 and 6 retain these dispatch prerequisites and source selection, with their
+question clarifications described above. Semantic admission remains open.
+Projections select unique `function` and `imports` capture labels, independent of their
 positions. Several imports cannot satisfy function presence; ambiguous matching labels and
 malformed selected text refuse dispatch. Multiple imports or duplicate named functions need
 a reviewed selection update. Selection still does not establish dependency completeness.
@@ -24,8 +114,8 @@ existing llama.cpp b11146 server. All ten helpers returned correctly typed, verb
 quotations, with ten calls and zero errors. The shipping excerpt included the fallback charge;
 `decode_return` quoted its actual decoding call without inventing a handler. Judgment questions
 were switched off. These observations establish response and quotation compatibility on the
-pinned example, not extraction completeness or policy accuracy. Current Jev judgments and
-semantic admission remain pending.
+pinned example, not extraction completeness or policy accuracy. The version 4/5 Jev observations
+above are separate measurements; semantic admission remains open.
 
 An earlier development run on 2026-10-13 used Foundation-Sec-1.1-8B-Instruct Q4_K_M with
 llama.cpp b11146 for both roles. The first JSON-object request produced ten refused helper
@@ -65,8 +155,8 @@ and are excluded from the policy denominator. All terminal results remained `not
 | `PY-LIST` | `add_note` | Yes | Combined locally | fail |
 | `PY-LIST` | `add_message` | No | Combined locally | pass |
 
-The previous baseline matched 12/14 policy results, with shipping and shared-list behavior
-unresolved. The current questions separate returned identity from retained contents and include
+Before version 1, an earlier baseline matched 12/14 policy results, with shipping and shared-list
+behavior unresolved. Version 1 separated returned identity from retained contents and included
 the relevant language semantics. See Python's [default-argument rules](https://docs.python.org/3/tutorial/controlflow.html#default-argument-values)
 and [mutable sequence operations](https://docs.python.org/3/library/stdtypes.html#mutable-sequence-types).
 
@@ -93,10 +183,11 @@ transport errors; it supplied no model answers and is not counted as an accuracy
 
 ## Transfer to other Python forms
 
-With the current questions and thresholds frozen, 24 new authored functions tested equivalent
+With the historical questions and calibrated thresholds frozen, 24 new authored functions tested equivalent
 comparisons, intermediate variables, copying, clearing, slice assignment and returned aliases.
 Expected labels were recorded before inference. This is author-reviewed validation, not an
-independently annotated corpus or a test of arbitrary Python programs.
+independently annotated corpus or a test of arbitrary Python programs. This historical transfer
+run does not measure the current version 5 questions or fixed 0.1/0.9 thresholds.
 
 | Result | Correct | Wrong | Review |
 |---|---:|---:|---:|

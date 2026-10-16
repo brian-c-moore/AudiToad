@@ -1,9 +1,62 @@
 # Writing audit observations
 
-This note records version 1 of the baseline. Version 2 asks many of these questions of each
-sentence or paragraph instead of the whole article, and has not yet been measured; its
-observations will replace this record. The version 1 observations were bound to that baseline
-and are no longer shipped.
+## Current version 3
+
+The five-family revision addresses demonstrated evidence and evaluator-selection problems.
+The emphasis question now receives the brief and is gated by exact paired-phrase presence.
+The closing-expression question is gated by exact phrase presence and receives the complete
+article alongside its selected sentence.
+The preview question explicitly excludes bare headings. Exact role and filler phrase detection
+uses local predicates with pinned positive and near-miss controls.
+
+All current yes/no thresholds are fixed at 0.1/0.9 before new calls. The legacy calibrated
+limits below remain attached to historical observations. Changing only a decision limit does
+not justify repeating a model request.
+
+On 2026-10-16 one development run of `revision-3` made 31 calls to `jev-1.13.0`, with no
+execution errors. It matched **10 of 10 final policy expectations, with zero wrong and zero
+unresolved**, across five revised families and two authored articles:
+
+| Final policy family | Correct | Wrong | Unresolved |
+|---|---:|---:|---:|
+| Paired emphasis (`FRAME-01`) | 2 | 0 | 0 |
+| Closing expression (`FRAME-13`) | 2 | 0 | 0 |
+| Role phrase (`FRAME-14`) | 2 | 0 | 0 |
+| Filler transition (`WORDS-03`) | 2 | 0 | 0 |
+| Announcing a topic (`GROUND-02`) | 2 | 0 | 0 |
+
+The run recorded 381 checks, including local predicates, gates, unit observations and
+document combinations. Those are not 381 independent policy cases. Its 31 provider calls
+comprised one gated emphasis question, one gated closing-expression question and 29
+paragraph-preview questions. The role and filler predicates ran locally. Final policy
+labels came from `revision-3.labels.json`, fixed before these calls; unit judgments and helper
+responses are excluded from that ten-case denominator.
+
+This is a focused development observation on already inspected writing. It does not measure
+the complete 94-policy set or establish independent accuracy. Semantic terminal results
+remain `not_evaluated`, and the overall scan remains unresolved.
+
+| Retained artifact | SHA-256 |
+|---|---|
+| Version 3 baseline | `98b9d3608deaaa7a3d72bec24e20a8d7444b797db540bdfcf8a66c093a27dee2` |
+| Article/brief bundle | `e66ee34b61a2cf440a0f2298336e64e52f953754c2b812bcb4e35990de25a7dc` |
+| Ten-policy labels | `d18eaa16d72b314ca5c4952fe9518259c16969d5380c3e5300e6ad5339b8a563` |
+| Development report | `5a41e6a9125fbf717c65d3d383d8ae196cfe84c77c688e08041685a51cf72198` |
+| [Public product score](v3-focused.score.json) | `14a4b3f99705539e2ccf56315b1cd0515e255fabb2d11e81fbdb0a7e3fc224c7` |
+
+## Historical version 2
+
+The retained Jev 1.13.0 helper-off development run on 2026-09-30 matched 71 of 94 final policy
+labels, with zero wrong and 23 unresolved. It made 1,286 provider calls with zero execution
+errors. The helper-on run matched 73 of 94, with zero wrong and 21 unresolved; both helper
+responses were refused as invalid quotations. Those small differences do not establish helper
+benefit. Version 2 used the original calibrated decision limits and different evidence from
+version 3. These are authored development controls, not independent acceptance measurements.
+
+## Historical version 1
+
+The following detailed tables record version 1. They do not measure the current questions or
+evidence. The complete historical raw reports are not part of this example's distributed files.
 The local `punctuation.baseline.json` implements `FORMAT-05` exactly and can be run using the
 [README commands](README.md). Its deterministic results are separate from the Jev scores below.
 

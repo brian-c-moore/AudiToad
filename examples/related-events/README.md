@@ -17,6 +17,7 @@ synthetic, and the encoded payload prints `ping`.
 | `allowlist.json` | The approved process instance |
 | `inputs.json` | Names the complete files and their formats |
 | `baseline.json` | A shared command-line grammar, five exact checks, one model question and three answer combinations |
+| `labels.json` | The 21 development expectations for these four events and their input summary |
 | `listed-a.json`, `unlisted-txt.json` | Known-answer frames for the DNS type and allowlist checks |
 | `encoded-invocation.json`, `printed-mention.json`, `script-argument.json`, `nested-code.json` | Known-answer frames for the command-line checks |
 
@@ -100,6 +101,15 @@ for the example, not an accuracy estimate for unseen security logs.
 
 The current baseline matches every label on these four events. The single Jev call concerns
 event 4, whose PowerShell receives `-Command` code.
+
+Score a retained or newly prepared report with the shipped labels:
+
+```console
+auditoad score --report report.json --labels labels.json
+```
+
+Preparation alone leaves the model-dependent observations unresolved. Scoring a retained
+live observation measures its suggestions; it does not admit the draft baseline for use.
 
 Earlier versions asked Jev whether each command started PowerShell and whether it passed an
 encoded command. On a 32-event set of executing commands, printed text, filenames, quoting,

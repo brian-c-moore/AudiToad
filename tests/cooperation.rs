@@ -1493,6 +1493,162 @@ fn consult_conditions_and_first_resolved_answers_choose_in_declared_order() -> T
 #[test]
 #[expect(
     clippy::panic_in_result_fn,
+    reason = "assertions distinguish consultation guards from ordered answer operands and preserve unresolved new judgments"
+)]
+fn gated_answer_combinations_keep_guard_and_fallback_roles_separate() -> TestResult {
+    let dir = directory();
+    let root = dir.path();
+    let path = bundle(root)?;
+    let mut local = question("LOCAL", "judge", "unused");
+    *local
+        .get_mut("evaluator")
+        .ok_or("local evaluator is absent")? =
+        json!({"kind":"syntax","contract":"python-constant-string/1"});
+    *local.get_mut("check").ok_or("local check is absent")? = json!({"kind":"python-constant-string/1","json_string_pointer":"/parts/0/text",
+        "query":"((function_definition name: (identifier) @_name body: (block (return_statement (_) @value))) @scope (#eq? @_name \"handler\"))"});
+    let combination = |id: &str, rules: Value| {
+        json!({"id":id,"revision":"r1","source":"evidence","group":"TEST","risk":"low",
+        "scope_kind":"site","title":id,"evidence":"answers","evaluator":{"kind":"answers","contract":"answers/1"},
+        "check":{"kind":"answers/1","rules":rules,"fail_when":"first_resolved","coverage":"Declared fallback order."},
+        "applicability":{"include":["code"],"exclude":[]},"falsifier":"test","fixtures":{"fail":[],"pass":[]}})
+    };
+    let mut guarded = combination("GUARDED", json!(["LEGACY"]));
+    guarded
+        .as_object_mut()
+        .ok_or("guarded combination is absent")?
+        .insert(
+            "consult".into(),
+            json!({"rules":["LOCAL"],"run_when":"any_unresolved"}),
+        );
+    let declaration = json!({"schema":"auditoad-baseline/1",
+        "baseline":{"id":"guarded-answers","version":"1","title":"Guarded answers","publisher":"tests","status":"draft"},
+        "sources":{"evidence":{"adapter":"evidence-bundle/1","media":["application/vnd.auditoad.bundle+json"]}},
+        "evidence":{"parts":{"builder":"declared-parts/1","builder_revision":"r1","required_roles":["subject","policy"]},"answers":{"builder":"answers/1","builder_revision":"r1"}},
+        "groups":[{"id":"TEST","title":"Test"}],
+        "rules":[local,question("NEW","judge","New semantic judgment?"),question("LEGACY","judge","Legacy semantic judgment?"),guarded,combination("FINAL",json!(["NEW","GUARDED"]))],
+        "profiles":[{"id":"all","select":["*"],"block_on":["fail","review","error","not_evaluated"],"allowed_egress":["loopback"]}]});
+    let evaluators = evaluators(json!({"judge":{"use":"a"}}), root)?;
+    for (source, expected) in [
+        ("def handler(incoming):\n    return 'fixed'\n", "review"),
+        ("def handler(incoming):\n    return incoming\n", "fail"),
+    ] {
+        fs::write(root.join("code.txt"), source)?;
+        let mut manifest: Value = serde_json::from_slice(&fs::read(&path)?)?;
+        *manifest
+            .pointer_mut("/files/code.txt")
+            .ok_or("code pin is absent")? = json!(sha256(source.as_bytes()));
+        fs::write(&path, manifest.to_string())?;
+        let snapshot = Snapshot::bundle(&path, root, &Limits::default())?;
+        let baseline = ValidatedBaseline::from_bytes(declaration.to_string().as_bytes(), root)?;
+        let prepared = scan(request(&baseline, &snapshot, &mock(vec![])?))?;
+        let new = prepared
+            .report
+            .records
+            .iter()
+            .find(|record| record.rule.id == "NEW")
+            .ok_or("new question is absent")?;
+        let old = prepared
+            .report
+            .records
+            .iter()
+            .find(|record| record.rule.id == "LEGACY")
+            .ok_or("legacy question is absent")?;
+        let script = mock(vec![
+            reply(new, &baseline, "a", probability(0.5))?,
+            reply(old, &baseline, "a", probability(0.99))?,
+        ])?;
+        let measured = run(&baseline, &snapshot, &evaluators, &script, root)?;
+        let guarded = measured
+            .report
+            .records
+            .iter()
+            .find(|record| record.rule.id == "GUARDED")
+            .ok_or("guarded answer is absent")?;
+        let frame: Value = serde_json::from_slice(
+            &guarded
+                .evidence
+                .as_ref()
+                .ok_or("guarded evidence is absent")?
+                .bytes,
+        )?;
+        assert_eq!(frame.pointer("/answers/0/rule/id"), Some(&json!("LEGACY")));
+        assert_eq!(
+            frame.get("answers").and_then(Value::as_array).map(Vec::len),
+            Some(1)
+        );
+        assert_eq!(frame.pointer("/prior/0/rule/id"), Some(&json!("LOCAL")));
+        assert_eq!(
+            frame.get("prior").and_then(Value::as_array).map(Vec::len),
+            Some(1)
+        );
+        let final_record = measured
+            .report
+            .records
+            .iter()
+            .find(|record| record.rule.id == "FINAL")
+            .ok_or("final answer is absent")?;
+        assert_eq!(suggested(final_record)?, json!(expected));
+        assert_eq!(measured.report.usage.provider_calls, 2);
+
+        // Reversing declaration order must reverse first_resolved, independently of
+        // the canonical graph's edge enumeration order.
+        let mut ordered = declaration.clone();
+        *ordered
+            .pointer_mut("/rules/4/check/rules")
+            .ok_or("ordered dependencies are absent")? = json!(["LEGACY", "LOCAL"]);
+        let ordered = ValidatedBaseline::from_bytes(ordered.to_string().as_bytes(), root)?;
+        let ordered_run = run(&ordered, &snapshot, &evaluators, &script, root)?;
+        let final_record = ordered_run
+            .report
+            .records
+            .iter()
+            .find(|record| record.rule.id == "FINAL")
+            .ok_or("ordered final answer is absent")?;
+        assert_eq!(suggested(final_record)?, json!("fail"));
+    }
+    for (pointer, replacement) in [
+        ("/rules/3/consult/rules", json!(["FINAL"])),
+        ("/rules/3/check/rules", json!(["FINAL"])),
+        ("/rules/3/consult/rules", json!(["LOCAL", "LOCAL"])),
+        ("/rules/3/check/rules", json!(["LEGACY", "LEGACY"])),
+        ("/rules/3/consult/rules", json!(["ABSENT"])),
+        ("/rules/0/scope_kind", json!("relation")),
+        ("/rules/3/evidence", json!("parts")),
+    ] {
+        let mut invalid = declaration.clone();
+        *invalid
+            .pointer_mut(pointer)
+            .ok_or("invalid mutation field is absent")? = replacement;
+        assert!(
+            ValidatedBaseline::from_bytes(invalid.to_string().as_bytes(), root).is_err(),
+            "{pointer}"
+        );
+    }
+    let mut wrong_source = declaration.clone();
+    let source = wrong_source
+        .pointer("/sources/evidence")
+        .ok_or("source is absent")?
+        .clone();
+    wrong_source
+        .get_mut("sources")
+        .and_then(Value::as_object_mut)
+        .ok_or("sources are absent")?
+        .insert("other".into(), source);
+    *wrong_source
+        .pointer_mut("/rules/0/source")
+        .ok_or("local source is absent")? = json!("other");
+    assert!(ValidatedBaseline::from_bytes(wrong_source.to_string().as_bytes(), root).is_err());
+    let mut shared = declaration;
+    *shared
+        .pointer_mut("/rules/3/check/rules")
+        .ok_or("shared operand is absent")? = json!(["LOCAL"]);
+    assert!(ValidatedBaseline::from_bytes(shared.to_string().as_bytes(), root).is_ok());
+    Ok(())
+}
+
+#[test]
+#[expect(
+    clippy::panic_in_result_fn,
     reason = "assertions check each model and simulated policy while retaining missing-label uncertainty"
 )]
 fn scores_compare_each_model_and_simulated_policies_from_one_combined_run() -> TestResult {

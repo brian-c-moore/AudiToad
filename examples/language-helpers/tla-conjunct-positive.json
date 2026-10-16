@@ -1,0 +1,1 @@
+{"subject":"---- MODULE M ----\nBase == TRUE\nProgress == TRUE\nSpec == Base /\\ Progress\n====","related":{"operands":[{"operator":"Spec","reference":"Progress"}]}}

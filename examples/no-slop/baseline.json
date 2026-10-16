@@ -2,7 +2,7 @@
   "schema": "auditoad-baseline/1",
   "baseline": {
     "id": "no-slop",
-    "version": "2",
+    "version": "3",
     "title": "Writing audit based on Dan Lovejoy's no-slop rules",
     "publisher": "AudiToad examples",
     "status": "draft"
@@ -16,6 +16,10 @@
     }
   },
   "evidence": {
+    "FRAME-01-PRESENT": {
+      "builder": "scoped-input/1",
+      "builder_revision": "r1"
+    },
     "FRAME-01-SENTENCE": {
       "builder": "scoped-input/1",
       "builder_revision": "r1"
@@ -111,6 +115,10 @@
       "builder_revision": "r1"
     },
     "FRAME-13-SENTENCE": {
+      "builder": "scoped-input/1",
+      "builder_revision": "r1"
+    },
+    "FRAME-13-PRESENT": {
       "builder": "scoped-input/1",
       "builder_revision": "r1"
     },
@@ -438,8 +446,33 @@
   ],
   "rules": [
     {
+      "id": "FRAME-01-PRESENT",
+      "revision": "1",
+      "source": "evidence",
+      "group": "frames",
+      "risk": "low",
+      "scope_kind": "site",
+      "title": "Not only, but also phrase is present",
+      "evidence": "FRAME-01-PRESENT",
+      "evaluator": {"kind": "yara-x", "contract": "yara-x/1.20.0"},
+      "check": {
+        "kind": "yara-x/1.20.0",
+        "source": "rule paired_phrase { strings: $phrase = /\\bnot[ \\t]+only\\b[^\\r\\n]*\\bbut[ \\t]+also\\b/ nocase condition: $phrase }",
+        "rule_name": "paired_phrase",
+        "fail_when": "match",
+        "json_string_pointer": "/subject"
+      },
+      "applicability": {"include": ["writing"], "exclude": []},
+      "falsifier": "A selected sentence contains not only followed by but also.",
+      "fixtures": {
+        "pass": [{"path":"phrase-fixtures/pass.json","corpus_revision":"phrase-controls-1","source_sha256":"a03050e820c10bf986af5958d0db3bed863d8c09aacdee99dddbaea1a2934eb3","evidence_sha256":"a03050e820c10bf986af5958d0db3bed863d8c09aacdee99dddbaea1a2934eb3"}],
+        "fail": [{"path":"phrase-fixtures/pair.json","corpus_revision":"phrase-controls-1","source_sha256":"6ee1657bb43a3e20f678dbbbe89c6fec065d077551ae3b89096f97b5ad5bd3dc","evidence_sha256":"6ee1657bb43a3e20f678dbbbe89c6fec065d077551ae3b89096f97b5ad5bd3dc"}]
+      },
+      "scope": {"unit": "sentence", "context": "none"}
+    },
+    {
       "id": "FRAME-01-SENTENCE",
-      "revision": "2",
+      "revision": "3",
       "source": "evidence",
       "group": "frames",
       "risk": "medium",
@@ -452,16 +485,18 @@
       },
       "check": {
         "kind": "yes-no/1",
-        "instructions": "Does this sentence use 'not only ... but also' to make a point sound bigger, rather than to join two separate facts the reader needs?",
+        "instructions": "The sentence contains 'not only ... but also'; the brief states the reader's task. Does this construction add promotional emphasis rather than join two separate facts needed for that task? Judge this construction only; a different rhetorical pattern does not establish this one.",
         "criteria_true": "The construction adds emphasis.",
         "criteria_false": "The sentence does not use it, or uses it to join two needed facts.",
         "pass_below": 0.1,
         "fail_at_or_above": 0.9,
         "max_request_bytes": 32000,
         "state_projection": {
-          "sentence": "/subject"
+          "sentence": "/subject",
+          "brief": "/supporting/0/text"
         }
       },
+      "consult": {"rules": ["FRAME-01-PRESENT"], "run_when": "any_fail"},
       "applicability": {
         "include": [
           "writing"
@@ -597,7 +632,7 @@
     },
     {
       "id": "FRAME-03-SENTENCE",
-      "revision": "2",
+      "revision": "3",
       "source": "evidence",
       "group": "grammar",
       "risk": "medium",
@@ -613,7 +648,7 @@
         "instructions": "Does this sentence start with a 'from ... to ...' range?",
         "criteria_true": "The sentence starts with a range introduced by 'from' and 'to'.",
         "criteria_false": "The sentence does not start with that range construction.",
-        "pass_below": 0.2,
+        "pass_below": 0.1,
         "fail_at_or_above": 0.9,
         "max_request_bytes": 32000,
         "state_projection": {
@@ -789,7 +824,7 @@
     },
     {
       "id": "FRAME-06-SENTENCE",
-      "revision": "2",
+      "revision": "3",
       "source": "evidence",
       "group": "grammar",
       "risk": "medium",
@@ -805,8 +840,8 @@
         "instructions": "Does the sentence end with a comma followed by a present-participle clause?",
         "criteria_true": "A complete main clause is followed by a comma and a trailing clause whose verb is a present participle.",
         "criteria_false": "No such trailing clause appears.",
-        "pass_below": 0.2,
-        "fail_at_or_above": 0.6,
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
         "max_request_bytes": 32000,
         "state_projection": {
           "sentence": "/subject"
@@ -1171,8 +1206,36 @@
       }
     },
     {
+      "id": "FRAME-13-PRESENT",
+      "revision": "1",
+      "source": "evidence",
+      "group": "frames",
+      "risk": "low",
+      "scope_kind": "site",
+      "title": "That's it phrase is present",
+      "evidence": "FRAME-13-PRESENT",
+      "evaluator": {"kind":"yara-x","contract":"yara-x/1.20.0"},
+      "check": {
+        "kind":"yara-x/1.20.0",
+        "source":"rule closing_phrase { strings: $phrase = /\\bthat('|\\xE2\\x80\\x99)s[ \\t]+it\\b/ nocase condition: $phrase }",
+        "rule_name":"closing_phrase",
+        "fail_when":"match",
+        "json_string_pointer":"/subject"
+      },
+      "applicability":{"include":["writing"],"exclude":[]},
+      "falsifier":"The selected sentence contains that's it with a straight or curly apostrophe.",
+      "fixtures":{
+        "pass":[{"path":"phrase-fixtures/pass.json","corpus_revision":"phrase-controls-1","source_sha256":"a03050e820c10bf986af5958d0db3bed863d8c09aacdee99dddbaea1a2934eb3","evidence_sha256":"a03050e820c10bf986af5958d0db3bed863d8c09aacdee99dddbaea1a2934eb3"}],
+        "fail":[
+          {"path":"phrase-fixtures/closing.json","corpus_revision":"phrase-controls-1","source_sha256":"030235827237908db262bf6beebec8e6b3ba8eff6f40a5d6aee44b4097d5c0c2","evidence_sha256":"030235827237908db262bf6beebec8e6b3ba8eff6f40a5d6aee44b4097d5c0c2"},
+          {"path":"phrase-fixtures/closing-curly.json","corpus_revision":"phrase-controls-1","source_sha256":"f0f456739442a68d6a76d10ee6a1aedb37c8d283e2fc0677b2a33a65654d3ab2","evidence_sha256":"f0f456739442a68d6a76d10ee6a1aedb37c8d283e2fc0677b2a33a65654d3ab2"}
+        ]
+      },
+      "scope":{"unit":"sentence","context":"document"}
+    },
+    {
       "id": "FRAME-13-SENTENCE",
-      "revision": "2",
+      "revision": "3",
       "source": "evidence",
       "group": "frames",
       "risk": "medium",
@@ -1185,14 +1248,15 @@
       },
       "check": {
         "kind": "yes-no/1",
-        "instructions": "Does this sentence use 'that's it' to close a passage?",
+        "instructions": "The selected sentence contains 'that's it'; the article field supplies its complete context. Does this occurrence function as a closing expression for the passage, rather than as literal identification inside a statement? Judge the expression's role, not the already established phrase presence.",
         "criteria_true": "The sentence uses 'that's it' as a closing phrase.",
         "criteria_false": "The sentence does not, or uses the words literally within a statement.",
         "pass_below": 0.1,
         "fail_at_or_above": 0.9,
         "max_request_bytes": 32000,
         "state_projection": {
-          "sentence": "/subject"
+          "sentence": "/subject",
+          "article": "/context"
         }
       },
       "applicability": {
@@ -1202,13 +1266,14 @@
         "exclude": []
       },
       "falsifier": "The sentence uses 'that's it' as a closing phrase.",
+      "consult":{"rules":["FRAME-13-PRESENT"],"run_when":"any_fail"},
       "fixtures": {
         "pass": [],
         "fail": []
       },
       "scope": {
         "unit": "sentence",
-        "context": "none"
+        "context": "document"
       }
     },
     {
@@ -1251,7 +1316,7 @@
     },
     {
       "id": "FRAME-14-SENTENCE",
-      "revision": "2",
+      "revision": "3",
       "source": "evidence",
       "group": "frames",
       "risk": "medium",
@@ -1259,20 +1324,15 @@
       "title": "Plays a role",
       "evidence": "FRAME-14-SENTENCE",
       "evaluator": {
-        "kind": "model",
-        "contract": "yes-no/1"
+        "kind": "yara-x",
+        "contract": "yara-x/1.20.0"
       },
       "check": {
-        "kind": "yes-no/1",
-        "instructions": "Does this sentence say that something plays a significant, crucial, vital or central role?",
-        "criteria_true": "The sentence uses such a plays-a-role phrase.",
-        "criteria_false": "The sentence uses no such phrase.",
-        "pass_below": 0.1,
-        "fail_at_or_above": 0.9,
-        "max_request_bytes": 32000,
-        "state_projection": {
-          "sentence": "/subject"
-        }
+        "kind": "yara-x/1.20.0",
+        "source": "rule role_phrase { strings: $phrase = /\\bplays[ \\t]+a[ \\t]+(significant|crucial|vital|central)[ \\t]+role\\b/ nocase condition: $phrase }",
+        "rule_name": "role_phrase",
+        "fail_when": "match",
+        "json_string_pointer": "/subject"
       },
       "applicability": {
         "include": [
@@ -1282,8 +1342,13 @@
       },
       "falsifier": "The sentence uses such a plays-a-role phrase.",
       "fixtures": {
-        "pass": [],
-        "fail": []
+        "pass": [{"path":"phrase-fixtures/pass.json","corpus_revision":"phrase-controls-1","source_sha256":"a03050e820c10bf986af5958d0db3bed863d8c09aacdee99dddbaea1a2934eb3","evidence_sha256":"a03050e820c10bf986af5958d0db3bed863d8c09aacdee99dddbaea1a2934eb3"}],
+        "fail": [
+          {"path":"phrase-fixtures/role-significant.json","corpus_revision":"phrase-controls-1","source_sha256":"37f77a62a0065b866a4e2bf42e86482ca1822819db0c2817513d5679f7135040","evidence_sha256":"37f77a62a0065b866a4e2bf42e86482ca1822819db0c2817513d5679f7135040"},
+          {"path":"phrase-fixtures/role-crucial.json","corpus_revision":"phrase-controls-1","source_sha256":"5cf94db719be58014b12378205600ab33e14d78c331909c67f42468848beab7f","evidence_sha256":"5cf94db719be58014b12378205600ab33e14d78c331909c67f42468848beab7f"},
+          {"path":"phrase-fixtures/role-vital.json","corpus_revision":"phrase-controls-1","source_sha256":"2bdd78ecfb155df79ca1ba29e8b5f89965f6796867f57a2361edc9a5a04af895","evidence_sha256":"2bdd78ecfb155df79ca1ba29e8b5f89965f6796867f57a2361edc9a5a04af895"},
+          {"path":"phrase-fixtures/role-central.json","corpus_revision":"phrase-controls-1","source_sha256":"ba2bed2ac1aabd3eb40559498da07a0592a8deb2ff71ff8737ab9363fd15035f","evidence_sha256":"ba2bed2ac1aabd3eb40559498da07a0592a8deb2ff71ff8737ab9363fd15035f"}
+        ]
       },
       "scope": {
         "unit": "sentence",
@@ -1797,7 +1862,7 @@
     },
     {
       "id": "WORDS-03-SENTENCE",
-      "revision": "2",
+      "revision": "3",
       "source": "evidence",
       "group": "words",
       "risk": "medium",
@@ -1805,20 +1870,15 @@
       "title": "Filler transitions",
       "evidence": "WORDS-03-SENTENCE",
       "evaluator": {
-        "kind": "model",
-        "contract": "yes-no/1"
+        "kind": "yara-x",
+        "contract": "yara-x/1.20.0"
       },
       "check": {
-        "kind": "yes-no/1",
-        "instructions": "Does this sentence use one of these filler phrases: at the end of the day, when it comes to, at its core, let's break it down, or this is where X comes in, where X is any subject?",
-        "criteria_true": "A listed filler phrase appears.",
-        "criteria_false": "None of those phrases appears.",
-        "pass_below": 0.1,
-        "fail_at_or_above": 0.9,
-        "max_request_bytes": 32000,
-        "state_projection": {
-          "sentence": "/subject"
-        }
+        "kind": "yara-x/1.20.0",
+        "source": "rule filler_phrase { strings: $fixed = /\\b(at the end of the day|when it comes to|at its core|let('|\\xE2\\x80\\x99)s break it down)\\b/ nocase $variable = /\\bthis is where [^\\r\\n.!?]+ comes in\\b/ nocase condition: any of them }",
+        "rule_name": "filler_phrase",
+        "fail_when": "match",
+        "json_string_pointer": "/subject"
       },
       "applicability": {
         "include": [
@@ -1828,8 +1888,15 @@
       },
       "falsifier": "A listed filler phrase appears.",
       "fixtures": {
-        "pass": [],
-        "fail": []
+        "pass": [{"path":"phrase-fixtures/pass.json","corpus_revision":"phrase-controls-1","source_sha256":"a03050e820c10bf986af5958d0db3bed863d8c09aacdee99dddbaea1a2934eb3","evidence_sha256":"a03050e820c10bf986af5958d0db3bed863d8c09aacdee99dddbaea1a2934eb3"}],
+        "fail": [
+          {"path":"phrase-fixtures/end-of-day.json","corpus_revision":"phrase-controls-1","source_sha256":"01085a63b597424efc772e117831c345d49682a7c2d6962b391e3286d484d4a3","evidence_sha256":"01085a63b597424efc772e117831c345d49682a7c2d6962b391e3286d484d4a3"},
+          {"path":"phrase-fixtures/when-it-comes.json","corpus_revision":"phrase-controls-1","source_sha256":"f89a8631e066666dc8ec4dec8534968120412d195cfe9f42eda1e41c588f05ac","evidence_sha256":"f89a8631e066666dc8ec4dec8534968120412d195cfe9f42eda1e41c588f05ac"},
+          {"path":"phrase-fixtures/at-its-core.json","corpus_revision":"phrase-controls-1","source_sha256":"c72de46bbcde5e796c9bdad9a00e1e75a76c70803633aa0eb7bd295ff76c2e23","evidence_sha256":"c72de46bbcde5e796c9bdad9a00e1e75a76c70803633aa0eb7bd295ff76c2e23"},
+          {"path":"phrase-fixtures/break-it-down.json","corpus_revision":"phrase-controls-1","source_sha256":"170f0505448a70e5173c4850c604ca2527c873bbfff7daa628a815c1dcc1be93","evidence_sha256":"170f0505448a70e5173c4850c604ca2527c873bbfff7daa628a815c1dcc1be93"},
+          {"path":"phrase-fixtures/break-it-down-curly.json","corpus_revision":"phrase-controls-1","source_sha256":"42a93dbbc3615f903814e73b92f9db499a4a41942e105e1004e09ca0090c547d","evidence_sha256":"42a93dbbc3615f903814e73b92f9db499a4a41942e105e1004e09ca0090c547d"},
+          {"path":"phrase-fixtures/comes-in.json","corpus_revision":"phrase-controls-1","source_sha256":"9d301aea2eb4db14eef900cf2b938da07edb57ec7dc6501acd25285ee0fa6fb8","evidence_sha256":"9d301aea2eb4db14eef900cf2b938da07edb57ec7dc6501acd25285ee0fa6fb8"}
+        ]
       },
       "scope": {
         "unit": "sentence",
@@ -1930,7 +1997,7 @@
     },
     {
       "id": "WORDS-05",
-      "revision": "2",
+      "revision": "3",
       "source": "evidence",
       "group": "language",
       "risk": "medium",
@@ -1946,7 +2013,7 @@
         "instructions": "Does the article say that software or mathematics thinks, intends, wants, believes, decides, understands or prefers?",
         "criteria_true": "It assigns a model, algorithm, program or mathematical object a thought, intention, desire, opinion, understanding or preference.",
         "criteria_false": "It describes only computation or human mental abilities, or explicitly denies those abilities to software or mathematics.",
-        "pass_below": 0.5,
+        "pass_below": 0.1,
         "fail_at_or_above": 0.9,
         "max_request_bytes": 32000,
         "state_projection": {
@@ -2046,7 +2113,7 @@
     },
     {
       "id": "WORDS-07-PARAGRAPH",
-      "revision": "2",
+      "revision": "3",
       "source": "evidence",
       "group": "paragraphs",
       "risk": "medium",
@@ -2062,8 +2129,8 @@
         "instructions": "Does this paragraph use different words to name the same person, group, or thing?",
         "criteria_true": "Different synonymous nouns name the same person, group, or thing.",
         "criteria_false": "There are no interchangeable names for the same subject. Pronouns and nouns for different subjects do not count.",
-        "pass_below": 0.2,
-        "fail_at_or_above": 0.8,
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
         "max_request_bytes": 32000,
         "state_projection": {
           "paragraph": "/subject"
@@ -2363,7 +2430,7 @@
     },
     {
       "id": "GROUND-02-PARAGRAPH",
-      "revision": "2",
+      "revision": "3",
       "source": "evidence",
       "group": "grounding",
       "risk": "medium",
@@ -2376,9 +2443,9 @@
       },
       "check": {
         "kind": "yes-no/1",
-        "instructions": "Does this paragraph say what will be discussed instead of giving the information itself?",
+        "instructions": "Does this paragraph contain prose announcing what the article will discuss instead of supplying that information? A bare heading or topic label is not such a prose announcement. Promotional claims, factual statements and practical instructions are separate propositions; do not count them as previews unless they actually announce later discussion.",
         "criteria_true": "The paragraph announces a topic without giving its information.",
-        "criteria_false": "The paragraph gives facts or instructions directly.",
+        "criteria_false": "There is no prose announcement of later discussion; the block is a bare heading, gives facts or instructions, or discusses something else.",
         "pass_below": 0.1,
         "fail_at_or_above": 0.9,
         "max_request_bytes": 32000,
@@ -3091,7 +3158,7 @@
     },
     {
       "id": "TONE-04-PARAGRAPH",
-      "revision": "2",
+      "revision": "3",
       "source": "evidence",
       "group": "paragraphs",
       "risk": "medium",
@@ -3107,8 +3174,8 @@
         "instructions": "Does a sentence in this paragraph repeat an earlier sentence's meaning without adding information?",
         "criteria_true": "A sentence restates the same idea without adding anything.",
         "criteria_false": "No sentence repeats an earlier sentence's meaning without adding a fact, action or reason. Repeating a topic word alone does not count.",
-        "pass_below": 0.3,
-        "fail_at_or_above": 0.8,
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
         "max_request_bytes": 32000,
         "state_projection": {
           "paragraph": "/subject"
@@ -3249,7 +3316,7 @@
     },
     {
       "id": "TONE-06",
-      "revision": "2",
+      "revision": "3",
       "source": "evidence",
       "group": "language",
       "risk": "medium",
@@ -3265,7 +3332,7 @@
         "instructions": "Does the article offer generic sympathy or reassurance about the reader's difficulties?",
         "criteria_true": "It uses a stock expression of understanding, sympathy or reassurance about the reader's difficulties. Giving practical advice does not cancel that expression.",
         "criteria_false": "It contains no such generic expression. A specific factual account of someone's experience is not generic sympathy.",
-        "pass_below": 0.4,
+        "pass_below": 0.1,
         "fail_at_or_above": 0.9,
         "max_request_bytes": 32000,
         "state_projection": {
@@ -3434,6 +3501,12 @@
     }
   ],
   "profiles": [
+    {
+      "id": "revision-3",
+      "select": ["FRAME-01", "FRAME-13", "FRAME-14", "WORDS-03", "GROUND-02"],
+      "block_on": ["fail", "review", "error", "not_evaluated"],
+      "allowed_egress": ["https://api.typesafe.ai", "loopback"]
+    },
     {
       "id": "all",
       "select": [

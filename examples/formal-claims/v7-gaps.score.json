@@ -1,0 +1,363 @@
+{
+  "schema": "auditoad-score/1",
+  "report_sha256": "75c0929ef80227f5e60e247d82d0b098c17b8ca4c082473cf6fe28475a0f7486",
+  "scan_id": "832fe9c5-8ea2-4d26-92d5-7e67c2290fa2",
+  "baseline": {
+    "id": "formal-claims",
+    "version": "7",
+    "sha256": "23c34aef24a90464a99d7f6c6ebedc282080289e3509d9be83b88c09e1356594"
+  },
+  "profile": "gap-development",
+  "source": {
+    "binding": "collection/1",
+    "input_sha256": "f35f3b302721cd9d01f9bbcd903e37b67198d84afe2627014badf82ef6452ab8",
+    "snapshot_id": "79209bd679b5cb0f115463945c91eb409e9ead10b45656a84e0c00b7d157b0a3"
+  },
+  "usage": {
+    "checks": 24,
+    "evidence_bytes": 1018303,
+    "provider_calls": 15,
+    "reused_exchanges": 4
+  },
+  "model_usage": {
+    "jev": {
+      "checks": 0,
+      "evidence_bytes": 1001033,
+      "provider_calls": 15,
+      "reused_exchanges": 4
+    }
+  },
+  "cases": [
+    {
+      "label": {
+        "rule": "FAIR-GAP",
+        "target": null,
+        "packet": null,
+        "input": "tla-fairness",
+        "line": 1,
+        "violation": false
+      },
+      "target": "collection/scope/0/unit/0",
+      "decision": "unresolved",
+      "comparison": "unresolved",
+      "missing": false,
+      "reason": "experimental combination of all declared dependency answers; not an admitted audit decision",
+      "terminal_result": "not_evaluated",
+      "evidence_sha256": "deb5eb2807ded2f78b2559d87aa7cc0513adfed98bc0c4a7465112388038536d",
+      "suggested_result": "review",
+      "probability": null,
+      "choice": null,
+      "confidence": null,
+      "request_sha256": null,
+      "mock": null,
+      "replay": null,
+      "reuse": null
+    },
+    {
+      "label": {
+        "rule": "FAIR-GAP",
+        "target": null,
+        "packet": null,
+        "input": "tla-fairness",
+        "line": 2,
+        "violation": true
+      },
+      "target": "collection/scope/0/unit/1",
+      "decision": "unresolved",
+      "comparison": "unresolved",
+      "missing": false,
+      "reason": "experimental combination of all declared dependency answers; not an admitted audit decision",
+      "terminal_result": "not_evaluated",
+      "evidence_sha256": "5decdd5da83a0f2bc4cf9a113d5a721f086131620fc938d9ce359ad348aaad99",
+      "suggested_result": "review",
+      "probability": null,
+      "choice": null,
+      "confidence": null,
+      "request_sha256": null,
+      "mock": null,
+      "replay": null,
+      "reuse": null
+    },
+    {
+      "label": {
+        "rule": "FAIR-GAP",
+        "target": null,
+        "packet": null,
+        "input": "tla-fairness",
+        "line": 3,
+        "violation": true
+      },
+      "target": "collection/scope/0/unit/2",
+      "decision": "unresolved",
+      "comparison": "unresolved",
+      "missing": false,
+      "reason": "experimental combination of all declared dependency answers; not an admitted audit decision",
+      "terminal_result": "not_evaluated",
+      "evidence_sha256": "f90c38b8dac3b935831f61669846d1a0702741b0e1928443898a89144016a1f9",
+      "suggested_result": "review",
+      "probability": null,
+      "choice": null,
+      "confidence": null,
+      "request_sha256": null,
+      "mock": null,
+      "replay": null,
+      "reuse": null
+    },
+    {
+      "label": {
+        "rule": "FAIR-GAP",
+        "target": null,
+        "packet": null,
+        "input": "tla-fairness",
+        "line": 4,
+        "violation": true
+      },
+      "target": "collection/scope/0/unit/3",
+      "decision": "unresolved",
+      "comparison": "unresolved",
+      "missing": false,
+      "reason": "experimental combination of all declared dependency answers; not an admitted audit decision",
+      "terminal_result": "not_evaluated",
+      "evidence_sha256": "b15512e7ebc23ad43aa530874cb94dbbcdd07580ae0b2b1ce844891018653f12",
+      "suggested_result": "review",
+      "probability": null,
+      "choice": null,
+      "confidence": null,
+      "request_sha256": null,
+      "mock": null,
+      "replay": null,
+      "reuse": null
+    },
+    {
+      "label": {
+        "rule": "FAIR-GAP",
+        "target": null,
+        "packet": null,
+        "input": "tla-fairness",
+        "line": 5,
+        "violation": false
+      },
+      "target": "collection/scope/0/unit/4",
+      "decision": "pass",
+      "comparison": "correct",
+      "missing": false,
+      "reason": "experimental combination of all declared dependency answers; not an admitted audit decision",
+      "terminal_result": "not_evaluated",
+      "evidence_sha256": "0c36e25f51b73eb2518ffc43ec9d36428776f6e0477481096417cfab65d4f1de",
+      "suggested_result": "pass",
+      "probability": null,
+      "choice": null,
+      "confidence": null,
+      "request_sha256": null,
+      "mock": null,
+      "replay": null,
+      "reuse": null
+    },
+    {
+      "label": {
+        "rule": "QUANT-GAP",
+        "target": null,
+        "packet": null,
+        "input": "tlaps-quantifiers",
+        "line": 1,
+        "violation": false
+      },
+      "target": "collection/scope/1/unit/0",
+      "decision": "pass",
+      "comparison": "correct",
+      "missing": false,
+      "reason": "semantic observation only; live control admission remains open",
+      "terminal_result": "not_evaluated",
+      "evidence_sha256": "986ec4f92311ee90f2c5ca2ecda4fc8e1f49151786492f2a1afaabeef6cbd901",
+      "suggested_result": "pass",
+      "probability": 0.07,
+      "choice": null,
+      "confidence": null,
+      "request_sha256": "e54593e2ed5d71f282b4d1ddd121120e41144c22abe2b01a4c711e06684966ed",
+      "mock": false,
+      "replay": null,
+      "reuse": {
+        "report_sha256": "765bc3d2467b0b7b0e6bfa21c16240ef2040e2daa2be5b8823d60dc9e2db60da",
+        "check_id": "d2e122f6f60f7d933183e58a07cc64971105e243d43834b4c6e004b9ad49592c",
+        "response_sha256": "8b3aa650635acb6803486af4bd48c74f1f0ab99519d39ef9432c1d89e4fb5dd5",
+        "scope": "retained live answer to an identical evaluator, evidence and request; no new HTTP request"
+      }
+    },
+    {
+      "label": {
+        "rule": "QUANT-GAP",
+        "target": null,
+        "packet": null,
+        "input": "tlaps-quantifiers",
+        "line": 2,
+        "violation": true
+      },
+      "target": "collection/scope/1/unit/1",
+      "decision": "fail",
+      "comparison": "correct",
+      "missing": false,
+      "reason": "semantic observation only; live control admission remains open",
+      "terminal_result": "not_evaluated",
+      "evidence_sha256": "a5e3d84e074574992f57ce0c2c76b6da9802b9b5f6f52ac78ef1340a8896ba58",
+      "suggested_result": "fail",
+      "probability": 0.97,
+      "choice": null,
+      "confidence": null,
+      "request_sha256": "758bf4db8530db9652b6aff965d47fdc45a7d9f30a259409abe2bd918aa17887",
+      "mock": false,
+      "replay": null,
+      "reuse": {
+        "report_sha256": "765bc3d2467b0b7b0e6bfa21c16240ef2040e2daa2be5b8823d60dc9e2db60da",
+        "check_id": "f931ad7953579e371e385bc236b7671214ea2535305a272bd7cc13428e372b83",
+        "response_sha256": "07e777b9df8268406e530dc914926a52871cd8e28dcc7c4dbe0dce4c82a8213c",
+        "scope": "retained live answer to an identical evaluator, evidence and request; no new HTTP request"
+      }
+    },
+    {
+      "label": {
+        "rule": "QUANT-GAP",
+        "target": null,
+        "packet": null,
+        "input": "tlaps-quantifiers",
+        "line": 3,
+        "violation": true
+      },
+      "target": "collection/scope/1/unit/2",
+      "decision": "fail",
+      "comparison": "correct",
+      "missing": false,
+      "reason": "semantic observation only; live control admission remains open",
+      "terminal_result": "not_evaluated",
+      "evidence_sha256": "a4c4981d1570639e43b6e99990c06e6952b4bfc3a9279613f40ca3f0d0388f22",
+      "suggested_result": "fail",
+      "probability": 0.9,
+      "choice": null,
+      "confidence": null,
+      "request_sha256": "eaf917339197f9355cf23749672ea69aa1fab943d464a87a4fb017bc67b603ad",
+      "mock": false,
+      "replay": null,
+      "reuse": {
+        "report_sha256": "765bc3d2467b0b7b0e6bfa21c16240ef2040e2daa2be5b8823d60dc9e2db60da",
+        "check_id": "1e98f026addbb99b4ced02acce7222d38cb4d7c1017889189fb848675abf641f",
+        "response_sha256": "3a1c855530e3795a90ed92b1834e2224c522807f74478859da3da05fbfa74b2f",
+        "scope": "retained live answer to an identical evaluator, evidence and request; no new HTTP request"
+      }
+    },
+    {
+      "label": {
+        "rule": "QUANT-GAP",
+        "target": null,
+        "packet": null,
+        "input": "tlaps-quantifiers",
+        "line": 4,
+        "violation": true
+      },
+      "target": "collection/scope/1/unit/3",
+      "decision": "fail",
+      "comparison": "correct",
+      "missing": false,
+      "reason": "semantic observation only; live control admission remains open",
+      "terminal_result": "not_evaluated",
+      "evidence_sha256": "3c6c2a69df0cee3527eea37bd98995b15806fc82522a5df0047a4be309ea7906",
+      "suggested_result": "fail",
+      "probability": 0.93,
+      "choice": null,
+      "confidence": null,
+      "request_sha256": "eaf917339197f9355cf23749672ea69aa1fab943d464a87a4fb017bc67b603ad",
+      "mock": false,
+      "replay": null,
+      "reuse": {
+        "report_sha256": "765bc3d2467b0b7b0e6bfa21c16240ef2040e2daa2be5b8823d60dc9e2db60da",
+        "check_id": "5e51133f2c147c61551a601cb396277e6f3ce3320b176cf1751cd856a29fc3e2",
+        "response_sha256": "94195f64107cfbb9ef2fb7baeb25c1bf00468bda342ac0e29badb19e1d2bb459",
+        "scope": "retained live answer to an identical evaluator, evidence and request; no new HTTP request"
+      }
+    }
+  ],
+  "labels_sha256": "aff974861bb2bd01a981cd1bf7d754340314dc82ad635a85c8ccdf45adce5b4b",
+  "dataset": {
+    "id": "formal-claim-gap-boundaries",
+    "revision": "formal-claims-v5",
+    "split": "development",
+    "notes": "Nine pre-frozen artifact labels for the two revised gap questions: five fairness records and four quantifier records. The original eight artifact expectations remain unchanged. Fairness line 5 starts with done=TRUE and excludes the constant done=FALSE behavior through Init. Claim readings and parent judgments are outside this focused profile."
+  },
+  "labelled_records": 9,
+  "labels_expected": 9,
+  "label_coverage_complete": true,
+  "unlabelled_records": 15,
+  "labels_without_records": [],
+  "overall": {
+    "total": 9,
+    "true_positive": 3,
+    "false_positive": 0,
+    "true_negative": 2,
+    "false_negative": 0,
+    "unresolved_positive": 3,
+    "unresolved_negative": 1,
+    "correct": 5,
+    "wrong": 0,
+    "unresolved": 4,
+    "resolved_accuracy": 1.0,
+    "decision_coverage": 0.5555555555555556,
+    "true_positive_rate": 0.5,
+    "false_positive_rate": 0.0,
+    "scorecard": 0.5
+  },
+  "rules": {
+    "FAIR-GAP": {
+      "total": 5,
+      "true_positive": 0,
+      "false_positive": 0,
+      "true_negative": 1,
+      "false_negative": 0,
+      "unresolved_positive": 3,
+      "unresolved_negative": 1,
+      "correct": 1,
+      "wrong": 0,
+      "unresolved": 4,
+      "resolved_accuracy": 1.0,
+      "decision_coverage": 0.2,
+      "true_positive_rate": 0.0,
+      "false_positive_rate": 0.0,
+      "scorecard": 0.0
+    },
+    "QUANT-GAP": {
+      "total": 4,
+      "true_positive": 3,
+      "false_positive": 0,
+      "true_negative": 1,
+      "false_negative": 0,
+      "unresolved_positive": 0,
+      "unresolved_negative": 0,
+      "correct": 4,
+      "wrong": 0,
+      "unresolved": 0,
+      "resolved_accuracy": 1.0,
+      "decision_coverage": 1.0,
+      "true_positive_rate": 1.0,
+      "false_positive_rate": 0.0,
+      "scorecard": 1.0
+    }
+  },
+  "models": {
+    "jev": {
+      "total": 4,
+      "true_positive": 3,
+      "false_positive": 0,
+      "true_negative": 1,
+      "false_negative": 0,
+      "unresolved_positive": 0,
+      "unresolved_negative": 0,
+      "correct": 4,
+      "wrong": 0,
+      "unresolved": 0,
+      "resolved_accuracy": 1.0,
+      "decision_coverage": 1.0,
+      "true_positive_rate": 1.0,
+      "false_positive_rate": 0.0,
+      "scorecard": 1.0
+    }
+  },
+  "policies": {},
+  "scope": "Overall and rule totals include every supplied label; missing records count as unresolved. Model rows cover recorded model observations only. A policy row is simulated from combined runs in which every model answered; it is not a separate run. Complete label coverage does not establish coverage of an entire audit subject."
+}

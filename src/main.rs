@@ -42,7 +42,24 @@ enum Command {
 
 #[derive(Subcommand)]
 enum BaselineCommand {
-    Validate { path: PathBuf },
+    Validate {
+        path: PathBuf,
+    },
+    /// Review the questions in a baseline or question set.
+    Review(Box<ReviewArguments>),
+}
+
+#[derive(Args)]
+struct ReviewArguments {
+    path: PathBuf,
+    /// Where to write the review report.
+    #[arg(long, default_value = "review.json")]
+    report: PathBuf,
+    /// Permit an HTTPS origin or loopback for this review; repeat to replace the default allowlist.
+    #[arg(long, value_name = "ORIGIN")]
+    allowed_egress: Vec<String>,
+    #[command(flatten)]
+    operator: OperatorArguments,
 }
 
 #[derive(Args)]
@@ -215,6 +232,27 @@ fn execute(cli: Cli) -> Result<u8, ScanError> {
                 baseline.baseline().rules.len()
             );
             Ok(0)
+        }
+        Command::Baseline {
+            command: BaselineCommand::Review(arguments),
+        } => {
+            let published = auditoad::question_review::run_file(
+                &arguments.path,
+                &arguments.report,
+                &arguments.operator.options(),
+                (!arguments.allowed_egress.is_empty())
+                    .then_some(arguments.allowed_egress.as_slice()),
+                |plan| preparation("question review", plan),
+                |record| progress("question review", record),
+            )?;
+            println!("Review outcome: {:?}", published.scan.report.outcome);
+            println!(
+                "Counts: {}",
+                serde_json::to_string(&published.scan.report.counts)
+                    .map_err(|error| ScanError::unresolved(error.to_string()))?
+            );
+            println!("Report: {}", published.receipt.destination);
+            Ok(published.scan.exit_code)
         }
         Command::Score {
             report,

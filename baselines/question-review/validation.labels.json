@@ -1,0 +1,18 @@
+{
+  "schema":"auditoad-labels/1",
+  "dataset":{"id":"question-review-declarations","revision":"1","split":"development","notes":"Twelve authored declarations: one defective and one comparison question for each of six review criteria. Only the corresponding criterion is labelled for each pair. Labels concern question declarations, not answers to their nested subject questions. They were frozen before inference; these controls are not an independent acceptance set."},
+  "labels":[
+    {"rule":"ATOMIC","target":"case-01","violation":true},
+    {"rule":"ATOMIC","target":"case-02","violation":false},
+    {"rule":"REFERENTS","target":"case-03","violation":true},
+    {"rule":"REFERENTS","target":"case-04","violation":false},
+    {"rule":"WORDING","target":"case-05","violation":true},
+    {"rule":"WORDING","target":"case-06","violation":false},
+    {"rule":"COMMENTARY","target":"case-07","violation":true},
+    {"rule":"COMMENTARY","target":"case-08","violation":false},
+    {"rule":"MECHANICAL","target":"case-09","violation":true},
+    {"rule":"MECHANICAL","target":"case-10","violation":false},
+    {"rule":"EVIDENCE","target":"case-11","violation":true},
+    {"rule":"EVIDENCE","target":"case-12","violation":false}
+  ]
+}

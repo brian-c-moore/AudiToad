@@ -2,7 +2,7 @@
 
 This is a single-rule baseline. The requirement says orders of at least 5,000 cents receive
 free shipping. The audit pairs the function with that written policy and asks whether its
-returned fee can disagree.
+free-shipping condition excludes an order exactly at the threshold.
 
 | File | Why it is here |
 |---|---|
@@ -10,6 +10,7 @@ returned fee can disagree.
 | `policy.md` | Its required behavior |
 | `baseline.json` | The question, evidence roles and response thresholds |
 | `bundle.json` | The two files and their SHA-256 identities |
+| `labels.json` | The known boundary defect, recorded as one development expectation |
 
 Run from this directory with `auditoad` installed:
 
@@ -32,19 +33,25 @@ That violates the policy. This explanation is outside the provider evidence; the
 comment revealing the issue. A model response can suggest pass, fail or review. The terminal
 result remains `not_evaluated`, and live execution exits 2.
 
-Live runs returned 0.42 on 2026-09-28 and 0.73 on 2026-09-29, both review suggestions under the
-declared thresholds.
-Neither resolved this defect. The first run's scan ID was `58b2a867-4c03-471f-8c79-dfac7bc03d24` and its
+The version 2 boundary question returned 0.95 on 2026-09-30, a correct fail suggestion under
+the fixed 0.1/0.9 thresholds. This is one already inspected development example, not an
+accuracy estimate or semantic acceptance. Its scan ID was `263e2f75-3117-4b83-9a3d-5ec1241f8b3c`.
+
+Earlier broad questions returned 0.42 on 2026-09-28 and 0.73 on 2026-09-29, both review
+suggestions. The first run's scan ID was `58b2a867-4c03-471f-8c79-dfac7bc03d24` and its
 raw report SHA-256 was `e5ec9476bdc76458d76db00535a0e3e13616bfeff6ab9f097e3dd7bcc0bc7f74`.
 
-This question asks for numeric behavior over all order totals. Jev's source-reading score does
-not establish that behavior. The example retains the unsuccessful question so its limitation
-can be inspected; use execution or analysis evidence to qualify the full shipping requirement.
-Hardcoding this function's operator into the question would narrow the requirement to one
-implementation pattern. See [check design](../../BASELINES.md#design-the-check-before-writing-the-question).
+The current question isolates the threshold boundary and gives the meanings of Python's
+comparison operators. It does not establish numeric behavior over all order totals; use
+execution or analysis evidence to qualify that full requirement. See
+[check design](../../BASELINES.md#design-the-check-before-writing-the-question).
+
+```console
+auditoad score --report report.json --labels labels.json
+```
 
 In the baseline, `required_roles` selects both the function and policy. `criteria_true` defines
-a disagreement; `criteria_false` defines agreement. The `draft` status automatically keeps
+exclusion at the threshold; `criteria_false` defines qualification there. The `draft` status automatically keeps
 the semantic result unresolved. Change the question and policy together for a different
 requirement, then update the bundle's hashes when input bytes change.
 

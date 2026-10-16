@@ -178,7 +178,7 @@ impl Replay {
     }
 
     fn from_bytes(bytes: &[u8], input_path: PathBuf) -> Result<Self, String> {
-        let report: Value = json::parse(bytes)?;
+        let report = json::parse_value(bytes)?;
         let source = report
             .get("source")
             .ok_or("replay lacks source identity")?
@@ -300,7 +300,7 @@ impl Reuse {
                     "combined reuse source byte allowance refused",
                 ));
             }
-            let report: Value = json::parse(&bytes).map_err(ScanError::invalid)?;
+            let report = json::parse_value(&bytes).map_err(ScanError::invalid)?;
             let found = retained(&report, true).map_err(ScanError::invalid)?;
             if found.is_empty() {
                 return Err(ScanError::invalid(format!(

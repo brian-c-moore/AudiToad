@@ -1,0 +1,25 @@
+{
+  "schema": "auditoad-labels/1",
+  "dataset": {
+    "id": "python-order-processing",
+    "revision": "1",
+    "split": "development",
+    "notes": "The 14 final policy expectations for the ten authored functions and policy in this example. All expectations preserve their original values. Four list prerequisite diagnostics are separate in diagnostic.labels.json. These are development controls, not an independent holdout."
+  },
+  "labels": [
+    {"rule":"PY-DECODE","packet":"decode_order","violation":true},
+    {"rule":"PY-DECODE","packet":"decode_return","violation":false},
+    {"rule":"PY-EMAIL","packet":"billing_email","violation":false},
+    {"rule":"PY-EMAIL","packet":"contact_email","violation":true},
+    {"rule":"PY-EMAIL-CASE","packet":"billing_email","violation":false},
+    {"rule":"PY-EMAIL-CASE","packet":"contact_email","violation":false},
+    {"rule":"PY-EMAIL-END","packet":"billing_email","violation":false},
+    {"rule":"PY-EMAIL-END","packet":"contact_email","violation":true},
+    {"rule":"PY-LIST","packet":"add_message","violation":false},
+    {"rule":"PY-LIST","packet":"add_note","violation":true},
+    {"rule":"PY-MEMBER","packet":"discount_rate","violation":true},
+    {"rule":"PY-MEMBER","packet":"renewal_discount","violation":false},
+    {"rule":"PY-SHIPPING","packet":"express_shipping_fee","violation":false},
+    {"rule":"PY-SHIPPING","packet":"shipping_fee","violation":true}
+  ]
+}

@@ -52,6 +52,48 @@ pub(crate) struct CompiledSyntax {
 }
 
 impl CompiledSyntax {
+    pub(crate) fn python_constant_string(
+        source: &str,
+        limits: &SyntaxLimits,
+    ) -> Result<Self, String> {
+        let compiled = Self::new(SyntaxLanguage::Python, source, limits)?;
+        if !["scope", "value"]
+            .iter()
+            .all(|name| compiled.query.capture_names().contains(name))
+        {
+            return Err("Python constant-string queries require @scope and @value captures".into());
+        }
+        Ok(compiled)
+    }
+
+    pub(crate) fn constant_string(
+        &self,
+        bytes: &[u8],
+        pointer: Option<&str>,
+        limits: &SyntaxLimits,
+    ) -> Result<(ResultState, Value), (ResultState, String)> {
+        let observation = self
+            .observe(
+                bytes,
+                pointer,
+                limits,
+                |root, text, captures, budget, interrupted| {
+                    crate::python_value::observe(root, text, captures, budget, interrupted)
+                        .map(Some)
+                },
+            )
+            .map_err(|reason| (ResultState::NotEvaluated, reason))?;
+        let proven = observation.pointer("/fields/constant_string/proven") == Some(&json!(true));
+        Ok((
+            if proven {
+                ResultState::Pass
+            } else {
+                ResultState::NotEvaluated
+            },
+            observation,
+        ))
+    }
+
     pub(crate) fn new(
         language: SyntaxLanguage,
         source: &str,
@@ -100,7 +142,7 @@ impl CompiledSyntax {
         pointer: Option<&str>,
         limits: &SyntaxLimits,
     ) -> Result<(ResultState, Value), (ResultState, String)> {
-        self.observe(bytes, pointer, limits, |_, _, _, _| Ok(None))
+        self.observe(bytes, pointer, limits, |_, _, _, _, _| Ok(None))
             .map(|observation| (ResultState::NotEvaluated, observation))
             .map_err(|reason| (ResultState::NotEvaluated, reason))
     }
@@ -120,7 +162,7 @@ impl CompiledSyntax {
                 bytes,
                 Some(pointer),
                 limits,
-                |root, text, budget, interrupted| {
+                |root, text, _, budget, interrupted| {
                     crate::tlaplus::observe(
                         root,
                         text,
@@ -161,7 +203,13 @@ impl CompiledSyntax {
         extra: F,
     ) -> Result<Value, String>
     where
-        F: FnOnce(Node<'_>, &str, &mut Budget, &dyn Fn() -> bool) -> Result<Option<Value>, String>,
+        F: FnOnce(
+            Node<'_>,
+            &str,
+            &[Value],
+            &mut Budget,
+            &dyn Fn() -> bool,
+        ) -> Result<Option<Value>, String>,
     {
         let frame: Option<Value> = pointer.map(|_| json::parse(bytes)).transpose()?;
         let text = match (pointer, &frame) {
@@ -290,21 +338,38 @@ impl CompiledSyntax {
             if query_cursor.did_exceed_match_limit() {
                 return Err("syntax query match limit exceeded; matches may be missing".into());
             }
-            observation_fields.insert("fields".into(), json!({"captures":captures}));
-            if let Some(relation) = extra(tree.root_node(), text, &mut nodes, &|| {
+            let additional = extra(tree.root_node(), text, &captures, &mut nodes, &|| {
                 progress().is_break()
-            })? {
-                observation_fields.insert("type".into(), json!("tlaplus-relation/1"));
+            })?;
+            observation_fields.insert("fields".into(), json!({"captures":captures}));
+            if let Some(relation) = additional {
+                let python = relation.get("proven").is_some();
+                observation_fields.insert(
+                    "type".into(),
+                    json!(if python {
+                        "python-constant-string/1"
+                    } else {
+                        "tlaplus-relation/1"
+                    }),
+                );
                 let fields = observation_fields
                     .get_mut("fields")
                     .ok_or("syntax output lacks capture fields")?;
-                json::object_mut(fields)?.insert("relation".into(), relation);
+                json::object_mut(fields)?.insert(
+                    if python {
+                        "constant_string"
+                    } else {
+                        "relation"
+                    }
+                    .into(),
+                    relation,
+                );
                 observation_fields.insert("capability".into(), json!(
-                    "written zero-argument operator relationship only; no definition expansion, imported name resolution or proof checking"
+                    if python { "bounded ordinary-Python string-origin interpretation; no general execution, import resolution or runtime proof" } else { "written zero-argument operator relationship only; no definition expansion, imported name resolution or proof checking" }
                 ));
                 observation_fields.insert("nodes_visited".into(), json!(nodes.allocated()));
                 observation_fields.insert("reason".into(), json!(
-                    "local written relationship only; no proof or semantic name-resolution claim"
+                    if python { "only proved source-authored string values pass; unsupported paths remain unresolved" } else { "local written relationship only; no proof or semantic name-resolution claim" }
                 ));
             } else {
                 observation_fields.insert("reason".into(), json!(

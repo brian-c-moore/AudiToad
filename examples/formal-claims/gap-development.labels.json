@@ -1,0 +1,20 @@
+{
+  "schema": "auditoad-labels/1",
+  "dataset": {
+    "id": "formal-claim-gap-boundaries",
+    "revision": "formal-claims-v5",
+    "split": "development",
+    "notes": "Nine pre-frozen artifact labels for the two revised gap questions: five fairness records and four quantifier records. The original eight artifact expectations remain unchanged. Fairness line 5 starts with done=TRUE and excludes the constant done=FALSE behavior through Init. Claim readings and parent judgments are outside this focused profile."
+  },
+  "labels": [
+    {"rule":"FAIR-GAP","input":"tla-fairness","line":1,"violation":false},
+    {"rule":"FAIR-GAP","input":"tla-fairness","line":2,"violation":true},
+    {"rule":"FAIR-GAP","input":"tla-fairness","line":3,"violation":true},
+    {"rule":"FAIR-GAP","input":"tla-fairness","line":4,"violation":true},
+    {"rule":"FAIR-GAP","input":"tla-fairness","line":5,"violation":false},
+    {"rule":"QUANT-GAP","input":"tlaps-quantifiers","line":1,"violation":false},
+    {"rule":"QUANT-GAP","input":"tlaps-quantifiers","line":2,"violation":true},
+    {"rule":"QUANT-GAP","input":"tlaps-quantifiers","line":3,"violation":true},
+    {"rule":"QUANT-GAP","input":"tlaps-quantifiers","line":4,"violation":true}
+  ]
+}

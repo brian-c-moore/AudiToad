@@ -2,6 +2,14 @@
 
 ## 0.0.1-beta.1
 
+- Add `auditoad baseline review` for built-in review of baseline questions and standalone question sets, with local preparation, explicit live evaluation and review-specific `--allowed-egress` overrides, a question-set schema and separate labelled development controls.
+- Add a bounded local Python constant-string predicate and supply its source-bound calculations to focused benchmark origin questions; unsupported code remains unresolved.
+- Allow installed local predicates to evaluate automatic sentence and paragraph evidence from bundles, retaining scope validation and missing-field refusal.
+- Refine the writing and Python example questions, keep exact phrase checks local, and include external scoring labels.
+- Group frozen report records by rule for readable label matching, retaining ambiguity and duplicate checks.
+- Replace the optional language-example model questions with local TLA+ conjunct and Python identifier checks.
+- Include source-bound development scores and reproducible BenchmarkPython audit inputs.
+
 - Add explicit TypeSafe native PNG/JPEG image assets for state, instructions and criteria, retaining original-byte custody and unchanged default text requests.
 - Add experimental `box/1` location helpers with strict normalized-coordinate decoding and committed fields for later checks. They require fixed Jev 1.14 and the image preview opt-in; they make no policy verdict.
 - Add inclusive local `json-number-range/1` checks for declared numeric and geometry tolerances.

@@ -2,7 +2,7 @@
   "schema": "auditoad-baseline/1",
   "baseline": {
     "id": "web-security",
-    "version": "3",
+    "version": "5",
     "title": "OWASP Top 10 review of Python web handlers",
     "publisher": "AudiToad examples",
     "status": "draft"
@@ -404,37 +404,37 @@
     }
   ],
   "rules": [
-    {"id":"PATH-SYNTAX","revision":"1","source":"evidence","group":"a01-access-control","risk":"low","scope_kind":"site","title":"Select read_report","evidence":"selected","evaluator":{"kind":"syntax","contract":"syntax/1"},
-      "check":{"kind":"syntax/1","language":"python","json_string_pointer":"/parts/0/text","query":"((function_definition) @function (#match? @function \"^def read_report[(]\"))"},"applicability":{"include":["pathtraver"],"exclude":[]},"falsifier":"The capture differs from the complete named function.","fixtures":{"pass":[],"fail":[]}},
-    {"id":"REDIRECT-SYNTAX","revision":"1","source":"evidence","group":"a01-access-control","risk":"low","scope_kind":"site","title":"Select continue_to","evidence":"selected","evaluator":{"kind":"syntax","contract":"syntax/1"},
-      "check":{"kind":"syntax/1","language":"python","json_string_pointer":"/parts/0/text","query":"((function_definition) @function (#match? @function \"^def continue_to[(]\"))"},"applicability":{"include":["redirect"],"exclude":[]},"falsifier":"The capture differs from the complete named function.","fixtures":{"pass":[],"fail":[]}},
-    {"id":"HASH-SYNTAX","revision":"1","source":"evidence","group":"a04-cryptographic-failures","risk":"low","scope_kind":"site","title":"Select fingerprint","evidence":"selected","evaluator":{"kind":"syntax","contract":"syntax/1"},
-      "check":{"kind":"syntax/1","language":"python","json_string_pointer":"/parts/0/text","query":"((function_definition) @function (#match? @function \"^def fingerprint[(]\"))"},"applicability":{"include":["hash"],"exclude":[]},"falsifier":"The capture differs from the complete named function.","fixtures":{"pass":[],"fail":[]}},
-    {"id":"RANDOM-SYNTAX","revision":"1","source":"evidence","group":"a04-cryptographic-failures","risk":"low","scope_kind":"site","title":"Select reset_token","evidence":"selected","evaluator":{"kind":"syntax","contract":"syntax/1"},
-      "check":{"kind":"syntax/1","language":"python","json_string_pointer":"/parts/0/text","query":"((function_definition) @function (#match? @function \"^def reset_token[(]\"))"},"applicability":{"include":["weakrand"],"exclude":[]},"falsifier":"The capture differs from the complete named function.","fixtures":{"pass":[],"fail":[]}},
-    {"id":"COOKIE-SYNTAX","revision":"1","source":"evidence","group":"a02-security-misconfiguration","risk":"low","scope_kind":"site","title":"Select remember_theme","evidence":"selected","evaluator":{"kind":"syntax","contract":"syntax/1"},
-      "check":{"kind":"syntax/1","language":"python","json_string_pointer":"/parts/0/text","query":"((function_definition) @function (#match? @function \"^def remember_theme[(]\"))"},"applicability":{"include":["securecookie"],"exclude":[]},"falsifier":"The capture differs from the complete named function.","fixtures":{"pass":[],"fail":[]}},
-    {"id":"XXE-SYNTAX","revision":"1","source":"evidence","group":"a02-security-misconfiguration","risk":"low","scope_kind":"site","title":"Select import_feed","evidence":"selected","evaluator":{"kind":"syntax","contract":"syntax/1"},
-      "check":{"kind":"syntax/1","language":"python","json_string_pointer":"/parts/0/text","query":"((function_definition) @function (#match? @function \"^def import_feed[(]\"))"},"applicability":{"include":["xxe"],"exclude":[]},"falsifier":"The capture differs from the complete named function.","fixtures":{"pass":[],"fail":[]}},
-    {"id":"SQL-SYNTAX","revision":"1","source":"evidence","group":"a05-injection","risk":"low","scope_kind":"site","title":"Select list_orders","evidence":"selected","evaluator":{"kind":"syntax","contract":"syntax/1"},
-      "check":{"kind":"syntax/1","language":"python","json_string_pointer":"/parts/0/text","query":"((function_definition) @function (#match? @function \"^def list_orders[(]\"))"},"applicability":{"include":["sqli"],"exclude":[]},"falsifier":"The capture differs from the complete named function.","fixtures":{"pass":[],"fail":[]}},
-    {"id":"COMMAND-SYNTAX","revision":"1","source":"evidence","group":"a05-injection","risk":"low","scope_kind":"site","title":"Select ping_host","evidence":"selected","evaluator":{"kind":"syntax","contract":"syntax/1"},
-      "check":{"kind":"syntax/1","language":"python","json_string_pointer":"/parts/0/text","query":"((function_definition) @function (#match? @function \"^def ping_host[(]\"))"},"applicability":{"include":["cmdi"],"exclude":[]},"falsifier":"The capture differs from the complete named function.","fixtures":{"pass":[],"fail":[]}},
-    {"id":"CODE-SYNTAX","revision":"1","source":"evidence","group":"a05-injection","risk":"low","scope_kind":"site","title":"Select calculate","evidence":"selected","evaluator":{"kind":"syntax","contract":"syntax/1"},
-      "check":{"kind":"syntax/1","language":"python","json_string_pointer":"/parts/0/text","query":"((function_definition) @function (#match? @function \"^def calculate[(]\"))"},"applicability":{"include":["codeinj"],"exclude":[]},"falsifier":"The capture differs from the complete named function.","fixtures":{"pass":[],"fail":[]}},
-    {"id":"LDAP-SYNTAX","revision":"1","source":"evidence","group":"a05-injection","risk":"low","scope_kind":"site","title":"Select find_user","evidence":"selected","evaluator":{"kind":"syntax","contract":"syntax/1"},
-      "check":{"kind":"syntax/1","language":"python","json_string_pointer":"/parts/0/text","query":"((function_definition) @function (#match? @function \"^def find_user[(]\"))"},"applicability":{"include":["ldapi"],"exclude":[]},"falsifier":"The capture differs from the complete named function.","fixtures":{"pass":[],"fail":[]}},
-    {"id":"XPATH-SYNTAX","revision":"1","source":"evidence","group":"a05-injection","risk":"low","scope_kind":"site","title":"Select catalog_lookup","evidence":"selected","evaluator":{"kind":"syntax","contract":"syntax/1"},
-      "check":{"kind":"syntax/1","language":"python","json_string_pointer":"/parts/0/text","query":"((function_definition) @function (#match? @function \"^def catalog_lookup[(]\"))"},"applicability":{"include":["xpathi"],"exclude":[]},"falsifier":"The capture differs from the complete named function.","fixtures":{"pass":[],"fail":[]}},
-    {"id":"XSS-SYNTAX","revision":"1","source":"evidence","group":"a05-injection","risk":"low","scope_kind":"site","title":"Select greet","evidence":"selected","evaluator":{"kind":"syntax","contract":"syntax/1"},
-      "check":{"kind":"syntax/1","language":"python","json_string_pointer":"/parts/0/text","query":"((function_definition) @function (#match? @function \"^def greet[(]\"))"},"applicability":{"include":["xss"],"exclude":[]},"falsifier":"The capture differs from the complete named function.","fixtures":{"pass":[],"fail":[]}},
-    {"id":"TRUST-SYNTAX","revision":"1","source":"evidence","group":"a06-insecure-design","risk":"low","scope_kind":"site","title":"Select login_hint","evidence":"selected","evaluator":{"kind":"syntax","contract":"syntax/1"},
-      "check":{"kind":"syntax/1","language":"python","json_string_pointer":"/parts/0/text","query":"((function_definition) @function (#match? @function \"^def login_hint[(]\"))"},"applicability":{"include":["trustbound"],"exclude":[]},"falsifier":"The capture differs from the complete named function.","fixtures":{"pass":[],"fail":[]}},
-    {"id":"DESERIALIZE-SYNTAX","revision":"1","source":"evidence","group":"a08-integrity-failures","risk":"low","scope_kind":"site","title":"Select restore_cart","evidence":"selected","evaluator":{"kind":"syntax","contract":"syntax/1"},
-      "check":{"kind":"syntax/1","language":"python","json_string_pointer":"/parts/0/text","query":"((function_definition) @function (#match? @function \"^def restore_cart[(]\"))"},"applicability":{"include":["deserialization"],"exclude":[]},"falsifier":"The capture differs from the complete named function.","fixtures":{"pass":[],"fail":[]}},
+    {"id":"PATH-SYNTAX","revision":"2","source":"evidence","group":"a01-access-control","risk":"low","scope_kind":"site","title":"Select read_report and its complete module","evidence":"selected","evaluator":{"kind":"syntax","contract":"syntax/1"},
+      "check":{"kind":"syntax/1","language":"python","json_string_pointer":"/parts/0/text","query":"(module) @module\n((function_definition name: (identifier) @_name) @function (#eq? @_name \"read_report\"))"},"applicability":{"include":["pathtraver"],"exclude":[]},"falsifier":"The required unique capture differs from the complete named function or module.","fixtures":{"pass":[],"fail":[]}},
+    {"id":"REDIRECT-SYNTAX","revision":"2","source":"evidence","group":"a01-access-control","risk":"low","scope_kind":"site","title":"Select continue_to and its complete module","evidence":"selected","evaluator":{"kind":"syntax","contract":"syntax/1"},
+      "check":{"kind":"syntax/1","language":"python","json_string_pointer":"/parts/0/text","query":"(module) @module\n((function_definition name: (identifier) @_name) @function (#eq? @_name \"continue_to\"))"},"applicability":{"include":["redirect"],"exclude":[]},"falsifier":"The required unique capture differs from the complete named function or module.","fixtures":{"pass":[],"fail":[]}},
+    {"id":"HASH-SYNTAX","revision":"2","source":"evidence","group":"a04-cryptographic-failures","risk":"low","scope_kind":"site","title":"Select fingerprint and its complete module","evidence":"selected","evaluator":{"kind":"syntax","contract":"syntax/1"},
+      "check":{"kind":"syntax/1","language":"python","json_string_pointer":"/parts/0/text","query":"(module) @module\n((function_definition name: (identifier) @_name) @function (#eq? @_name \"fingerprint\"))"},"applicability":{"include":["hash"],"exclude":[]},"falsifier":"The required unique capture differs from the complete named function or module.","fixtures":{"pass":[],"fail":[]}},
+    {"id":"RANDOM-SYNTAX","revision":"2","source":"evidence","group":"a04-cryptographic-failures","risk":"low","scope_kind":"site","title":"Select reset_token and its complete module","evidence":"selected","evaluator":{"kind":"syntax","contract":"syntax/1"},
+      "check":{"kind":"syntax/1","language":"python","json_string_pointer":"/parts/0/text","query":"(module) @module\n((function_definition name: (identifier) @_name) @function (#eq? @_name \"reset_token\"))"},"applicability":{"include":["weakrand"],"exclude":[]},"falsifier":"The required unique capture differs from the complete named function or module.","fixtures":{"pass":[],"fail":[]}},
+    {"id":"COOKIE-SYNTAX","revision":"2","source":"evidence","group":"a02-security-misconfiguration","risk":"low","scope_kind":"site","title":"Select remember_theme and its complete module","evidence":"selected","evaluator":{"kind":"syntax","contract":"syntax/1"},
+      "check":{"kind":"syntax/1","language":"python","json_string_pointer":"/parts/0/text","query":"(module) @module\n((function_definition name: (identifier) @_name) @function (#eq? @_name \"remember_theme\"))"},"applicability":{"include":["securecookie"],"exclude":[]},"falsifier":"The required unique capture differs from the complete named function or module.","fixtures":{"pass":[],"fail":[]}},
+    {"id":"XXE-SYNTAX","revision":"2","source":"evidence","group":"a02-security-misconfiguration","risk":"low","scope_kind":"site","title":"Select import_feed and its complete module","evidence":"selected","evaluator":{"kind":"syntax","contract":"syntax/1"},
+      "check":{"kind":"syntax/1","language":"python","json_string_pointer":"/parts/0/text","query":"(module) @module\n((function_definition name: (identifier) @_name) @function (#eq? @_name \"import_feed\"))"},"applicability":{"include":["xxe"],"exclude":[]},"falsifier":"The required unique capture differs from the complete named function or module.","fixtures":{"pass":[],"fail":[]}},
+    {"id":"SQL-SYNTAX","revision":"2","source":"evidence","group":"a05-injection","risk":"low","scope_kind":"site","title":"Select list_orders and its complete module","evidence":"selected","evaluator":{"kind":"syntax","contract":"syntax/1"},
+      "check":{"kind":"syntax/1","language":"python","json_string_pointer":"/parts/0/text","query":"(module) @module\n((function_definition name: (identifier) @_name) @function (#eq? @_name \"list_orders\"))"},"applicability":{"include":["sqli"],"exclude":[]},"falsifier":"The required unique capture differs from the complete named function or module.","fixtures":{"pass":[],"fail":[]}},
+    {"id":"COMMAND-SYNTAX","revision":"2","source":"evidence","group":"a05-injection","risk":"low","scope_kind":"site","title":"Select ping_host and its complete module","evidence":"selected","evaluator":{"kind":"syntax","contract":"syntax/1"},
+      "check":{"kind":"syntax/1","language":"python","json_string_pointer":"/parts/0/text","query":"(module) @module\n((function_definition name: (identifier) @_name) @function (#eq? @_name \"ping_host\"))"},"applicability":{"include":["cmdi"],"exclude":[]},"falsifier":"The required unique capture differs from the complete named function or module.","fixtures":{"pass":[],"fail":[]}},
+    {"id":"CODE-SYNTAX","revision":"2","source":"evidence","group":"a05-injection","risk":"low","scope_kind":"site","title":"Select calculate and its complete module","evidence":"selected","evaluator":{"kind":"syntax","contract":"syntax/1"},
+      "check":{"kind":"syntax/1","language":"python","json_string_pointer":"/parts/0/text","query":"(module) @module\n((function_definition name: (identifier) @_name) @function (#eq? @_name \"calculate\"))"},"applicability":{"include":["codeinj"],"exclude":[]},"falsifier":"The required unique capture differs from the complete named function or module.","fixtures":{"pass":[],"fail":[]}},
+    {"id":"LDAP-SYNTAX","revision":"2","source":"evidence","group":"a05-injection","risk":"low","scope_kind":"site","title":"Select find_user and its complete module","evidence":"selected","evaluator":{"kind":"syntax","contract":"syntax/1"},
+      "check":{"kind":"syntax/1","language":"python","json_string_pointer":"/parts/0/text","query":"(module) @module\n((function_definition name: (identifier) @_name) @function (#eq? @_name \"find_user\"))"},"applicability":{"include":["ldapi"],"exclude":[]},"falsifier":"The required unique capture differs from the complete named function or module.","fixtures":{"pass":[],"fail":[]}},
+    {"id":"XPATH-SYNTAX","revision":"2","source":"evidence","group":"a05-injection","risk":"low","scope_kind":"site","title":"Select catalog_lookup and its complete module","evidence":"selected","evaluator":{"kind":"syntax","contract":"syntax/1"},
+      "check":{"kind":"syntax/1","language":"python","json_string_pointer":"/parts/0/text","query":"(module) @module\n((function_definition name: (identifier) @_name) @function (#eq? @_name \"catalog_lookup\"))"},"applicability":{"include":["xpathi"],"exclude":[]},"falsifier":"The required unique capture differs from the complete named function or module.","fixtures":{"pass":[],"fail":[]}},
+    {"id":"XSS-SYNTAX","revision":"2","source":"evidence","group":"a05-injection","risk":"low","scope_kind":"site","title":"Select greet and its complete module","evidence":"selected","evaluator":{"kind":"syntax","contract":"syntax/1"},
+      "check":{"kind":"syntax/1","language":"python","json_string_pointer":"/parts/0/text","query":"(module) @module\n((function_definition name: (identifier) @_name) @function (#eq? @_name \"greet\"))"},"applicability":{"include":["xss"],"exclude":[]},"falsifier":"The required unique capture differs from the complete named function or module.","fixtures":{"pass":[],"fail":[]}},
+    {"id":"TRUST-SYNTAX","revision":"2","source":"evidence","group":"a06-insecure-design","risk":"low","scope_kind":"site","title":"Select login_hint and its complete module","evidence":"selected","evaluator":{"kind":"syntax","contract":"syntax/1"},
+      "check":{"kind":"syntax/1","language":"python","json_string_pointer":"/parts/0/text","query":"(module) @module\n((function_definition name: (identifier) @_name) @function (#eq? @_name \"login_hint\"))"},"applicability":{"include":["trustbound"],"exclude":[]},"falsifier":"The required unique capture differs from the complete named function or module.","fixtures":{"pass":[],"fail":[]}},
+    {"id":"DESERIALIZE-SYNTAX","revision":"2","source":"evidence","group":"a08-integrity-failures","risk":"low","scope_kind":"site","title":"Select restore_cart and its complete module","evidence":"selected","evaluator":{"kind":"syntax","contract":"syntax/1"},
+      "check":{"kind":"syntax/1","language":"python","json_string_pointer":"/parts/0/text","query":"(module) @module\n((function_definition name: (identifier) @_name) @function (#eq? @_name \"restore_cart\"))"},"applicability":{"include":["deserialization"],"exclude":[]},"falsifier":"The required unique capture differs from the complete named function or module.","fixtures":{"pass":[],"fail":[]}},
     {
       "id": "PATH-CALL",
-      "revision": "3",
+      "revision": "5",
       "consult": {"rules":["PATH-SYNTAX"]},
       "source": "evidence",
       "group": "a01-access-control",
@@ -448,14 +448,15 @@
       },
       "check": {
         "kind": "yes-no/1",
-        "instructions": "The code field holds Python code that handles one HTTP request. Request data is any value read from that request, such as query parameters, form fields, headers, cookies, the path or the body. Does this code call a function that opens, reads, writes or deletes a file?",
+        "instructions": "code is the complete selected request handler; module supplies its imports, globals and local helper definitions. Assess only execution reachable from code; other handlers in module are context. Does the selected handler call a function that opens, reads, writes or deletes a file? Resolve the actual call and receiver, not a matching name. Assess this operation proposition only; data origin and path confinement are separate. Missing decisive bindings remain uncertain.",
         "criteria_true": "The code calls such a function.",
         "criteria_false": "The code calls no such function.",
         "pass_below": 0.1,
         "fail_at_or_above": 0.9,
         "max_request_bytes": 32000,
         "state_projection": {
-          "code": "/prior/0/observation/fields/captures/0/text"
+          "code": {"pointer":"/prior/0/observation/fields/captures","capture":"function","optional":false},
+          "module": {"pointer":"/prior/0/observation/fields/captures","capture":"module","optional":false}
         }
       },
       "applicability": {
@@ -472,7 +473,7 @@
     },
     {
       "id": "PATH-FLOW",
-      "revision": "4",
+      "revision": "5",
       "consult": {"rules":["PATH-SYNTAX"]},
       "source": "evidence",
       "group": "a01-access-control",
@@ -487,7 +488,7 @@
       },
       "check": {
         "kind": "extract/1",
-        "instructions": "The code field holds the complete selected Python function for one HTTP request. Copy the file-operation calls and existing request reads, assignments, conditions, collection operations, arguments and checks relevant to their file paths. Return only verbatim contiguous source excerpts in the declared fields, preserving whitespace; use [] when no matching source text exists. Do not invent, repair or reformat code, evaluate expressions, compute resulting values, or claim data origins or executed branches.",
+        "instructions": "code is the complete selected handler; module supplies imports, globals and local helper definitions. Copy only file-operation calls and existing request reads, assignments, conditions, collection operations, arguments and checks in code or its local callees relevant to their file paths. Other handlers in module are context. Return only verbatim contiguous source excerpts in the declared fields, preserving whitespace; use [] when no matching source text exists. Do not invent, repair or reformat code, evaluate expressions, compute resulting values, or claim data origins or executed branches.",
         "fields": {
           "calls": {
             "type": "quote_list",
@@ -508,7 +509,8 @@
         },
         "max_request_bytes": 32000,
         "state_projection": {
-          "code": "/prior/0/observation/fields/captures/0/text"
+          "code": {"pointer":"/prior/0/observation/fields/captures","capture":"function","optional":false},
+          "module": {"pointer":"/prior/0/observation/fields/captures","capture":"module","optional":false}
         }
       },
       "applicability": {
@@ -525,7 +527,7 @@
     },
     {
       "id": "PATH-REACH",
-      "revision": "4",
+      "revision": "6",
       "source": "evidence",
       "group": "a01-access-control",
       "risk": "medium",
@@ -538,14 +540,15 @@
       },
       "check": {
         "kind": "yes-no/1",
-        "instructions": "The code field holds the complete selected Python function for one HTTP request. Request data is any value read from that request, such as query parameters, form fields, headers, cookies, the path or the body. Can request data become part of the file path that a file operation in this code uses? Other fields contain advisory source excerpts. Derive the answer from the complete code, including its assignments, conditions and collection operations; the excerpts do not establish data origin, evaluated values or which branch executes.",
-        "criteria_true": "Request data can become part of a file path the code uses.",
-        "criteria_false": "Only fixed values, or values not read from the request, reach the file paths.",
+        "instructions": "code is the complete selected Flask handler; module supplies imports, globals and local helper definitions. For a request invoking code under its declared route, can client-supplied content, including transformed or encoded content, become part of a path used by a reachable file operation? Resolve assignments, list mutation/indexing, immutable-string reassignment and feasible branches. Fixed route components and request-dependent selection among fixed server constants do not count as client-supplied content. Assess path origin only; directory escape is separate. Other fields are optional advisory quotations.",
+        "criteria_true": "Client-supplied content can reach a file path at a reachable operation.",
+        "criteria_false": "Every such path is fixed or independent of client-supplied content, including selection among fixed server paths.",
         "pass_below": 0.1,
         "fail_at_or_above": 0.9,
         "max_request_bytes": 32000,
         "state_projection": {
-          "code": "/prior/1/observation/fields/captures/0/text",
+          "code": {"pointer":"/prior/1/observation/fields/captures","capture":"function","optional":false},
+          "module": {"pointer":"/prior/1/observation/fields/captures","capture":"module","optional":false},
           "calls": {
             "pointer": "/prior/0/observation/fields/calls",
             "optional": true
@@ -566,7 +569,7 @@
         ],
         "exclude": []
       },
-      "falsifier": "Request data can become part of a file path the code uses.",
+      "falsifier": "Client-supplied content can reach a file path at a reachable operation.",
       "fixtures": {
         "pass": [],
         "fail": []
@@ -579,7 +582,7 @@
     },
     {
       "id": "PATH-OPEN",
-      "revision": "4",
+      "revision": "6",
       "source": "evidence",
       "group": "a01-access-control",
       "risk": "medium",
@@ -592,14 +595,15 @@
       },
       "check": {
         "kind": "yes-no/1",
-        "instructions": "The code field holds the complete selected Python function for one HTTP request. Request data is any value read from that request, such as query parameters, form fields, headers, cookies, the path or the body. After the checks the code applies before each file operation, can its file path still leave the intended directory, for example through ../ or an absolute path? Other fields contain advisory source excerpts. Derive the answer from the complete code, including its assignments, conditions and collection operations; the excerpts do not establish data origin, evaluated values or which branch executes.",
-        "criteria_true": "No check before the call rejects or removes a path that leaves the intended directory.",
-        "criteria_false": "A check before the call rejects such a path, keeps it inside the directory, or reduces it to fixed names.",
+        "instructions": "code is the complete selected Flask handler; module supplies imports, globals and local helper definitions. For a request invoking code under its declared route, can at least one client-controlled path survive all transformations and conditions and reach the same file operation outside its intended directory? Derive reaching values rather than assuming request-derived content. Fixed route components and selection among fixed server literals do not establish client control. Assess the same operation and value; a check's presence alone does not establish confinement. Other fields are optional advisory quotations.",
+        "criteria_true": "At least one escaping path can reach the same file operation after its transformations and conditions.",
+        "criteria_false": "Every path reaching that operation remains inside the intended directory.",
         "pass_below": 0.1,
         "fail_at_or_above": 0.9,
         "max_request_bytes": 32000,
         "state_projection": {
-          "code": "/prior/1/observation/fields/captures/0/text",
+          "code": {"pointer":"/prior/1/observation/fields/captures","capture":"function","optional":false},
+          "module": {"pointer":"/prior/1/observation/fields/captures","capture":"module","optional":false},
           "calls": {
             "pointer": "/prior/0/observation/fields/calls",
             "optional": true
@@ -616,7 +620,7 @@
         ],
         "exclude": []
       },
-      "falsifier": "No check before the call rejects or removes a path that leaves the intended directory.",
+      "falsifier": "An escaping path can reach the same file operation after its transformations and conditions.",
       "fixtures": {
         "pass": [],
         "fail": []
@@ -629,7 +633,7 @@
     },
     {
       "id": "WEB-PATH",
-      "revision": "2",
+      "revision": "3",
       "source": "evidence",
       "group": "a01-access-control",
       "risk": "medium",
@@ -649,7 +653,7 @@
         ],
         "fail_when": "all_fail",
         "resolution": "decisive",
-        "coverage": "Path traversal needs a file operation, request data in its path, and no check that keeps the path in the intended directory. Any premise that does not hold clears the handler."
+        "coverage": "A file operation, request-derived path and surviving directory escape concern the same reachable handler operation. Any false premise clears this handler."
       },
       "applicability": {
         "include": [
@@ -665,7 +669,7 @@
     },
     {
       "id": "REDIRECT-CALL",
-      "revision": "3",
+      "revision": "5",
       "consult": {"rules":["REDIRECT-SYNTAX"]},
       "source": "evidence",
       "group": "a01-access-control",
@@ -679,14 +683,15 @@
       },
       "check": {
         "kind": "yes-no/1",
-        "instructions": "The code field holds Python code that handles one HTTP request. Request data is any value read from that request, such as query parameters, form fields, headers, cookies, the path or the body. Does this code redirect the client to another location?",
+        "instructions": "code is the complete selected handler; module supplies imports, globals and local helper definitions. Assess only execution reachable from code; other handlers are context. Does the selected handler send an HTTP redirect to another location? Resolve the actual call, not a matching name. Assess this operation proposition only; origin and destination confinement are separate. Missing decisive bindings remain uncertain.",
         "criteria_true": "The code sends a redirect.",
         "criteria_false": "The code sends no redirect.",
         "pass_below": 0.1,
         "fail_at_or_above": 0.9,
         "max_request_bytes": 32000,
         "state_projection": {
-          "code": "/prior/0/observation/fields/captures/0/text"
+          "code": {"pointer":"/prior/0/observation/fields/captures","capture":"function","optional":false},
+          "module": {"pointer":"/prior/0/observation/fields/captures","capture":"module","optional":false}
         }
       },
       "applicability": {
@@ -703,7 +708,7 @@
     },
     {
       "id": "REDIRECT-FLOW",
-      "revision": "4",
+      "revision": "5",
       "consult": {"rules":["REDIRECT-SYNTAX"]},
       "source": "evidence",
       "group": "a01-access-control",
@@ -718,7 +723,7 @@
       },
       "check": {
         "kind": "extract/1",
-        "instructions": "The code field holds the complete selected Python function for one HTTP request. Copy the redirect calls and existing request reads, assignments, conditions, collection operations, arguments and checks relevant to their locations. Return only verbatim contiguous source excerpts in the declared fields, preserving whitespace; use [] when no matching source text exists. Do not invent, repair or reformat code, evaluate expressions, compute resulting values, or claim data origins or executed branches.",
+        "instructions": "code is the complete selected handler; module supplies imports, globals and local helper definitions. Copy only redirect calls and existing request reads, assignments, conditions, collection operations, arguments and checks in code or its local callees relevant to their locations. Other handlers in module are context. Return only verbatim contiguous source excerpts in the declared fields, preserving whitespace; use [] when no matching source text exists. Do not invent, repair or reformat code, evaluate expressions, compute resulting values, or claim data origins or executed branches.",
         "fields": {
           "calls": {
             "type": "quote_list",
@@ -739,7 +744,8 @@
         },
         "max_request_bytes": 32000,
         "state_projection": {
-          "code": "/prior/0/observation/fields/captures/0/text"
+          "code": {"pointer":"/prior/0/observation/fields/captures","capture":"function","optional":false},
+          "module": {"pointer":"/prior/0/observation/fields/captures","capture":"module","optional":false}
         }
       },
       "applicability": {
@@ -756,7 +762,7 @@
     },
     {
       "id": "REDIRECT-REACH",
-      "revision": "4",
+      "revision": "6",
       "source": "evidence",
       "group": "a01-access-control",
       "risk": "medium",
@@ -769,14 +775,15 @@
       },
       "check": {
         "kind": "yes-no/1",
-        "instructions": "The code field holds the complete selected Python function for one HTTP request. Request data is any value read from that request, such as query parameters, form fields, headers, cookies, the path or the body. Can request data become part of the location this code redirects to? Other fields contain advisory source excerpts. Derive the answer from the complete code, including its assignments, conditions and collection operations; the excerpts do not establish data origin, evaluated values or which branch executes.",
-        "criteria_true": "Request data can become part of the redirect location.",
-        "criteria_false": "Only fixed values, or values not read from the request, reach the location.",
+        "instructions": "code is the complete selected Flask handler; module supplies imports, globals and local helper definitions. For a request invoking code under its declared route, can client-supplied content, including transformed or encoded content, become part of a reachable redirect location? Resolve assignments, list mutation/indexing, immutable-string reassignment and feasible branches. Fixed route components and request-dependent selection among fixed server constants do not count as client-supplied content. Assess location origin only; allowed destinations are separate. Other fields are optional advisory quotations.",
+        "criteria_true": "Client-supplied content can reach a redirect location.",
+        "criteria_false": "Every redirect location is fixed or independent of client-supplied content, including selection among fixed server destinations.",
         "pass_below": 0.1,
         "fail_at_or_above": 0.9,
         "max_request_bytes": 32000,
         "state_projection": {
-          "code": "/prior/1/observation/fields/captures/0/text",
+          "code": {"pointer":"/prior/1/observation/fields/captures","capture":"function","optional":false},
+          "module": {"pointer":"/prior/1/observation/fields/captures","capture":"module","optional":false},
           "calls": {
             "pointer": "/prior/0/observation/fields/calls",
             "optional": true
@@ -797,7 +804,7 @@
         ],
         "exclude": []
       },
-      "falsifier": "Request data can become part of the redirect location.",
+      "falsifier": "Client-supplied content can reach a redirect location.",
       "fixtures": {
         "pass": [],
         "fail": []
@@ -810,7 +817,7 @@
     },
     {
       "id": "REDIRECT-OPEN",
-      "revision": "4",
+      "revision": "6",
       "source": "evidence",
       "group": "a01-access-control",
       "risk": "medium",
@@ -823,14 +830,15 @@
       },
       "check": {
         "kind": "yes-no/1",
-        "instructions": "The code field holds the complete selected Python function for one HTTP request. Request data is any value read from that request, such as query parameters, form fields, headers, cookies, the path or the body. After the checks the code applies before each redirect, can the location still point to a site the code did not allow? Other fields contain advisory source excerpts. Derive the answer from the complete code, including its assignments, conditions and collection operations; the excerpts do not establish data origin, evaluated values or which branch executes.",
-        "criteria_true": "No check before the redirect restricts the location to allowed locations.",
-        "criteria_false": "A check before the redirect restricts the location to allowed locations.",
+        "instructions": "code is the complete selected Flask handler; module supplies imports, globals and local helper definitions. For a request invoking code under its declared route, can at least one client-controlled external destination outside a fixed approved scheme-and-host allowlist survive all transformations and conditions and reach the same redirect? Derive reaching values rather than assuming request-derived content. Fixed route components and selection among fixed server literals do not establish client control. Resolve the parsed destination, including scheme-relative URLs. Other fields are optional advisory quotations.",
+        "criteria_true": "At least one client-chosen external destination not confined to a fixed approved allowlist can reach the same redirect.",
+        "criteria_false": "Every destination reaching that redirect remains within the application or a fixed approved scheme-and-host allowlist.",
         "pass_below": 0.1,
         "fail_at_or_above": 0.9,
         "max_request_bytes": 32000,
         "state_projection": {
-          "code": "/prior/1/observation/fields/captures/0/text",
+          "code": {"pointer":"/prior/1/observation/fields/captures","capture":"function","optional":false},
+          "module": {"pointer":"/prior/1/observation/fields/captures","capture":"module","optional":false},
           "calls": {
             "pointer": "/prior/0/observation/fields/calls",
             "optional": true
@@ -847,7 +855,7 @@
         ],
         "exclude": []
       },
-      "falsifier": "No check before the redirect restricts the location to allowed locations.",
+      "falsifier": "A client-chosen external destination outside a fixed approved allowlist can reach the same redirect.",
       "fixtures": {
         "pass": [],
         "fail": []
@@ -860,7 +868,7 @@
     },
     {
       "id": "WEB-REDIRECT",
-      "revision": "2",
+      "revision": "3",
       "source": "evidence",
       "group": "a01-access-control",
       "risk": "medium",
@@ -880,7 +888,7 @@
         ],
         "fail_when": "all_fail",
         "resolution": "decisive",
-        "coverage": "An open redirect needs a redirect, request data in its location, and no check against allowed locations. Any premise that does not hold clears the handler."
+        "coverage": "A redirect, request-derived location and surviving external destination concern the same reachable handler redirect. Any false premise clears this handler."
       },
       "applicability": {
         "include": [
@@ -896,7 +904,7 @@
     },
     {
       "id": "WEB-HASH",
-      "revision": "3",
+      "revision": "5",
       "consult": {"rules":["HASH-SYNTAX"]},
       "source": "evidence",
       "group": "a04-cryptographic-failures",
@@ -910,14 +918,15 @@
       },
       "check": {
         "kind": "yes-no/1",
-        "instructions": "The code field holds Python code that handles one HTTP request. Request data is any value read from that request, such as query parameters, form fields, headers, cookies, the path or the body. Does this code compute a hash with MD2, MD4, MD5 or SHA-1?",
+        "instructions": "code is the complete selected handler; module supplies imports, globals and local helper definitions. Assess only execution reachable from code; other handlers are context. Does the selected handler compute a hash with MD2, MD4, MD5 or SHA-1? Resolve the actual API and receiver, including aliases. A matching word or unused definition is insufficient. Assess only algorithm use; missing decisive bindings remain uncertain.",
         "criteria_true": "The code hashes with MD2, MD4, MD5 or SHA-1.",
         "criteria_false": "The code hashes only with SHA-224 or stronger, or computes no hash.",
         "pass_below": 0.1,
         "fail_at_or_above": 0.9,
         "max_request_bytes": 32000,
         "state_projection": {
-          "code": "/prior/0/observation/fields/captures/0/text"
+          "code": {"pointer":"/prior/0/observation/fields/captures","capture":"function","optional":false},
+          "module": {"pointer":"/prior/0/observation/fields/captures","capture":"module","optional":false}
         }
       },
       "applicability": {
@@ -934,7 +943,7 @@
     },
     {
       "id": "WEB-RANDOM",
-      "revision": "3",
+      "revision": "5",
       "consult": {"rules":["RANDOM-SYNTAX"]},
       "source": "evidence",
       "group": "a04-cryptographic-failures",
@@ -948,14 +957,15 @@
       },
       "check": {
         "kind": "yes-no/1",
-        "instructions": "The code field holds Python code that handles one HTTP request. Request data is any value read from that request, such as query parameters, form fields, headers, cookies, the path or the body. Does this code produce a value with a function of Python's random module other than random.SystemRandom?",
+        "instructions": "code is the complete selected handler; module supplies imports, globals and local helper definitions. Assess only execution reachable from code; other handlers are context. Does the selected handler produce a value using Python's random module other than random.SystemRandom? Resolve the actual function or constructed receiver, including aliases. A matching name or unused definition is insufficient. Assess only generator use; missing decisive bindings remain uncertain.",
         "criteria_true": "The code calls such a random function.",
         "criteria_false": "The code uses secrets, os.urandom or random.SystemRandom, or produces no random value.",
         "pass_below": 0.1,
         "fail_at_or_above": 0.9,
         "max_request_bytes": 32000,
         "state_projection": {
-          "code": "/prior/0/observation/fields/captures/0/text"
+          "code": {"pointer":"/prior/0/observation/fields/captures","capture":"function","optional":false},
+          "module": {"pointer":"/prior/0/observation/fields/captures","capture":"module","optional":false}
         }
       },
       "applicability": {
@@ -972,7 +982,7 @@
     },
     {
       "id": "WEB-COOKIE",
-      "revision": "3",
+      "revision": "5",
       "consult": {"rules":["COOKIE-SYNTAX"]},
       "source": "evidence",
       "group": "a02-security-misconfiguration",
@@ -986,14 +996,15 @@
       },
       "check": {
         "kind": "yes-no/1",
-        "instructions": "The code field holds Python code that handles one HTTP request. Request data is any value read from that request, such as query parameters, form fields, headers, cookies, the path or the body. Does this code set a cookie without secure=True?",
+        "instructions": "code is the complete selected handler; module supplies imports, globals and local helper definitions. Assess only execution reachable from code; other handlers are context. Can the selected handler set a cookie without secure=True? Evaluate the actual keyword value and feasible call path, not a safe cookie set by another handler. Assess only the cookie flag; missing decisive values or bindings remain uncertain.",
         "criteria_true": "A cookie is set without secure=True.",
         "criteria_false": "Every cookie the code sets has secure=True, or the code sets no cookie.",
         "pass_below": 0.1,
         "fail_at_or_above": 0.9,
         "max_request_bytes": 32000,
         "state_projection": {
-          "code": "/prior/0/observation/fields/captures/0/text"
+          "code": {"pointer":"/prior/0/observation/fields/captures","capture":"function","optional":false},
+          "module": {"pointer":"/prior/0/observation/fields/captures","capture":"module","optional":false}
         }
       },
       "applicability": {
@@ -1010,7 +1021,7 @@
     },
     {
       "id": "XXE-PARSER",
-      "revision": "3",
+      "revision": "5",
       "consult": {"rules":["XXE-SYNTAX"]},
       "source": "evidence",
       "group": "a02-security-misconfiguration",
@@ -1024,14 +1035,15 @@
       },
       "check": {
         "kind": "yes-no/1",
-        "instructions": "The code field holds Python code that handles one HTTP request. Request data is any value read from that request, such as query parameters, form fields, headers, cookies, the path or the body. Does this code parse XML with a parser that resolves external entities?",
+        "instructions": "code is the complete selected handler; module supplies imports, globals and local helper definitions. Assess only execution reachable from code; other handlers are context. Does the selected handler parse XML using a parser configured to resolve external entities? Resolve the actual parser construction and configuration at that parse. Assess configuration only; document origin is separate. Missing decisive parser defaults or bindings remain uncertain.",
         "criteria_true": "An XML parser in the code is configured to resolve external entities.",
         "criteria_false": "Every XML parser in the code has external entity resolution disabled, or the code parses no XML.",
         "pass_below": 0.1,
         "fail_at_or_above": 0.9,
         "max_request_bytes": 32000,
         "state_projection": {
-          "code": "/prior/0/observation/fields/captures/0/text"
+          "code": {"pointer":"/prior/0/observation/fields/captures","capture":"function","optional":false},
+          "module": {"pointer":"/prior/0/observation/fields/captures","capture":"module","optional":false}
         }
       },
       "applicability": {
@@ -1048,7 +1060,7 @@
     },
     {
       "id": "XXE-FLOW",
-      "revision": "4",
+      "revision": "5",
       "consult": {"rules":["XXE-SYNTAX"]},
       "source": "evidence",
       "group": "a02-security-misconfiguration",
@@ -1063,7 +1075,7 @@
       },
       "check": {
         "kind": "extract/1",
-        "instructions": "The code field holds the complete selected Python function for one HTTP request. Copy the XML-parsing calls and existing request reads, assignments, conditions, collection operations, arguments and checks relevant to their document inputs. Return only verbatim contiguous source excerpts in the declared fields, preserving whitespace; use [] when no matching source text exists. Do not invent, repair or reformat code, evaluate expressions, compute resulting values, or claim data origins or executed branches.",
+        "instructions": "code is the complete selected handler; module supplies imports, globals and local helper definitions. Copy only XML-parsing calls and existing request reads, assignments, conditions, collection operations, arguments and checks in code or its local callees relevant to their document inputs. Other handlers in module are context. Return only verbatim contiguous source excerpts in the declared fields, preserving whitespace; use [] when no matching source text exists. Do not invent, repair or reformat code, evaluate expressions, compute resulting values, or claim data origins or executed branches.",
         "fields": {
           "calls": {
             "type": "quote_list",
@@ -1084,7 +1096,8 @@
         },
         "max_request_bytes": 32000,
         "state_projection": {
-          "code": "/prior/0/observation/fields/captures/0/text"
+          "code": {"pointer":"/prior/0/observation/fields/captures","capture":"function","optional":false},
+          "module": {"pointer":"/prior/0/observation/fields/captures","capture":"module","optional":false}
         }
       },
       "applicability": {
@@ -1101,7 +1114,7 @@
     },
     {
       "id": "XXE-REACH",
-      "revision": "4",
+      "revision": "6",
       "source": "evidence",
       "group": "a02-security-misconfiguration",
       "risk": "medium",
@@ -1114,14 +1127,15 @@
       },
       "check": {
         "kind": "yes-no/1",
-        "instructions": "The code field holds the complete selected Python function for one HTTP request. Request data is any value read from that request, such as query parameters, form fields, headers, cookies, the path or the body. Can request data become the XML document this code parses? Other fields contain advisory source excerpts. Derive the answer from the complete code, including its assignments, conditions and collection operations; the excerpts do not establish data origin, evaluated values or which branch executes.",
-        "criteria_true": "Request data can reach an XML document the code parses.",
-        "criteria_false": "Only fixed documents, or documents not read from the request, are parsed.",
+        "instructions": "code is the complete selected Flask handler; module supplies imports, globals and local helper definitions. For a request invoking code under its declared route, can client-supplied content, including transformed or encoded content, become part of the document at a reachable XML parse? Resolve assignments, list mutation/indexing, immutable-string reassignment and feasible branches. Fixed route components and request-dependent selection among fixed server constants do not count as client-supplied content. Assess document origin only; entity configuration is separate. Other fields are optional advisory quotations.",
+        "criteria_true": "Client-supplied content can reach a parsed XML document.",
+        "criteria_false": "Every parsed XML document is fixed or independent of client-supplied content.",
         "pass_below": 0.1,
         "fail_at_or_above": 0.9,
         "max_request_bytes": 32000,
         "state_projection": {
-          "code": "/prior/1/observation/fields/captures/0/text",
+          "code": {"pointer":"/prior/1/observation/fields/captures","capture":"function","optional":false},
+          "module": {"pointer":"/prior/1/observation/fields/captures","capture":"module","optional":false},
           "calls": {
             "pointer": "/prior/0/observation/fields/calls",
             "optional": true
@@ -1142,7 +1156,7 @@
         ],
         "exclude": []
       },
-      "falsifier": "Request data can reach an XML document the code parses.",
+      "falsifier": "Client-supplied content can reach a parsed XML document.",
       "fixtures": {
         "pass": [],
         "fail": []
@@ -1155,7 +1169,7 @@
     },
     {
       "id": "WEB-XXE",
-      "revision": "2",
+      "revision": "3",
       "source": "evidence",
       "group": "a02-security-misconfiguration",
       "risk": "medium",
@@ -1174,7 +1188,7 @@
         ],
         "fail_when": "all_fail",
         "resolution": "decisive",
-        "coverage": "XML external entity injection needs a parser that resolves external entities and request data in the parsed document. Either premise that does not hold clears the handler."
+        "coverage": "The entity-resolving parser and request-derived document concern the same reachable handler parse. Either false premise clears this handler."
       },
       "applicability": {
         "include": [
@@ -1190,7 +1204,7 @@
     },
     {
       "id": "SQL-CALL",
-      "revision": "3",
+      "revision": "6",
       "consult": {"rules":["SQL-SYNTAX"]},
       "source": "evidence",
       "group": "a05-injection",
@@ -1204,14 +1218,15 @@
       },
       "check": {
         "kind": "yes-no/1",
-        "instructions": "The code field holds Python code that handles one HTTP request. Request data is any value read from that request, such as query parameters, form fields, headers, cookies, the path or the body. Does this code run an SQL statement?",
-        "criteria_true": "The code runs an SQL statement.",
-        "criteria_false": "The code runs no SQL statement.",
+        "instructions": "code is the complete selected Flask handler; module supplies imports, globals and local helper definitions. Consider normal invocation of code, respecting its declared route. Does it execute an SQL statement? Resolve the shown call and receiver; sqlite3.connect creates a SQLite connection and its execute method executes SQL. Assess execution only, not input origin or injection. Other handlers in module are context.",
+        "criteria_true": "The selected handler executes an SQL statement.",
+        "criteria_false": "The selected handler executes no SQL statement.",
         "pass_below": 0.1,
         "fail_at_or_above": 0.9,
         "max_request_bytes": 32000,
         "state_projection": {
-          "code": "/prior/0/observation/fields/captures/0/text"
+          "code": {"pointer":"/prior/0/observation/fields/captures","capture":"function","optional":false},
+          "module": {"pointer":"/prior/0/observation/fields/captures","capture":"module","optional":false}
         }
       },
       "applicability": {
@@ -1220,7 +1235,7 @@
         ],
         "exclude": []
       },
-      "falsifier": "The code runs an SQL statement.",
+      "falsifier": "The selected handler executes an SQL statement.",
       "fixtures": {
         "pass": [],
         "fail": []
@@ -1228,7 +1243,7 @@
     },
     {
       "id": "SQL-FLOW",
-      "revision": "4",
+      "revision": "5",
       "consult": {"rules":["SQL-SYNTAX"]},
       "source": "evidence",
       "group": "a05-injection",
@@ -1243,7 +1258,7 @@
       },
       "check": {
         "kind": "extract/1",
-        "instructions": "The code field holds the complete selected Python function for one HTTP request. Copy the SQL-execution calls and existing request reads, assignments, conditions, collection operations, arguments and checks relevant to their statement text and bound parameters. Keep statement-text and bound-parameter excerpts distinct. Return only verbatim contiguous source excerpts in the declared fields, preserving whitespace; use [] when no matching source text exists. Do not invent, repair or reformat code, evaluate expressions, compute resulting values, or claim data origins or executed branches.",
+        "instructions": "code is the complete selected handler; module supplies imports, globals and local helper definitions. Copy only SQL-execution calls and existing request reads, assignments, conditions, collection operations, arguments and checks in code or its local callees relevant to their statement text and bound parameters. Keep statement-text and bound-parameter excerpts distinct. Other handlers in module are context. Return only verbatim contiguous source excerpts in the declared fields, preserving whitespace; use [] when no matching source text exists. Do not invent, repair or reformat code, evaluate expressions, compute resulting values, or claim data origins or executed branches.",
         "fields": {
           "calls": {
             "type": "quote_list",
@@ -1264,7 +1279,8 @@
         },
         "max_request_bytes": 32000,
         "state_projection": {
-          "code": "/prior/0/observation/fields/captures/0/text"
+          "code": {"pointer":"/prior/0/observation/fields/captures","capture":"function","optional":false},
+          "module": {"pointer":"/prior/0/observation/fields/captures","capture":"module","optional":false}
         }
       },
       "applicability": {
@@ -1281,7 +1297,7 @@
     },
     {
       "id": "SQL-REACH",
-      "revision": "4",
+      "revision": "6",
       "source": "evidence",
       "group": "a05-injection",
       "risk": "medium",
@@ -1294,14 +1310,15 @@
       },
       "check": {
         "kind": "yes-no/1",
-        "instructions": "The code field holds the complete selected Python function for one HTTP request. Request data is any value read from that request, such as query parameters, form fields, headers, cookies, the path or the body. Can request data become part of the text of an SQL statement this code runs, rather than a bound parameter? Other fields contain advisory source excerpts. Derive the answer from the complete code, including its assignments, conditions and collection operations; the excerpts do not establish data origin, evaluated values or which branch executes.",
-        "criteria_true": "Request data can be inserted into SQL statement text.",
-        "criteria_false": "Request data reaches the database only as bound parameters, or not at all.",
+        "instructions": "Consider normal invocation of the selected Flask handler in code, using module and respecting its declared route. Can client-supplied characters become part of the SQL string argument at an execution? SQLite execute(sql, parameters) treats its second argument as separately bound data, not SQL text. Follow overwrites, aliases and collections; selecting among fixed statements does not supply their content. Assess SQL-text origin only, not escaping. Other fields are optional advisory quotations.",
+        "criteria_true": "Client-supplied characters can enter the SQL string argument.",
+        "criteria_false": "The SQL string is fixed or independent of client content, even when separately bound parameter values are client supplied.",
         "pass_below": 0.1,
         "fail_at_or_above": 0.9,
         "max_request_bytes": 32000,
         "state_projection": {
-          "code": "/prior/1/observation/fields/captures/0/text",
+          "code": {"pointer":"/prior/1/observation/fields/captures","capture":"function","optional":false},
+          "module": {"pointer":"/prior/1/observation/fields/captures","capture":"module","optional":false},
           "calls": {
             "pointer": "/prior/0/observation/fields/calls",
             "optional": true
@@ -1322,7 +1339,7 @@
         ],
         "exclude": []
       },
-      "falsifier": "Request data can be inserted into SQL statement text.",
+      "falsifier": "Client-supplied characters can enter the SQL string argument.",
       "fixtures": {
         "pass": [],
         "fail": []
@@ -1335,7 +1352,7 @@
     },
     {
       "id": "SQL-OPEN",
-      "revision": "4",
+      "revision": "6",
       "source": "evidence",
       "group": "a05-injection",
       "risk": "medium",
@@ -1348,14 +1365,15 @@
       },
       "check": {
         "kind": "yes-no/1",
-        "instructions": "The code field holds the complete selected Python function for one HTTP request. Request data is any value read from that request, such as query parameters, form fields, headers, cookies, the path or the body. After the checks the code applies before each statement runs, can the value in the statement text still contain SQL syntax, such as a quote, that changes the statement? Other fields contain advisory source excerpts. Derive the answer from the complete code, including its assignments, conditions and collection operations; the excerpts do not establish data origin, evaluated values or which branch executes.",
-        "criteria_true": "No check before the call rejects or escapes SQL syntax.",
-        "criteria_false": "A check before the call rejects or escapes SQL syntax, or reduces the value to fixed values.",
+        "instructions": "Consider normal invocation of the selected Flask handler in code, using module and respecting its declared route. Does its query construction permit an inserted value to become SQL syntax after all shown quoting and validation? Assess construction at that same execution independently of value origin; fixed query keywords are not inserted values. SQLite placeholder parameters remain data even when they contain quotes or SQL keywords. With no variable insertion into SQL text, answer false. Other fields are optional advisory quotations.",
+        "criteria_true": "An inserted value can change the SQL statement's structure.",
+        "criteria_false": "Variable values are separately bound or confined so they cannot change SQL syntax, or SQL text has no variable insertion.",
         "pass_below": 0.1,
         "fail_at_or_above": 0.9,
         "max_request_bytes": 32000,
         "state_projection": {
-          "code": "/prior/1/observation/fields/captures/0/text",
+          "code": {"pointer":"/prior/1/observation/fields/captures","capture":"function","optional":false},
+          "module": {"pointer":"/prior/1/observation/fields/captures","capture":"module","optional":false},
           "calls": {
             "pointer": "/prior/0/observation/fields/calls",
             "optional": true
@@ -1372,7 +1390,7 @@
         ],
         "exclude": []
       },
-      "falsifier": "No check before the call rejects or escapes SQL syntax.",
+      "falsifier": "An inserted value can change the SQL statement's structure.",
       "fixtures": {
         "pass": [],
         "fail": []
@@ -1385,7 +1403,7 @@
     },
     {
       "id": "WEB-SQL",
-      "revision": "2",
+      "revision": "3",
       "source": "evidence",
       "group": "a05-injection",
       "risk": "medium",
@@ -1405,7 +1423,7 @@
         ],
         "fail_when": "all_fail",
         "resolution": "decisive",
-        "coverage": "SQL injection needs a statement, request data in its text, and no check that stops SQL syntax. Any premise that does not hold clears the handler."
+        "coverage": "SQL execution, request-derived statement text and surviving SQL syntax concern the same reachable handler execution. Any false premise clears this handler."
       },
       "applicability": {
         "include": [
@@ -1421,7 +1439,7 @@
     },
     {
       "id": "COMMAND-CALL",
-      "revision": "3",
+      "revision": "5",
       "consult": {"rules":["COMMAND-SYNTAX"]},
       "source": "evidence",
       "group": "a05-injection",
@@ -1435,14 +1453,15 @@
       },
       "check": {
         "kind": "yes-no/1",
-        "instructions": "The code field holds Python code that handles one HTTP request. Request data is any value read from that request, such as query parameters, form fields, headers, cookies, the path or the body. Does this code run an operating-system command, for example through subprocess or os.system?",
+        "instructions": "code is the complete selected handler; module supplies imports, globals and local helper definitions. Assess only execution reachable from code; other handlers are context. Does the selected handler run an operating-system command, for example through subprocess or os.system? Resolve the actual API and feasible call path; a printed name or unused definition is insufficient. Assess execution only; argument origin and interpretation are separate. Missing decisive bindings remain uncertain.",
         "criteria_true": "The code runs an operating-system command.",
         "criteria_false": "The code runs no operating-system command.",
         "pass_below": 0.1,
         "fail_at_or_above": 0.9,
         "max_request_bytes": 32000,
         "state_projection": {
-          "code": "/prior/0/observation/fields/captures/0/text"
+          "code": {"pointer":"/prior/0/observation/fields/captures","capture":"function","optional":false},
+          "module": {"pointer":"/prior/0/observation/fields/captures","capture":"module","optional":false}
         }
       },
       "applicability": {
@@ -1459,7 +1478,7 @@
     },
     {
       "id": "COMMAND-FLOW",
-      "revision": "4",
+      "revision": "5",
       "consult": {"rules":["COMMAND-SYNTAX"]},
       "source": "evidence",
       "group": "a05-injection",
@@ -1474,7 +1493,7 @@
       },
       "check": {
         "kind": "extract/1",
-        "instructions": "The code field holds the complete selected Python function for one HTTP request. Copy the operating-system command calls and existing request reads, assignments, conditions, collection operations, arguments and checks relevant to their commands or arguments. Return only verbatim contiguous source excerpts in the declared fields, preserving whitespace; use [] when no matching source text exists. Do not invent, repair or reformat code, evaluate expressions, compute resulting values, or claim data origins or executed branches.",
+        "instructions": "code is the complete selected handler; module supplies imports, globals and local helper definitions. Copy only operating-system command calls and existing request reads, assignments, conditions, collection operations, arguments and checks in code or its local callees relevant to their commands or arguments. Other handlers in module are context. Return only verbatim contiguous source excerpts in the declared fields, preserving whitespace; use [] when no matching source text exists. Do not invent, repair or reformat code, evaluate expressions, compute resulting values, or claim data origins or executed branches.",
         "fields": {
           "calls": {
             "type": "quote_list",
@@ -1495,7 +1514,8 @@
         },
         "max_request_bytes": 32000,
         "state_projection": {
-          "code": "/prior/0/observation/fields/captures/0/text"
+          "code": {"pointer":"/prior/0/observation/fields/captures","capture":"function","optional":false},
+          "module": {"pointer":"/prior/0/observation/fields/captures","capture":"module","optional":false}
         }
       },
       "applicability": {
@@ -1512,7 +1532,7 @@
     },
     {
       "id": "COMMAND-REACH",
-      "revision": "4",
+      "revision": "6",
       "source": "evidence",
       "group": "a05-injection",
       "risk": "medium",
@@ -1525,14 +1545,15 @@
       },
       "check": {
         "kind": "yes-no/1",
-        "instructions": "The code field holds the complete selected Python function for one HTTP request. Request data is any value read from that request, such as query parameters, form fields, headers, cookies, the path or the body. Can request data become part of an operating-system command this code runs, or of its arguments? Other fields contain advisory source excerpts. Derive the answer from the complete code, including its assignments, conditions and collection operations; the excerpts do not establish data origin, evaluated values or which branch executes.",
-        "criteria_true": "Request data can reach a command or its arguments.",
-        "criteria_false": "Only fixed values, or values not read from the request, reach the commands.",
+        "instructions": "code is the complete selected Flask handler; module supplies imports, globals and local helper definitions. For a request invoking code under its declared route, can client-supplied content, including transformed or encoded content, become part of a command or its arguments at a reachable operating-system execution? Resolve assignments, list mutation/indexing, immutable-string reassignment and feasible branches. Fixed route components and request-dependent selection among fixed server constants do not count as client-supplied content. Assess argument origin only; dangerous interpretation is separate. Other fields are optional advisory quotations.",
+        "criteria_true": "Client-supplied content can reach an executed command or its arguments.",
+        "criteria_false": "Every executed command and argument is fixed or independent of client-supplied content.",
         "pass_below": 0.1,
         "fail_at_or_above": 0.9,
         "max_request_bytes": 32000,
         "state_projection": {
-          "code": "/prior/1/observation/fields/captures/0/text",
+          "code": {"pointer":"/prior/1/observation/fields/captures","capture":"function","optional":false},
+          "module": {"pointer":"/prior/1/observation/fields/captures","capture":"module","optional":false},
           "calls": {
             "pointer": "/prior/0/observation/fields/calls",
             "optional": true
@@ -1553,7 +1574,7 @@
         ],
         "exclude": []
       },
-      "falsifier": "Request data can reach a command or its arguments.",
+      "falsifier": "Client-supplied content can reach an executed command or its arguments.",
       "fixtures": {
         "pass": [],
         "fail": []
@@ -1566,7 +1587,7 @@
     },
     {
       "id": "COMMAND-OPEN",
-      "revision": "4",
+      "revision": "6",
       "source": "evidence",
       "group": "a05-injection",
       "risk": "medium",
@@ -1579,14 +1600,15 @@
       },
       "check": {
         "kind": "yes-no/1",
-        "instructions": "The code field holds the complete selected Python function for one HTTP request. Request data is any value read from that request, such as query parameters, form fields, headers, cookies, the path or the body. After the checks the code applies before each command runs, can the value still add shell syntax, another command or an unintended argument? Other fields contain advisory source excerpts. Derive the answer from the complete code, including its assignments, conditions and collection operations; the excerpts do not establish data origin, evaluated values or which branch executes.",
-        "criteria_true": "No check before the call stops shell syntax, another command or an unintended argument.",
-        "criteria_false": "A check before the call stops them, or reduces the value to fixed values.",
+        "instructions": "code is the complete selected Flask handler; module supplies imports, globals and local helper definitions. For a request invoking code under its declared route, can at least one client-controlled value survive all transformations and conditions and add shell syntax, another command or an unintended argument at the same reachable execution? Derive reaching values rather than assuming request-derived content. Fixed route components and selection among fixed server literals do not establish client control. Resolve whether the receiving shell, interpreter or program treats that value as command-changing syntax. Other fields are optional advisory quotations.",
+        "criteria_true": "At least one command-changing value can reach the same execution after its transformations and conditions.",
+        "criteria_false": "Every value reaching that execution remains a permitted literal argument or cannot change the command's interpretation.",
         "pass_below": 0.1,
         "fail_at_or_above": 0.9,
         "max_request_bytes": 32000,
         "state_projection": {
-          "code": "/prior/1/observation/fields/captures/0/text",
+          "code": {"pointer":"/prior/1/observation/fields/captures","capture":"function","optional":false},
+          "module": {"pointer":"/prior/1/observation/fields/captures","capture":"module","optional":false},
           "calls": {
             "pointer": "/prior/0/observation/fields/calls",
             "optional": true
@@ -1603,7 +1625,7 @@
         ],
         "exclude": []
       },
-      "falsifier": "No check before the call stops shell syntax, another command or an unintended argument.",
+      "falsifier": "A command-changing value survives to the same execution.",
       "fixtures": {
         "pass": [],
         "fail": []
@@ -1616,7 +1638,7 @@
     },
     {
       "id": "WEB-COMMAND",
-      "revision": "2",
+      "revision": "3",
       "source": "evidence",
       "group": "a05-injection",
       "risk": "medium",
@@ -1636,7 +1658,7 @@
         ],
         "fail_when": "all_fail",
         "resolution": "decisive",
-        "coverage": "Command injection needs a command, request data in it or its arguments, and no check that stops command syntax. Any premise that does not hold clears the handler."
+        "coverage": "Command execution, request-derived argument and surviving command syntax concern the same reachable handler execution. Any false premise clears this handler."
       },
       "applicability": {
         "include": [
@@ -1652,7 +1674,7 @@
     },
     {
       "id": "CODE-CALL",
-      "revision": "3",
+      "revision": "5",
       "consult": {"rules":["CODE-SYNTAX"]},
       "source": "evidence",
       "group": "a05-injection",
@@ -1666,14 +1688,15 @@
       },
       "check": {
         "kind": "yes-no/1",
-        "instructions": "The code field holds Python code that handles one HTTP request. Request data is any value read from that request, such as query parameters, form fields, headers, cookies, the path or the body. Does this code evaluate or execute text as Python code, for example with eval, exec or compile?",
+        "instructions": "code is the complete selected handler; module supplies imports, globals and local helper definitions. Assess only execution reachable from code; other handlers are context. Does the selected handler evaluate or execute text as Python code, for example through eval, exec or compile? Resolve the actual call; a printed API name or unused definition is insufficient. Assess execution only; origin and restrictions are separate. Missing decisive bindings remain uncertain.",
         "criteria_true": "The code evaluates or executes text as Python code.",
         "criteria_false": "The code evaluates or executes no text as Python code.",
         "pass_below": 0.1,
         "fail_at_or_above": 0.9,
         "max_request_bytes": 32000,
         "state_projection": {
-          "code": "/prior/0/observation/fields/captures/0/text"
+          "code": {"pointer":"/prior/0/observation/fields/captures","capture":"function","optional":false},
+          "module": {"pointer":"/prior/0/observation/fields/captures","capture":"module","optional":false}
         }
       },
       "applicability": {
@@ -1690,7 +1713,7 @@
     },
     {
       "id": "CODE-FLOW",
-      "revision": "4",
+      "revision": "5",
       "consult": {"rules":["CODE-SYNTAX"]},
       "source": "evidence",
       "group": "a05-injection",
@@ -1705,7 +1728,7 @@
       },
       "check": {
         "kind": "extract/1",
-        "instructions": "The code field holds the complete selected Python function for one HTTP request. Copy the calls that evaluate or execute Python text and existing request reads, assignments, conditions, collection operations, arguments and checks relevant to that text. Return only verbatim contiguous source excerpts in the declared fields, preserving whitespace; use [] when no matching source text exists. Do not invent, repair or reformat code, evaluate expressions, compute resulting values, or claim data origins or executed branches.",
+        "instructions": "code is the complete selected handler; module supplies imports, globals and local helper definitions. Copy only calls that evaluate or execute Python text and existing request reads, assignments, conditions, collection operations, arguments and checks in code or its local callees relevant to that text. Other handlers in module are context. Return only verbatim contiguous source excerpts in the declared fields, preserving whitespace; use [] when no matching source text exists. Do not invent, repair or reformat code, evaluate expressions, compute resulting values, or claim data origins or executed branches.",
         "fields": {
           "calls": {
             "type": "quote_list",
@@ -1726,7 +1749,8 @@
         },
         "max_request_bytes": 32000,
         "state_projection": {
-          "code": "/prior/0/observation/fields/captures/0/text"
+          "code": {"pointer":"/prior/0/observation/fields/captures","capture":"function","optional":false},
+          "module": {"pointer":"/prior/0/observation/fields/captures","capture":"module","optional":false}
         }
       },
       "applicability": {
@@ -1743,7 +1767,7 @@
     },
     {
       "id": "CODE-REACH",
-      "revision": "4",
+      "revision": "5",
       "source": "evidence",
       "group": "a05-injection",
       "risk": "medium",
@@ -1756,14 +1780,15 @@
       },
       "check": {
         "kind": "yes-no/1",
-        "instructions": "The code field holds the complete selected Python function for one HTTP request. Request data is any value read from that request, such as query parameters, form fields, headers, cookies, the path or the body. Can request data become part of the text this code evaluates or executes as Python code? Other fields contain advisory source excerpts. Derive the answer from the complete code, including its assignments, conditions and collection operations; the excerpts do not establish data origin, evaluated values or which branch executes.",
+        "instructions": "code is the complete selected handler; module supplies imports, globals and local helper definitions. Assess only execution reachable from code; other handlers are context. Can request data become part of text evaluated or executed as Python code? Request data includes parameters, forms, headers, cookies, path and body. Follow assignments, overwrites, collections, slicing and feasible branches; a request read alone does not establish propagation. Assess origin only; restriction to harmless literals is separate. Other fields are optional advisory quotations, not established dataflow. Missing decisive bindings remain uncertain.",
         "criteria_true": "Request data can reach text that runs as Python code.",
         "criteria_false": "Only fixed values, or values not read from the request, reach that text.",
         "pass_below": 0.1,
         "fail_at_or_above": 0.9,
         "max_request_bytes": 32000,
         "state_projection": {
-          "code": "/prior/1/observation/fields/captures/0/text",
+          "code": {"pointer":"/prior/1/observation/fields/captures","capture":"function","optional":false},
+          "module": {"pointer":"/prior/1/observation/fields/captures","capture":"module","optional":false},
           "calls": {
             "pointer": "/prior/0/observation/fields/calls",
             "optional": true
@@ -1797,7 +1822,7 @@
     },
     {
       "id": "CODE-OPEN",
-      "revision": "4",
+      "revision": "5",
       "source": "evidence",
       "group": "a05-injection",
       "risk": "medium",
@@ -1810,14 +1835,15 @@
       },
       "check": {
         "kind": "yes-no/1",
-        "instructions": "The code field holds the complete selected Python function for one HTTP request. Request data is any value read from that request, such as query parameters, form fields, headers, cookies, the path or the body. After the checks the code applies before running the text, can the text still contain any Python code the client chooses, rather than only a value such as a plain string or number literal? Other fields contain advisory source excerpts. Derive the answer from the complete code, including its assignments, conditions and collection operations; the excerpts do not establish data origin, evaluated values or which branch executes.",
-        "criteria_true": "No check before the call restricts the text to a harmless value.",
-        "criteria_false": "A check before the call restricts the text to a harmless value, such as a plain literal.",
+        "instructions": "code is the complete selected handler; module supplies imports, globals and local helper definitions. Assess only execution reachable from code; other handlers are context. For a reachable Python evaluation using shown request-derived text, can at least one client-chosen nonliteral Python expression or statement still reach that evaluation after all transformations and conditions? Assess the same text and evaluation throughout. A quote check or validator's presence does not establish sufficient confinement. Other fields are optional advisory quotations. Missing decisive parser, binding or control context remains uncertain.",
+        "criteria_true": "At least one client-chosen nonliteral Python expression or statement can reach the same evaluation.",
+        "criteria_false": "Every value reaching that evaluation is restricted to a harmless literal value.",
         "pass_below": 0.1,
         "fail_at_or_above": 0.9,
         "max_request_bytes": 32000,
         "state_projection": {
-          "code": "/prior/1/observation/fields/captures/0/text",
+          "code": {"pointer":"/prior/1/observation/fields/captures","capture":"function","optional":false},
+          "module": {"pointer":"/prior/1/observation/fields/captures","capture":"module","optional":false},
           "calls": {
             "pointer": "/prior/0/observation/fields/calls",
             "optional": true
@@ -1834,7 +1860,7 @@
         ],
         "exclude": []
       },
-      "falsifier": "No check before the call restricts the text to a harmless value.",
+      "falsifier": "Client-chosen nonliteral Python code survives to the same evaluation.",
       "fixtures": {
         "pass": [],
         "fail": []
@@ -1847,7 +1873,7 @@
     },
     {
       "id": "WEB-CODE",
-      "revision": "2",
+      "revision": "3",
       "source": "evidence",
       "group": "a05-injection",
       "risk": "medium",
@@ -1867,7 +1893,7 @@
         ],
         "fail_when": "all_fail",
         "resolution": "decisive",
-        "coverage": "Code injection needs code evaluation, request data in the evaluated text, and no check that restricts it to a harmless value. Any premise that does not hold clears the handler."
+        "coverage": "Python evaluation, request-derived text and surviving nonliteral code concern the same reachable handler evaluation. Any false premise clears this handler."
       },
       "applicability": {
         "include": [
@@ -1883,7 +1909,7 @@
     },
     {
       "id": "LDAP-CALL",
-      "revision": "3",
+      "revision": "5",
       "consult": {"rules":["LDAP-SYNTAX"]},
       "source": "evidence",
       "group": "a05-injection",
@@ -1897,14 +1923,15 @@
       },
       "check": {
         "kind": "yes-no/1",
-        "instructions": "The code field holds Python code that handles one HTTP request. Request data is any value read from that request, such as query parameters, form fields, headers, cookies, the path or the body. Does this code run an LDAP search or build an LDAP distinguished name?",
-        "criteria_true": "The code runs an LDAP search or builds a distinguished name.",
-        "criteria_false": "The code does neither.",
+        "instructions": "code is the complete selected handler; module supplies imports, globals and local helper definitions. Assess only execution reachable from code; other handlers are context. Does the selected handler run an LDAP search or construct a distinguished name through an LDAP API? Resolve the actual call and local helper body. A function's LDAP-looking name or a dictionary/string returned by a stub does not establish an LDAP operation. Assess operation only; origin and escaping are separate. Missing decisive bindings remain uncertain.",
+        "criteria_true": "A reachable call from the selected handler executes an LDAP search or constructs a distinguished name through an LDAP API.",
+        "criteria_false": "No reachable call from the selected handler performs either LDAP operation.",
         "pass_below": 0.1,
         "fail_at_or_above": 0.9,
         "max_request_bytes": 32000,
         "state_projection": {
-          "code": "/prior/0/observation/fields/captures/0/text"
+          "code": {"pointer":"/prior/0/observation/fields/captures","capture":"function","optional":false},
+          "module": {"pointer":"/prior/0/observation/fields/captures","capture":"module","optional":false}
         }
       },
       "applicability": {
@@ -1913,7 +1940,7 @@
         ],
         "exclude": []
       },
-      "falsifier": "The code runs an LDAP search or builds a distinguished name.",
+      "falsifier": "A reachable call from the selected handler performs an actual LDAP operation.",
       "fixtures": {
         "pass": [],
         "fail": []
@@ -1921,7 +1948,7 @@
     },
     {
       "id": "LDAP-FLOW",
-      "revision": "4",
+      "revision": "5",
       "consult": {"rules":["LDAP-SYNTAX"]},
       "source": "evidence",
       "group": "a05-injection",
@@ -1936,7 +1963,7 @@
       },
       "check": {
         "kind": "extract/1",
-        "instructions": "The code field holds the complete selected Python function for one HTTP request. Copy the LDAP-search and distinguished-name construction calls and existing request reads, assignments, conditions, collection operations, arguments and checks relevant to their filter or name text. Return only verbatim contiguous source excerpts in the declared fields, preserving whitespace; use [] when no matching source text exists. Do not invent, repair or reformat code, evaluate expressions, compute resulting values, or claim data origins or executed branches.",
+        "instructions": "code is the complete selected handler; module supplies imports, globals and local helper definitions. Copy only calls and existing request reads, assignments, conditions, collection operations, arguments and checks in code or its local callees relevant to LDAP filters or distinguished names, including the complete local helper definition when called. Other handlers in module are context. Return only verbatim contiguous source excerpts in the declared fields, preserving whitespace; use [] when no matching source text exists. Do not invent, repair or reformat code, evaluate expressions, compute resulting values, or claim data origins, executed branches or actual LDAP effects from a function name.",
         "fields": {
           "calls": {
             "type": "quote_list",
@@ -1957,7 +1984,8 @@
         },
         "max_request_bytes": 32000,
         "state_projection": {
-          "code": "/prior/0/observation/fields/captures/0/text"
+          "code": {"pointer":"/prior/0/observation/fields/captures","capture":"function","optional":false},
+          "module": {"pointer":"/prior/0/observation/fields/captures","capture":"module","optional":false}
         }
       },
       "applicability": {
@@ -1974,7 +2002,7 @@
     },
     {
       "id": "LDAP-REACH",
-      "revision": "4",
+      "revision": "6",
       "source": "evidence",
       "group": "a05-injection",
       "risk": "medium",
@@ -1987,14 +2015,15 @@
       },
       "check": {
         "kind": "yes-no/1",
-        "instructions": "The code field holds the complete selected Python function for one HTTP request. Request data is any value read from that request, such as query parameters, form fields, headers, cookies, the path or the body. Can request data become part of an LDAP filter or distinguished name this code uses? Other fields contain advisory source excerpts. Derive the answer from the complete code, including its assignments, conditions and collection operations; the excerpts do not establish data origin, evaluated values or which branch executes.",
-        "criteria_true": "Request data can reach an LDAP filter or name.",
-        "criteria_false": "Only fixed values, or values not read from the request, reach them.",
+        "instructions": "code is the complete selected Flask handler; module supplies imports, globals and local helper definitions. For a request invoking code under its declared route, can client-supplied content, including transformed or encoded content, become part of a filter or distinguished name at a reachable LDAP operation? Resolve assignments, list mutation/indexing, immutable-string reassignment and feasible branches. Fixed route components and selection among fixed server constants do not supply client content. Resolve actual helper bodies; a dictionary returned by a stub establishes no LDAP operation. Assess origin only; special LDAP syntax is separate. Other fields are optional advisory quotations.",
+        "criteria_true": "Client-supplied content can reach a filter or distinguished name at an actual LDAP operation.",
+        "criteria_false": "Every such filter or name is fixed or independent of client-supplied content, or no LDAP operation occurs.",
         "pass_below": 0.1,
         "fail_at_or_above": 0.9,
         "max_request_bytes": 32000,
         "state_projection": {
-          "code": "/prior/1/observation/fields/captures/0/text",
+          "code": {"pointer":"/prior/1/observation/fields/captures","capture":"function","optional":false},
+          "module": {"pointer":"/prior/1/observation/fields/captures","capture":"module","optional":false},
           "calls": {
             "pointer": "/prior/0/observation/fields/calls",
             "optional": true
@@ -2015,7 +2044,7 @@
         ],
         "exclude": []
       },
-      "falsifier": "Request data can reach an LDAP filter or name.",
+      "falsifier": "Client-supplied content can reach a filter or distinguished name at an actual LDAP operation.",
       "fixtures": {
         "pass": [],
         "fail": []
@@ -2028,7 +2057,7 @@
     },
     {
       "id": "LDAP-OPEN",
-      "revision": "4",
+      "revision": "6",
       "source": "evidence",
       "group": "a05-injection",
       "risk": "medium",
@@ -2041,14 +2070,15 @@
       },
       "check": {
         "kind": "yes-no/1",
-        "instructions": "The code field holds the complete selected Python function for one HTTP request. Request data is any value read from that request, such as query parameters, form fields, headers, cookies, the path or the body. After the checks the code applies before each LDAP call, can the value still contain LDAP special characters, such as parentheses or asterisks, that change the filter or name? Other fields contain advisory source excerpts. Derive the answer from the complete code, including its assignments, conditions and collection operations; the excerpts do not establish data origin, evaluated values or which branch executes.",
-        "criteria_true": "No check before the call escapes or rejects LDAP special characters.",
-        "criteria_false": "A check before the call escapes or rejects them, or reduces the value to safe characters.",
+        "instructions": "code is the complete selected Flask handler; module supplies imports, globals and local helper definitions. For a request invoking code under its declared route, can at least one client-controlled value survive all transformations and conditions and change a filter or distinguished name through LDAP special syntax at the same reachable LDAP operation? Derive reaching values rather than assuming request-derived content. Fixed route components and selection among fixed server literals do not establish client control. Resolve actual helper behavior; a dictionary-returning stub establishes no LDAP operation. Other fields are optional advisory quotations.",
+        "criteria_true": "At least one value that changes LDAP syntax can reach the same operation after its transformations and conditions.",
+        "criteria_false": "Every value reaching that operation is confined to safe characters or escaped so it cannot change the filter or name.",
         "pass_below": 0.1,
         "fail_at_or_above": 0.9,
         "max_request_bytes": 32000,
         "state_projection": {
-          "code": "/prior/1/observation/fields/captures/0/text",
+          "code": {"pointer":"/prior/1/observation/fields/captures","capture":"function","optional":false},
+          "module": {"pointer":"/prior/1/observation/fields/captures","capture":"module","optional":false},
           "calls": {
             "pointer": "/prior/0/observation/fields/calls",
             "optional": true
@@ -2065,7 +2095,7 @@
         ],
         "exclude": []
       },
-      "falsifier": "No check before the call escapes or rejects LDAP special characters.",
+      "falsifier": "Filter-changing or name-changing LDAP syntax survives to the same operation.",
       "fixtures": {
         "pass": [],
         "fail": []
@@ -2078,7 +2108,7 @@
     },
     {
       "id": "WEB-LDAP",
-      "revision": "2",
+      "revision": "3",
       "source": "evidence",
       "group": "a05-injection",
       "risk": "medium",
@@ -2098,7 +2128,7 @@
         ],
         "fail_when": "all_fail",
         "resolution": "decisive",
-        "coverage": "LDAP injection needs an LDAP search or name, request data in it, and no escaping of LDAP special characters. Any premise that does not hold clears the handler."
+        "coverage": "An actual LDAP operation, request-derived filter/name and surviving LDAP syntax concern the same reachable handler operation. A stub name alone establishes no LDAP effect. Any false premise clears this handler."
       },
       "applicability": {
         "include": [
@@ -2114,7 +2144,7 @@
     },
     {
       "id": "XPATH-CALL",
-      "revision": "3",
+      "revision": "5",
       "consult": {"rules":["XPATH-SYNTAX"]},
       "source": "evidence",
       "group": "a05-injection",
@@ -2128,14 +2158,15 @@
       },
       "check": {
         "kind": "yes-no/1",
-        "instructions": "The code field holds Python code that handles one HTTP request. Request data is any value read from that request, such as query parameters, form fields, headers, cookies, the path or the body. Does this code evaluate an XPath expression?",
+        "instructions": "code is the complete selected handler; module supplies imports, globals and local helper definitions. Assess only execution reachable from code; other handlers are context. Does the selected handler evaluate an XPath expression? Resolve the actual parser API and call path; a matching name, XPath-looking string or unused definition is insufficient. Assess evaluation only; expression origin and escaping are separate. Missing decisive bindings remain uncertain.",
         "criteria_true": "The code evaluates an XPath expression.",
         "criteria_false": "The code evaluates no XPath expression.",
         "pass_below": 0.1,
         "fail_at_or_above": 0.9,
         "max_request_bytes": 32000,
         "state_projection": {
-          "code": "/prior/0/observation/fields/captures/0/text"
+          "code": {"pointer":"/prior/0/observation/fields/captures","capture":"function","optional":false},
+          "module": {"pointer":"/prior/0/observation/fields/captures","capture":"module","optional":false}
         }
       },
       "applicability": {
@@ -2152,7 +2183,7 @@
     },
     {
       "id": "XPATH-FLOW",
-      "revision": "4",
+      "revision": "5",
       "consult": {"rules":["XPATH-SYNTAX"]},
       "source": "evidence",
       "group": "a05-injection",
@@ -2167,7 +2198,7 @@
       },
       "check": {
         "kind": "extract/1",
-        "instructions": "The code field holds the complete selected Python function for one HTTP request. Copy the XPath-evaluation calls and existing request reads, assignments, conditions, collection operations, arguments and checks relevant to their expression text and XPath variables. Keep expression-text and XPath-variable excerpts distinct. Return only verbatim contiguous source excerpts in the declared fields, preserving whitespace; use [] when no matching source text exists. Do not invent, repair or reformat code, evaluate expressions, compute resulting values, or claim data origins or executed branches.",
+        "instructions": "code is the complete selected handler; module supplies imports, globals and local helper definitions. Copy only XPath-evaluation calls and existing request reads, assignments, conditions, collection operations, arguments and checks in code or its local callees relevant to expression text and XPath variables. Keep expression-text and XPath-variable excerpts distinct. Other handlers in module are context. Return only verbatim contiguous source excerpts in the declared fields, preserving whitespace; use [] when no matching source text exists. Do not invent, repair or reformat code, evaluate expressions, compute resulting values, or claim data origins or executed branches.",
         "fields": {
           "calls": {
             "type": "quote_list",
@@ -2188,7 +2219,8 @@
         },
         "max_request_bytes": 32000,
         "state_projection": {
-          "code": "/prior/0/observation/fields/captures/0/text"
+          "code": {"pointer":"/prior/0/observation/fields/captures","capture":"function","optional":false},
+          "module": {"pointer":"/prior/0/observation/fields/captures","capture":"module","optional":false}
         }
       },
       "applicability": {
@@ -2205,7 +2237,7 @@
     },
     {
       "id": "XPATH-REACH",
-      "revision": "4",
+      "revision": "6",
       "source": "evidence",
       "group": "a05-injection",
       "risk": "medium",
@@ -2218,14 +2250,15 @@
       },
       "check": {
         "kind": "yes-no/1",
-        "instructions": "The code field holds the complete selected Python function for one HTTP request. Request data is any value read from that request, such as query parameters, form fields, headers, cookies, the path or the body. Can request data become part of the text of an XPath expression this code evaluates, rather than an XPath variable? Other fields contain advisory source excerpts. Derive the answer from the complete code, including its assignments, conditions and collection operations; the excerpts do not establish data origin, evaluated values or which branch executes.",
-        "criteria_true": "Request data can be inserted into XPath expression text.",
-        "criteria_false": "Request data reaches expressions only as XPath variables, or not at all.",
+        "instructions": "code is the complete selected Flask handler; module supplies imports, globals and local helper definitions. For a request invoking code under its declared route, can client-supplied content, including transformed or encoded content, become part of XPath expression text at a reachable evaluation, rather than only a separately bound variable? Resolve assignments, list mutation/indexing, immutable-string reassignment and feasible branches. Fixed route components and selection among fixed server constants do not count as client-supplied content. Assess text origin only; escaping is separate. Other fields are optional advisory quotations.",
+        "criteria_true": "Client-supplied content can enter evaluated XPath expression text.",
+        "criteria_false": "Every evaluated expression is fixed or independent of client content; client values are only separately bound variables, or absent.",
         "pass_below": 0.1,
         "fail_at_or_above": 0.9,
         "max_request_bytes": 32000,
         "state_projection": {
-          "code": "/prior/1/observation/fields/captures/0/text",
+          "code": {"pointer":"/prior/1/observation/fields/captures","capture":"function","optional":false},
+          "module": {"pointer":"/prior/1/observation/fields/captures","capture":"module","optional":false},
           "calls": {
             "pointer": "/prior/0/observation/fields/calls",
             "optional": true
@@ -2246,7 +2279,7 @@
         ],
         "exclude": []
       },
-      "falsifier": "Request data can be inserted into XPath expression text.",
+      "falsifier": "Client-supplied content can enter evaluated XPath expression text.",
       "fixtures": {
         "pass": [],
         "fail": []
@@ -2259,7 +2292,7 @@
     },
     {
       "id": "XPATH-OPEN",
-      "revision": "4",
+      "revision": "6",
       "source": "evidence",
       "group": "a05-injection",
       "risk": "medium",
@@ -2272,14 +2305,15 @@
       },
       "check": {
         "kind": "yes-no/1",
-        "instructions": "The code field holds the complete selected Python function for one HTTP request. Request data is any value read from that request, such as query parameters, form fields, headers, cookies, the path or the body. After the checks the code applies before each XPath expression is evaluated, can the value in the expression still contain a quote or other XPath syntax that ends the literal it sits in? Other fields contain advisory source excerpts. Derive the answer from the complete code, including its assignments, conditions and collection operations; the excerpts do not establish data origin, evaluated values or which branch executes.",
-        "criteria_true": "No check before the call rejects or escapes such syntax.",
-        "criteria_false": "A check before the call rejects or escapes it, or reduces the value to fixed values.",
+        "instructions": "code is the complete selected Flask handler; module supplies imports, globals and local helper definitions. For a request invoking code under its declared route, can at least one client-controlled value survive all transformations and conditions and escape its intended literal through a quote or other XPath syntax at the same reachable evaluation? Derive reaching values rather than assuming request-derived content. Fixed route components and selection among fixed server literals do not establish client control. Assess the same value and evaluation; a check's presence alone does not establish sufficient escaping or restriction. Other fields are optional advisory quotations.",
+        "criteria_true": "At least one literal-changing XPath value can reach the same evaluation after its transformations and conditions.",
+        "criteria_false": "Every value reaching that evaluation is bound as data or cannot escape its intended XPath literal.",
         "pass_below": 0.1,
         "fail_at_or_above": 0.9,
         "max_request_bytes": 32000,
         "state_projection": {
-          "code": "/prior/1/observation/fields/captures/0/text",
+          "code": {"pointer":"/prior/1/observation/fields/captures","capture":"function","optional":false},
+          "module": {"pointer":"/prior/1/observation/fields/captures","capture":"module","optional":false},
           "calls": {
             "pointer": "/prior/0/observation/fields/calls",
             "optional": true
@@ -2296,7 +2330,7 @@
         ],
         "exclude": []
       },
-      "falsifier": "No check before the call rejects or escapes such syntax.",
+      "falsifier": "Literal-changing XPath syntax survives to the same evaluation.",
       "fixtures": {
         "pass": [],
         "fail": []
@@ -2309,7 +2343,7 @@
     },
     {
       "id": "WEB-XPATH",
-      "revision": "2",
+      "revision": "3",
       "source": "evidence",
       "group": "a05-injection",
       "risk": "medium",
@@ -2329,7 +2363,7 @@
         ],
         "fail_when": "all_fail",
         "resolution": "decisive",
-        "coverage": "XPath injection needs an evaluated expression, request data in its text, and no check that stops XPath syntax. Any premise that does not hold clears the handler."
+        "coverage": "XPath evaluation, request-derived expression text and surviving XPath syntax concern the same reachable handler evaluation. Any false premise clears this handler."
       },
       "applicability": {
         "include": [
@@ -2345,7 +2379,7 @@
     },
     {
       "id": "XSS-CALL",
-      "revision": "3",
+      "revision": "6",
       "consult": {"rules":["XSS-SYNTAX"]},
       "source": "evidence",
       "group": "a05-injection",
@@ -2359,14 +2393,15 @@
       },
       "check": {
         "kind": "yes-no/1",
-        "instructions": "The code field holds Python code that handles one HTTP request. Request data is any value read from that request, such as query parameters, form fields, headers, cookies, the path or the body. Does this code write text into an HTML response?",
-        "criteria_true": "The code writes text into an HTML response.",
-        "criteria_false": "The code writes no text into an HTML response.",
+        "instructions": "code is the complete selected Flask handler; module supplies imports, globals and local helper definitions. Consider normal invocation of code, respecting its declared route. Use standard Flask return conversion: a returned str becomes the body with text/html by default unless overridden; make_response((body, headers)) keeps body and headers separate. Does this handler return an HTML response body? Assess body production only, not input origin, escaping or browser execution. Other handlers in module are context.",
+        "criteria_true": "A reachable return produces a text/html response body.",
+        "criteria_false": "No reachable return produces a text/html response body.",
         "pass_below": 0.1,
         "fail_at_or_above": 0.9,
         "max_request_bytes": 32000,
         "state_projection": {
-          "code": "/prior/0/observation/fields/captures/0/text"
+          "code": {"pointer":"/prior/0/observation/fields/captures","capture":"function","optional":false},
+          "module": {"pointer":"/prior/0/observation/fields/captures","capture":"module","optional":false}
         }
       },
       "applicability": {
@@ -2375,7 +2410,7 @@
         ],
         "exclude": []
       },
-      "falsifier": "The code writes text into an HTML response.",
+      "falsifier": "A reachable return produces a text/html response body.",
       "fixtures": {
         "pass": [],
         "fail": []
@@ -2383,7 +2418,7 @@
     },
     {
       "id": "XSS-FLOW",
-      "revision": "4",
+      "revision": "5",
       "consult": {"rules":["XSS-SYNTAX"]},
       "source": "evidence",
       "group": "a05-injection",
@@ -2398,7 +2433,7 @@
       },
       "check": {
         "kind": "extract/1",
-        "instructions": "The code field holds the complete selected Python function for one HTTP request. Copy the response-writing statements and existing request reads, assignments, conditions, collection operations, arguments and checks relevant to their response text. Return only verbatim contiguous source excerpts in the declared fields, preserving whitespace; use [] when no matching source text exists. Do not invent, repair or reformat code, evaluate expressions, compute resulting values, or claim data origins or executed branches.",
+        "instructions": "code is the complete selected handler; module supplies imports, globals and local helper definitions. Copy only response-writing statements and existing request reads, assignments, conditions, collection operations, arguments and checks in code or its local callees relevant to response text. Other handlers in module are context. Return only verbatim contiguous source excerpts in the declared fields, preserving whitespace; use [] when no matching source text exists. Do not invent, repair or reformat code, evaluate expressions, compute resulting values, or claim data origins or executed branches.",
         "fields": {
           "calls": {
             "type": "quote_list",
@@ -2419,7 +2454,8 @@
         },
         "max_request_bytes": 32000,
         "state_projection": {
-          "code": "/prior/0/observation/fields/captures/0/text"
+          "code": {"pointer":"/prior/0/observation/fields/captures","capture":"function","optional":false},
+          "module": {"pointer":"/prior/0/observation/fields/captures","capture":"module","optional":false}
         }
       },
       "applicability": {
@@ -2436,7 +2472,7 @@
     },
     {
       "id": "XSS-REACH",
-      "revision": "4",
+      "revision": "6",
       "source": "evidence",
       "group": "a05-injection",
       "risk": "medium",
@@ -2449,14 +2485,15 @@
       },
       "check": {
         "kind": "yes-no/1",
-        "instructions": "The code field holds the complete selected Python function for one HTTP request. Request data is any value read from that request, such as query parameters, form fields, headers, cookies, the path or the body. Can request data become part of the HTML response this code writes? Other fields contain advisory source excerpts. Derive the answer from the complete code, including its assignments, conditions and collection operations; the excerpts do not establish data origin, evaluated values or which branch executes.",
-        "criteria_true": "Request data can reach the HTML response.",
-        "criteria_false": "Only fixed values, or values not read from the request, reach the response.",
+        "instructions": "Consider normal invocation of the selected Flask handler in code, using module and respecting its declared route. Can client-supplied content appear in its returned response body after the shown assignments, overwrites and branches? Standard Flask make_response((body, headers)) places only its first element in the body. Ignore data confined to headers and selection among fixed server strings. Assess content origin only; HTML escaping is separate. Other fields are optional advisory quotations.",
+        "criteria_true": "Client-supplied content can reach the returned response body.",
+        "criteria_false": "The body contains no client-supplied content; such input is discarded, replaced by fixed server content or confined to headers.",
         "pass_below": 0.1,
         "fail_at_or_above": 0.9,
         "max_request_bytes": 32000,
         "state_projection": {
-          "code": "/prior/1/observation/fields/captures/0/text",
+          "code": {"pointer":"/prior/1/observation/fields/captures","capture":"function","optional":false},
+          "module": {"pointer":"/prior/1/observation/fields/captures","capture":"module","optional":false},
           "calls": {
             "pointer": "/prior/0/observation/fields/calls",
             "optional": true
@@ -2477,7 +2514,7 @@
         ],
         "exclude": []
       },
-      "falsifier": "Request data can reach the HTML response.",
+      "falsifier": "Client-supplied content can reach the returned response body.",
       "fixtures": {
         "pass": [],
         "fail": []
@@ -2490,7 +2527,7 @@
     },
     {
       "id": "XSS-OPEN",
-      "revision": "4",
+      "revision": "6",
       "source": "evidence",
       "group": "a05-injection",
       "risk": "medium",
@@ -2503,14 +2540,15 @@
       },
       "check": {
         "kind": "yes-no/1",
-        "instructions": "The code field holds the complete selected Python function for one HTTP request. Request data is any value read from that request, such as query parameters, form fields, headers, cookies, the path or the body. After the checks the code applies before writing the response, can the value still contain HTML or script markup, such as < or a quote, that the browser would interpret? Other fields contain advisory source excerpts. Derive the answer from the complete code, including its assignments, conditions and collection operations; the excerpts do not establish data origin, evaluated values or which branch executes.",
-        "criteria_true": "No check before the value is written escapes or rejects markup.",
-        "criteria_false": "A check before the value is written escapes or rejects markup.",
+        "instructions": "Consider normal invocation of the selected Flask handler in code, using module and respecting its declared route. Standard Flask serves returned strings as text/html unless overridden. Can a value inserted into that HTML body supply browser-interpreted HTML or script markup after all shown transformations and checks? Assess inserted-value handling at its actual output position; ignore fixed server-written markup and response headers. Input origin is separate. With no value insertion into an HTML body, answer false. Other fields are optional advisory quotations.",
+        "criteria_true": "At least one inserted value can become browser-interpreted markup at that output position.",
+        "criteria_false": "Every inserted value is rendered as literal data, or no value is inserted into an HTML body.",
         "pass_below": 0.1,
         "fail_at_or_above": 0.9,
         "max_request_bytes": 32000,
         "state_projection": {
-          "code": "/prior/1/observation/fields/captures/0/text",
+          "code": {"pointer":"/prior/1/observation/fields/captures","capture":"function","optional":false},
+          "module": {"pointer":"/prior/1/observation/fields/captures","capture":"module","optional":false},
           "calls": {
             "pointer": "/prior/0/observation/fields/calls",
             "optional": true
@@ -2527,7 +2565,7 @@
         ],
         "exclude": []
       },
-      "falsifier": "No check before the value is written escapes or rejects markup.",
+      "falsifier": "At least one inserted value can become browser-interpreted markup at that output position.",
       "fixtures": {
         "pass": [],
         "fail": []
@@ -2540,7 +2578,7 @@
     },
     {
       "id": "WEB-XSS",
-      "revision": "2",
+      "revision": "3",
       "source": "evidence",
       "group": "a05-injection",
       "risk": "medium",
@@ -2560,7 +2598,7 @@
         ],
         "fail_when": "all_fail",
         "resolution": "decisive",
-        "coverage": "Cross-site scripting needs an HTML response, request data in it, and no HTML escaping. Any premise that does not hold clears the handler."
+        "coverage": "HTML output, request-derived response text and surviving markup concern the same reachable handler response. Any false premise clears this handler."
       },
       "applicability": {
         "include": [
@@ -2576,7 +2614,7 @@
     },
     {
       "id": "TRUST-CALL",
-      "revision": "3",
+      "revision": "5",
       "consult": {"rules":["TRUST-SYNTAX"]},
       "source": "evidence",
       "group": "a06-insecure-design",
@@ -2590,14 +2628,15 @@
       },
       "check": {
         "kind": "yes-no/1",
-        "instructions": "The code field holds Python code that handles one HTTP request. Request data is any value read from that request, such as query parameters, form fields, headers, cookies, the path or the body. Does this code store a value in the server-side session?",
+        "instructions": "code is the complete selected handler; module supplies imports, globals and local helper definitions. Assess only execution reachable from code; other handlers are context. Does the selected handler store a key or value in application-trusted session state, such as flask.session? Resolve the actual receiver and assignment. Physical storage in a signed cookie or on the server does not change this proposition. Assess storage only; origin and permitted values are separate. Missing decisive bindings remain uncertain.",
         "criteria_true": "The code stores a value in the session.",
         "criteria_false": "The code stores nothing in the session.",
         "pass_below": 0.1,
         "fail_at_or_above": 0.9,
         "max_request_bytes": 32000,
         "state_projection": {
-          "code": "/prior/0/observation/fields/captures/0/text"
+          "code": {"pointer":"/prior/0/observation/fields/captures","capture":"function","optional":false},
+          "module": {"pointer":"/prior/0/observation/fields/captures","capture":"module","optional":false}
         }
       },
       "applicability": {
@@ -2614,7 +2653,7 @@
     },
     {
       "id": "TRUST-FLOW",
-      "revision": "4",
+      "revision": "5",
       "consult": {"rules":["TRUST-SYNTAX"]},
       "source": "evidence",
       "group": "a06-insecure-design",
@@ -2629,7 +2668,7 @@
       },
       "check": {
         "kind": "extract/1",
-        "instructions": "The code field holds the complete selected Python function for one HTTP request. Copy the server-side session storage statements and existing request reads, assignments, conditions, collection operations, arguments and checks relevant to their stored keys or values. Return only verbatim contiguous source excerpts in the declared fields, preserving whitespace; use [] when no matching source text exists. Do not invent, repair or reformat code, evaluate expressions, compute resulting values, or claim data origins or executed branches.",
+        "instructions": "code is the complete selected handler; module supplies imports, globals and local helper definitions. Copy only application-trusted session storage statements and existing request reads, assignments, conditions, collection operations, arguments and checks in code or its local callees relevant to stored keys or values. Physical storage in a signed cookie or on the server does not change this task. Other handlers in module are context. Return only verbatim contiguous source excerpts in the declared fields, preserving whitespace; use [] when no matching source text exists. Do not invent, repair or reformat code, evaluate expressions, compute resulting values, or claim data origins or executed branches.",
         "fields": {
           "calls": {
             "type": "quote_list",
@@ -2650,7 +2689,8 @@
         },
         "max_request_bytes": 32000,
         "state_projection": {
-          "code": "/prior/0/observation/fields/captures/0/text"
+          "code": {"pointer":"/prior/0/observation/fields/captures","capture":"function","optional":false},
+          "module": {"pointer":"/prior/0/observation/fields/captures","capture":"module","optional":false}
         }
       },
       "applicability": {
@@ -2667,7 +2707,7 @@
     },
     {
       "id": "TRUST-REACH",
-      "revision": "4",
+      "revision": "6",
       "source": "evidence",
       "group": "a06-insecure-design",
       "risk": "medium",
@@ -2680,14 +2720,15 @@
       },
       "check": {
         "kind": "yes-no/1",
-        "instructions": "The code field holds the complete selected Python function for one HTTP request. Request data is any value read from that request, such as query parameters, form fields, headers, cookies, the path or the body. Can request data become a key or value this code stores in the server-side session? Other fields contain advisory source excerpts. Derive the answer from the complete code, including its assignments, conditions and collection operations; the excerpts do not establish data origin, evaluated values or which branch executes.",
-        "criteria_true": "Request data can be stored in the session.",
-        "criteria_false": "Only fixed values, or values not read from the request, are stored.",
+        "instructions": "code is the complete selected Flask handler; module supplies imports, globals and actual session definitions. For a request invoking code under its declared route, can client-supplied content, including transformed or encoded content, become part of a key or value at a reachable application-trusted session write? Resolve assignments, list mutation/indexing, immutable-string reassignment and feasible branches. Fixed route components and selection among fixed server constants do not count as client-supplied content. Assess stored content origin only; permitted session values are separate. Other fields are optional advisory quotations.",
+        "criteria_true": "Client-supplied content can reach a key or value at a session write.",
+        "criteria_false": "Every written key/value is fixed or independent of client-supplied content.",
         "pass_below": 0.1,
         "fail_at_or_above": 0.9,
         "max_request_bytes": 32000,
         "state_projection": {
-          "code": "/prior/1/observation/fields/captures/0/text",
+          "code": {"pointer":"/prior/1/observation/fields/captures","capture":"function","optional":false},
+          "module": {"pointer":"/prior/1/observation/fields/captures","capture":"module","optional":false},
           "calls": {
             "pointer": "/prior/0/observation/fields/calls",
             "optional": true
@@ -2708,7 +2749,7 @@
         ],
         "exclude": []
       },
-      "falsifier": "Request data can be stored in the session.",
+      "falsifier": "Client-supplied content can reach a key or value at a session write.",
       "fixtures": {
         "pass": [],
         "fail": []
@@ -2721,7 +2762,7 @@
     },
     {
       "id": "TRUST-OPEN",
-      "revision": "4",
+      "revision": "6",
       "source": "evidence",
       "group": "a06-insecure-design",
       "risk": "medium",
@@ -2734,14 +2775,15 @@
       },
       "check": {
         "kind": "yes-no/1",
-        "instructions": "The code field holds the complete selected Python function for one HTTP request. Request data is any value read from that request, such as query parameters, form fields, headers, cookies, the path or the body. After the checks the code applies before storing in the session, can the stored key or value still be any value the client chooses? Other fields contain advisory source excerpts. Derive the answer from the complete code, including its assignments, conditions and collection operations; the excerpts do not establish data origin, evaluated values or which branch executes.",
-        "criteria_true": "No check restricts the stored value to allowed values.",
-        "criteria_false": "A check restricts the stored value to allowed values.",
+        "instructions": "code is the complete selected Flask handler; module supplies imports, globals and actual session definitions. For a request invoking code under its declared route, can at least one client-controlled key or value survive all transformations and conditions and reach the same application-trusted session write without confinement to a fixed server-approved set? Derive reaching values rather than assuming request-derived content. Fixed route components and selection among fixed server literals do not establish unrestricted client control. Assess the same key/value and write; a check's presence alone does not establish confinement. Other fields are optional advisory quotations.",
+        "criteria_true": "At least one client-chosen key/value can reach the same session write without confinement to a fixed server-approved set.",
+        "criteria_false": "Every request-derived key/value reaching that write is confined to a fixed server-approved set.",
         "pass_below": 0.1,
         "fail_at_or_above": 0.9,
         "max_request_bytes": 32000,
         "state_projection": {
-          "code": "/prior/1/observation/fields/captures/0/text",
+          "code": {"pointer":"/prior/1/observation/fields/captures","capture":"function","optional":false},
+          "module": {"pointer":"/prior/1/observation/fields/captures","capture":"module","optional":false},
           "calls": {
             "pointer": "/prior/0/observation/fields/calls",
             "optional": true
@@ -2758,7 +2800,7 @@
         ],
         "exclude": []
       },
-      "falsifier": "No check restricts the stored value to allowed values.",
+      "falsifier": "An unrestricted client-chosen key/value reaches the same session write.",
       "fixtures": {
         "pass": [],
         "fail": []
@@ -2771,7 +2813,7 @@
     },
     {
       "id": "WEB-TRUST",
-      "revision": "2",
+      "revision": "3",
       "source": "evidence",
       "group": "a06-insecure-design",
       "risk": "medium",
@@ -2791,7 +2833,7 @@
         ],
         "fail_when": "all_fail",
         "resolution": "decisive",
-        "coverage": "A trust boundary violation needs a session write, request data in it, and no check against allowed values. Any premise that does not hold clears the handler."
+        "coverage": "Application-trusted session storage, request-derived key/value and unrestricted value concern the same reachable handler write. Any false premise clears this handler."
       },
       "applicability": {
         "include": [
@@ -2807,7 +2849,7 @@
     },
     {
       "id": "DESERIALIZE-CALL",
-      "revision": "3",
+      "revision": "5",
       "consult": {"rules":["DESERIALIZE-SYNTAX"]},
       "source": "evidence",
       "group": "a08-integrity-failures",
@@ -2821,14 +2863,15 @@
       },
       "check": {
         "kind": "yes-no/1",
-        "instructions": "The code field holds Python code that handles one HTTP request. Request data is any value read from that request, such as query parameters, form fields, headers, cookies, the path or the body. Does this code deserialize data with a format that can construct arbitrary Python objects, such as pickle, marshal, shelve or yaml.load without a safe loader?",
+        "instructions": "code is the complete selected handler; module supplies imports, globals and local helper definitions. Assess only execution reachable from code; other handlers are context. Does the selected handler deserialize data with an object-constructing format or unsafe loader, such as pickle, marshal, shelve or yaml.load without a safe loader? Resolve the actual format, loader and call path. Assess decoder capability only; input origin is separate. Missing decisive loader or binding context remains uncertain.",
         "criteria_true": "The code deserializes with such a format.",
         "criteria_false": "The code deserializes only data-only formats such as JSON, or deserializes nothing.",
         "pass_below": 0.1,
         "fail_at_or_above": 0.9,
         "max_request_bytes": 32000,
         "state_projection": {
-          "code": "/prior/0/observation/fields/captures/0/text"
+          "code": {"pointer":"/prior/0/observation/fields/captures","capture":"function","optional":false},
+          "module": {"pointer":"/prior/0/observation/fields/captures","capture":"module","optional":false}
         }
       },
       "applicability": {
@@ -2845,7 +2888,7 @@
     },
     {
       "id": "DESERIALIZE-FLOW",
-      "revision": "4",
+      "revision": "5",
       "consult": {"rules":["DESERIALIZE-SYNTAX"]},
       "source": "evidence",
       "group": "a08-integrity-failures",
@@ -2860,7 +2903,7 @@
       },
       "check": {
         "kind": "extract/1",
-        "instructions": "The code field holds the complete selected Python function for one HTTP request. Copy the deserialization calls and existing request reads, assignments, conditions, collection operations, arguments and checks relevant to their data inputs. Return only verbatim contiguous source excerpts in the declared fields, preserving whitespace; use [] when no matching source text exists. Do not invent, repair or reformat code, evaluate expressions, compute resulting values, or claim data origins or executed branches.",
+        "instructions": "code is the complete selected handler; module supplies imports, globals and local helper definitions. Copy only deserialization calls and existing request reads, assignments, conditions, collection operations, arguments and checks in code or its local callees relevant to their data inputs. Other handlers in module are context. Return only verbatim contiguous source excerpts in the declared fields, preserving whitespace; use [] when no matching source text exists. Do not invent, repair or reformat code, evaluate expressions, compute resulting values, or claim data origins or executed branches.",
         "fields": {
           "calls": {
             "type": "quote_list",
@@ -2881,7 +2924,8 @@
         },
         "max_request_bytes": 32000,
         "state_projection": {
-          "code": "/prior/0/observation/fields/captures/0/text"
+          "code": {"pointer":"/prior/0/observation/fields/captures","capture":"function","optional":false},
+          "module": {"pointer":"/prior/0/observation/fields/captures","capture":"module","optional":false}
         }
       },
       "applicability": {
@@ -2898,7 +2942,7 @@
     },
     {
       "id": "DESERIALIZE-REACH",
-      "revision": "4",
+      "revision": "6",
       "source": "evidence",
       "group": "a08-integrity-failures",
       "risk": "medium",
@@ -2911,14 +2955,15 @@
       },
       "check": {
         "kind": "yes-no/1",
-        "instructions": "The code field holds the complete selected Python function for one HTTP request. Request data is any value read from that request, such as query parameters, form fields, headers, cookies, the path or the body. Can request data become the data that an object-constructing deserializer in this code reads? Other fields contain advisory source excerpts. Derive the answer from the complete code, including its assignments, conditions and collection operations; the excerpts do not establish data origin, evaluated values or which branch executes.",
-        "criteria_true": "Request data can reach an object-constructing deserializer.",
-        "criteria_false": "Only fixed data, or data not read from the request, reaches it.",
+        "instructions": "code is the complete selected Flask handler; module supplies imports, globals and local helper definitions. For a request invoking code under its declared route, can client-supplied content, including transformed or encoded content, become part of bytes or text passed to a reachable object-constructing deserializer? Resolve assignments, list mutation/indexing, immutable-string reassignment, encodings and feasible branches. Fixed route components and selection among fixed server constants do not count as client-supplied content. Assess origin at the same decoder input only; loader capability is separate. Other fields are optional advisory quotations.",
+        "criteria_true": "Client-supplied content can reach the input of an object-constructing deserializer.",
+        "criteria_false": "Every such decoder input is fixed or independent of client-supplied content.",
         "pass_below": 0.1,
         "fail_at_or_above": 0.9,
         "max_request_bytes": 32000,
         "state_projection": {
-          "code": "/prior/1/observation/fields/captures/0/text",
+          "code": {"pointer":"/prior/1/observation/fields/captures","capture":"function","optional":false},
+          "module": {"pointer":"/prior/1/observation/fields/captures","capture":"module","optional":false},
           "calls": {
             "pointer": "/prior/0/observation/fields/calls",
             "optional": true
@@ -2939,7 +2984,7 @@
         ],
         "exclude": []
       },
-      "falsifier": "Request data can reach an object-constructing deserializer.",
+      "falsifier": "Client-supplied content can reach the input of an object-constructing deserializer.",
       "fixtures": {
         "pass": [],
         "fail": []
@@ -2952,7 +2997,7 @@
     },
     {
       "id": "WEB-DESERIALIZE",
-      "revision": "2",
+      "revision": "3",
       "source": "evidence",
       "group": "a08-integrity-failures",
       "risk": "medium",
@@ -2971,7 +3016,7 @@
         ],
         "fail_when": "all_fail",
         "resolution": "decisive",
-        "coverage": "Unsafe deserialization needs an object-constructing format and request data as its input. Either premise that does not hold clears the handler."
+        "coverage": "The object-constructing decoder and request-derived input concern the same reachable handler deserialization. Either false premise clears this handler."
       },
       "applicability": {
         "include": [

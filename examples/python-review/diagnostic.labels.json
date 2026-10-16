@@ -1,0 +1,10 @@
+{
+  "schema":"auditoad-labels/1",
+  "dataset":{"id":"python-list-prerequisites","revision":"1","split":"development","notes":"Four original list-identity/content expectations. These diagnostic premises are excluded from the 14 final policy judgments in labels.json."},
+  "labels":[
+    {"rule":"PY-LIST-CONTENT","packet":"add_message","violation":false},
+    {"rule":"PY-LIST-CONTENT","packet":"add_note","violation":true},
+    {"rule":"PY-LIST-IDENTITY","packet":"add_message","violation":false},
+    {"rule":"PY-LIST-IDENTITY","packet":"add_note","violation":true}
+  ]
+}

@@ -14,14 +14,10 @@
         "properties": {
           "adapter": {"enum": ["text/1", "json/1", "json-lines/1"]},
           "path": {"type": "string", "minLength": 1},
-          "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
-          "json_pointer": {"type": "string", "pattern": "^(?:/(?:[^~]|~[01])*)?$"},
           "unavailable": {"type": "string", "pattern": "\\S"}
         },
-        "allOf": [{"if": {"required": ["json_pointer"]},
-                   "then": {"required": ["path"], "properties": {"adapter": {"const": "json/1"}}}}],
         "oneOf": [{"required": ["path"], "not": {"required": ["unavailable"]}},
-                  {"required": ["unavailable"], "not": {"anyOf": [{"required": ["path"]}, {"required": ["sha256"]}]}}]
+                  {"required": ["unavailable"], "not": {"required": ["path"]}}]
       }
     }
   }

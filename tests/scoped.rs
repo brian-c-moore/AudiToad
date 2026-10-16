@@ -8,6 +8,119 @@ use support::*;
 
 type TestResult<T = ()> = Result<T, Box<dyn std::error::Error>>;
 
+#[test]
+#[expect(
+    clippy::panic_in_result_fn,
+    reason = "assertions check scoped bundle YARA selection, missing-context refusal and invalid builder rejection"
+)]
+fn bundle_sentence_predicates_keep_subject_selection_and_scope_validation() -> TestResult {
+    let dir = directory();
+    let mut value = declaration(dir.path(), "text/1", "sentence", "none")?;
+    for (pointer, replacement) in [
+        (
+            "/sources/bytes",
+            json!({"adapter":"evidence-bundle/1","media":["application/vnd.auditoad.bundle+json"]}),
+        ),
+        (
+            "/rules/0/evaluator",
+            json!({"kind":"yara-x","contract":"yara-x/1.20.0"}),
+        ),
+        (
+            "/rules/0/check",
+            json!({"kind":"yara-x/1.20.0","source":"rule marker { strings: $bad = \"bad\" nocase condition: $bad }",
+                "rule_name":"marker","fail_when":"match","json_string_pointer":"/subject"}),
+        ),
+    ] {
+        *value
+            .pointer_mut(pointer)
+            .ok_or("bundle predicate field is absent")? = replacement;
+    }
+    let good = br#"{"subject":"Safe export.","supporting":[{"text":"bad supporting marker"}]}"#;
+    let bad = br#"{"subject":"Bad marker."}"#;
+    *value
+        .pointer_mut("/rules/0/fixtures")
+        .ok_or("bundle fixtures are absent")? = json!({
+        "pass":[fixture(dir.path(),"bundle-safe.json",good,good)],
+        "fail":[fixture(dir.path(),"bundle-bad.json",bad,bad)]});
+    let text = "Safe export. Bad marker.";
+    let policy = "bad supporting marker";
+    std::fs::write(dir.path().join("article.md"), text)?;
+    std::fs::write(dir.path().join("policy.md"), policy)?;
+    let manifest = dir.path().join("bundle.json");
+    std::fs::write(&manifest, json!({"schema":"auditoad-evidence-bundle/1",
+        "files":{"article.md":auditoad::sha256(text.as_bytes()),"policy.md":auditoad::sha256(policy.as_bytes())},
+        "packets":[{"id":"article","kind":"writing","scope_kind":"site",
+            "parts":[{"role":"subject","path":"article.md"},{"role":"policy","path":"policy.md"}]}]
+    }).to_string())?;
+    let baseline = validate(&value, dir.path());
+    let snapshot = Snapshot::scoped_bundle(
+        &manifest,
+        dir.path(),
+        &baseline,
+        "default",
+        "bytes",
+        &Limits::default(),
+    )?;
+    let result = run_scoped(&baseline, &snapshot, Limits::default(), None)?;
+    assert_eq!(result.report.usage.provider_calls, 0);
+    assert_eq!(result.report.fixture_usage.checks, 2);
+    assert_eq!(
+        result
+            .report
+            .records
+            .iter()
+            .map(|record| record.result)
+            .collect::<Vec<_>>(),
+        [ResultState::Pass, ResultState::Fail]
+    );
+
+    let mut missing = value.clone();
+    *missing
+        .pointer_mut("/rules/0/check/json_string_pointer")
+        .ok_or("bundle pointer is absent")? = json!("/context");
+    *missing
+        .pointer_mut("/rules/0/fixtures")
+        .ok_or("bundle fixtures are absent")? = json!({
+        "pass":[fixture(dir.path(),"context-safe.json",br#"{"context":"Safe export."}"#,br#"{"context":"Safe export."}"#)],
+        "fail":[fixture(dir.path(),"context-bad.json",br#"{"context":"Bad marker."}"#,br#"{"context":"Bad marker."}"#)]});
+    let baseline = validate(&missing, dir.path());
+    let snapshot = Snapshot::scoped_bundle(
+        &manifest,
+        dir.path(),
+        &baseline,
+        "default",
+        "bytes",
+        &Limits::default(),
+    )?;
+    let result = run_scoped(&baseline, &snapshot, Limits::default(), None)?;
+    assert_eq!(
+        result
+            .report
+            .records
+            .iter()
+            .map(|record| record.result)
+            .collect::<Vec<_>>(),
+        [ResultState::NotEvaluated, ResultState::NotEvaluated]
+    );
+
+    let mut unscoped = value.clone();
+    unscoped
+        .pointer_mut("/rules/0")
+        .and_then(Value::as_object_mut)
+        .ok_or("bundle rule is absent")?
+        .remove("scope");
+    assert!(ValidatedBaseline::from_bytes(unscoped.to_string().as_bytes(), dir.path()).is_err());
+    let mut wrong_builder = value;
+    *wrong_builder
+        .pointer_mut("/evidence/bytes")
+        .ok_or("bundle evidence is absent")? =
+        json!({"builder":"declared-parts/1","builder_revision":"r1","required_roles":["subject"]});
+    assert!(
+        ValidatedBaseline::from_bytes(wrong_builder.to_string().as_bytes(), dir.path()).is_err()
+    );
+    Ok(())
+}
+
 fn declaration(
     root: &std::path::Path,
     adapter: &str,

@@ -198,6 +198,17 @@
         },
         {
           "type": "object", "additionalProperties": false,
+          "description": "Pass-only bounded Python string-content predicate. The query must capture one unique complete function as scope and every complete sink argument expression as value. Unsupported or missing evidence remains unresolved.",
+          "required": ["kind", "query"],
+          "properties": {
+            "kind": {"const": "python-constant-string/1"},
+            "json_string_pointer": {"type": ["string", "null"], "pattern": "^/"},
+            "query": {"$ref": "#/$defs/text"},
+            "limits": {"$ref": "#/$defs/syntax_limits"}
+          }
+        },
+        {
+          "type": "object", "additionalProperties": false,
           "required": ["kind", "pointer", "expected", "fail_when"],
           "properties": {
             "kind": {"const": "json-pointer-equals/1"}, "pointer": {"type": "string", "pattern": "^/"},

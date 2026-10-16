@@ -9,6 +9,7 @@ source code, configuration, an inventory, or a policy and the records used to ch
 | Repeat audits or compare model arrangements | [Audit files and suites](user-guide.md#run-an-audit-file-or-suite), [audit schema](audit.schema.json), [label schema](labels.schema.json) |
 | Understand an example baseline | [Examples](../examples/README.md) |
 | Write compliance checks | [Writing baselines](../BASELINES.md) |
+| Review authored questions | [Question review](../BASELINES.md#review-the-questions), [question-set schema](question-set.schema.json) |
 | Understand release goals and baseline research priorities | [Roadmap](../ROADMAP.md) |
 | Build from source or prepare a release | [Build guide](build.md) |
 | Understand the scan and its boundaries | [Architecture](architecture.md) |

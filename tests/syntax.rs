@@ -482,12 +482,12 @@ fn timeout_and_query_match_limit_refuse_partial_results() -> TestResult {
 #[test]
 #[expect(
     clippy::panic_in_result_fn,
-    reason = "assertions check public CLI captures and consulted syntax without provider calls"
+    reason = "assertions check public CLI captures and local source relationships without provider calls"
 )]
-fn public_example_runs_through_the_cli_and_prepares_a_consulted_question() -> TestResult {
+fn public_example_runs_syntax_and_local_source_relationships_through_the_cli() -> TestResult {
     let dir = directory();
     let product = Path::new(env!("CARGO_MANIFEST_DIR"));
-    for (profile, count) in [("syntax", 6), ("review", 2), ("formal", 2)] {
+    for (profile, count) in [("syntax", 6), ("review", 2), ("formal", 1)] {
         let report = dir.path().join(format!("{profile}.json"));
         let output = std::process::Command::new(env!("CARGO_BIN_EXE_auditoad"))
             .current_dir(product.join("examples/language-helpers"))
@@ -523,12 +523,15 @@ fn public_example_runs_through_the_cli_and_prepares_a_consulted_question() -> Te
         }
         assert_eq!(records.len(), count);
         for record in &records {
-            assert_eq!(record.get("result"), Some(&json!("not_evaluated")));
-            if record
+            let syntax = record
                 .pointer("/evaluator/binding")
                 .ok_or("CLI evaluator binding is absent")?
-                == "syntax"
-            {
+                == "syntax";
+            assert_eq!(
+                record.get("result"),
+                Some(&json!(if syntax { "not_evaluated" } else { "fail" }))
+            );
+            if syntax {
                 assert_eq!(
                     record.pointer("/observation/complete"),
                     Some(&json!(true)),
@@ -540,20 +543,20 @@ fn public_example_runs_through_the_cli_and_prepares_a_consulted_question() -> Te
                         .and_then(Value::as_array)
                         .ok_or("CLI syntax captures are absent")?
                         .len(),
-                    if record.pointer("/rule/id").ok_or("CLI rule ID is absent")? == "TLAPLUS" {
-                        6
-                    } else {
-                        2
+                    match record.pointer("/rule/id").and_then(Value::as_str) {
+                        Some("TLAPLUS") => 6,
+                        Some("PY-PATH-SYNTAX") => 3,
+                        _ => 2,
                     }
                 );
             }
         }
-        if profile == "review" || profile == "formal" {
-            let [_, question] = records.as_slice() else {
-                return Err("expected syntax and consulted-question records".into());
+        if profile == "review" {
+            let [_, comparison] = records.as_slice() else {
+                return Err("expected syntax and local-comparison records".into());
             };
             let frame: Value = serde_json::from_str(
-                question
+                comparison
                     .pointer("/evidence/bytes/text")
                     .and_then(Value::as_str)
                     .ok_or("consulted CLI evidence text is absent")?,
@@ -567,6 +570,251 @@ fn public_example_runs_through_the_cli_and_prepares_a_consulted_question() -> Te
             };
             assert_eq!(prior.pointer("/observation/complete"), Some(&json!(true)));
             assert_eq!(prior.get("decision"), Some(&Value::Null));
+            assert_eq!(
+                comparison.pointer("/observation/left"),
+                Some(&json!("path"))
+            );
+            assert_eq!(
+                comparison.pointer("/observation/right"),
+                Some(&json!("path"))
+            );
+        } else if profile == "formal" {
+            let [relation] = records.as_slice() else {
+                return Err("expected one local TLA+ relation record".into());
+            };
+            assert_eq!(
+                relation.pointer("/observation/complete"),
+                Some(&json!(true))
+            );
+            assert_eq!(
+                relation.pointer("/observation/fields/relation/value"),
+                Some(&json!(true))
+            );
+            assert_eq!(
+                relation.pointer("/observation/fields/relation/operator"),
+                Some(&json!("Spec"))
+            );
+            assert_eq!(
+                relation.pointer("/observation/fields/relation/operands/reference"),
+                Some(&json!("Progress"))
+            );
+        }
+    }
+    Ok(())
+}
+
+#[test]
+#[expect(
+    clippy::panic_in_result_fn,
+    reason = "assertions check the public Python query's identifier scope and ambiguity refusals"
+)]
+fn public_python_relationship_query_preserves_its_exact_supported_shapes() -> TestResult {
+    let dir = directory();
+    let product = Path::new(env!("CARGO_MANIFEST_DIR"));
+    let example: Value = serde_json::from_slice(&std::fs::read(
+        product.join("examples/language-helpers/baseline.json"),
+    )?)?;
+    let check = example
+        .get("rules")
+        .and_then(Value::as_array)
+        .ok_or("public rules are absent")?
+        .iter()
+        .find(|rule| rule.get("id") == Some(&json!("PY-PATH-SYNTAX")))
+        .and_then(|rule| rule.get("check"))
+        .ok_or("public Python relationship query is absent")?;
+    let query = check
+        .get("query")
+        .and_then(Value::as_str)
+        .ok_or("public Python query text is absent")?;
+    let mut value = declaration(dir.path(), "python", query)?;
+    value
+        .pointer_mut("/rules/0/check")
+        .and_then(Value::as_object_mut)
+        .ok_or("syntax check is absent")?
+        .insert(
+            "limits".into(),
+            check
+                .get("limits")
+                .ok_or("public query limits are absent")?
+                .clone(),
+        );
+    for (source, captures, complete) in [
+        (
+            "def read_text(path):\n    return open(path).read()\n",
+            Some(3),
+            true,
+        ),
+        (
+            "def read_text(path):\n    return open(path)\n",
+            Some(3),
+            true,
+        ),
+        (
+            "def read_text(path):\n    path = 'fixed'\n    return open(path).read()\n",
+            Some(3),
+            true,
+        ),
+        (
+            "def read_text(path):\n    return open(other).read()\ndef other_function(other):\n    return 1\n",
+            Some(3),
+            true,
+        ),
+        (
+            "def read_text(path):\n    return open(path + '.txt').read()\n",
+            Some(0),
+            true,
+        ),
+        (
+            "def read_text(path, mode):\n    return open(path).read()\n",
+            None,
+            true,
+        ),
+        (
+            "def first(path):\n    return open(path).read()\ndef second(other):\n    return open(other)\n",
+            None,
+            true,
+        ),
+        ("def read_text(:\n", None, false),
+    ] {
+        let result = evaluate(&value, source.as_bytes(), dir.path(), Limits::default())?;
+        let [record] = result.report.records.as_slice() else {
+            return Err("expected one public-query record".into());
+        };
+        assert_eq!(record.result, ResultState::NotEvaluated);
+        assert_eq!(result.report.usage.provider_calls, 0);
+        if let Some(expected) = captures {
+            let observation = record
+                .observation
+                .as_ref()
+                .ok_or("query observation is absent")?;
+            assert_eq!(observation.get("complete"), Some(&json!(complete)));
+            assert_eq!(observation.get("captures_retained"), Some(&json!(expected)));
+            if expected == 3 {
+                assert_eq!(
+                    observation.pointer("/fields/captures/0/capture"),
+                    Some(&json!("parameter"))
+                );
+                assert_eq!(
+                    observation.pointer("/fields/captures/1/capture"),
+                    Some(&json!("callee"))
+                );
+                assert_eq!(
+                    observation.pointer("/fields/captures/2/capture"),
+                    Some(&json!("argument"))
+                );
+            }
+        } else if complete {
+            assert!(record.observation.is_none());
+            assert!(
+                record
+                    .reason
+                    .as_deref()
+                    .is_some_and(|reason| reason.contains("capture limit"))
+            );
+        } else {
+            let observation = record
+                .observation
+                .as_ref()
+                .ok_or("parse refusal is absent")?;
+            assert_eq!(observation.get("complete"), Some(&json!(false)));
+            assert!(observation.get("fields").is_none());
+        }
+    }
+    Ok(())
+}
+
+#[test]
+#[expect(
+    clippy::panic_in_result_fn,
+    reason = "assertions check the public TLA+ singleton-operand binding and malformed or unavailable peers"
+)]
+fn public_tla_relationship_requires_one_operand_object_with_both_names() -> TestResult {
+    let dir = directory();
+    let product = Path::new(env!("CARGO_MANIFEST_DIR"));
+    let example = product.join("examples/language-helpers");
+    let baseline =
+        ValidatedBaseline::from_bytes(&std::fs::read(example.join("baseline.json"))?, &example)?;
+    std::fs::write(
+        dir.path().join("source.tla"),
+        "---- MODULE M ----\nProgress == TRUE\nSpec == TRUE /\\ Progress\n====\n",
+    )?;
+    for (case, operands, expected) in [
+        (
+            "singleton object",
+            Some(json!({"operator":"Spec","reference":"Progress"})),
+            ResultState::Fail,
+        ),
+        (
+            "one-element array",
+            Some(json!([{"operator":"Spec","reference":"Progress"}])),
+            ResultState::NotEvaluated,
+        ),
+        (
+            "two-element array",
+            Some(
+                json!([{"operator":"Spec","reference":"Progress"},{"operator":"Spec","reference":"Progress"}]),
+            ),
+            ResultState::NotEvaluated,
+        ),
+        (
+            "missing reference",
+            Some(json!({"operator":"Spec"})),
+            ResultState::NotEvaluated,
+        ),
+        (
+            "malformed operator name",
+            Some(json!({"operator":"Spec!Other","reference":"Progress"})),
+            ResultState::NotEvaluated,
+        ),
+        ("unavailable peer", None, ResultState::Error),
+    ] {
+        let operand_input = if let Some(value) = operands {
+            std::fs::write(dir.path().join("operands.json"), value.to_string())?;
+            json!({"adapter":"json/1","path":"operands.json"})
+        } else {
+            json!({"adapter":"json/1","unavailable":"operand document was not supplied"})
+        };
+        let manifest = dir.path().join("inputs.json");
+        std::fs::write(
+            &manifest,
+            json!({"schema":"auditoad-collection/1","inputs":{
+                "tlaplus":{"adapter":"text/1","path":"source.tla"},
+                "tlaplus-operands":operand_input
+            }})
+            .to_string(),
+        )?;
+        let limits = Limits::default();
+        let snapshot =
+            Snapshot::collection_file(&manifest, None, &baseline, "formal", "code", &limits)?;
+        let result = scan(ScanRequest {
+            baseline: &baseline,
+            profile: "formal",
+            source_alias: "code",
+            snapshot: &snapshot,
+            limits,
+            experimental: true,
+            mock: None,
+        })?;
+        let [record] = result.report.records.as_slice() else {
+            return Err("expected one public TLA+ relation record".into());
+        };
+        assert_eq!(record.result, expected, "{case}: {:?}", record.reason);
+        assert_eq!(result.report.usage.provider_calls, 0, "{case}");
+        if matches!(expected, ResultState::NotEvaluated | ResultState::Error) {
+            assert!(record.reason.is_some(), "{case}");
+            assert!(record.observation.is_none(), "{case}");
+            if expected == ResultState::Error {
+                assert!(record.evidence.is_none(), "{case}");
+                assert!(
+                    record
+                        .reason
+                        .as_deref()
+                        .is_some_and(|reason| reason.contains("unavailable")),
+                    "{case}"
+                );
+            } else {
+                assert!(record.evidence.is_some(), "{case}");
+            }
         }
     }
     Ok(())
@@ -976,5 +1224,376 @@ fn public_formal_relations_example_matches_every_external_label_without_a_provid
     for case in cases {
         assert_eq!(case.get("comparison"), Some(&json!("correct")), "{case}");
     }
+    Ok(())
+}
+
+fn constant_string_declaration(root: &Path, query: &str) -> TestResult<Value> {
+    let mut value = declaration(root, "python", query)?;
+    *value
+        .pointer_mut("/rules/0/evaluator/contract")
+        .ok_or("evaluator contract is absent")? = json!("python-constant-string/1");
+    *value
+        .pointer_mut("/rules/0/check")
+        .ok_or("check is absent")? = json!({"kind":"python-constant-string/1","query":query});
+    Ok(value)
+}
+
+const STRING_RETURN_QUERY: &str = "((function_definition name: (identifier) @_name body: (block (return_statement (_) @value))) @scope (#eq? @_name \"handler\"))";
+
+#[test]
+#[expect(
+    clippy::panic_in_result_fn,
+    reason = "assertions bind each exact constant to the complete selected expression and preserve unknown alternatives"
+)]
+fn python_constant_strings_record_exact_list_results_and_immutable_copies() -> TestResult {
+    let dir = directory();
+    let value = constant_string_declaration(dir.path(), STRING_RETURN_QUERY)?;
+    for (source, expression, constant, proven) in [
+        (
+            "def handler(incoming):\n    lst = []\n    lst.append('safe')\n    lst.append(incoming)\n    lst.append('moresafe')\n    lst.pop(0)\n    return lst[1]\n",
+            "lst[1]",
+            Some("moresafe"),
+            true,
+        ),
+        (
+            "def handler(incoming):\n    lst = []\n    lst.append('safe')\n    lst.append(incoming)\n    lst.append('moresafe')\n    lst.pop(0)\n    return lst[0]\n",
+            "lst[0]",
+            None,
+            false,
+        ),
+        (
+            "def handler(incoming):\n    original = 'fixed'\n    immutable_copy = original\n    original = incoming\n    return immutable_copy\n",
+            "immutable_copy",
+            Some("fixed"),
+            true,
+        ),
+        (
+            "def handler(incoming):\n    values = ['fixed', incoming]\n    copied = values.copy()\n    values.pop(0)\n    return copied[0]\n",
+            "copied[0]",
+            Some("fixed"),
+            true,
+        ),
+        (
+            "def handler(incoming):\n    if incoming:\n        answer = 'first'\n    else:\n        answer = 'second'\n    return answer\n",
+            "answer",
+            None,
+            true,
+        ),
+        (
+            "def handler(incoming):\n    if incoming:\n        answer = 'same'\n    else:\n        answer = 'same'\n    return answer\n",
+            "answer",
+            Some("same"),
+            true,
+        ),
+        (
+            "def handler(incoming):\n    return 'first' + 'second'\n",
+            "'first' + 'second'",
+            None,
+            true,
+        ),
+    ] {
+        let run = evaluate(&value, source.as_bytes(), dir.path(), Limits::default())?;
+        let [record] = run.report.records.as_slice() else {
+            return Err("expected one exact-constant result".into());
+        };
+        let observation = record
+            .observation
+            .as_ref()
+            .ok_or("exact-constant observation is absent")?;
+        let values = observation
+            .pointer("/fields/constant_string/values")
+            .and_then(Value::as_array)
+            .ok_or("selected constant values are absent")?;
+        let [selected] = values.as_slice() else {
+            return Err("expected one selected value".into());
+        };
+        assert_eq!(
+            selected.get("expression"),
+            Some(&json!(expression)),
+            "{source}"
+        );
+        assert_eq!(selected.get("constant"), Some(&json!(constant)), "{source}");
+        assert_eq!(selected.get("proven"), Some(&json!(proven)), "{source}");
+        assert_eq!(
+            selected.get("source_authored"),
+            Some(&json!(proven)),
+            "{source}"
+        );
+        let start = usize::try_from(
+            selected
+                .get("start_byte")
+                .and_then(Value::as_u64)
+                .ok_or("selected start is absent")?,
+        )?;
+        let end = usize::try_from(
+            selected
+                .get("end_byte")
+                .and_then(Value::as_u64)
+                .ok_or("selected end is absent")?,
+        )?;
+        assert_eq!(source.get(start..end), Some(expression));
+        assert_eq!(
+            record.result,
+            if proven {
+                ResultState::Pass
+            } else {
+                ResultState::NotEvaluated
+            }
+        );
+    }
+    Ok(())
+}
+
+#[test]
+#[expect(
+    clippy::panic_in_result_fn,
+    reason = "assertions distinguish proved string content from unresolved propagation and aliases"
+)]
+fn python_constant_strings_preserve_order_branches_and_mutable_identity() -> TestResult {
+    let dir = directory();
+    let value = constant_string_declaration(dir.path(), STRING_RETURN_QUERY)?;
+    for (source, expected) in [
+        ("def handler(incoming):\n    return 'literal'\n", true),
+        (
+            "def handler(incoming):\n    renamed = 'fixed'\n    copy = renamed\n    return copy\n",
+            true,
+        ),
+        (
+            "def handler(incoming):\n    renamed = incoming\n    renamed = 'fixed'\n    return renamed\n",
+            true,
+        ),
+        (
+            "def handler(incoming):\n    renamed = 'fixed'\n    renamed = incoming\n    return renamed\n",
+            false,
+        ),
+        (
+            "def handler(incoming):\n    values = ['fixed', incoming]\n    return values[0]\n",
+            true,
+        ),
+        (
+            "def handler(incoming):\n    values = ['fixed', incoming]\n    return values[1]\n",
+            false,
+        ),
+        (
+            "def handler(incoming):\n    values = ['first', 'second']\n    return values[incoming]\n",
+            false,
+        ),
+        (
+            "def handler(incoming):\n    values = ['first', 'second']\n    if incoming:\n        pass\n    return values[0]\n",
+            false,
+        ),
+        (
+            "def handler(incoming):\n    values = []\n    values.append('fixed')\n    values.append(incoming)\n    values.pop(1)\n    return values[0]\n",
+            true,
+        ),
+        (
+            "def handler(incoming):\n    values = []\n    values.append('fixed')\n    values.append(incoming)\n    values.pop(0)\n    return values[0]\n",
+            false,
+        ),
+        (
+            "def handler(incoming):\n    values = ['fixed', incoming]\n    copied = values.copy()\n    values.pop(0)\n    return copied[0]\n",
+            true,
+        ),
+        (
+            "def handler(incoming):\n    values = ['fixed', incoming]\n    alias = values\n    alias.pop(0)\n    return values[0]\n",
+            false,
+        ),
+        (
+            "def handler(incoming):\n    if incoming:\n        answer = 'first'\n    else:\n        answer = 'second'\n    return answer\n",
+            true,
+        ),
+        (
+            "def handler(incoming):\n    if incoming:\n        answer = incoming\n    else:\n        answer = 'fixed'\n    return answer\n",
+            false,
+        ),
+        (
+            "def handler(incoming):\n    if False:\n        answer = incoming\n    else:\n        answer = 'fixed'\n    return answer\n",
+            true,
+        ),
+        (
+            "def handler(incoming):\n    answer = 'first'\n    answer += 'second'\n    return answer\n",
+            true,
+        ),
+        (
+            "def handler(incoming):\n    answer = 'first'\n    answer += incoming\n    return answer\n",
+            false,
+        ),
+        (
+            "def handler(incoming):\n    answer = 'fixed'\n    return f'prefix {answer}'\n",
+            true,
+        ),
+        (
+            "def handler(incoming):\n    return f'prefix {incoming}'\n",
+            false,
+        ),
+        (
+            "def handler(incoming):\n    answer = 'fixed'\n    unknown()\n    return answer\n",
+            false,
+        ),
+        (
+            "def handler(incoming):\n    answer = 'fixed'\n    (answer := incoming)\n    return answer\n",
+            false,
+        ),
+        (
+            "def handler(incoming):\n    answer = 'fixed'\n    def unused(value=unknown()):\n        pass\n    return answer\n",
+            false,
+        ),
+        (
+            "def handler(incoming):\n    def unused():\n        return incoming\n    return 'fixed'\n",
+            true,
+        ),
+        (
+            "def handler(incoming):\n    return incoming\n    return 'fixed'\n",
+            false,
+        ),
+        (
+            "def handler(incoming):\n    return helper('fixed')\n",
+            false,
+        ),
+        ("def handler(incoming):\n    return b'fixed'\n", false),
+        (
+            "def handler(incoming):\n    for item in incoming:\n        answer = item\n    return 'fixed'\n",
+            false,
+        ),
+        (
+            "def handler(incoming):\n    if incoming:\n        for item in incoming:\n            answer = item\n    else:\n        answer = 'fixed'\n    return answer\n",
+            false,
+        ),
+        (
+            "def handler(incoming):\n    if incoming:\n        answer = 'fixed'\n    elif incoming == 'other':\n        answer = incoming\n    else:\n        answer = 'other fixed'\n    return answer\n",
+            false,
+        ),
+    ] {
+        let run = evaluate(&value, source.as_bytes(), dir.path(), Limits::default())?;
+        let [record] = run.report.records.as_slice() else {
+            return Err("expected one constant-string result".into());
+        };
+        assert_eq!(
+            record.result,
+            if expected {
+                ResultState::Pass
+            } else {
+                ResultState::NotEvaluated
+            },
+            "{source}: {:?}",
+            record.observation
+        );
+        let observation = record
+            .observation
+            .as_ref()
+            .ok_or("constant-string observation is absent")?;
+        assert_eq!(observation.get("complete"), Some(&json!(true)), "{source}");
+        assert!(observation.pointer("/fields/captures").is_some());
+        assert_eq!(
+            observation.pointer("/fields/constant_string/proven"),
+            Some(&json!(expected)),
+            "{source}"
+        );
+        assert_eq!(run.report.usage.provider_calls, 0);
+    }
+    Ok(())
+}
+
+#[test]
+#[expect(
+    clippy::panic_in_result_fn,
+    reason = "assertions check every selected complete argument and fail-closed evidence boundaries"
+)]
+fn python_constant_strings_refuse_second_sinks_ambiguous_and_partial_evidence() -> TestResult {
+    let dir = directory();
+    let query = "((function_definition name: (identifier) @_name body: (block (expression_statement (call function: (identifier) @_callee arguments: (argument_list . (_) @value))))) @scope (#eq? @_name \"handler\") (#eq? @_callee \"sink\"))";
+    let value = constant_string_declaration(dir.path(), query)?;
+    for (source, expected) in [
+        (
+            "def handler(incoming):\n    sink('first')\n    sink('second')\n",
+            true,
+        ),
+        (
+            "def handler(incoming):\n    sink('first')\n    sink(incoming)\n",
+            false,
+        ),
+        (
+            "def handler(incoming):\n    sink(f'fixed {unknown.part}')\n",
+            false,
+        ),
+        ("def handler(incoming):\n    pass\n", false),
+        (
+            "def handler(incoming):\n    sink('first')\ndef handler(incoming):\n    sink('second')\n",
+            false,
+        ),
+    ] {
+        let run = evaluate(&value, source.as_bytes(), dir.path(), Limits::default())?;
+        let [record] = run.report.records.as_slice() else {
+            return Err("expected one argument-origin result".into());
+        };
+        assert_eq!(
+            record.result,
+            if expected {
+                ResultState::Pass
+            } else {
+                ResultState::NotEvaluated
+            },
+            "{source}: {:?}",
+            record.observation
+        );
+    }
+    let receiver_query = "((function_definition name: (identifier) @_name body: (block (expression_statement (call arguments: (argument_list . (_) @value))))) @scope (#eq? @_name \"handler\"))";
+    let receiver_value = constant_string_declaration(dir.path(), receiver_query)?;
+    let run = evaluate(
+        &receiver_value,
+        b"def handler(incoming):\n    answer = 'fixed'\n    receiver().sink(answer)\n",
+        dir.path(),
+        Limits::default(),
+    )?;
+    let [record] = run.report.records.as_slice() else {
+        return Err("expected one computed-receiver refusal".into());
+    };
+    assert_eq!(record.result, ResultState::NotEvaluated);
+    for bounds in [
+        json!({"input_bytes":1}),
+        json!({"nodes":1}),
+        json!({"captures":1}),
+        json!({"output_bytes":1}),
+    ] {
+        let mut bounded = value.clone();
+        bounded
+            .pointer_mut("/rules/0/check")
+            .and_then(Value::as_object_mut)
+            .ok_or("constant-string check is absent")?
+            .insert("limits".into(), bounds);
+        let run = evaluate(
+            &bounded,
+            b"def handler(incoming):\n    sink('fixed')\n",
+            dir.path(),
+            Limits::default(),
+        )?;
+        let [record] = run.report.records.as_slice() else {
+            return Err("expected one resource refusal".into());
+        };
+        assert_eq!(record.result, ResultState::NotEvaluated);
+        assert!(record.observation.is_none());
+    }
+    let run = evaluate(
+        &value,
+        b"def handler(:\n sink('fixed')\n",
+        dir.path(),
+        Limits::default(),
+    )?;
+    let [record] = run.report.records.as_slice() else {
+        return Err("expected one malformed-source refusal".into());
+    };
+    assert_eq!(record.result, ResultState::NotEvaluated);
+    assert!(
+        record
+            .observation
+            .as_ref()
+            .and_then(|o| o.pointer("/fields/captures"))
+            .is_none()
+    );
+    let mut invalid = value;
+    *invalid
+        .pointer_mut("/rules/0/check/query")
+        .ok_or("query is absent")? = json!("(identifier) @value");
+    assert!(ValidatedBaseline::from_bytes(invalid.to_string().as_bytes(), dir.path()).is_err());
     Ok(())
 }

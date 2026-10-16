@@ -2,7 +2,7 @@
   "schema": "auditoad-baseline/1",
   "baseline": {
     "id": "self-audit",
-    "version": "4",
+    "version": "7",
     "title": "AudiToad implementation checks",
     "publisher": "AudiToad examples",
     "status": "draft"
@@ -238,12 +238,12 @@
       "check":{"kind":"syntax/1","language":"rust","json_string_pointer":"/parts/0/text","query":"((function_item) @function (#match? @function \"^(pub([(][^)]*[)])? +)?fn (scan_bound|charge|begin|append|effect_allocation|coupling|register|reduce|reduce_bound|reused_usage|admit_pool)[<(]\"))"},"applicability":{"include":["coverage"],"exclude":[]},"falsifier":"A named complete owner function is missing or changed in capture.","fixtures":{"pass":[],"fail":[]}},
     {"id":"SELF-DRAFT-SYNTAX","revision":"1","source":"evidence","group":"completion","risk":"low","scope_kind":"site","title":"Select experimental result owners","evidence":"selected","evaluator":{"kind":"syntax","contract":"syntax/1"},
       "check":{"kind":"syntax/1","language":"rust","json_string_pointer":"/parts/0/text","query":"((function_item) @function (#match? @function \"^(pub([(][^)]*[)])? +)?fn (ask_model|model_observation|combined_members|scan_bound)[<(]\"))"},"applicability":{"include":["draft"],"exclude":[]},"falsifier":"A named complete owner function is missing or changed in capture.","fixtures":{"pass":[],"fail":[]}},
-    {"id":"SELF-PUBLICATION-SYNTAX","revision":"1","source":"evidence","group":"publication","risk":"low","scope_kind":"site","title":"Select publication and protected-input owners","evidence":"selected","evaluator":{"kind":"syntax","contract":"syntax/1"},
-      "check":{"kind":"syntax/1","language":"rust","json_string_pointer":"/parts/0/text","query":"((function_item) @function (#match? @function \"^(pub([(][^)]*[)])? +)?fn (scan_to_file|scan_to_file_with_evaluators|scan_to_file_with_progress|scan_to_file_with_preparation|protected_inputs|publish_bound|publish_bytes|publish_bytes_bound)[<(]\"))"},"applicability":{"include":["publication"],"exclude":[]},"falsifier":"A named complete owner function is missing or changed in capture.","fixtures":{"pass":[],"fail":[]}},
-    {"id":"SELF-CREDENTIAL-SYNTAX","revision":"1","source":"evidence","group":"publication","risk":"low","scope_kind":"site","title":"Select credential_paths","evidence":"credentials","evaluator":{"kind":"syntax","contract":"syntax/1"},
-      "check":{"kind":"syntax/1","language":"rust","json_string_pointer":"/parts/1/text","query":"((function_item) @function (#match? @function \"^pub[(]crate[)] fn credential_paths[(]\"))"},"applicability":{"include":["publication"],"exclude":[]},"falsifier":"The complete credential-path function is missing or changed in capture.","fixtures":{"pass":[],"fail":[]}},
-    {"id":"SELF-JSON-SYNTAX","revision":"1","source":"evidence","group":"validation","risk":"low","scope_kind":"site","title":"Select JSON parser and duplicate-key visitor","evidence":"selected","evaluator":{"kind":"syntax","contract":"syntax/1"},
-      "check":{"kind":"syntax/1","language":"rust","json_string_pointer":"/parts/0/text","query":"((function_item) @function (#match? @function \"^(pub([(][^)]*[)])? +)?fn (parse|deserialize)[<(]\"))"},"applicability":{"include":["json"],"exclude":[]},"falsifier":"The complete parser or duplicate-key visitor is missing or changed in capture.","fixtures":{"pass":[],"fail":[]}},
+    {"id":"SELF-PUBLICATION-SYNTAX","revision":"2","source":"evidence","group":"publication","risk":"low","scope_kind":"site","title":"Select publication, refusal and protected-input owners","evidence":"selected","evaluator":{"kind":"syntax","contract":"syntax/1"},
+      "check":{"kind":"syntax/1","language":"rust","json_string_pointer":"/parts/0/text","query":"((function_item) @function (#match? @function \"^(pub([(][^)]*[)])? +)?fn (coupling|scan_to_file|scan_to_file_with_evaluators|scan_to_file_with_progress|scan_to_file_with_preparation|protected_inputs|publish_bound|publish_bytes|publish_bytes_bound)[<(]\"))"},"applicability":{"include":["publication"],"exclude":[]},"falsifier":"A named complete owner function is missing or changed in capture.","fixtures":{"pass":[],"fail":[]}},
+    {"id":"SELF-CREDENTIAL-SYNTAX","revision":"2","source":"evidence","group":"publication","risk":"low","scope_kind":"site","title":"Select credential path declaration and enumeration","evidence":"credentials","evaluator":{"kind":"syntax","contract":"syntax/1"},
+      "check":{"kind":"syntax/1","language":"rust","json_string_pointer":"/parts/1/text","query":"((function_item) @function (#match? @function \"^(pub([(][^)]*[)])? +)?fn (from_bytes|credential_paths)[<(]\"))"},"applicability":{"include":["publication"],"exclude":[]},"falsifier":"The complete credential-path declaration or enumeration function is missing or changed in capture.","fixtures":{"pass":[],"fail":[]}},
+    {"id":"SELF-JSON-SYNTAX","revision":"2","source":"evidence","group":"validation","risk":"low","scope_kind":"site","title":"Select JSON parsers and duplicate-key visitor","evidence":"selected","evaluator":{"kind":"syntax","contract":"syntax/1"},
+      "check":{"kind":"syntax/1","language":"rust","json_string_pointer":"/parts/0/text","query":"((function_item) @function (#match? @function \"^(pub([(][^)]*[)])? +)?fn (parse|parse_value|deserialize)[<(]\"))"},"applicability":{"include":["json"],"exclude":[]},"falsifier":"The complete typed parser, strict value parser or duplicate-key visitor is missing or changed in capture.","fixtures":{"pass":[],"fail":[]}},
     {"id":"SELF-EGRESS-CONTEXT","revision":"3","source":"evidence","group":"provider","risk":"low","scope_kind":"site","title":"Egress guard context","evidence":"selected","evaluator":{"kind":"model","contract":"extract/1","role":"helper"},"consult":{"rules":["SELF-EGRESS-SYNTAX"]},
       "check":{"kind":"extract/1","instructions":"In ask_model, copy one contiguous source excerpt containing the backend.filter expression controlled by live, replay and reused, followed by the provider-is-absent/no-mock branch that returns the prepared request without a provider call. This task concerns only that preparation guard. Return exactly one shortest source excerpt in context. Preserve whitespace exactly. Do not use ellipses, join excerpts, reformat or repair code; do not decide compliance.","fields":{"context":{"type":"quote_list","description":"One literal contiguous excerpt containing the provider filter and its preparation-only return branch."}},"max_request_bytes":120000,"state_projection":{"code_0":"/prior/0/observation/fields/captures/0/text","code_1":"/prior/0/observation/fields/captures/1/text","code_2":"/prior/0/observation/fields/captures/2/text","code_3":"/prior/0/observation/fields/captures/3/text"}},
       "applicability":{"include":["egress"],"exclude":[]},"falsifier":"The excerpt omits or alters the specified preparation guard, joins separate source spans or invents text.","fixtures":{"pass":[],"fail":[]}},
@@ -256,15 +256,15 @@
     {"id":"SELF-DRAFT-CONTEXT","revision":"5","source":"evidence","group":"completion","risk":"low","scope_kind":"site","title":"Select experimental outcome declarations","evidence":"selected","evaluator":{"kind":"syntax","contract":"syntax/1"},
       "check":{"kind":"syntax/1","language":"rust","json_string_pointer":"/parts/0/text","query":"((let_declaration) @experimental_outcome (#match? @experimental_outcome \"^let unresolved = outcome_reason[.]is_some[(][)]\")) ((let_declaration) @experimental_outcome (#match? @experimental_outcome \"^let outcome = if unresolved\"))"},
       "applicability":{"include":["draft"],"exclude":[]},"falsifier":"The captures differ from the complete unresolved and outcome declarations inside scan_bound.","fixtures":{"pass":[],"fail":[]}},
-    {"id":"SELF-PUBLICATION-CONTEXT","revision":"2","source":"evidence","group":"publication","risk":"low","scope_kind":"site","title":"Protected publication context","evidence":"selected","evaluator":{"kind":"model","contract":"extract/1","role":"helper"},"consult":{"rules":["SELF-PUBLICATION-SYNTAX","SELF-CREDENTIAL-SYNTAX"]},
-      "check":{"kind":"extract/1","instructions":"From the complete selected publication and credential functions, copy the protected-input comparison, write, persist and acknowledgment paths with their refusal handling. Return source quotes only; do not decide compliance.","fields":{"context":{"type":"quote_list","description":"Exact protected-input and publication success/refusal excerpts."}},"max_request_bytes":120000,"state_projection":{"code_0":"/prior/0/observation/fields/captures/0/text","code_1":"/prior/0/observation/fields/captures/1/text","code_2":"/prior/0/observation/fields/captures/2/text","code_3":"/prior/0/observation/fields/captures/3/text","code_4":"/prior/0/observation/fields/captures/4/text","code_5":"/prior/0/observation/fields/captures/5/text","code_6":"/prior/0/observation/fields/captures/6/text","code_7":"/prior/0/observation/fields/captures/7/text","credentials":"/prior/1/observation/fields/captures/0/text"}},
+    {"id":"SELF-PUBLICATION-CONTEXT","revision":"3","source":"evidence","group":"publication","risk":"low","scope_kind":"site","title":"Protected publication context","evidence":"selected","evaluator":{"kind":"model","contract":"extract/1","role":"helper"},"consult":{"rules":["SELF-PUBLICATION-SYNTAX","SELF-CREDENTIAL-SYNTAX"]},
+      "check":{"kind":"extract/1","instructions":"From the complete selected publication and credential functions, copy the protected-input comparison, write, persist and acknowledgment paths with their refusal handling. Return source quotes only; do not decide compliance.","fields":{"context":{"type":"quote_list","description":"Exact protected-input and publication success/refusal excerpts."}},"max_request_bytes":120000,"state_projection":{"code_0":"/prior/0/observation/fields/captures/0/text","code_1":"/prior/0/observation/fields/captures/1/text","code_2":"/prior/0/observation/fields/captures/2/text","code_3":"/prior/0/observation/fields/captures/3/text","code_4":"/prior/0/observation/fields/captures/4/text","code_5":"/prior/0/observation/fields/captures/5/text","code_6":"/prior/0/observation/fields/captures/6/text","code_7":"/prior/0/observation/fields/captures/7/text","code_8":"/prior/0/observation/fields/captures/8/text","credential_declaration":"/prior/1/observation/fields/captures/0/text","credentials":"/prior/1/observation/fields/captures/1/text"}},
       "applicability":{"include":["publication"],"exclude":[]},"falsifier":"A controlling protected-input or publication path is omitted or a quote is invented.","fixtures":{"pass":[],"fail":[]}},
-    {"id":"SELF-JSON-CONTEXT","revision":"2","source":"evidence","group":"validation","risk":"low","scope_kind":"site","title":"JSON duplicate-key context","evidence":"selected","evaluator":{"kind":"model","contract":"extract/1","role":"helper"},"consult":{"rules":["SELF-JSON-SYNTAX"]},
-      "check":{"kind":"extract/1","instructions":"From the complete selected parser and visitor, copy the duplicate-key refusal and typed deserialization paths. Return source quotes only; do not decide compliance.","fields":{"context":{"type":"quote_list","description":"Exact duplicate-key refusal and typed-deserialization excerpts."}},"max_request_bytes":120000,"state_projection":{"code_0":"/prior/0/observation/fields/captures/0/text","code_1":"/prior/0/observation/fields/captures/1/text"}},
+    {"id":"SELF-JSON-CONTEXT","revision":"3","source":"evidence","group":"validation","risk":"low","scope_kind":"site","title":"JSON duplicate-key context","evidence":"selected","evaluator":{"kind":"model","contract":"extract/1","role":"helper"},"consult":{"rules":["SELF-JSON-SYNTAX"]},
+      "check":{"kind":"extract/1","instructions":"From the complete selected parsers and visitor, copy the duplicate-key refusal and typed deserialization paths. Return source quotes only; do not decide compliance.","fields":{"context":{"type":"quote_list","description":"Exact duplicate-key refusal and typed-deserialization excerpts."}},"max_request_bytes":120000,"state_projection":{"code_0":"/prior/0/observation/fields/captures/0/text","code_1":"/prior/0/observation/fields/captures/1/text","code_2":"/prior/0/observation/fields/captures/2/text"}},
       "applicability":{"include":["json"],"exclude":[]},"falsifier":"A controlling validation path is omitted or a quote is invented.","fixtures":{"pass":[],"fail":[]}},
     {
       "id": "SELF-EGRESS",
-      "revision": "4",
+      "revision": "5",
       "consult": {"rules":["SELF-EGRESS-SYNTAX","SELF-EGRESS-CONTEXT"]},
       "source": "evidence",
       "group": "provider",
@@ -278,9 +278,9 @@
       },
       "check": {
         "kind": "yes-no/1",
-        "instructions": "Does this code send a model request when live evaluation is not enabled?",
-        "criteria_true": "A model request is sent without live opt-in.",
-        "criteria_false": "Model requests are sent only when live evaluation is enabled.",
+        "instructions": "Does the shown provider exchange path issue a fresh outbound HTTP model request without explicit live opt-in? Preparing request bytes, mock responses, exact local replay and reused responses do not send a fresh provider HTTP request. Assess only this opt-in condition; endpoint permission is a separate question.",
+        "criteria_true": "A fresh provider HTTP request is sent without live opt-in.",
+        "criteria_false": "A fresh provider HTTP request requires live opt-in.",
         "pass_below": 0.1,
         "fail_at_or_above": 0.9,
         "max_request_bytes": 120000,
@@ -292,7 +292,7 @@
         ],
         "exclude": []
       },
-      "falsifier": "A model request is sent without live opt-in.",
+      "falsifier": "A fresh provider HTTP request is sent without live opt-in.",
       "fixtures": {
         "pass": [],
         "fail": []
@@ -300,7 +300,7 @@
     },
     {
       "id": "SELF-ORIGIN",
-      "revision": "4",
+      "revision": "5",
       "consult": {"rules":["SELF-EGRESS-SYNTAX","SELF-EGRESS-CONTEXT"]},
       "source": "evidence",
       "group": "provider",
@@ -314,9 +314,9 @@
       },
       "check": {
         "kind": "yes-no/1",
-        "instructions": "Does this code allow a live model call to an endpoint whose origin the profile's allowed_egress does not permit?",
-        "criteria_true": "It allows a different origin.",
-        "criteria_false": "It rejects a different origin.",
+        "instructions": "Does the shown pre-dispatch guard allow a live configured model member when its computed origin is outside the profile's allowed_egress, including the profile's explicit loopback permission? Assess the guard over the computed origin; URL parsing correctness and live opt-in are separate questions.",
+        "criteria_true": "The guard allows a live member whose computed origin is not permitted.",
+        "criteria_false": "The guard refuses a live member whose computed origin is not permitted.",
         "pass_below": 0.1,
         "fail_at_or_above": 0.9,
         "max_request_bytes": 120000,
@@ -804,7 +804,7 @@
     },
     {
       "id": "SELF-PUBLISH",
-      "revision": "3",
+      "revision": "4",
       "consult": {"rules":["SELF-PUBLICATION-SYNTAX","SELF-CREDENTIAL-SYNTAX","SELF-PUBLICATION-CONTEXT"]},
       "source": "evidence",
       "group": "publication",
@@ -818,13 +818,13 @@
       },
       "check": {
         "kind": "yes-no/1",
-        "instructions": "Does this function return a successful receipt after a failed write?",
+        "instructions": "Does publish_bytes_bound return a PublicationReceipt after temporary.write_all returns an error? Consider the shown error propagation; persist and acknowledgment failures are separate questions.",
         "criteria_true": "It returns a receipt after a write error.",
         "criteria_false": "A write error stops it from returning a receipt.",
         "pass_below": 0.1,
         "fail_at_or_above": 0.9,
         "max_request_bytes": 120000,
-        "state_projection": {"code_0":"/prior/0/observation/fields/captures/0/text","code_1":"/prior/0/observation/fields/captures/1/text","code_2":"/prior/0/observation/fields/captures/2/text","code_3":"/prior/0/observation/fields/captures/3/text","code_4":"/prior/0/observation/fields/captures/4/text","code_5":"/prior/0/observation/fields/captures/5/text","code_6":"/prior/0/observation/fields/captures/6/text","code_7":"/prior/0/observation/fields/captures/7/text","credentials":"/prior/1/observation/fields/captures/0/text","policy":"/parts/1/text","context":{"pointer":"/prior/2/observation/fields/context","optional":true}}
+        "state_projection": {"code_0":"/prior/0/observation/fields/captures/0/text","code_1":"/prior/0/observation/fields/captures/1/text","code_2":"/prior/0/observation/fields/captures/2/text","code_3":"/prior/0/observation/fields/captures/3/text","code_4":"/prior/0/observation/fields/captures/4/text","code_5":"/prior/0/observation/fields/captures/5/text","code_6":"/prior/0/observation/fields/captures/6/text","code_7":"/prior/0/observation/fields/captures/7/text","code_8":"/prior/0/observation/fields/captures/8/text","credential_declaration":"/prior/1/observation/fields/captures/0/text","credentials":"/prior/1/observation/fields/captures/1/text","policy":"/parts/1/text","context":{"pointer":"/prior/2/observation/fields/context","optional":true}}
       },
       "applicability": {
         "include": [
@@ -840,7 +840,7 @@
     },
     {
       "id": "SELF-PERSIST",
-      "revision": "3",
+      "revision": "4",
       "consult": {"rules":["SELF-PUBLICATION-SYNTAX","SELF-CREDENTIAL-SYNTAX","SELF-PUBLICATION-CONTEXT"]},
       "source": "evidence",
       "group": "publication",
@@ -854,13 +854,13 @@
       },
       "check": {
         "kind": "yes-no/1",
-        "instructions": "Does this function return a successful receipt after persist fails?",
+        "instructions": "Does publish_bytes_bound return a PublicationReceipt after temporary.persist returns an error? Consider the shown error propagation; writing and acknowledgment failures are separate questions.",
         "criteria_true": "It returns a receipt after a persist error.",
         "criteria_false": "A persist error stops it from returning a receipt.",
         "pass_below": 0.1,
         "fail_at_or_above": 0.9,
         "max_request_bytes": 120000,
-        "state_projection": {"code_0":"/prior/0/observation/fields/captures/0/text","code_1":"/prior/0/observation/fields/captures/1/text","code_2":"/prior/0/observation/fields/captures/2/text","code_3":"/prior/0/observation/fields/captures/3/text","code_4":"/prior/0/observation/fields/captures/4/text","code_5":"/prior/0/observation/fields/captures/5/text","code_6":"/prior/0/observation/fields/captures/6/text","code_7":"/prior/0/observation/fields/captures/7/text","credentials":"/prior/1/observation/fields/captures/0/text","policy":"/parts/1/text","context":{"pointer":"/prior/2/observation/fields/context","optional":true}}
+        "state_projection": {"code_0":"/prior/0/observation/fields/captures/0/text","code_1":"/prior/0/observation/fields/captures/1/text","code_2":"/prior/0/observation/fields/captures/2/text","code_3":"/prior/0/observation/fields/captures/3/text","code_4":"/prior/0/observation/fields/captures/4/text","code_5":"/prior/0/observation/fields/captures/5/text","code_6":"/prior/0/observation/fields/captures/6/text","code_7":"/prior/0/observation/fields/captures/7/text","code_8":"/prior/0/observation/fields/captures/8/text","credential_declaration":"/prior/1/observation/fields/captures/0/text","credentials":"/prior/1/observation/fields/captures/1/text","policy":"/parts/1/text","context":{"pointer":"/prior/2/observation/fields/context","optional":true}}
       },
       "applicability": {
         "include": [
@@ -876,7 +876,7 @@
     },
     {
       "id": "SELF-ACK",
-      "revision": "3",
+      "revision": "4",
       "consult": {"rules":["SELF-PUBLICATION-SYNTAX","SELF-CREDENTIAL-SYNTAX","SELF-PUBLICATION-CONTEXT"]},
       "source": "evidence",
       "group": "publication",
@@ -890,13 +890,13 @@
       },
       "check": {
         "kind": "yes-no/1",
-        "instructions": "Does this function return a successful receipt if the publication acknowledgment check fails?",
+        "instructions": "Does publish_bytes_bound return a PublicationReceipt when the coupling check of effect.effect(0) against Some(Some(0)) is false? Use the supplied coupling implementation and its propagation at that call; write and persist failures are separate questions.",
         "criteria_true": "It returns a receipt despite the failed check.",
         "criteria_false": "The failed check stops it from returning a receipt.",
         "pass_below": 0.1,
         "fail_at_or_above": 0.9,
         "max_request_bytes": 120000,
-        "state_projection": {"code_0":"/prior/0/observation/fields/captures/0/text","code_1":"/prior/0/observation/fields/captures/1/text","code_2":"/prior/0/observation/fields/captures/2/text","code_3":"/prior/0/observation/fields/captures/3/text","code_4":"/prior/0/observation/fields/captures/4/text","code_5":"/prior/0/observation/fields/captures/5/text","code_6":"/prior/0/observation/fields/captures/6/text","code_7":"/prior/0/observation/fields/captures/7/text","credentials":"/prior/1/observation/fields/captures/0/text","policy":"/parts/1/text","context":{"pointer":"/prior/2/observation/fields/context","optional":true}}
+        "state_projection": {"code_0":"/prior/0/observation/fields/captures/0/text","code_1":"/prior/0/observation/fields/captures/1/text","code_2":"/prior/0/observation/fields/captures/2/text","code_3":"/prior/0/observation/fields/captures/3/text","code_4":"/prior/0/observation/fields/captures/4/text","code_5":"/prior/0/observation/fields/captures/5/text","code_6":"/prior/0/observation/fields/captures/6/text","code_7":"/prior/0/observation/fields/captures/7/text","code_8":"/prior/0/observation/fields/captures/8/text","credential_declaration":"/prior/1/observation/fields/captures/0/text","credentials":"/prior/1/observation/fields/captures/1/text","policy":"/parts/1/text","context":{"pointer":"/prior/2/observation/fields/context","optional":true}}
       },
       "applicability": {
         "include": [
@@ -912,7 +912,7 @@
     },
     {
       "id": "SELF-INPUTS",
-      "revision": "3",
+      "revision": "4",
       "consult": {"rules":["SELF-PUBLICATION-SYNTAX","SELF-CREDENTIAL-SYNTAX","SELF-PUBLICATION-CONTEXT"]},
       "source": "evidence",
       "group": "publication",
@@ -932,7 +932,7 @@
         "pass_below": 0.1,
         "fail_at_or_above": 0.9,
         "max_request_bytes": 120000,
-        "state_projection": {"code_0":"/prior/0/observation/fields/captures/0/text","code_1":"/prior/0/observation/fields/captures/1/text","code_2":"/prior/0/observation/fields/captures/2/text","code_3":"/prior/0/observation/fields/captures/3/text","code_4":"/prior/0/observation/fields/captures/4/text","code_5":"/prior/0/observation/fields/captures/5/text","code_6":"/prior/0/observation/fields/captures/6/text","code_7":"/prior/0/observation/fields/captures/7/text","credentials":"/prior/1/observation/fields/captures/0/text","policy":"/parts/1/text","context":{"pointer":"/prior/2/observation/fields/context","optional":true}}
+        "state_projection": {"code_0":"/prior/0/observation/fields/captures/0/text","code_1":"/prior/0/observation/fields/captures/1/text","code_2":"/prior/0/observation/fields/captures/2/text","code_3":"/prior/0/observation/fields/captures/3/text","code_4":"/prior/0/observation/fields/captures/4/text","code_5":"/prior/0/observation/fields/captures/5/text","code_6":"/prior/0/observation/fields/captures/6/text","code_7":"/prior/0/observation/fields/captures/7/text","code_8":"/prior/0/observation/fields/captures/8/text","credential_declaration":"/prior/1/observation/fields/captures/0/text","credentials":"/prior/1/observation/fields/captures/1/text","policy":"/parts/1/text","context":{"pointer":"/prior/2/observation/fields/context","optional":true}}
       },
       "applicability": {
         "include": [
@@ -948,7 +948,7 @@
     },
     {
       "id": "SELF-SOURCE-INPUT",
-      "revision": "3",
+      "revision": "4",
       "consult": {"rules":["SELF-PUBLICATION-SYNTAX","SELF-CREDENTIAL-SYNTAX","SELF-PUBLICATION-CONTEXT"]},
       "source": "evidence",
       "group": "publication",
@@ -968,7 +968,7 @@
         "pass_below": 0.1,
         "fail_at_or_above": 0.9,
         "max_request_bytes": 120000,
-        "state_projection": {"code_0":"/prior/0/observation/fields/captures/0/text","code_1":"/prior/0/observation/fields/captures/1/text","code_2":"/prior/0/observation/fields/captures/2/text","code_3":"/prior/0/observation/fields/captures/3/text","code_4":"/prior/0/observation/fields/captures/4/text","code_5":"/prior/0/observation/fields/captures/5/text","code_6":"/prior/0/observation/fields/captures/6/text","code_7":"/prior/0/observation/fields/captures/7/text","credentials":"/prior/1/observation/fields/captures/0/text","policy":"/parts/1/text","context":{"pointer":"/prior/2/observation/fields/context","optional":true}}
+        "state_projection": {"code_0":"/prior/0/observation/fields/captures/0/text","code_1":"/prior/0/observation/fields/captures/1/text","code_2":"/prior/0/observation/fields/captures/2/text","code_3":"/prior/0/observation/fields/captures/3/text","code_4":"/prior/0/observation/fields/captures/4/text","code_5":"/prior/0/observation/fields/captures/5/text","code_6":"/prior/0/observation/fields/captures/6/text","code_7":"/prior/0/observation/fields/captures/7/text","code_8":"/prior/0/observation/fields/captures/8/text","credential_declaration":"/prior/1/observation/fields/captures/0/text","credentials":"/prior/1/observation/fields/captures/1/text","policy":"/parts/1/text","context":{"pointer":"/prior/2/observation/fields/context","optional":true}}
       },
       "applicability": {
         "include": [
@@ -984,7 +984,7 @@
     },
     {
       "id": "SELF-KNOWN-ANSWERS",
-      "revision": "3",
+      "revision": "4",
       "consult": {"rules":["SELF-PUBLICATION-SYNTAX","SELF-CREDENTIAL-SYNTAX","SELF-PUBLICATION-CONTEXT"]},
       "source": "evidence",
       "group": "publication",
@@ -1004,7 +1004,7 @@
         "pass_below": 0.1,
         "fail_at_or_above": 0.9,
         "max_request_bytes": 120000,
-        "state_projection": {"code_0":"/prior/0/observation/fields/captures/0/text","code_1":"/prior/0/observation/fields/captures/1/text","code_2":"/prior/0/observation/fields/captures/2/text","code_3":"/prior/0/observation/fields/captures/3/text","code_4":"/prior/0/observation/fields/captures/4/text","code_5":"/prior/0/observation/fields/captures/5/text","code_6":"/prior/0/observation/fields/captures/6/text","code_7":"/prior/0/observation/fields/captures/7/text","credentials":"/prior/1/observation/fields/captures/0/text","policy":"/parts/1/text","context":{"pointer":"/prior/2/observation/fields/context","optional":true}}
+        "state_projection": {"code_0":"/prior/0/observation/fields/captures/0/text","code_1":"/prior/0/observation/fields/captures/1/text","code_2":"/prior/0/observation/fields/captures/2/text","code_3":"/prior/0/observation/fields/captures/3/text","code_4":"/prior/0/observation/fields/captures/4/text","code_5":"/prior/0/observation/fields/captures/5/text","code_6":"/prior/0/observation/fields/captures/6/text","code_7":"/prior/0/observation/fields/captures/7/text","code_8":"/prior/0/observation/fields/captures/8/text","credential_declaration":"/prior/1/observation/fields/captures/0/text","credentials":"/prior/1/observation/fields/captures/1/text","policy":"/parts/1/text","context":{"pointer":"/prior/2/observation/fields/context","optional":true}}
       },
       "applicability": {
         "include": [
@@ -1020,7 +1020,7 @@
     },
     {
       "id": "SELF-MOCK-INPUT",
-      "revision": "3",
+      "revision": "4",
       "consult": {"rules":["SELF-PUBLICATION-SYNTAX","SELF-CREDENTIAL-SYNTAX","SELF-PUBLICATION-CONTEXT"]},
       "source": "evidence",
       "group": "publication",
@@ -1040,7 +1040,7 @@
         "pass_below": 0.1,
         "fail_at_or_above": 0.9,
         "max_request_bytes": 120000,
-        "state_projection": {"code_0":"/prior/0/observation/fields/captures/0/text","code_1":"/prior/0/observation/fields/captures/1/text","code_2":"/prior/0/observation/fields/captures/2/text","code_3":"/prior/0/observation/fields/captures/3/text","code_4":"/prior/0/observation/fields/captures/4/text","code_5":"/prior/0/observation/fields/captures/5/text","code_6":"/prior/0/observation/fields/captures/6/text","code_7":"/prior/0/observation/fields/captures/7/text","credentials":"/prior/1/observation/fields/captures/0/text","policy":"/parts/1/text","context":{"pointer":"/prior/2/observation/fields/context","optional":true}}
+        "state_projection": {"code_0":"/prior/0/observation/fields/captures/0/text","code_1":"/prior/0/observation/fields/captures/1/text","code_2":"/prior/0/observation/fields/captures/2/text","code_3":"/prior/0/observation/fields/captures/3/text","code_4":"/prior/0/observation/fields/captures/4/text","code_5":"/prior/0/observation/fields/captures/5/text","code_6":"/prior/0/observation/fields/captures/6/text","code_7":"/prior/0/observation/fields/captures/7/text","code_8":"/prior/0/observation/fields/captures/8/text","credential_declaration":"/prior/1/observation/fields/captures/0/text","credentials":"/prior/1/observation/fields/captures/1/text","policy":"/parts/1/text","context":{"pointer":"/prior/2/observation/fields/context","optional":true}}
       },
       "applicability": {
         "include": [
@@ -1056,7 +1056,7 @@
     },
     {
       "id": "SELF-KEY-INPUT",
-      "revision": "3",
+      "revision": "4",
       "consult": {"rules":["SELF-PUBLICATION-SYNTAX","SELF-CREDENTIAL-SYNTAX","SELF-PUBLICATION-CONTEXT"]},
       "source": "evidence",
       "group": "publication",
@@ -1076,7 +1076,7 @@
         "pass_below": 0.1,
         "fail_at_or_above": 0.9,
         "max_request_bytes": 120000,
-        "state_projection": {"code_0":"/prior/0/observation/fields/captures/0/text","code_1":"/prior/0/observation/fields/captures/1/text","code_2":"/prior/0/observation/fields/captures/2/text","code_3":"/prior/0/observation/fields/captures/3/text","code_4":"/prior/0/observation/fields/captures/4/text","code_5":"/prior/0/observation/fields/captures/5/text","code_6":"/prior/0/observation/fields/captures/6/text","code_7":"/prior/0/observation/fields/captures/7/text","credentials":"/prior/1/observation/fields/captures/0/text","policy":"/parts/1/text","context":{"pointer":"/prior/2/observation/fields/context","optional":true}}
+        "state_projection": {"code_0":"/prior/0/observation/fields/captures/0/text","code_1":"/prior/0/observation/fields/captures/1/text","code_2":"/prior/0/observation/fields/captures/2/text","code_3":"/prior/0/observation/fields/captures/3/text","code_4":"/prior/0/observation/fields/captures/4/text","code_5":"/prior/0/observation/fields/captures/5/text","code_6":"/prior/0/observation/fields/captures/6/text","code_7":"/prior/0/observation/fields/captures/7/text","code_8":"/prior/0/observation/fields/captures/8/text","credential_declaration":"/prior/1/observation/fields/captures/0/text","credentials":"/prior/1/observation/fields/captures/1/text","policy":"/parts/1/text","context":{"pointer":"/prior/2/observation/fields/context","optional":true}}
       },
       "applicability": {
         "include": [
@@ -1092,7 +1092,7 @@
     },
     {
       "id": "SELF-JSON",
-      "revision": "3",
+      "revision": "4",
       "consult": {"rules":["SELF-JSON-SYNTAX","SELF-JSON-CONTEXT"]},
       "source": "evidence",
       "group": "validation",
@@ -1112,7 +1112,7 @@
         "pass_below": 0.1,
         "fail_at_or_above": 0.9,
         "max_request_bytes": 120000,
-        "state_projection": {"code_0":"/prior/0/observation/fields/captures/0/text","code_1":"/prior/0/observation/fields/captures/1/text","policy":"/parts/1/text","context":{"pointer":"/prior/1/observation/fields/context","optional":true}}
+        "state_projection": {"code_0":"/prior/0/observation/fields/captures/0/text","code_1":"/prior/0/observation/fields/captures/1/text","code_2":"/prior/0/observation/fields/captures/2/text","policy":"/parts/1/text","context":{"pointer":"/prior/1/observation/fields/context","optional":true}}
       },
       "applicability": {
         "include": [
