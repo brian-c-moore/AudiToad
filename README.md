@@ -1,32 +1,74 @@
 # AudiToad 🐸
 
-AudiToad is a general-purpose, AI-backed audit tool. Define an audit once, run it as your project
-changes, and trace each result back to its evidence.
+AudiToad is a general-purpose, AI-backed tool for audits and compliance checks. It combines
+exact local checks with focused questions to models.
 
-Your work has rules worth checking: writing must follow a style guide, a function must meet its
-requirements, or an inventory must satisfy a security policy. Put those checks in a **baseline**,
-along with the evidence each check needs and how to evaluate the result. Combine focused
-questions to the models you choose with local YARA rules and inventory checks to build an audit around your
-project's requirements.
+Define the requirements and questions in a **baseline**, supply the evidence, and run the audit
+again as your work changes. AudiToad records findings, unanswered questions and coverage with
+the evidence behind each result. The baseline defines the audit, so the same engine can serve
+many kinds of work:
 
-AudiToad works through the checks and records the results, evidence and coverage in a report
-you can inspect, share or process with other tools. Reuse the baseline for the next revision,
-or write a new one for a different project or kind of audit.
+- Review [formal methods claims](examples/formal-claims/README.md) against supplied artifacts
+  and evidence.
+- Check [configuration and inventory policy](examples/disk-encryption/README.md),
+  [scanner findings](examples/scanner-policy/README.md) and [security events](examples/windows-memory/README.md).
+- Review code against [requirements](examples/python-review/README.md) or
+  [security rules](examples/web-security/README.md).
+- Enforce [writing standards](examples/no-slop/README.md), or ask focused questions about
+  an article, a report or chapters of a novel.
 
-Use AudiToad from the command line or integrate its Rust library into your own tools. Its scan
-engine uses the published Automation Structures 0.4.0 crate.
+Call the CLI or Rust library from your own tools, a CI/CD pipeline or a SOAR workflow. JSON
+reports and exit codes let the calling system route findings and unresolved checks. Start with
+the [user guide](docs/user-guide.md) or a [self-contained example](examples/README.md).
 
-Start with the [user guide](docs/user-guide.md) or choose a [self-contained example](examples/README.md).
-AudiToad accepts supplied text, byte inputs and inventory records; the subject does not have to
-be a code project. Python and other tools can invoke the CLI and read its JSON reports.
+## Built with Automation Structures
 
-Model questions and external helper results remain experimental; use their suggestions and labelled scores alongside the retained evidence.
-The [roadmap](ROADMAP.md) defines release gates, model-specific baseline research and the path
-to production. The [helper contract](docs/user-guide.md#neutral-evaluator-protocol) supports
-compatible models and conventional services. Baselines can declare the requirements an audit
-must cover, and reports show any requirement left unchecked or undecided. Image
-evidence is experimental; the [Jev image example](examples/jev-images/README.md)
-shows explicit PNG/JPEG requests and Box location helpers.
+AudiToad's audit engine is built by composing the reusable
+[Automation Structures](https://github.com/brian-c-moore/automation-structures) in the published
+Rust crate. The same engine runs research, compliance, security and writing baselines.
+
+The [case study](docs/automation-structures.md) walks through how it is built and how the parts
+work together. The [research](https://github.com/brian-c-moore/automation-structures-research)
+explains the underlying method.
+
+## See a result
+
+For example, the disk-encryption audit produces these selected fields in its JSON report:
+
+```json
+{
+  "outcome": "unresolved",
+  "counts": {
+    "pass": 1,
+    "fail": 1,
+    "review": 0,
+    "notapplicable": 0,
+    "not_evaluated": 1,
+    "error": 0
+  }
+}
+```
+
+One supplied disk record declares encryption, one declares no encryption, and one omits the
+fact. The command exits 2 so the missing fact stays visible. The [example guide](examples/disk-encryption/README.md)
+connects this check to a NIST control and explains the additional evidence an assessment needs.
+
+## Local checks and model judgments
+
+Local JSON, inventory, YARA and text predicates evaluate supplied evidence directly. Admitted
+checks can report `pass` or `fail`; missing evidence and refused work remain explicit.
+Syntax helpers select source text for later checks and retain its identity and byte offsets.
+
+Model judgments and external helper results remain experimental suggestions. Their terminal
+result is `not_evaluated`, and dependent checks retain that experimental status. Scans with
+these results exit 2. Use the retained evidence and labelled scores to assess them. The
+[roadmap](ROADMAP.md) describes the remaining release and baseline-research work.
+
+That roadmap includes broader baselines for indicators of compromise (IoCs), OWASP and
+MITRE ATT&CK, and screenshot-assisted review of selected manual STIG checks. Experimental
+PNG/JPEG support already exists, including native image requests to TypeSafe's Jev model;
+screenshot-based compliance baselines remain planned work. See the
+[image example](examples/jev-images/README.md) for the current binding.
 
 ## Install
 
@@ -73,17 +115,18 @@ auditoad scan --baseline examples/shipping-policy/baseline.json --input examples
 
 Preparation makes no provider request. To send the question to a model, add
 `--evaluators <file> --live` with an evaluator file that names your backend. The examples include
-one for TypeSafe's Jev (`examples/evaluators.json`, which reads `TYPESAFE_API_KEY`) and one for a
-local OpenAI-compatible server (`examples/evaluators.local.json`).
+one for [TypeSafe's Jev](https://typesafe.ai/), a model that answers focused questions with typed
+values and probabilities (`examples/evaluators.json`, which reads `TYPESAFE_API_KEY`), and one
+for a local OpenAI-compatible server (`examples/evaluators.local.json`).
 
 Baselines never name a model. An evaluator file maps each question role to TypeSafe's question
 API, a compatible-chat server such as llama.cpp, Ollama or vLLM, or AudiToad's neutral service
 protocol for models and conventional helpers. Swap implementations by editing that file;
 see [Choose the models](docs/user-guide.md#choose-the-models).
 
-Model questions currently produce experimental observations and suggested decisions. Their terminal
-result is `not_evaluated`, and the scan exits with code 2. The [examples guide](examples/README.md)
-explains the files, commands, expected results and how to supply your own inputs.
+The [examples guide](examples/README.md) explains the files, commands, expected results and how
+to supply your own inputs. The [Jev image example](examples/jev-images/README.md) demonstrates
+experimental native PNG requests and Box location helpers.
 
 ## Audit files
 
@@ -102,6 +145,13 @@ and the suite includes scores wherever you supplied labels. See [Audit files and
 Add `auditoad` to your dependencies. The main entry points are `ValidatedBaseline`, `Snapshot`,
 `scan` and `scan_to_file`; see the [API documentation](https://docs.rs/auditoad) for a usage example.
 
+## Where it started
+
+I started AudiToad because I needed a better way to audit my own work, especially formal
+methods research. The idea grew as I explored other uses across my interests, including
+security, compliance and writing. That practical need and the Automation Structures research
+both shape the project.
+
 ## Development
 
 The [documentation index](docs/README.md) links the build, architecture, developer and user guides.
@@ -109,7 +159,7 @@ The [Automation Structures case study](docs/automation-structures.md) explains h
 uses the crate's actual owners and actions. The repository also includes a
 [self-audit baseline](audit/README.md) for selected implementation requirements.
 
-See [Contributing](CONTRIBUTING.md) for contribution and release steps. Version changes and input compatibility are documented in the
+See [Contributing](CONTRIBUTING.md) for contribution and release steps. Implementation and compatibility changes are documented in the
 [changelog](CHANGELOG.md).
 
 ## License

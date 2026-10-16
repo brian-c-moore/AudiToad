@@ -1,12 +1,18 @@
 # Building AudiToad with Automation Structures
 
-AudiToad needs to execute a declared audit without losing checks, exceeding allowances or
-reporting success after a required operation refuses. Its questions can change across domains.
-Those execution obligations remain.
+AudiToad uses the same audit engine for formal methods research, software checks, security
+records and writing. This walkthrough shows how that engine is built by composing the
+[Automation Structures in the Rust crate](https://github.com/brian-c-moore/automation-structures),
+using the method described in the [research](https://github.com/brian-c-moore/automation-structures-research).
 
-This walkthrough follows the published `automation-structures = "=0.3.1"` dependency and the
-actual calls in [scan.rs](../src/scan.rs). AudiToad uses the crate directly; it does not copy
-its owner implementations. The application connects several owners in one serial process.
+The scanner needs to execute a declared audit without losing checks, exceeding allowances or
+reporting success after a required operation refuses. Its questions can change across domains;
+those execution obligations remain.
+
+This walkthrough follows the dependency pinned by [Cargo.toml](../Cargo.toml) and
+[Cargo.lock](../Cargo.lock), and the actual calls in [scan.rs](../src/scan.rs). AudiToad uses the
+published crate directly; it does not copy its owner implementations. The application connects
+several owners in one serial process.
 
 ## Begin with the work
 

@@ -29,3 +29,23 @@ results block the scan.
 To use your own inventory, preserve the inventory schema and supply its path through `--input`.
 To check a different fact, change the pointer, expected value, rule identity and known-answer
 records together. [Writing baselines](../../BASELINES.md) explains the hashes and other fields.
+
+## Relate the check to a security control
+
+[NIST SP 800-53 Rev. 5, SC-28(1), Cryptographic Protection](https://csrc.nist.gov/CSRC/media/Projects/risk-management/800-53%20Downloads/800-53r5/SP_800-53_v5_1-derived-OSCAL.pdf#page=326)
+calls for cryptographic protection against unauthorized disclosure and modification of selected
+information at rest on organization-defined components or media.
+
+This example checks one supplied declaration relevant to that assessment: whether each disk
+record says encryption is enabled.
+
+| Supplied fact | Result | Assessment use |
+|---|---|---|
+| `encrypted: true` | `pass` | The record declares encryption |
+| `encrypted: false` | `fail` | The record declares an encryption gap |
+| Fact absent | `not_evaluated` | Evidence is missing; the audit stays unresolved |
+
+A full assessment also needs the defined information and component scope, trustworthy and
+current collection evidence, and evidence that the selected mechanisms provide the required
+confidentiality and integrity protections. A `pass` here establishes only the supplied
+declaration. Keep those additional obligations explicit in the assessment baseline.

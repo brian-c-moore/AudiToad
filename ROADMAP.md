@@ -22,8 +22,10 @@ comparison and exchange reuse. Baselines can declare requirements, and reports b
 requirement left missing, unasked, stale, unsupported or unresolved. Model answers remain
 experimental suggestions with terminal `not_evaluated`.
 
-The neutral helper protocol, PNG screenshot binding and experimental-evidence propagation exist
-with local controls. Screenshot and other image processing are outside the first beta's scope.
+The neutral helper protocol, experimental PNG/JPEG evidence, native Jev image/Box bindings and
+experimental-evidence propagation exist with development controls. The
+[image example](examples/jev-images/README.md) records the current scope. Qualification of
+screenshot-assisted audits and broader visual interpretation remains planned work.
 
 | Stage | Definition for AudiToad | Work that should dominate |
 |---|---|---|
@@ -76,7 +78,7 @@ each finding should make the defect and its proposed repair clear.
 | Semantic questions | Configurable roles, combinations, extraction and consultation. Experimental derivation propagates through local consumers and gates. | Stronger research coverage and later exact-arrangement semantic admission. Current semantic results remain experimental `not_evaluated` observations. |
 | Helpers | Model extraction, local syntax and a versioned neutral protocol for conventional/model services with declared capabilities. | Qualify concrete helper implementations and broaden tested protocols through this boundary. |
 | Baseline experiments | Validation, preparation, named runs, external labels, scoring, matched comparisons, replay and exact exchange reuse. | Broader independent research and acceptance evidence; preserve custody/freshness controls. |
-| Images | Pinned PNG bytes, dimension headers and explicit regions retained through helper derivation. Neutral services can consume the image contract. | Qualify actual OCR/vision services and extraction quality, then additional formats. No bundled OCR or complete PNG decoder is shipped. |
+| Images | Pinned PNG/JPEG bytes, dimension headers and region metadata retained through helper derivation; native Jev image and Box bindings with development controls. | Qualify screenshot audit workflows, OCR/vision services and extraction quality, then additional formats. No bundled OCR or complete image decoder is shipped. |
 | Collection | Operators supply the material to examine. | Reviewed discovery and collection bindings if needed; active machine or fleet scanning remains future work. |
 
 ## Milestone A: finish alpha and release the initial beta
@@ -88,9 +90,9 @@ relatively few changes during baseline research.
 
 The first-beta scope is supplied text and structured evidence, including documents, code,
 structured inventory and scanner records. Provide local checks, configurable helper/evaluator
-roles, declared requirement coverage and the normal baseline-testing flow. Screenshots and other
-image evidence are later capabilities: the PNG binding and neutral image-helper contract exist
-with local controls, but no image helper is bundled, tested or supported in this beta.
+roles, declared requirement coverage and the normal baseline-testing flow. Experimental native
+image and helper bindings are available for development; qualified screenshot assessments remain
+later work, including selected manual STIG checks.
 Active collectors, scheduled fleet scans and remediation are also later capabilities.
 
 Before freezing the engine, demonstrate that the same contracts support:
@@ -191,9 +193,10 @@ already-qualified packs. Choose small, useful control subsets with defensible la
 | First | Evidence quality and audit coverage | Every audit depends on identity, scope, freshness and required evidence. | Supplied manifests and records; missing, stale, duplicate, conflicting and incomplete inputs. Check supplied declarations separately from independently verified provenance. |
 | First | Configuration and inventory policy | Useful across organizations and provides strong mechanical reference cases. | Exported settings, assets, accounts and policy parameters; encryption, required ownership, logging or approval checks with exact expected results. |
 | First | Scanner-result policy and triage | Directly supports auditing existing system and security scan outputs. | Results plus scanner version, target scope, execution status and coverage. Test severity policy, exception handling and missing scans; an empty findings array alone cannot establish a clean system. |
-| First | Policy, document and process records | Demonstrates value beyond the developer's own software stack. | Requirements and supporting records such as approvals, reviews or retention evidence. Separate what a policy says from whether the corresponding practice occurred. |
-| Next | Software requirements and security findings | Builds on existing code examples while supporting multiple languages and analyzers. | Source, requirements, analyzer outputs and executable or independently reviewed witnesses. Syntax, comments and model agreement cannot establish full program behavior. |
-| Next | Visual evidence and document forms | Makes the screenshot workflow useful across domains. | Screenshots or pages, capture context, region annotations and independently labelled observations; blurry, cropped, misleading and inaccessible evidence. |
+| First | Policy, writing and process records | Demonstrates audits of prose and records, including long-form writing and novels. | Declared writing standards or focused text questions; requirements and supporting approvals, reviews or retention evidence. Separate what a text says from whether a corresponding practice occurred. |
+| Next | Threat indicators and ATT&CK-related evidence | Extends the YARA and event examples into security baselines. | Versioned indicators of compromise (IoCs), supplied artifacts or event windows, and selected MITRE ATT&CK techniques. Distinguish an indicator match, observed behavior and an attribution claim; independently label each evaluated proposition. |
+| Next | Software requirements and OWASP security findings | Builds on existing code examples while supporting multiple languages and analyzers. | Source, selected OWASP Top 10 risk categories, versioned references, analyzer outputs and executable or independently reviewed witnesses. Syntax, comments and model agreement cannot establish full program behavior. |
+| Next | Visual evidence, document forms and manual STIG checks | Makes screenshot-assisted reviews useful across compliance and other audits. | The selected STIG revision and check procedure, captured system/setting identity, capture context, region annotations and independently labelled observations; blurry, cropped, misleading and inaccessible evidence. |
 | Next | Supply-chain artifact policy | A natural extension of inventory and imported findings. | SBOMs, component identities, provenance and vulnerability-context records. Test incomplete inventories, mismatched artifacts and unsupported exploitability claims. |
 | Later | Event and operational process controls | Supports relationships, ordering and repeated audit evidence. | Complete declared event windows, source/time identities and records of actions. Include partial logs, clock uncertainty and missing events. |
 
@@ -201,6 +204,11 @@ The initial public portfolio should show inventory, scanner-result and document/
 alongside code and formal-methods examples. Formal-methods qualification remains the immediate
 depth priority. Reuse sound existing examples; broader coverage should add reviewed domain
 content through the same engine.
+
+Security pack references include [OWASP](https://owasp.org/projects/top-ten),
+[MITRE ATT&CK](https://attack.mitre.org/) and [DISA STIGs](https://www.cyber.mil/stigs/).
+The existing web-security and event examples are starting points for this research; each
+published pack must name its evaluated subset and evidence requirements.
 
 ### B2. Evaluate interoperability by task
 
@@ -279,6 +287,13 @@ reviewed coupling. Identify a missing canonical API or composition before implem
 mechanism. See the [construction walkthrough](docs/automation-structures.md).
 
 ### Images and screenshots
+
+An intended use is screenshot-assisted review of selected manual checks in DISA STIG
+compliance baselines. Bind each question to the exact STIG revision and check procedure,
+the assessed system and the capture context. Establish the visible setting or condition
+separately from judging whether it satisfies the requirement. Missing context or an unreadable
+setting stays unresolved. The current image binding is a development foundation for this
+workflow; assessment baselines and their visual observations still need qualification.
 
 Preserve the original image identity, dimensions, capture context and declared scope. Retain
 OCR text and region coordinates, image transformations and the tool/model that produced them.
@@ -398,9 +413,13 @@ The production release should be supported by those records, not by a version nu
 ## After the first production release
 
 Expand control coverage and helper bindings through the established contracts. Consider reviewed
-collection/discovery, scheduled audits, larger inventories and external workflow integrations
+collection/discovery, scheduled audits, larger inventories and dedicated workflow connectors
 when field use demonstrates the need. Each capability needs its own declared scope, canonical
 construction, resource limits, failure behavior and acceptance evidence.
+
+The CLI and Rust library can already be called from CI/CD pipelines, SOAR workflows or other
+tools. JSON reports and exit status let the caller route results under its own policy.
+Dedicated supported connectors and automated remediation are separate work.
 
 Remediation introduces authority to change audited systems and needs a separate design and
 authorization model. Keep evidence evaluation useful on its own while that work is considered.
