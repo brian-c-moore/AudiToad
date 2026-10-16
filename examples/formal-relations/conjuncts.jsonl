@@ -1,0 +1,12 @@
+{"source":"---- MODULE C ----\nBase == TRUE\nProgress == TRUE\nSpec == Base /\\ Progress\n====","operator":"Spec","dependency":"Progress"}
+{"source":"---- MODULE C ----\nBase == TRUE\nProgress == TRUE\nSpec == Progress /\\ Base\n====","operator":"Spec","dependency":"Progress"}
+{"source":"---- MODULE C ----\nBase == TRUE\nProgress == TRUE\nSpec == /\\ Base\n        /\\ Progress\n====","operator":"Spec","dependency":"Progress"}
+{"source":"---- MODULE C ----\nBase == TRUE\nProgress == TRUE\nSpec == Base \\/ Progress\n====","operator":"Spec","dependency":"Progress"}
+{"source":"---- MODULE C ----\nBase == TRUE\nProgress == TRUE\nSpec == Base /\\ ~Progress\n====","operator":"Spec","dependency":"Progress"}
+{"source":"---- MODULE C ----\nBase == TRUE\nProgress == TRUE\nSpec == Base => Progress\n====","operator":"Spec","dependency":"Progress"}
+{"source":"---- MODULE C ----\nBase == TRUE\nProgress == TRUE\nAux == TRUE\nSpec == Base /\\ (Progress \\/ Aux)\n====","operator":"Spec","dependency":"Progress"}
+{"source":"---- MODULE C ----\nBase == TRUE\nProgress == TRUE\nAux == TRUE\nSpec == Base /\\ (Progress /\\ Aux)\n====","operator":"Spec","dependency":"Progress"}
+{"source":"---- MODULE C ----\nBase == TRUE\nProgress == TRUE\nSpec == Base /\\ (Progress)\n====","operator":"Spec","dependency":"Progress"}
+{"source":"---- MODULE C ----\nBase == TRUE\nProgress == TRUE\nSpec == Base\n\\* /\\ Progress\n====","operator":"Spec","dependency":"Progress"}
+{"source":"---- MODULE C ----\nBase == TRUE\nProgress == TRUE\nSpec == Base /\\ (\"Progress\" = \"Progress\")\n====","operator":"Spec","dependency":"Progress"}
+{"source":"---- MODULE C ----\nBase == TRUE\nProgress == TRUE\nSpec == /\\ Progress\n        /\\ Base\n====","operator":"Spec","dependency":"Progress"}

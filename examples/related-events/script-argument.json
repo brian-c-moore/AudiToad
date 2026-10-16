@@ -1,0 +1,1 @@
+{"subject":{"type":"TXT"},"related":{"process":[{"command":"powershell.exe -File D:\\Jobs\\Export.ps1 -EncodedCommand RwBlAHQALQBEAGEAdABlAA=="}]}}

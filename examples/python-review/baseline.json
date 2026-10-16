@@ -1,0 +1,627 @@
+{
+  "schema": "auditoad-baseline/1",
+  "baseline": {
+    "id": "python-review",
+    "version": "4",
+    "title": "Python order-processing policy audit",
+    "publisher": "AudiToad examples",
+    "status": "draft"
+  },
+  "sources": {
+    "evidence": {
+      "adapter": "evidence-bundle/1",
+      "media": [
+        "application/vnd.auditoad.bundle+json"
+      ]
+    }
+  },
+  "evidence": {
+    "selected": {"builder":"declared-parts/1","builder_revision":"r1","required_roles":["subject","policy"]},
+    "PY-SHIPPING": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject",
+        "policy"
+      ]
+    },
+    "PY-MEMBER": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject",
+        "policy"
+      ]
+    },
+    "PY-DECODE": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject",
+        "policy"
+      ]
+    },
+    "PY-EMAIL": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject",
+        "policy"
+      ]
+    },
+    "PY-EMAIL-END": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject",
+        "policy"
+      ]
+    },
+    "PY-EMAIL-CASE": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject",
+        "policy"
+      ]
+    },
+    "PY-LIST-IDENTITY": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject",
+        "policy"
+      ]
+    },
+    "PY-LIST-CONTENT": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject",
+        "policy"
+      ]
+    },
+    "PY-LIST": {
+      "builder": "answers/1",
+      "builder_revision": "r1"
+    }
+  },
+  "groups": [
+    {
+      "id": "orders",
+      "title": "Orders"
+    },
+    {
+      "id": "errors",
+      "title": "Errors"
+    },
+    {
+      "id": "normalization",
+      "title": "Normalization"
+    },
+    {
+      "id": "state",
+      "title": "State"
+    }
+  ],
+  "rules": [
+    {"id":"PY-SELECT-SHIPPING","revision":"1","source":"evidence","group":"orders","risk":"low","scope_kind":"site","title":"Select shipping_fee","evidence":"selected",
+      "evaluator":{"kind":"syntax","contract":"syntax/1"},"check":{"kind":"syntax/1","language":"python","json_string_pointer":"/parts/0/text","query":"((function_definition) @function (#match? @function \"^def shipping_fee\\\\(\"))"},
+      "applicability":{"include":["shipping_fee"],"exclude":[]},"falsifier":"The capture differs from the complete named function.","fixtures":{"pass":[],"fail":[]}},
+    {"id":"PY-SELECT-EXPRESS","revision":"1","source":"evidence","group":"orders","risk":"low","scope_kind":"site","title":"Select express_shipping_fee","evidence":"selected",
+      "evaluator":{"kind":"syntax","contract":"syntax/1"},"check":{"kind":"syntax/1","language":"python","json_string_pointer":"/parts/0/text","query":"((function_definition) @function (#match? @function \"^def express_shipping_fee\\\\(\"))"},
+      "applicability":{"include":["express_shipping_fee"],"exclude":[]},"falsifier":"The capture differs from the complete named function.","fixtures":{"pass":[],"fail":[]}},
+    {"id":"PY-SELECT-DISCOUNT","revision":"1","source":"evidence","group":"orders","risk":"low","scope_kind":"site","title":"Select discount_rate","evidence":"selected",
+      "evaluator":{"kind":"syntax","contract":"syntax/1"},"check":{"kind":"syntax/1","language":"python","json_string_pointer":"/parts/0/text","query":"((function_definition) @function (#match? @function \"^def discount_rate\\\\(\"))"},
+      "applicability":{"include":["discount_rate"],"exclude":[]},"falsifier":"The capture differs from the complete named function.","fixtures":{"pass":[],"fail":[]}},
+    {"id":"PY-SELECT-RENEWAL","revision":"1","source":"evidence","group":"orders","risk":"low","scope_kind":"site","title":"Select renewal_discount","evidence":"selected",
+      "evaluator":{"kind":"syntax","contract":"syntax/1"},"check":{"kind":"syntax/1","language":"python","json_string_pointer":"/parts/0/text","query":"((function_definition) @function (#match? @function \"^def renewal_discount\\\\(\"))"},
+      "applicability":{"include":["renewal_discount"],"exclude":[]},"falsifier":"The capture differs from the complete named function.","fixtures":{"pass":[],"fail":[]}},
+    {"id":"PY-SELECT-DECODE-ORDER","revision":"1","source":"evidence","group":"errors","risk":"low","scope_kind":"site","title":"Select decode_order and its imports","evidence":"selected",
+      "evaluator":{"kind":"syntax","contract":"syntax/1"},"check":{"kind":"syntax/1","language":"python","json_string_pointer":"/parts/0/text","query":"(import_statement) @imports ((function_definition) @function (#match? @function \"^def decode_order\\\\(\"))"},
+      "applicability":{"include":["decode_order"],"exclude":[]},"falsifier":"The capture differs from the complete named function or import.","fixtures":{"pass":[],"fail":[]}},
+    {"id":"PY-SELECT-DECODE-RETURN","revision":"1","source":"evidence","group":"errors","risk":"low","scope_kind":"site","title":"Select decode_return and its imports","evidence":"selected",
+      "evaluator":{"kind":"syntax","contract":"syntax/1"},"check":{"kind":"syntax/1","language":"python","json_string_pointer":"/parts/0/text","query":"(import_statement) @imports ((function_definition) @function (#match? @function \"^def decode_return\\\\(\"))"},
+      "applicability":{"include":["decode_return"],"exclude":[]},"falsifier":"The capture differs from the complete named function or import.","fixtures":{"pass":[],"fail":[]}},
+    {"id":"PY-SELECT-CONTACT","revision":"1","source":"evidence","group":"normalization","risk":"low","scope_kind":"site","title":"Select contact_email","evidence":"selected",
+      "evaluator":{"kind":"syntax","contract":"syntax/1"},"check":{"kind":"syntax/1","language":"python","json_string_pointer":"/parts/0/text","query":"((function_definition) @function (#match? @function \"^def contact_email\\\\(\"))"},
+      "applicability":{"include":["contact_email"],"exclude":[]},"falsifier":"The capture differs from the complete named function.","fixtures":{"pass":[],"fail":[]}},
+    {"id":"PY-SELECT-BILLING","revision":"1","source":"evidence","group":"normalization","risk":"low","scope_kind":"site","title":"Select billing_email","evidence":"selected",
+      "evaluator":{"kind":"syntax","contract":"syntax/1"},"check":{"kind":"syntax/1","language":"python","json_string_pointer":"/parts/0/text","query":"((function_definition) @function (#match? @function \"^def billing_email\\\\(\"))"},
+      "applicability":{"include":["billing_email"],"exclude":[]},"falsifier":"The capture differs from the complete named function.","fixtures":{"pass":[],"fail":[]}},
+    {"id":"PY-SELECT-NOTE","revision":"1","source":"evidence","group":"state","risk":"low","scope_kind":"site","title":"Select add_note","evidence":"selected",
+      "evaluator":{"kind":"syntax","contract":"syntax/1"},"check":{"kind":"syntax/1","language":"python","json_string_pointer":"/parts/0/text","query":"((function_definition) @function (#match? @function \"^def add_note\\\\(\"))"},
+      "applicability":{"include":["add_note"],"exclude":[]},"falsifier":"The capture differs from the complete named function.","fixtures":{"pass":[],"fail":[]}},
+    {"id":"PY-SELECT-MESSAGE","revision":"1","source":"evidence","group":"state","risk":"low","scope_kind":"site","title":"Select add_message","evidence":"selected",
+      "evaluator":{"kind":"syntax","contract":"syntax/1"},"check":{"kind":"syntax/1","language":"python","json_string_pointer":"/parts/0/text","query":"((function_definition) @function (#match? @function \"^def add_message\\\\(\"))"},
+      "applicability":{"include":["add_message"],"exclude":[]},"falsifier":"The capture differs from the complete named function.","fixtures":{"pass":[],"fail":[]}},
+    {"id":"PY-SHIPPING-CONTEXT","revision":"3","source":"evidence","group":"orders","risk":"low","scope_kind":"site","title":"Shipping decision context","evidence":"selected",
+      "evaluator":{"kind":"model","contract":"extract/1","role":"helper"},"consult":{"rules":["PY-SELECT-SHIPPING","PY-SELECT-EXPRESS"]},
+      "check":{"kind":"extract/1","instructions":"One code field contains the complete selected function. Copy the comparison and return statements that determine the shipping charge. Return source quotes only; do not decide compliance.",
+        "fields":{"context":{"type":"quote_list","description":"The exact comparison and charge-return statements."}},"max_request_bytes":32000,
+        "state_required_any":[["code_a","code_b"]],
+        "state_projection":{"code_a":{"pointer":"/prior/0/observation/fields/captures","capture":"function","optional":true},"code_b":{"pointer":"/prior/1/observation/fields/captures","capture":"function","optional":true}}},
+      "applicability":{"include":["shipping_fee","express_shipping_fee"],"exclude":[]},"falsifier":"A relevant branch is omitted or a quote is invented.","fixtures":{"pass":[],"fail":[]}},
+    {"id":"PY-MEMBER-CONTEXT","revision":"3","source":"evidence","group":"orders","risk":"low","scope_kind":"site","title":"Membership decision context","evidence":"selected",
+      "evaluator":{"kind":"model","contract":"extract/1","role":"helper"},"consult":{"rules":["PY-SELECT-DISCOUNT","PY-SELECT-RENEWAL"]},
+      "check":{"kind":"extract/1","instructions":"One code field contains the complete selected function. Copy the condition and return statements that govern member eligibility. Return source quotes only; do not decide compliance.",
+        "fields":{"context":{"type":"quote_list","description":"The exact eligibility condition and discount returns."}},"max_request_bytes":32000,
+        "state_required_any":[["code_a","code_b"]],
+        "state_projection":{"code_a":{"pointer":"/prior/0/observation/fields/captures","capture":"function","optional":true},"code_b":{"pointer":"/prior/1/observation/fields/captures","capture":"function","optional":true}}},
+      "applicability":{"include":["discount_rate","renewal_discount"],"exclude":[]},"falsifier":"An eligibility branch is omitted or a quote is invented.","fixtures":{"pass":[],"fail":[]}},
+    {"id":"PY-DECODE-CONTEXT","revision":"3","source":"evidence","group":"errors","risk":"low","scope_kind":"site","title":"Decoding error context","evidence":"selected",
+      "evaluator":{"kind":"model","contract":"extract/1","role":"helper"},"consult":{"rules":["PY-SELECT-DECODE-ORDER","PY-SELECT-DECODE-RETURN"]},
+      "check":{"kind":"extract/1","instructions":"One code field contains the complete selected function; the matching imports field contains its imports. Copy the decoding call and any exception handler governing its errors. Return source quotes only; do not decide compliance.",
+        "fields":{"context":{"type":"quote_list","description":"The exact decoding call and any surrounding exception handler."}},"max_request_bytes":32000,
+        "state_required_any":[["code_a","code_b"]],
+        "state_projection":{"code_a":{"pointer":"/prior/0/observation/fields/captures","capture":"function","optional":true},"code_b":{"pointer":"/prior/1/observation/fields/captures","capture":"function","optional":true},"imports_a":{"pointer":"/prior/0/observation/fields/captures","capture":"imports","optional":true},"imports_b":{"pointer":"/prior/1/observation/fields/captures","capture":"imports","optional":true}}},
+      "applicability":{"include":["decode_order","decode_return"],"exclude":[]},"falsifier":"An error handler is omitted or a quote is invented.","fixtures":{"pass":[],"fail":[]}},
+    {"id":"PY-EMAIL-CONTEXT","revision":"3","source":"evidence","group":"normalization","risk":"low","scope_kind":"site","title":"Email transformation context","evidence":"selected",
+      "evaluator":{"kind":"model","contract":"extract/1","role":"helper"},"consult":{"rules":["PY-SELECT-CONTACT","PY-SELECT-BILLING"]},
+      "check":{"kind":"extract/1","instructions":"One code field contains the complete selected function. Copy the expression that transforms and returns the email. Return a source quote only; do not decide compliance.",
+        "fields":{"context":{"type":"quote_list","description":"The exact returned email transformation."}},"max_request_bytes":32000,
+        "state_required_any":[["code_a","code_b"]],
+        "state_projection":{"code_a":{"pointer":"/prior/0/observation/fields/captures","capture":"function","optional":true},"code_b":{"pointer":"/prior/1/observation/fields/captures","capture":"function","optional":true}}},
+      "applicability":{"include":["contact_email","billing_email"],"exclude":[]},"falsifier":"A transformation is omitted or a quote is invented.","fixtures":{"pass":[],"fail":[]}},
+    {"id":"PY-LIST-CONTEXT","revision":"3","source":"evidence","group":"state","risk":"low","scope_kind":"site","title":"List lifetime context","evidence":"selected",
+      "evaluator":{"kind":"model","contract":"extract/1","role":"helper"},"consult":{"rules":["PY-SELECT-NOTE","PY-SELECT-MESSAGE"]},
+      "check":{"kind":"extract/1","instructions":"One code field contains the complete selected function. Copy the list default, allocation, mutation and return statements governing the returned object's lifetime. Return source quotes only; do not decide compliance.",
+        "fields":{"context":{"type":"quote_list","description":"The exact list default and allocation, mutation and return statements."}},"max_request_bytes":32000,
+        "state_required_any":[["code_a","code_b"]],
+        "state_projection":{"code_a":{"pointer":"/prior/0/observation/fields/captures","capture":"function","optional":true},"code_b":{"pointer":"/prior/1/observation/fields/captures","capture":"function","optional":true}}},
+      "applicability":{"include":["add_note","add_message"],"exclude":[]},"falsifier":"A lifetime-relevant statement is omitted or a quote is invented.","fixtures":{"pass":[],"fail":[]}},
+    {
+      "id": "PY-SHIPPING",
+      "revision": "5",
+      "consult": {"rules":["PY-SELECT-SHIPPING","PY-SELECT-EXPRESS","PY-SHIPPING-CONTEXT"]},
+      "source": "evidence",
+      "group": "orders",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Free shipping at the cutoff",
+      "evidence": "PY-SHIPPING",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "The complete selected function is in the populated code_a or code_b field; its requirements are in policy. Context quotes are advisory; check them against the function. In Python comparisons, < and > exclude equality; <= and >= include equality. Does this function charge shipping at the policy's free-shipping threshold?",
+        "criteria_true": "An order exactly at the threshold is charged shipping.",
+        "criteria_false": "Shipping is free for an order exactly at the threshold.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 32000,
+        "state_required_any": [["code_a", "code_b"]],
+        "state_projection": {
+          "code_a": {"pointer":"/prior/0/observation/fields/captures","capture":"function","optional":true},
+          "code_b": {"pointer":"/prior/1/observation/fields/captures","capture":"function","optional":true},
+          "context": {"pointer":"/prior/2/observation/fields/context","optional":true},
+          "policy": "/parts/1/text"
+        }
+      },
+      "applicability": {
+        "include": [
+          "shipping_fee", "express_shipping_fee"
+        ],
+        "exclude": []
+      },
+      "falsifier": "An order exactly at the threshold is charged shipping.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      }
+    },
+    {
+      "id": "PY-MEMBER",
+      "revision": "5",
+      "consult": {"rules":["PY-SELECT-DISCOUNT","PY-SELECT-RENEWAL","PY-MEMBER-CONTEXT"]},
+      "source": "evidence",
+      "group": "orders",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Boolean member eligibility",
+      "evidence": "PY-MEMBER",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "The complete selected function is in the populated code_a or code_b field; its requirements are in policy. Context quotes are advisory; check them against the function. In Python, a condition such as `if member:` or `member == True` accepts other values: any truthy value such as 1, a non-empty string or a non-empty list passes `if member:`, and 1 passes `== True`. Only `member is True` accepts the boolean True alone. Can this function give the member discount when member is not the boolean True?",
+        "criteria_true": "A value other than the boolean True can get the member discount.",
+        "criteria_false": "Only the boolean True can get the member discount.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 32000,
+        "state_required_any": [["code_a", "code_b"]],
+        "state_projection": {
+          "code_a":{"pointer":"/prior/0/observation/fields/captures","capture":"function","optional":true},
+          "code_b":{"pointer":"/prior/1/observation/fields/captures","capture":"function","optional":true},
+          "context":{"pointer":"/prior/2/observation/fields/context","optional":true},
+          "policy":"/parts/1/text"
+        }
+      },
+      "applicability": {
+        "include": [
+          "discount_rate", "renewal_discount"
+        ],
+        "exclude": []
+      },
+      "falsifier": "A value other than the boolean True can get the member discount.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      }
+    },
+    {
+      "id": "PY-DECODE",
+      "revision": "5",
+      "consult": {"rules":["PY-SELECT-DECODE-ORDER","PY-SELECT-DECODE-RETURN","PY-DECODE-CONTEXT"]},
+      "source": "evidence",
+      "group": "errors",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Decoding errors reach the caller",
+      "evidence": "PY-DECODE",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "The complete selected function is in the populated code_a or code_b field, with its imports in the matching imports_a or imports_b field; its requirements are in policy. Context quotes are advisory; check them against the function. Does this function swallow a JSON decoding error?",
+        "criteria_true": "The function catches a decoding error and returns normally.",
+        "criteria_false": "A decoding error reaches the caller.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 32000,
+        "state_required_any": [["code_a", "code_b"]],
+        "state_projection": {
+          "code_a":{"pointer":"/prior/0/observation/fields/captures","capture":"function","optional":true},
+          "code_b":{"pointer":"/prior/1/observation/fields/captures","capture":"function","optional":true},
+          "imports_a":{"pointer":"/prior/0/observation/fields/captures","capture":"imports","optional":true},
+          "imports_b":{"pointer":"/prior/1/observation/fields/captures","capture":"imports","optional":true},
+          "context":{"pointer":"/prior/2/observation/fields/context","optional":true},
+          "policy":"/parts/1/text"
+        }
+      },
+      "applicability": {
+        "include": [
+          "decode_order", "decode_return"
+        ],
+        "exclude": []
+      },
+      "falsifier": "The function catches a decoding error and returns normally.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      }
+    },
+    {
+      "id": "PY-EMAIL",
+      "revision": "5",
+      "consult": {"rules":["PY-SELECT-CONTACT","PY-SELECT-BILLING","PY-EMAIL-CONTEXT"]},
+      "source": "evidence",
+      "group": "normalization",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Leading whitespace",
+      "evidence": "PY-EMAIL",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "The complete selected function is in the populated code_a or code_b field; its requirements are in policy. Context quotes are advisory; check them against the function. Can the returned email still have whitespace at the start?",
+        "criteria_true": "Leading whitespace in the input remains in the output.",
+        "criteria_false": "The function removes leading whitespace.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 32000,
+        "state_required_any": [["code_a", "code_b"]],
+        "state_projection": {
+          "code_a":{"pointer":"/prior/0/observation/fields/captures","capture":"function","optional":true},
+          "code_b":{"pointer":"/prior/1/observation/fields/captures","capture":"function","optional":true},
+          "context":{"pointer":"/prior/2/observation/fields/context","optional":true},
+          "policy":"/parts/1/text"
+        }
+      },
+      "applicability": {
+        "include": [
+          "contact_email", "billing_email"
+        ],
+        "exclude": []
+      },
+      "falsifier": "Leading whitespace in the input remains in the output.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      }
+    },
+    {
+      "id": "PY-EMAIL-END",
+      "revision": "5",
+      "consult": {"rules":["PY-SELECT-CONTACT","PY-SELECT-BILLING","PY-EMAIL-CONTEXT"]},
+      "source": "evidence",
+      "group": "normalization",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Trailing whitespace",
+      "evidence": "PY-EMAIL-END",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "The complete selected function is in the populated code_a or code_b field; its requirements are in policy. Context quotes are advisory; check them against the function. Can the returned email still have whitespace at the end?",
+        "criteria_true": "Trailing whitespace in the input remains in the output.",
+        "criteria_false": "The function removes trailing whitespace.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 32000,
+        "state_required_any": [["code_a", "code_b"]],
+        "state_projection": {
+          "code_a":{"pointer":"/prior/0/observation/fields/captures","capture":"function","optional":true},
+          "code_b":{"pointer":"/prior/1/observation/fields/captures","capture":"function","optional":true},
+          "context":{"pointer":"/prior/2/observation/fields/context","optional":true},
+          "policy":"/parts/1/text"
+        }
+      },
+      "applicability": {
+        "include": [
+          "contact_email", "billing_email"
+        ],
+        "exclude": []
+      },
+      "falsifier": "Trailing whitespace in the input remains in the output.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      }
+    },
+    {
+      "id": "PY-EMAIL-CASE",
+      "revision": "5",
+      "consult": {"rules":["PY-SELECT-CONTACT","PY-SELECT-BILLING","PY-EMAIL-CONTEXT"]},
+      "source": "evidence",
+      "group": "normalization",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Lowercase email",
+      "evidence": "PY-EMAIL-CASE",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "The complete selected function is in the populated code_a or code_b field; its requirements are in policy. Context quotes are advisory; check them against the function. Can the returned email still contain uppercase letters?",
+        "criteria_true": "The function can leave uppercase letters in the output.",
+        "criteria_false": "The function converts uppercase letters to lowercase.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 32000,
+        "state_required_any": [["code_a", "code_b"]],
+        "state_projection": {
+          "code_a":{"pointer":"/prior/0/observation/fields/captures","capture":"function","optional":true},
+          "code_b":{"pointer":"/prior/1/observation/fields/captures","capture":"function","optional":true},
+          "context":{"pointer":"/prior/2/observation/fields/context","optional":true},
+          "policy":"/parts/1/text"
+        }
+      },
+      "applicability": {
+        "include": [
+          "contact_email", "billing_email"
+        ],
+        "exclude": []
+      },
+      "falsifier": "The function can leave uppercase letters in the output.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      }
+    },
+    {
+      "id": "PY-LIST-IDENTITY",
+      "revision": "5",
+      "consult": {"rules":["PY-SELECT-NOTE","PY-SELECT-MESSAGE","PY-LIST-CONTEXT"]},
+      "source": "evidence",
+      "group": "state",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Fresh returned list",
+      "evidence": "PY-LIST-IDENTITY",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "The complete selected function is in the populated code_a or code_b field. Context quotes are advisory; check them against the function. Python default argument values are created once, when the function is defined. append, extend, += and clear modify the same list; list(), copy(), slicing and + create a new list. Consider calls that omit the list argument. Is the returned list object reused by later calls?",
+        "criteria_true": "Separate omitted-list calls can return the same object.",
+        "criteria_false": "Each omitted-list call returns a distinct list object.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 32000,
+        "state_required_any": [["code_a", "code_b"]],
+        "state_projection": {
+          "code_a":{"pointer":"/prior/0/observation/fields/captures","capture":"function","optional":true},
+          "code_b":{"pointer":"/prior/1/observation/fields/captures","capture":"function","optional":true},
+          "context":{"pointer":"/prior/2/observation/fields/context","optional":true}
+        }
+      },
+      "applicability": {
+        "include": [
+          "add_note", "add_message"
+        ],
+        "exclude": []
+      },
+      "falsifier": "Separate omitted-list calls can return the same object.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      }
+    },
+    {
+      "id": "PY-LIST-CONTENT",
+      "revision": "5",
+      "consult": {"rules":["PY-SELECT-NOTE","PY-SELECT-MESSAGE","PY-LIST-CONTEXT"]},
+      "source": "evidence",
+      "group": "state",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "No contents from earlier calls",
+      "evidence": "PY-LIST-CONTENT",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "The complete selected function is in the populated code_a or code_b field. Context quotes are advisory; check them against the function. Python default argument values are created once, when the function is defined. append, extend, += and clear modify the same list; list(), copy(), slicing and + create a new list. Consider calls that omit the list argument. Can the returned list contain items added by earlier calls?",
+        "criteria_true": "Items added by earlier calls can appear in the returned list.",
+        "criteria_false": "The returned list contains no items carried over from earlier calls.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 32000,
+        "state_required_any": [["code_a", "code_b"]],
+        "state_projection": {
+          "code_a":{"pointer":"/prior/0/observation/fields/captures","capture":"function","optional":true},
+          "code_b":{"pointer":"/prior/1/observation/fields/captures","capture":"function","optional":true},
+          "context":{"pointer":"/prior/2/observation/fields/context","optional":true}
+        }
+      },
+      "applicability": {
+        "include": [
+          "add_note", "add_message"
+        ],
+        "exclude": []
+      },
+      "falsifier": "Items added by earlier calls can appear in the returned list.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      }
+    },
+    {
+      "id": "PY-LIST",
+      "revision": "3",
+      "source": "evidence",
+      "group": "state",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Independent omitted-list calls",
+      "evidence": "PY-LIST",
+      "evaluator": {
+        "kind": "answers",
+        "contract": "answers/1"
+      },
+      "check": {
+        "kind": "answers/1",
+        "rules": [
+          "PY-LIST-IDENTITY",
+          "PY-LIST-CONTENT"
+        ],
+        "fail_when": "any_fail",
+        "resolution": "decisive",
+        "coverage": "For this function, omitted-list calls must return distinct list objects and must not carry contents from earlier calls. Either violation fails the list requirement."
+      },
+      "applicability": {
+        "include": [
+          "add_note", "add_message"
+        ],
+        "exclude": []
+      },
+      "falsifier": "The returned object or its contents can be shared across omitted-list calls.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      }
+    }
+  ],
+  "profiles": [
+    {
+      "id": "all",
+      "select": [
+        "*"
+      ],
+      "block_on": [
+        "fail",
+        "review",
+        "error",
+        "not_evaluated"
+      ],
+      "allowed_egress": [
+        "https://api.typesafe.ai",
+        "loopback"
+      ]
+    },
+    {
+      "id": "orders",
+      "select": [
+        "orders/*"
+      ],
+      "block_on": [
+        "fail",
+        "review",
+        "error",
+        "not_evaluated"
+      ],
+      "allowed_egress": [
+        "https://api.typesafe.ai",
+        "loopback"
+      ]
+    },
+    {
+      "id": "errors",
+      "select": [
+        "errors/*"
+      ],
+      "block_on": [
+        "fail",
+        "review",
+        "error",
+        "not_evaluated"
+      ],
+      "allowed_egress": [
+        "https://api.typesafe.ai",
+        "loopback"
+      ]
+    },
+    {
+      "id": "normalization",
+      "select": [
+        "normalization/*"
+      ],
+      "block_on": [
+        "fail",
+        "review",
+        "error",
+        "not_evaluated"
+      ],
+      "allowed_egress": [
+        "https://api.typesafe.ai",
+        "loopback"
+      ]
+    },
+    {
+      "id": "state",
+      "select": [
+        "state/*"
+      ],
+      "block_on": [
+        "fail",
+        "review",
+        "error",
+        "not_evaluated"
+      ],
+      "allowed_egress": [
+        "https://api.typesafe.ai",
+        "loopback"
+      ]
+    }
+  ]
+}

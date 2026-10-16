@@ -1,0 +1,20 @@
+{
+  "$schema": "../../docs/evaluators.schema.json",
+  "schema": "auditoad-evaluators/1",
+  "evaluators": {
+    "jev-images": {
+      "backend": "typesafe-jev",
+      "model": "jev-1.14.0",
+      "endpoint": "https://api.typesafe.ai/v1/systemone",
+      "allow_images": true,
+      "capabilities": ["choice/1", "yes-no/1", "box/1", "image/png", "image/jpeg"],
+      "max_request_bytes": 8388608,
+      "timeout_seconds": 60,
+      "key": {"env": "TYPESAFE_API_KEY"}
+    }
+  },
+  "roles": {
+    "default": {"use": "jev-images"},
+    "helper": {"use": "jev-images"}
+  }
+}

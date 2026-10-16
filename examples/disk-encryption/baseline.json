@@ -1,0 +1,81 @@
+{
+  "schema": "auditoad-baseline/1",
+  "baseline": {
+    "id": "disk-encryption",
+    "version": "1",
+    "title": "Disk encryption inventory audit",
+    "publisher": "AudiToad examples",
+    "status": "admitted"
+  },
+  "sources": {
+    "inventory": {
+      "adapter": "inventory-json/1",
+      "media": ["host.property"]
+    }
+  },
+  "evidence": {
+    "item": {
+      "builder": "item-json/1",
+      "builder_revision": "r1"
+    }
+  },
+  "groups": [
+    {
+      "id": "DISK",
+      "title": "Disk encryption"
+    }
+  ],
+  "rules": [
+    {
+      "id": "DISK-ENCRYPTED",
+      "revision": "r1",
+      "source": "inventory",
+      "group": "DISK",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Disk record declares encryption",
+      "evidence": "item",
+      "evaluator": {
+        "kind": "json-pointer-equals",
+        "contract": "json-pointer-equals/1"
+      },
+      "check": {
+        "kind": "json-pointer-equals/1",
+        "pointer": "/facts/encrypted",
+        "expected": true,
+        "fail_when": "unequal"
+      },
+      "applicability": {
+        "include": ["host.property"],
+        "exclude": []
+      },
+      "falsifier": "The disk record's encrypted fact exists and is unequal to true. A missing fact remains unevaluated.",
+      "fixtures": {
+        "fail": [
+          {
+            "path": "unencrypted.json",
+            "corpus_revision": "1",
+            "source_sha256": "f231cba500bb10a1ffc1e756c77ff97d2f9de9d3d07f39166e7fe77ec46d534e",
+            "evidence_sha256": "f231cba500bb10a1ffc1e756c77ff97d2f9de9d3d07f39166e7fe77ec46d534e"
+          }
+        ],
+        "pass": [
+          {
+            "path": "encrypted.json",
+            "corpus_revision": "1",
+            "source_sha256": "de8ebb24f7304eefe76148f53df9c8504c67162971f8d4272b569b85f903f5db",
+            "evidence_sha256": "de8ebb24f7304eefe76148f53df9c8504c67162971f8d4272b569b85f903f5db"
+          }
+        ]
+      }
+    }
+  ],
+  "profiles": [
+    {
+      "id": "inventory",
+      "select": ["*"],
+      "block_on": ["fail", "review", "error", "not_evaluated"],
+      "allowed_egress": []
+    }
+  ]
+}

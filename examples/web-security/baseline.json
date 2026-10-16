@@ -1,0 +1,3103 @@
+{
+  "schema": "auditoad-baseline/1",
+  "baseline": {
+    "id": "web-security",
+    "version": "3",
+    "title": "OWASP Top 10 review of Python web handlers",
+    "publisher": "AudiToad examples",
+    "status": "draft"
+  },
+  "sources": {
+    "evidence": {
+      "adapter": "evidence-bundle/1",
+      "media": [
+        "application/vnd.auditoad.bundle+json"
+      ]
+    }
+  },
+  "evidence": {
+    "selected": {"builder":"declared-parts/1","builder_revision":"r1","required_roles":["subject"]},
+    "PATH-CALL": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject"
+      ]
+    },
+    "PATH-FLOW": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject"
+      ]
+    },
+    "PATH-REACH": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject"
+      ]
+    },
+    "PATH-OPEN": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject"
+      ]
+    },
+    "WEB-PATH": {
+      "builder": "answers/1",
+      "builder_revision": "r1"
+    },
+    "REDIRECT-CALL": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject"
+      ]
+    },
+    "REDIRECT-FLOW": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject"
+      ]
+    },
+    "REDIRECT-REACH": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject"
+      ]
+    },
+    "REDIRECT-OPEN": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject"
+      ]
+    },
+    "WEB-REDIRECT": {
+      "builder": "answers/1",
+      "builder_revision": "r1"
+    },
+    "WEB-HASH": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject"
+      ]
+    },
+    "WEB-RANDOM": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject"
+      ]
+    },
+    "WEB-COOKIE": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject"
+      ]
+    },
+    "XXE-PARSER": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject"
+      ]
+    },
+    "XXE-FLOW": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject"
+      ]
+    },
+    "XXE-REACH": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject"
+      ]
+    },
+    "WEB-XXE": {
+      "builder": "answers/1",
+      "builder_revision": "r1"
+    },
+    "SQL-CALL": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject"
+      ]
+    },
+    "SQL-FLOW": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject"
+      ]
+    },
+    "SQL-REACH": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject"
+      ]
+    },
+    "SQL-OPEN": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject"
+      ]
+    },
+    "WEB-SQL": {
+      "builder": "answers/1",
+      "builder_revision": "r1"
+    },
+    "COMMAND-CALL": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject"
+      ]
+    },
+    "COMMAND-FLOW": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject"
+      ]
+    },
+    "COMMAND-REACH": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject"
+      ]
+    },
+    "COMMAND-OPEN": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject"
+      ]
+    },
+    "WEB-COMMAND": {
+      "builder": "answers/1",
+      "builder_revision": "r1"
+    },
+    "CODE-CALL": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject"
+      ]
+    },
+    "CODE-FLOW": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject"
+      ]
+    },
+    "CODE-REACH": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject"
+      ]
+    },
+    "CODE-OPEN": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject"
+      ]
+    },
+    "WEB-CODE": {
+      "builder": "answers/1",
+      "builder_revision": "r1"
+    },
+    "LDAP-CALL": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject"
+      ]
+    },
+    "LDAP-FLOW": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject"
+      ]
+    },
+    "LDAP-REACH": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject"
+      ]
+    },
+    "LDAP-OPEN": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject"
+      ]
+    },
+    "WEB-LDAP": {
+      "builder": "answers/1",
+      "builder_revision": "r1"
+    },
+    "XPATH-CALL": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject"
+      ]
+    },
+    "XPATH-FLOW": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject"
+      ]
+    },
+    "XPATH-REACH": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject"
+      ]
+    },
+    "XPATH-OPEN": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject"
+      ]
+    },
+    "WEB-XPATH": {
+      "builder": "answers/1",
+      "builder_revision": "r1"
+    },
+    "XSS-CALL": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject"
+      ]
+    },
+    "XSS-FLOW": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject"
+      ]
+    },
+    "XSS-REACH": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject"
+      ]
+    },
+    "XSS-OPEN": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject"
+      ]
+    },
+    "WEB-XSS": {
+      "builder": "answers/1",
+      "builder_revision": "r1"
+    },
+    "TRUST-CALL": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject"
+      ]
+    },
+    "TRUST-FLOW": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject"
+      ]
+    },
+    "TRUST-REACH": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject"
+      ]
+    },
+    "TRUST-OPEN": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject"
+      ]
+    },
+    "WEB-TRUST": {
+      "builder": "answers/1",
+      "builder_revision": "r1"
+    },
+    "DESERIALIZE-CALL": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject"
+      ]
+    },
+    "DESERIALIZE-FLOW": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject"
+      ]
+    },
+    "DESERIALIZE-REACH": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": [
+        "subject"
+      ]
+    },
+    "WEB-DESERIALIZE": {
+      "builder": "answers/1",
+      "builder_revision": "r1"
+    }
+  },
+  "groups": [
+    {
+      "id": "a01-access-control",
+      "title": "A01 Access Control"
+    },
+    {
+      "id": "a04-cryptographic-failures",
+      "title": "A04 Cryptographic Failures"
+    },
+    {
+      "id": "a02-security-misconfiguration",
+      "title": "A02 Security Misconfiguration"
+    },
+    {
+      "id": "a05-injection",
+      "title": "A05 Injection"
+    },
+    {
+      "id": "a06-insecure-design",
+      "title": "A06 Insecure Design"
+    },
+    {
+      "id": "a08-integrity-failures",
+      "title": "A08 Integrity Failures"
+    }
+  ],
+  "rules": [
+    {"id":"PATH-SYNTAX","revision":"1","source":"evidence","group":"a01-access-control","risk":"low","scope_kind":"site","title":"Select read_report","evidence":"selected","evaluator":{"kind":"syntax","contract":"syntax/1"},
+      "check":{"kind":"syntax/1","language":"python","json_string_pointer":"/parts/0/text","query":"((function_definition) @function (#match? @function \"^def read_report[(]\"))"},"applicability":{"include":["pathtraver"],"exclude":[]},"falsifier":"The capture differs from the complete named function.","fixtures":{"pass":[],"fail":[]}},
+    {"id":"REDIRECT-SYNTAX","revision":"1","source":"evidence","group":"a01-access-control","risk":"low","scope_kind":"site","title":"Select continue_to","evidence":"selected","evaluator":{"kind":"syntax","contract":"syntax/1"},
+      "check":{"kind":"syntax/1","language":"python","json_string_pointer":"/parts/0/text","query":"((function_definition) @function (#match? @function \"^def continue_to[(]\"))"},"applicability":{"include":["redirect"],"exclude":[]},"falsifier":"The capture differs from the complete named function.","fixtures":{"pass":[],"fail":[]}},
+    {"id":"HASH-SYNTAX","revision":"1","source":"evidence","group":"a04-cryptographic-failures","risk":"low","scope_kind":"site","title":"Select fingerprint","evidence":"selected","evaluator":{"kind":"syntax","contract":"syntax/1"},
+      "check":{"kind":"syntax/1","language":"python","json_string_pointer":"/parts/0/text","query":"((function_definition) @function (#match? @function \"^def fingerprint[(]\"))"},"applicability":{"include":["hash"],"exclude":[]},"falsifier":"The capture differs from the complete named function.","fixtures":{"pass":[],"fail":[]}},
+    {"id":"RANDOM-SYNTAX","revision":"1","source":"evidence","group":"a04-cryptographic-failures","risk":"low","scope_kind":"site","title":"Select reset_token","evidence":"selected","evaluator":{"kind":"syntax","contract":"syntax/1"},
+      "check":{"kind":"syntax/1","language":"python","json_string_pointer":"/parts/0/text","query":"((function_definition) @function (#match? @function \"^def reset_token[(]\"))"},"applicability":{"include":["weakrand"],"exclude":[]},"falsifier":"The capture differs from the complete named function.","fixtures":{"pass":[],"fail":[]}},
+    {"id":"COOKIE-SYNTAX","revision":"1","source":"evidence","group":"a02-security-misconfiguration","risk":"low","scope_kind":"site","title":"Select remember_theme","evidence":"selected","evaluator":{"kind":"syntax","contract":"syntax/1"},
+      "check":{"kind":"syntax/1","language":"python","json_string_pointer":"/parts/0/text","query":"((function_definition) @function (#match? @function \"^def remember_theme[(]\"))"},"applicability":{"include":["securecookie"],"exclude":[]},"falsifier":"The capture differs from the complete named function.","fixtures":{"pass":[],"fail":[]}},
+    {"id":"XXE-SYNTAX","revision":"1","source":"evidence","group":"a02-security-misconfiguration","risk":"low","scope_kind":"site","title":"Select import_feed","evidence":"selected","evaluator":{"kind":"syntax","contract":"syntax/1"},
+      "check":{"kind":"syntax/1","language":"python","json_string_pointer":"/parts/0/text","query":"((function_definition) @function (#match? @function \"^def import_feed[(]\"))"},"applicability":{"include":["xxe"],"exclude":[]},"falsifier":"The capture differs from the complete named function.","fixtures":{"pass":[],"fail":[]}},
+    {"id":"SQL-SYNTAX","revision":"1","source":"evidence","group":"a05-injection","risk":"low","scope_kind":"site","title":"Select list_orders","evidence":"selected","evaluator":{"kind":"syntax","contract":"syntax/1"},
+      "check":{"kind":"syntax/1","language":"python","json_string_pointer":"/parts/0/text","query":"((function_definition) @function (#match? @function \"^def list_orders[(]\"))"},"applicability":{"include":["sqli"],"exclude":[]},"falsifier":"The capture differs from the complete named function.","fixtures":{"pass":[],"fail":[]}},
+    {"id":"COMMAND-SYNTAX","revision":"1","source":"evidence","group":"a05-injection","risk":"low","scope_kind":"site","title":"Select ping_host","evidence":"selected","evaluator":{"kind":"syntax","contract":"syntax/1"},
+      "check":{"kind":"syntax/1","language":"python","json_string_pointer":"/parts/0/text","query":"((function_definition) @function (#match? @function \"^def ping_host[(]\"))"},"applicability":{"include":["cmdi"],"exclude":[]},"falsifier":"The capture differs from the complete named function.","fixtures":{"pass":[],"fail":[]}},
+    {"id":"CODE-SYNTAX","revision":"1","source":"evidence","group":"a05-injection","risk":"low","scope_kind":"site","title":"Select calculate","evidence":"selected","evaluator":{"kind":"syntax","contract":"syntax/1"},
+      "check":{"kind":"syntax/1","language":"python","json_string_pointer":"/parts/0/text","query":"((function_definition) @function (#match? @function \"^def calculate[(]\"))"},"applicability":{"include":["codeinj"],"exclude":[]},"falsifier":"The capture differs from the complete named function.","fixtures":{"pass":[],"fail":[]}},
+    {"id":"LDAP-SYNTAX","revision":"1","source":"evidence","group":"a05-injection","risk":"low","scope_kind":"site","title":"Select find_user","evidence":"selected","evaluator":{"kind":"syntax","contract":"syntax/1"},
+      "check":{"kind":"syntax/1","language":"python","json_string_pointer":"/parts/0/text","query":"((function_definition) @function (#match? @function \"^def find_user[(]\"))"},"applicability":{"include":["ldapi"],"exclude":[]},"falsifier":"The capture differs from the complete named function.","fixtures":{"pass":[],"fail":[]}},
+    {"id":"XPATH-SYNTAX","revision":"1","source":"evidence","group":"a05-injection","risk":"low","scope_kind":"site","title":"Select catalog_lookup","evidence":"selected","evaluator":{"kind":"syntax","contract":"syntax/1"},
+      "check":{"kind":"syntax/1","language":"python","json_string_pointer":"/parts/0/text","query":"((function_definition) @function (#match? @function \"^def catalog_lookup[(]\"))"},"applicability":{"include":["xpathi"],"exclude":[]},"falsifier":"The capture differs from the complete named function.","fixtures":{"pass":[],"fail":[]}},
+    {"id":"XSS-SYNTAX","revision":"1","source":"evidence","group":"a05-injection","risk":"low","scope_kind":"site","title":"Select greet","evidence":"selected","evaluator":{"kind":"syntax","contract":"syntax/1"},
+      "check":{"kind":"syntax/1","language":"python","json_string_pointer":"/parts/0/text","query":"((function_definition) @function (#match? @function \"^def greet[(]\"))"},"applicability":{"include":["xss"],"exclude":[]},"falsifier":"The capture differs from the complete named function.","fixtures":{"pass":[],"fail":[]}},
+    {"id":"TRUST-SYNTAX","revision":"1","source":"evidence","group":"a06-insecure-design","risk":"low","scope_kind":"site","title":"Select login_hint","evidence":"selected","evaluator":{"kind":"syntax","contract":"syntax/1"},
+      "check":{"kind":"syntax/1","language":"python","json_string_pointer":"/parts/0/text","query":"((function_definition) @function (#match? @function \"^def login_hint[(]\"))"},"applicability":{"include":["trustbound"],"exclude":[]},"falsifier":"The capture differs from the complete named function.","fixtures":{"pass":[],"fail":[]}},
+    {"id":"DESERIALIZE-SYNTAX","revision":"1","source":"evidence","group":"a08-integrity-failures","risk":"low","scope_kind":"site","title":"Select restore_cart","evidence":"selected","evaluator":{"kind":"syntax","contract":"syntax/1"},
+      "check":{"kind":"syntax/1","language":"python","json_string_pointer":"/parts/0/text","query":"((function_definition) @function (#match? @function \"^def restore_cart[(]\"))"},"applicability":{"include":["deserialization"],"exclude":[]},"falsifier":"The capture differs from the complete named function.","fixtures":{"pass":[],"fail":[]}},
+    {
+      "id": "PATH-CALL",
+      "revision": "3",
+      "consult": {"rules":["PATH-SYNTAX"]},
+      "source": "evidence",
+      "group": "a01-access-control",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Path traversal: file operation",
+      "evidence": "PATH-CALL",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "The code field holds Python code that handles one HTTP request. Request data is any value read from that request, such as query parameters, form fields, headers, cookies, the path or the body. Does this code call a function that opens, reads, writes or deletes a file?",
+        "criteria_true": "The code calls such a function.",
+        "criteria_false": "The code calls no such function.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 32000,
+        "state_projection": {
+          "code": "/prior/0/observation/fields/captures/0/text"
+        }
+      },
+      "applicability": {
+        "include": [
+          "pathtraver"
+        ],
+        "exclude": []
+      },
+      "falsifier": "The code calls such a function.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      }
+    },
+    {
+      "id": "PATH-FLOW",
+      "revision": "4",
+      "consult": {"rules":["PATH-SYNTAX"]},
+      "source": "evidence",
+      "group": "a01-access-control",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Path traversal: traced file path",
+      "evidence": "PATH-FLOW",
+      "evaluator": {
+        "kind": "model",
+        "contract": "extract/1",
+        "role": "helper"
+      },
+      "check": {
+        "kind": "extract/1",
+        "instructions": "The code field holds the complete selected Python function for one HTTP request. Copy the file-operation calls and existing request reads, assignments, conditions, collection operations, arguments and checks relevant to their file paths. Return only verbatim contiguous source excerpts in the declared fields, preserving whitespace; use [] when no matching source text exists. Do not invent, repair or reformat code, evaluate expressions, compute resulting values, or claim data origins or executed branches.",
+        "fields": {
+          "calls": {
+            "type": "quote_list",
+            "description": "Each such call, copied exactly from the code."
+          },
+          "reaching_value": {
+            "type": "quote_list",
+            "description": "Exact existing assignments, conditions, collection operations and arguments connecting request reads with each quoted file operation's path. Source excerpts only; no evaluated values or data-origin conclusions."
+          },
+          "request_reads": {
+            "type": "quote_list",
+            "description": "Each read of request data, copied exactly from the code, whose value can reach a file path. Empty when none can."
+          },
+          "checks": {
+            "type": "quote_list",
+            "description": "Each check, rejection, escape, encoding or replacement applied to that value before the call, copied exactly from the code. Empty when there is none."
+          }
+        },
+        "max_request_bytes": 32000,
+        "state_projection": {
+          "code": "/prior/0/observation/fields/captures/0/text"
+        }
+      },
+      "applicability": {
+        "include": [
+          "pathtraver"
+        ],
+        "exclude": []
+      },
+      "falsifier": "A relevant file operation, request read, assignment, condition, collection operation, argument or check is omitted, invented, repaired or quoted inexactly.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      }
+    },
+    {
+      "id": "PATH-REACH",
+      "revision": "4",
+      "source": "evidence",
+      "group": "a01-access-control",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Path traversal: request data reaches the path",
+      "evidence": "PATH-REACH",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "The code field holds the complete selected Python function for one HTTP request. Request data is any value read from that request, such as query parameters, form fields, headers, cookies, the path or the body. Can request data become part of the file path that a file operation in this code uses? Other fields contain advisory source excerpts. Derive the answer from the complete code, including its assignments, conditions and collection operations; the excerpts do not establish data origin, evaluated values or which branch executes.",
+        "criteria_true": "Request data can become part of a file path the code uses.",
+        "criteria_false": "Only fixed values, or values not read from the request, reach the file paths.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 32000,
+        "state_projection": {
+          "code": "/prior/1/observation/fields/captures/0/text",
+          "calls": {
+            "pointer": "/prior/0/observation/fields/calls",
+            "optional": true
+          },
+          "reaching_value": {
+            "pointer": "/prior/0/observation/fields/reaching_value",
+            "optional": true
+          },
+          "request_reads": {
+            "pointer": "/prior/0/observation/fields/request_reads",
+            "optional": true
+          }
+        }
+      },
+      "applicability": {
+        "include": [
+          "pathtraver"
+        ],
+        "exclude": []
+      },
+      "falsifier": "Request data can become part of a file path the code uses.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      },
+      "consult": {
+        "rules": [
+          "PATH-FLOW", "PATH-SYNTAX"
+        ]
+      }
+    },
+    {
+      "id": "PATH-OPEN",
+      "revision": "4",
+      "source": "evidence",
+      "group": "a01-access-control",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Path traversal: no check stops traversal",
+      "evidence": "PATH-OPEN",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "The code field holds the complete selected Python function for one HTTP request. Request data is any value read from that request, such as query parameters, form fields, headers, cookies, the path or the body. After the checks the code applies before each file operation, can its file path still leave the intended directory, for example through ../ or an absolute path? Other fields contain advisory source excerpts. Derive the answer from the complete code, including its assignments, conditions and collection operations; the excerpts do not establish data origin, evaluated values or which branch executes.",
+        "criteria_true": "No check before the call rejects or removes a path that leaves the intended directory.",
+        "criteria_false": "A check before the call rejects such a path, keeps it inside the directory, or reduces it to fixed names.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 32000,
+        "state_projection": {
+          "code": "/prior/1/observation/fields/captures/0/text",
+          "calls": {
+            "pointer": "/prior/0/observation/fields/calls",
+            "optional": true
+          },
+          "checks": {
+            "pointer": "/prior/0/observation/fields/checks",
+            "optional": true
+          }
+        }
+      },
+      "applicability": {
+        "include": [
+          "pathtraver"
+        ],
+        "exclude": []
+      },
+      "falsifier": "No check before the call rejects or removes a path that leaves the intended directory.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      },
+      "consult": {
+        "rules": [
+          "PATH-FLOW", "PATH-SYNTAX"
+        ]
+      }
+    },
+    {
+      "id": "WEB-PATH",
+      "revision": "2",
+      "source": "evidence",
+      "group": "a01-access-control",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Path traversal (CWE-22)",
+      "evidence": "WEB-PATH",
+      "evaluator": {
+        "kind": "answers",
+        "contract": "answers/1"
+      },
+      "check": {
+        "kind": "answers/1",
+        "rules": [
+          "PATH-CALL",
+          "PATH-REACH",
+          "PATH-OPEN"
+        ],
+        "fail_when": "all_fail",
+        "resolution": "decisive",
+        "coverage": "Path traversal needs a file operation, request data in its path, and no check that keeps the path in the intended directory. Any premise that does not hold clears the handler."
+      },
+      "applicability": {
+        "include": [
+          "pathtraver"
+        ],
+        "exclude": []
+      },
+      "falsifier": "Request data reaches an unchecked file path.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      }
+    },
+    {
+      "id": "REDIRECT-CALL",
+      "revision": "3",
+      "consult": {"rules":["REDIRECT-SYNTAX"]},
+      "source": "evidence",
+      "group": "a01-access-control",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Open redirect: redirect",
+      "evidence": "REDIRECT-CALL",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "The code field holds Python code that handles one HTTP request. Request data is any value read from that request, such as query parameters, form fields, headers, cookies, the path or the body. Does this code redirect the client to another location?",
+        "criteria_true": "The code sends a redirect.",
+        "criteria_false": "The code sends no redirect.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 32000,
+        "state_projection": {
+          "code": "/prior/0/observation/fields/captures/0/text"
+        }
+      },
+      "applicability": {
+        "include": [
+          "redirect"
+        ],
+        "exclude": []
+      },
+      "falsifier": "The code sends a redirect.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      }
+    },
+    {
+      "id": "REDIRECT-FLOW",
+      "revision": "4",
+      "consult": {"rules":["REDIRECT-SYNTAX"]},
+      "source": "evidence",
+      "group": "a01-access-control",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Open redirect: traced location",
+      "evidence": "REDIRECT-FLOW",
+      "evaluator": {
+        "kind": "model",
+        "contract": "extract/1",
+        "role": "helper"
+      },
+      "check": {
+        "kind": "extract/1",
+        "instructions": "The code field holds the complete selected Python function for one HTTP request. Copy the redirect calls and existing request reads, assignments, conditions, collection operations, arguments and checks relevant to their locations. Return only verbatim contiguous source excerpts in the declared fields, preserving whitespace; use [] when no matching source text exists. Do not invent, repair or reformat code, evaluate expressions, compute resulting values, or claim data origins or executed branches.",
+        "fields": {
+          "calls": {
+            "type": "quote_list",
+            "description": "Each redirect call, copied exactly from the code."
+          },
+          "reaching_value": {
+            "type": "quote_list",
+            "description": "Exact existing assignments, conditions, collection operations and arguments connecting request reads with each quoted redirect's location. Source excerpts only; no evaluated values or data-origin conclusions."
+          },
+          "request_reads": {
+            "type": "quote_list",
+            "description": "Each read of request data, copied exactly from the code, whose value can reach a location. Empty when none can."
+          },
+          "checks": {
+            "type": "quote_list",
+            "description": "Each check or replacement applied to that value before the redirect, copied exactly from the code. Empty when there is none."
+          }
+        },
+        "max_request_bytes": 32000,
+        "state_projection": {
+          "code": "/prior/0/observation/fields/captures/0/text"
+        }
+      },
+      "applicability": {
+        "include": [
+          "redirect"
+        ],
+        "exclude": []
+      },
+      "falsifier": "A relevant redirect, request read, assignment, condition, collection operation, argument or check is omitted, invented, repaired or quoted inexactly.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      }
+    },
+    {
+      "id": "REDIRECT-REACH",
+      "revision": "4",
+      "source": "evidence",
+      "group": "a01-access-control",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Open redirect: request data reaches the location",
+      "evidence": "REDIRECT-REACH",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "The code field holds the complete selected Python function for one HTTP request. Request data is any value read from that request, such as query parameters, form fields, headers, cookies, the path or the body. Can request data become part of the location this code redirects to? Other fields contain advisory source excerpts. Derive the answer from the complete code, including its assignments, conditions and collection operations; the excerpts do not establish data origin, evaluated values or which branch executes.",
+        "criteria_true": "Request data can become part of the redirect location.",
+        "criteria_false": "Only fixed values, or values not read from the request, reach the location.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 32000,
+        "state_projection": {
+          "code": "/prior/1/observation/fields/captures/0/text",
+          "calls": {
+            "pointer": "/prior/0/observation/fields/calls",
+            "optional": true
+          },
+          "reaching_value": {
+            "pointer": "/prior/0/observation/fields/reaching_value",
+            "optional": true
+          },
+          "request_reads": {
+            "pointer": "/prior/0/observation/fields/request_reads",
+            "optional": true
+          }
+        }
+      },
+      "applicability": {
+        "include": [
+          "redirect"
+        ],
+        "exclude": []
+      },
+      "falsifier": "Request data can become part of the redirect location.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      },
+      "consult": {
+        "rules": [
+          "REDIRECT-FLOW", "REDIRECT-SYNTAX"
+        ]
+      }
+    },
+    {
+      "id": "REDIRECT-OPEN",
+      "revision": "4",
+      "source": "evidence",
+      "group": "a01-access-control",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Open redirect: no allowed-location check",
+      "evidence": "REDIRECT-OPEN",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "The code field holds the complete selected Python function for one HTTP request. Request data is any value read from that request, such as query parameters, form fields, headers, cookies, the path or the body. After the checks the code applies before each redirect, can the location still point to a site the code did not allow? Other fields contain advisory source excerpts. Derive the answer from the complete code, including its assignments, conditions and collection operations; the excerpts do not establish data origin, evaluated values or which branch executes.",
+        "criteria_true": "No check before the redirect restricts the location to allowed locations.",
+        "criteria_false": "A check before the redirect restricts the location to allowed locations.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 32000,
+        "state_projection": {
+          "code": "/prior/1/observation/fields/captures/0/text",
+          "calls": {
+            "pointer": "/prior/0/observation/fields/calls",
+            "optional": true
+          },
+          "checks": {
+            "pointer": "/prior/0/observation/fields/checks",
+            "optional": true
+          }
+        }
+      },
+      "applicability": {
+        "include": [
+          "redirect"
+        ],
+        "exclude": []
+      },
+      "falsifier": "No check before the redirect restricts the location to allowed locations.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      },
+      "consult": {
+        "rules": [
+          "REDIRECT-FLOW", "REDIRECT-SYNTAX"
+        ]
+      }
+    },
+    {
+      "id": "WEB-REDIRECT",
+      "revision": "2",
+      "source": "evidence",
+      "group": "a01-access-control",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Open redirect (CWE-601)",
+      "evidence": "WEB-REDIRECT",
+      "evaluator": {
+        "kind": "answers",
+        "contract": "answers/1"
+      },
+      "check": {
+        "kind": "answers/1",
+        "rules": [
+          "REDIRECT-CALL",
+          "REDIRECT-REACH",
+          "REDIRECT-OPEN"
+        ],
+        "fail_when": "all_fail",
+        "resolution": "decisive",
+        "coverage": "An open redirect needs a redirect, request data in its location, and no check against allowed locations. Any premise that does not hold clears the handler."
+      },
+      "applicability": {
+        "include": [
+          "redirect"
+        ],
+        "exclude": []
+      },
+      "falsifier": "Request data reaches an unchecked redirect location.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      }
+    },
+    {
+      "id": "WEB-HASH",
+      "revision": "3",
+      "consult": {"rules":["HASH-SYNTAX"]},
+      "source": "evidence",
+      "group": "a04-cryptographic-failures",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Weak hash (CWE-328)",
+      "evidence": "WEB-HASH",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "The code field holds Python code that handles one HTTP request. Request data is any value read from that request, such as query parameters, form fields, headers, cookies, the path or the body. Does this code compute a hash with MD2, MD4, MD5 or SHA-1?",
+        "criteria_true": "The code hashes with MD2, MD4, MD5 or SHA-1.",
+        "criteria_false": "The code hashes only with SHA-224 or stronger, or computes no hash.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 32000,
+        "state_projection": {
+          "code": "/prior/0/observation/fields/captures/0/text"
+        }
+      },
+      "applicability": {
+        "include": [
+          "hash"
+        ],
+        "exclude": []
+      },
+      "falsifier": "The code hashes with MD2, MD4, MD5 or SHA-1.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      }
+    },
+    {
+      "id": "WEB-RANDOM",
+      "revision": "3",
+      "consult": {"rules":["RANDOM-SYNTAX"]},
+      "source": "evidence",
+      "group": "a04-cryptographic-failures",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Weak random (CWE-330)",
+      "evidence": "WEB-RANDOM",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "The code field holds Python code that handles one HTTP request. Request data is any value read from that request, such as query parameters, form fields, headers, cookies, the path or the body. Does this code produce a value with a function of Python's random module other than random.SystemRandom?",
+        "criteria_true": "The code calls such a random function.",
+        "criteria_false": "The code uses secrets, os.urandom or random.SystemRandom, or produces no random value.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 32000,
+        "state_projection": {
+          "code": "/prior/0/observation/fields/captures/0/text"
+        }
+      },
+      "applicability": {
+        "include": [
+          "weakrand"
+        ],
+        "exclude": []
+      },
+      "falsifier": "The code calls such a random function.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      }
+    },
+    {
+      "id": "WEB-COOKIE",
+      "revision": "3",
+      "consult": {"rules":["COOKIE-SYNTAX"]},
+      "source": "evidence",
+      "group": "a02-security-misconfiguration",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Cookie without Secure (CWE-614)",
+      "evidence": "WEB-COOKIE",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "The code field holds Python code that handles one HTTP request. Request data is any value read from that request, such as query parameters, form fields, headers, cookies, the path or the body. Does this code set a cookie without secure=True?",
+        "criteria_true": "A cookie is set without secure=True.",
+        "criteria_false": "Every cookie the code sets has secure=True, or the code sets no cookie.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 32000,
+        "state_projection": {
+          "code": "/prior/0/observation/fields/captures/0/text"
+        }
+      },
+      "applicability": {
+        "include": [
+          "securecookie"
+        ],
+        "exclude": []
+      },
+      "falsifier": "A cookie is set without secure=True.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      }
+    },
+    {
+      "id": "XXE-PARSER",
+      "revision": "3",
+      "consult": {"rules":["XXE-SYNTAX"]},
+      "source": "evidence",
+      "group": "a02-security-misconfiguration",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "XXE: parser resolves entities",
+      "evidence": "XXE-PARSER",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "The code field holds Python code that handles one HTTP request. Request data is any value read from that request, such as query parameters, form fields, headers, cookies, the path or the body. Does this code parse XML with a parser that resolves external entities?",
+        "criteria_true": "An XML parser in the code is configured to resolve external entities.",
+        "criteria_false": "Every XML parser in the code has external entity resolution disabled, or the code parses no XML.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 32000,
+        "state_projection": {
+          "code": "/prior/0/observation/fields/captures/0/text"
+        }
+      },
+      "applicability": {
+        "include": [
+          "xxe"
+        ],
+        "exclude": []
+      },
+      "falsifier": "An XML parser in the code is configured to resolve external entities.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      }
+    },
+    {
+      "id": "XXE-FLOW",
+      "revision": "4",
+      "consult": {"rules":["XXE-SYNTAX"]},
+      "source": "evidence",
+      "group": "a02-security-misconfiguration",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "XXE: traced document",
+      "evidence": "XXE-FLOW",
+      "evaluator": {
+        "kind": "model",
+        "contract": "extract/1",
+        "role": "helper"
+      },
+      "check": {
+        "kind": "extract/1",
+        "instructions": "The code field holds the complete selected Python function for one HTTP request. Copy the XML-parsing calls and existing request reads, assignments, conditions, collection operations, arguments and checks relevant to their document inputs. Return only verbatim contiguous source excerpts in the declared fields, preserving whitespace; use [] when no matching source text exists. Do not invent, repair or reformat code, evaluate expressions, compute resulting values, or claim data origins or executed branches.",
+        "fields": {
+          "calls": {
+            "type": "quote_list",
+            "description": "Each XML parsing call, copied exactly from the code."
+          },
+          "reaching_value": {
+            "type": "quote_list",
+            "description": "Exact existing assignments, conditions, collection operations and arguments connecting request reads with each quoted XML-parsing call's document input. Source excerpts only; no evaluated values or data-origin conclusions."
+          },
+          "request_reads": {
+            "type": "quote_list",
+            "description": "Each read of request data, copied exactly from the code, whose value can reach a parsed document. Empty when none can."
+          },
+          "checks": {
+            "type": "quote_list",
+            "description": "Each check or replacement applied to that value before parsing, copied exactly from the code. Empty when there is none."
+          }
+        },
+        "max_request_bytes": 32000,
+        "state_projection": {
+          "code": "/prior/0/observation/fields/captures/0/text"
+        }
+      },
+      "applicability": {
+        "include": [
+          "xxe"
+        ],
+        "exclude": []
+      },
+      "falsifier": "A relevant XML-parsing call, request read, assignment, condition, collection operation, argument or check is omitted, invented, repaired or quoted inexactly.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      }
+    },
+    {
+      "id": "XXE-REACH",
+      "revision": "4",
+      "source": "evidence",
+      "group": "a02-security-misconfiguration",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "XXE: request data is parsed",
+      "evidence": "XXE-REACH",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "The code field holds the complete selected Python function for one HTTP request. Request data is any value read from that request, such as query parameters, form fields, headers, cookies, the path or the body. Can request data become the XML document this code parses? Other fields contain advisory source excerpts. Derive the answer from the complete code, including its assignments, conditions and collection operations; the excerpts do not establish data origin, evaluated values or which branch executes.",
+        "criteria_true": "Request data can reach an XML document the code parses.",
+        "criteria_false": "Only fixed documents, or documents not read from the request, are parsed.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 32000,
+        "state_projection": {
+          "code": "/prior/1/observation/fields/captures/0/text",
+          "calls": {
+            "pointer": "/prior/0/observation/fields/calls",
+            "optional": true
+          },
+          "reaching_value": {
+            "pointer": "/prior/0/observation/fields/reaching_value",
+            "optional": true
+          },
+          "request_reads": {
+            "pointer": "/prior/0/observation/fields/request_reads",
+            "optional": true
+          }
+        }
+      },
+      "applicability": {
+        "include": [
+          "xxe"
+        ],
+        "exclude": []
+      },
+      "falsifier": "Request data can reach an XML document the code parses.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      },
+      "consult": {
+        "rules": [
+          "XXE-FLOW", "XXE-SYNTAX"
+        ]
+      }
+    },
+    {
+      "id": "WEB-XXE",
+      "revision": "2",
+      "source": "evidence",
+      "group": "a02-security-misconfiguration",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "XML external entities (CWE-611)",
+      "evidence": "WEB-XXE",
+      "evaluator": {
+        "kind": "answers",
+        "contract": "answers/1"
+      },
+      "check": {
+        "kind": "answers/1",
+        "rules": [
+          "XXE-PARSER",
+          "XXE-REACH"
+        ],
+        "fail_when": "all_fail",
+        "resolution": "decisive",
+        "coverage": "XML external entity injection needs a parser that resolves external entities and request data in the parsed document. Either premise that does not hold clears the handler."
+      },
+      "applicability": {
+        "include": [
+          "xxe"
+        ],
+        "exclude": []
+      },
+      "falsifier": "Request data reaches a parser that resolves external entities.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      }
+    },
+    {
+      "id": "SQL-CALL",
+      "revision": "3",
+      "consult": {"rules":["SQL-SYNTAX"]},
+      "source": "evidence",
+      "group": "a05-injection",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "SQL injection: statement",
+      "evidence": "SQL-CALL",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "The code field holds Python code that handles one HTTP request. Request data is any value read from that request, such as query parameters, form fields, headers, cookies, the path or the body. Does this code run an SQL statement?",
+        "criteria_true": "The code runs an SQL statement.",
+        "criteria_false": "The code runs no SQL statement.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 32000,
+        "state_projection": {
+          "code": "/prior/0/observation/fields/captures/0/text"
+        }
+      },
+      "applicability": {
+        "include": [
+          "sqli"
+        ],
+        "exclude": []
+      },
+      "falsifier": "The code runs an SQL statement.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      }
+    },
+    {
+      "id": "SQL-FLOW",
+      "revision": "4",
+      "consult": {"rules":["SQL-SYNTAX"]},
+      "source": "evidence",
+      "group": "a05-injection",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "SQL injection: traced statement",
+      "evidence": "SQL-FLOW",
+      "evaluator": {
+        "kind": "model",
+        "contract": "extract/1",
+        "role": "helper"
+      },
+      "check": {
+        "kind": "extract/1",
+        "instructions": "The code field holds the complete selected Python function for one HTTP request. Copy the SQL-execution calls and existing request reads, assignments, conditions, collection operations, arguments and checks relevant to their statement text and bound parameters. Keep statement-text and bound-parameter excerpts distinct. Return only verbatim contiguous source excerpts in the declared fields, preserving whitespace; use [] when no matching source text exists. Do not invent, repair or reformat code, evaluate expressions, compute resulting values, or claim data origins or executed branches.",
+        "fields": {
+          "calls": {
+            "type": "quote_list",
+            "description": "Each call that runs a statement, copied exactly from the code."
+          },
+          "reaching_value": {
+            "type": "quote_list",
+            "description": "Exact existing assignments, conditions, collection operations and arguments connecting request reads with each quoted SQL call's statement text or bound parameters. Preserve that distinction in the source excerpts; no evaluated values or data-origin conclusions."
+          },
+          "request_reads": {
+            "type": "quote_list",
+            "description": "Each read of request data, copied exactly from the code, whose value can reach the statement text. Values that reach only bound parameters are not listed. Empty when none can."
+          },
+          "checks": {
+            "type": "quote_list",
+            "description": "Each check, escape or replacement applied to that value before the call, copied exactly from the code. Empty when there is none."
+          }
+        },
+        "max_request_bytes": 32000,
+        "state_projection": {
+          "code": "/prior/0/observation/fields/captures/0/text"
+        }
+      },
+      "applicability": {
+        "include": [
+          "sqli"
+        ],
+        "exclude": []
+      },
+      "falsifier": "A relevant SQL call, request read, assignment, condition, collection operation, argument or check is omitted, invented, repaired or quoted inexactly, or bound-parameter excerpts are confused with statement-text excerpts.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      }
+    },
+    {
+      "id": "SQL-REACH",
+      "revision": "4",
+      "source": "evidence",
+      "group": "a05-injection",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "SQL injection: request data in the statement text",
+      "evidence": "SQL-REACH",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "The code field holds the complete selected Python function for one HTTP request. Request data is any value read from that request, such as query parameters, form fields, headers, cookies, the path or the body. Can request data become part of the text of an SQL statement this code runs, rather than a bound parameter? Other fields contain advisory source excerpts. Derive the answer from the complete code, including its assignments, conditions and collection operations; the excerpts do not establish data origin, evaluated values or which branch executes.",
+        "criteria_true": "Request data can be inserted into SQL statement text.",
+        "criteria_false": "Request data reaches the database only as bound parameters, or not at all.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 32000,
+        "state_projection": {
+          "code": "/prior/1/observation/fields/captures/0/text",
+          "calls": {
+            "pointer": "/prior/0/observation/fields/calls",
+            "optional": true
+          },
+          "reaching_value": {
+            "pointer": "/prior/0/observation/fields/reaching_value",
+            "optional": true
+          },
+          "request_reads": {
+            "pointer": "/prior/0/observation/fields/request_reads",
+            "optional": true
+          }
+        }
+      },
+      "applicability": {
+        "include": [
+          "sqli"
+        ],
+        "exclude": []
+      },
+      "falsifier": "Request data can be inserted into SQL statement text.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      },
+      "consult": {
+        "rules": [
+          "SQL-FLOW", "SQL-SYNTAX"
+        ]
+      }
+    },
+    {
+      "id": "SQL-OPEN",
+      "revision": "4",
+      "source": "evidence",
+      "group": "a05-injection",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "SQL injection: no check stops SQL syntax",
+      "evidence": "SQL-OPEN",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "The code field holds the complete selected Python function for one HTTP request. Request data is any value read from that request, such as query parameters, form fields, headers, cookies, the path or the body. After the checks the code applies before each statement runs, can the value in the statement text still contain SQL syntax, such as a quote, that changes the statement? Other fields contain advisory source excerpts. Derive the answer from the complete code, including its assignments, conditions and collection operations; the excerpts do not establish data origin, evaluated values or which branch executes.",
+        "criteria_true": "No check before the call rejects or escapes SQL syntax.",
+        "criteria_false": "A check before the call rejects or escapes SQL syntax, or reduces the value to fixed values.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 32000,
+        "state_projection": {
+          "code": "/prior/1/observation/fields/captures/0/text",
+          "calls": {
+            "pointer": "/prior/0/observation/fields/calls",
+            "optional": true
+          },
+          "checks": {
+            "pointer": "/prior/0/observation/fields/checks",
+            "optional": true
+          }
+        }
+      },
+      "applicability": {
+        "include": [
+          "sqli"
+        ],
+        "exclude": []
+      },
+      "falsifier": "No check before the call rejects or escapes SQL syntax.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      },
+      "consult": {
+        "rules": [
+          "SQL-FLOW", "SQL-SYNTAX"
+        ]
+      }
+    },
+    {
+      "id": "WEB-SQL",
+      "revision": "2",
+      "source": "evidence",
+      "group": "a05-injection",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "SQL injection (CWE-89)",
+      "evidence": "WEB-SQL",
+      "evaluator": {
+        "kind": "answers",
+        "contract": "answers/1"
+      },
+      "check": {
+        "kind": "answers/1",
+        "rules": [
+          "SQL-CALL",
+          "SQL-REACH",
+          "SQL-OPEN"
+        ],
+        "fail_when": "all_fail",
+        "resolution": "decisive",
+        "coverage": "SQL injection needs a statement, request data in its text, and no check that stops SQL syntax. Any premise that does not hold clears the handler."
+      },
+      "applicability": {
+        "include": [
+          "sqli"
+        ],
+        "exclude": []
+      },
+      "falsifier": "Request data reaches unchecked SQL statement text.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      }
+    },
+    {
+      "id": "COMMAND-CALL",
+      "revision": "3",
+      "consult": {"rules":["COMMAND-SYNTAX"]},
+      "source": "evidence",
+      "group": "a05-injection",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Command injection: command",
+      "evidence": "COMMAND-CALL",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "The code field holds Python code that handles one HTTP request. Request data is any value read from that request, such as query parameters, form fields, headers, cookies, the path or the body. Does this code run an operating-system command, for example through subprocess or os.system?",
+        "criteria_true": "The code runs an operating-system command.",
+        "criteria_false": "The code runs no operating-system command.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 32000,
+        "state_projection": {
+          "code": "/prior/0/observation/fields/captures/0/text"
+        }
+      },
+      "applicability": {
+        "include": [
+          "cmdi"
+        ],
+        "exclude": []
+      },
+      "falsifier": "The code runs an operating-system command.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      }
+    },
+    {
+      "id": "COMMAND-FLOW",
+      "revision": "4",
+      "consult": {"rules":["COMMAND-SYNTAX"]},
+      "source": "evidence",
+      "group": "a05-injection",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Command injection: traced command",
+      "evidence": "COMMAND-FLOW",
+      "evaluator": {
+        "kind": "model",
+        "contract": "extract/1",
+        "role": "helper"
+      },
+      "check": {
+        "kind": "extract/1",
+        "instructions": "The code field holds the complete selected Python function for one HTTP request. Copy the operating-system command calls and existing request reads, assignments, conditions, collection operations, arguments and checks relevant to their commands or arguments. Return only verbatim contiguous source excerpts in the declared fields, preserving whitespace; use [] when no matching source text exists. Do not invent, repair or reformat code, evaluate expressions, compute resulting values, or claim data origins or executed branches.",
+        "fields": {
+          "calls": {
+            "type": "quote_list",
+            "description": "Each call that runs a command, copied exactly from the code."
+          },
+          "reaching_value": {
+            "type": "quote_list",
+            "description": "Exact existing assignments, conditions, collection operations and arguments connecting request reads with each quoted operating-system command or its arguments. Source excerpts only; no evaluated values or data-origin conclusions."
+          },
+          "request_reads": {
+            "type": "quote_list",
+            "description": "Each read of request data, copied exactly from the code, whose value can reach the command or its arguments. Empty when none can."
+          },
+          "checks": {
+            "type": "quote_list",
+            "description": "Each check, quoting or replacement applied to that value before the call, copied exactly from the code. Empty when there is none."
+          }
+        },
+        "max_request_bytes": 32000,
+        "state_projection": {
+          "code": "/prior/0/observation/fields/captures/0/text"
+        }
+      },
+      "applicability": {
+        "include": [
+          "cmdi"
+        ],
+        "exclude": []
+      },
+      "falsifier": "A relevant command call, request read, assignment, condition, collection operation, argument or check is omitted, invented, repaired or quoted inexactly.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      }
+    },
+    {
+      "id": "COMMAND-REACH",
+      "revision": "4",
+      "source": "evidence",
+      "group": "a05-injection",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Command injection: request data in the command",
+      "evidence": "COMMAND-REACH",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "The code field holds the complete selected Python function for one HTTP request. Request data is any value read from that request, such as query parameters, form fields, headers, cookies, the path or the body. Can request data become part of an operating-system command this code runs, or of its arguments? Other fields contain advisory source excerpts. Derive the answer from the complete code, including its assignments, conditions and collection operations; the excerpts do not establish data origin, evaluated values or which branch executes.",
+        "criteria_true": "Request data can reach a command or its arguments.",
+        "criteria_false": "Only fixed values, or values not read from the request, reach the commands.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 32000,
+        "state_projection": {
+          "code": "/prior/1/observation/fields/captures/0/text",
+          "calls": {
+            "pointer": "/prior/0/observation/fields/calls",
+            "optional": true
+          },
+          "reaching_value": {
+            "pointer": "/prior/0/observation/fields/reaching_value",
+            "optional": true
+          },
+          "request_reads": {
+            "pointer": "/prior/0/observation/fields/request_reads",
+            "optional": true
+          }
+        }
+      },
+      "applicability": {
+        "include": [
+          "cmdi"
+        ],
+        "exclude": []
+      },
+      "falsifier": "Request data can reach a command or its arguments.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      },
+      "consult": {
+        "rules": [
+          "COMMAND-FLOW", "COMMAND-SYNTAX"
+        ]
+      }
+    },
+    {
+      "id": "COMMAND-OPEN",
+      "revision": "4",
+      "source": "evidence",
+      "group": "a05-injection",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Command injection: no check stops command syntax",
+      "evidence": "COMMAND-OPEN",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "The code field holds the complete selected Python function for one HTTP request. Request data is any value read from that request, such as query parameters, form fields, headers, cookies, the path or the body. After the checks the code applies before each command runs, can the value still add shell syntax, another command or an unintended argument? Other fields contain advisory source excerpts. Derive the answer from the complete code, including its assignments, conditions and collection operations; the excerpts do not establish data origin, evaluated values or which branch executes.",
+        "criteria_true": "No check before the call stops shell syntax, another command or an unintended argument.",
+        "criteria_false": "A check before the call stops them, or reduces the value to fixed values.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 32000,
+        "state_projection": {
+          "code": "/prior/1/observation/fields/captures/0/text",
+          "calls": {
+            "pointer": "/prior/0/observation/fields/calls",
+            "optional": true
+          },
+          "checks": {
+            "pointer": "/prior/0/observation/fields/checks",
+            "optional": true
+          }
+        }
+      },
+      "applicability": {
+        "include": [
+          "cmdi"
+        ],
+        "exclude": []
+      },
+      "falsifier": "No check before the call stops shell syntax, another command or an unintended argument.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      },
+      "consult": {
+        "rules": [
+          "COMMAND-FLOW", "COMMAND-SYNTAX"
+        ]
+      }
+    },
+    {
+      "id": "WEB-COMMAND",
+      "revision": "2",
+      "source": "evidence",
+      "group": "a05-injection",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "OS command injection (CWE-78)",
+      "evidence": "WEB-COMMAND",
+      "evaluator": {
+        "kind": "answers",
+        "contract": "answers/1"
+      },
+      "check": {
+        "kind": "answers/1",
+        "rules": [
+          "COMMAND-CALL",
+          "COMMAND-REACH",
+          "COMMAND-OPEN"
+        ],
+        "fail_when": "all_fail",
+        "resolution": "decisive",
+        "coverage": "Command injection needs a command, request data in it or its arguments, and no check that stops command syntax. Any premise that does not hold clears the handler."
+      },
+      "applicability": {
+        "include": [
+          "cmdi"
+        ],
+        "exclude": []
+      },
+      "falsifier": "Request data reaches an unchecked command or argument.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      }
+    },
+    {
+      "id": "CODE-CALL",
+      "revision": "3",
+      "consult": {"rules":["CODE-SYNTAX"]},
+      "source": "evidence",
+      "group": "a05-injection",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Code injection: evaluated code",
+      "evidence": "CODE-CALL",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "The code field holds Python code that handles one HTTP request. Request data is any value read from that request, such as query parameters, form fields, headers, cookies, the path or the body. Does this code evaluate or execute text as Python code, for example with eval, exec or compile?",
+        "criteria_true": "The code evaluates or executes text as Python code.",
+        "criteria_false": "The code evaluates or executes no text as Python code.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 32000,
+        "state_projection": {
+          "code": "/prior/0/observation/fields/captures/0/text"
+        }
+      },
+      "applicability": {
+        "include": [
+          "codeinj"
+        ],
+        "exclude": []
+      },
+      "falsifier": "The code evaluates or executes text as Python code.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      }
+    },
+    {
+      "id": "CODE-FLOW",
+      "revision": "4",
+      "consult": {"rules":["CODE-SYNTAX"]},
+      "source": "evidence",
+      "group": "a05-injection",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Code injection: traced code text",
+      "evidence": "CODE-FLOW",
+      "evaluator": {
+        "kind": "model",
+        "contract": "extract/1",
+        "role": "helper"
+      },
+      "check": {
+        "kind": "extract/1",
+        "instructions": "The code field holds the complete selected Python function for one HTTP request. Copy the calls that evaluate or execute Python text and existing request reads, assignments, conditions, collection operations, arguments and checks relevant to that text. Return only verbatim contiguous source excerpts in the declared fields, preserving whitespace; use [] when no matching source text exists. Do not invent, repair or reformat code, evaluate expressions, compute resulting values, or claim data origins or executed branches.",
+        "fields": {
+          "calls": {
+            "type": "quote_list",
+            "description": "Each call that runs text as code, copied exactly from the code."
+          },
+          "reaching_value": {
+            "type": "quote_list",
+            "description": "Exact existing assignments, conditions, collection operations and arguments connecting request reads with the Python text used by each quoted evaluation or execution call. Source excerpts only; no evaluated values or data-origin conclusions."
+          },
+          "request_reads": {
+            "type": "quote_list",
+            "description": "Each read of request data, copied exactly from the code, whose value can reach that text. Empty when none can."
+          },
+          "checks": {
+            "type": "quote_list",
+            "description": "Each check or replacement applied to that value before the call, copied exactly from the code. Empty when there is none."
+          }
+        },
+        "max_request_bytes": 32000,
+        "state_projection": {
+          "code": "/prior/0/observation/fields/captures/0/text"
+        }
+      },
+      "applicability": {
+        "include": [
+          "codeinj"
+        ],
+        "exclude": []
+      },
+      "falsifier": "A relevant Python evaluation or execution call, request read, assignment, condition, collection operation, argument or check is omitted, invented, repaired or quoted inexactly.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      }
+    },
+    {
+      "id": "CODE-REACH",
+      "revision": "4",
+      "source": "evidence",
+      "group": "a05-injection",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Code injection: request data in the code text",
+      "evidence": "CODE-REACH",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "The code field holds the complete selected Python function for one HTTP request. Request data is any value read from that request, such as query parameters, form fields, headers, cookies, the path or the body. Can request data become part of the text this code evaluates or executes as Python code? Other fields contain advisory source excerpts. Derive the answer from the complete code, including its assignments, conditions and collection operations; the excerpts do not establish data origin, evaluated values or which branch executes.",
+        "criteria_true": "Request data can reach text that runs as Python code.",
+        "criteria_false": "Only fixed values, or values not read from the request, reach that text.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 32000,
+        "state_projection": {
+          "code": "/prior/1/observation/fields/captures/0/text",
+          "calls": {
+            "pointer": "/prior/0/observation/fields/calls",
+            "optional": true
+          },
+          "reaching_value": {
+            "pointer": "/prior/0/observation/fields/reaching_value",
+            "optional": true
+          },
+          "request_reads": {
+            "pointer": "/prior/0/observation/fields/request_reads",
+            "optional": true
+          }
+        }
+      },
+      "applicability": {
+        "include": [
+          "codeinj"
+        ],
+        "exclude": []
+      },
+      "falsifier": "Request data can reach text that runs as Python code.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      },
+      "consult": {
+        "rules": [
+          "CODE-FLOW", "CODE-SYNTAX"
+        ]
+      }
+    },
+    {
+      "id": "CODE-OPEN",
+      "revision": "4",
+      "source": "evidence",
+      "group": "a05-injection",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Code injection: no check restricts the code text",
+      "evidence": "CODE-OPEN",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "The code field holds the complete selected Python function for one HTTP request. Request data is any value read from that request, such as query parameters, form fields, headers, cookies, the path or the body. After the checks the code applies before running the text, can the text still contain any Python code the client chooses, rather than only a value such as a plain string or number literal? Other fields contain advisory source excerpts. Derive the answer from the complete code, including its assignments, conditions and collection operations; the excerpts do not establish data origin, evaluated values or which branch executes.",
+        "criteria_true": "No check before the call restricts the text to a harmless value.",
+        "criteria_false": "A check before the call restricts the text to a harmless value, such as a plain literal.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 32000,
+        "state_projection": {
+          "code": "/prior/1/observation/fields/captures/0/text",
+          "calls": {
+            "pointer": "/prior/0/observation/fields/calls",
+            "optional": true
+          },
+          "checks": {
+            "pointer": "/prior/0/observation/fields/checks",
+            "optional": true
+          }
+        }
+      },
+      "applicability": {
+        "include": [
+          "codeinj"
+        ],
+        "exclude": []
+      },
+      "falsifier": "No check before the call restricts the text to a harmless value.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      },
+      "consult": {
+        "rules": [
+          "CODE-FLOW", "CODE-SYNTAX"
+        ]
+      }
+    },
+    {
+      "id": "WEB-CODE",
+      "revision": "2",
+      "source": "evidence",
+      "group": "a05-injection",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Code injection (CWE-94)",
+      "evidence": "WEB-CODE",
+      "evaluator": {
+        "kind": "answers",
+        "contract": "answers/1"
+      },
+      "check": {
+        "kind": "answers/1",
+        "rules": [
+          "CODE-CALL",
+          "CODE-REACH",
+          "CODE-OPEN"
+        ],
+        "fail_when": "all_fail",
+        "resolution": "decisive",
+        "coverage": "Code injection needs code evaluation, request data in the evaluated text, and no check that restricts it to a harmless value. Any premise that does not hold clears the handler."
+      },
+      "applicability": {
+        "include": [
+          "codeinj"
+        ],
+        "exclude": []
+      },
+      "falsifier": "Request data reaches unrestricted evaluated code.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      }
+    },
+    {
+      "id": "LDAP-CALL",
+      "revision": "3",
+      "consult": {"rules":["LDAP-SYNTAX"]},
+      "source": "evidence",
+      "group": "a05-injection",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "LDAP injection: search or name",
+      "evidence": "LDAP-CALL",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "The code field holds Python code that handles one HTTP request. Request data is any value read from that request, such as query parameters, form fields, headers, cookies, the path or the body. Does this code run an LDAP search or build an LDAP distinguished name?",
+        "criteria_true": "The code runs an LDAP search or builds a distinguished name.",
+        "criteria_false": "The code does neither.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 32000,
+        "state_projection": {
+          "code": "/prior/0/observation/fields/captures/0/text"
+        }
+      },
+      "applicability": {
+        "include": [
+          "ldapi"
+        ],
+        "exclude": []
+      },
+      "falsifier": "The code runs an LDAP search or builds a distinguished name.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      }
+    },
+    {
+      "id": "LDAP-FLOW",
+      "revision": "4",
+      "consult": {"rules":["LDAP-SYNTAX"]},
+      "source": "evidence",
+      "group": "a05-injection",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "LDAP injection: traced filter",
+      "evidence": "LDAP-FLOW",
+      "evaluator": {
+        "kind": "model",
+        "contract": "extract/1",
+        "role": "helper"
+      },
+      "check": {
+        "kind": "extract/1",
+        "instructions": "The code field holds the complete selected Python function for one HTTP request. Copy the LDAP-search and distinguished-name construction calls and existing request reads, assignments, conditions, collection operations, arguments and checks relevant to their filter or name text. Return only verbatim contiguous source excerpts in the declared fields, preserving whitespace; use [] when no matching source text exists. Do not invent, repair or reformat code, evaluate expressions, compute resulting values, or claim data origins or executed branches.",
+        "fields": {
+          "calls": {
+            "type": "quote_list",
+            "description": "Each LDAP search or name construction, copied exactly from the code."
+          },
+          "reaching_value": {
+            "type": "quote_list",
+            "description": "Exact existing assignments, conditions, collection operations and arguments connecting request reads with each quoted LDAP operation's filter or distinguished-name text. Source excerpts only; no evaluated values or data-origin conclusions."
+          },
+          "request_reads": {
+            "type": "quote_list",
+            "description": "Each read of request data, copied exactly from the code, whose value can reach that text. Empty when none can."
+          },
+          "checks": {
+            "type": "quote_list",
+            "description": "Each check, escape or replacement applied to that value before the call, copied exactly from the code. Empty when there is none."
+          }
+        },
+        "max_request_bytes": 32000,
+        "state_projection": {
+          "code": "/prior/0/observation/fields/captures/0/text"
+        }
+      },
+      "applicability": {
+        "include": [
+          "ldapi"
+        ],
+        "exclude": []
+      },
+      "falsifier": "A relevant LDAP operation, request read, assignment, condition, collection operation, argument or check is omitted, invented, repaired or quoted inexactly.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      }
+    },
+    {
+      "id": "LDAP-REACH",
+      "revision": "4",
+      "source": "evidence",
+      "group": "a05-injection",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "LDAP injection: request data in the filter",
+      "evidence": "LDAP-REACH",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "The code field holds the complete selected Python function for one HTTP request. Request data is any value read from that request, such as query parameters, form fields, headers, cookies, the path or the body. Can request data become part of an LDAP filter or distinguished name this code uses? Other fields contain advisory source excerpts. Derive the answer from the complete code, including its assignments, conditions and collection operations; the excerpts do not establish data origin, evaluated values or which branch executes.",
+        "criteria_true": "Request data can reach an LDAP filter or name.",
+        "criteria_false": "Only fixed values, or values not read from the request, reach them.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 32000,
+        "state_projection": {
+          "code": "/prior/1/observation/fields/captures/0/text",
+          "calls": {
+            "pointer": "/prior/0/observation/fields/calls",
+            "optional": true
+          },
+          "reaching_value": {
+            "pointer": "/prior/0/observation/fields/reaching_value",
+            "optional": true
+          },
+          "request_reads": {
+            "pointer": "/prior/0/observation/fields/request_reads",
+            "optional": true
+          }
+        }
+      },
+      "applicability": {
+        "include": [
+          "ldapi"
+        ],
+        "exclude": []
+      },
+      "falsifier": "Request data can reach an LDAP filter or name.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      },
+      "consult": {
+        "rules": [
+          "LDAP-FLOW", "LDAP-SYNTAX"
+        ]
+      }
+    },
+    {
+      "id": "LDAP-OPEN",
+      "revision": "4",
+      "source": "evidence",
+      "group": "a05-injection",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "LDAP injection: no escaping",
+      "evidence": "LDAP-OPEN",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "The code field holds the complete selected Python function for one HTTP request. Request data is any value read from that request, such as query parameters, form fields, headers, cookies, the path or the body. After the checks the code applies before each LDAP call, can the value still contain LDAP special characters, such as parentheses or asterisks, that change the filter or name? Other fields contain advisory source excerpts. Derive the answer from the complete code, including its assignments, conditions and collection operations; the excerpts do not establish data origin, evaluated values or which branch executes.",
+        "criteria_true": "No check before the call escapes or rejects LDAP special characters.",
+        "criteria_false": "A check before the call escapes or rejects them, or reduces the value to safe characters.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 32000,
+        "state_projection": {
+          "code": "/prior/1/observation/fields/captures/0/text",
+          "calls": {
+            "pointer": "/prior/0/observation/fields/calls",
+            "optional": true
+          },
+          "checks": {
+            "pointer": "/prior/0/observation/fields/checks",
+            "optional": true
+          }
+        }
+      },
+      "applicability": {
+        "include": [
+          "ldapi"
+        ],
+        "exclude": []
+      },
+      "falsifier": "No check before the call escapes or rejects LDAP special characters.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      },
+      "consult": {
+        "rules": [
+          "LDAP-FLOW", "LDAP-SYNTAX"
+        ]
+      }
+    },
+    {
+      "id": "WEB-LDAP",
+      "revision": "2",
+      "source": "evidence",
+      "group": "a05-injection",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "LDAP injection (CWE-90)",
+      "evidence": "WEB-LDAP",
+      "evaluator": {
+        "kind": "answers",
+        "contract": "answers/1"
+      },
+      "check": {
+        "kind": "answers/1",
+        "rules": [
+          "LDAP-CALL",
+          "LDAP-REACH",
+          "LDAP-OPEN"
+        ],
+        "fail_when": "all_fail",
+        "resolution": "decisive",
+        "coverage": "LDAP injection needs an LDAP search or name, request data in it, and no escaping of LDAP special characters. Any premise that does not hold clears the handler."
+      },
+      "applicability": {
+        "include": [
+          "ldapi"
+        ],
+        "exclude": []
+      },
+      "falsifier": "Request data reaches an unescaped LDAP filter or name.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      }
+    },
+    {
+      "id": "XPATH-CALL",
+      "revision": "3",
+      "consult": {"rules":["XPATH-SYNTAX"]},
+      "source": "evidence",
+      "group": "a05-injection",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "XPath injection: evaluated expression",
+      "evidence": "XPATH-CALL",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "The code field holds Python code that handles one HTTP request. Request data is any value read from that request, such as query parameters, form fields, headers, cookies, the path or the body. Does this code evaluate an XPath expression?",
+        "criteria_true": "The code evaluates an XPath expression.",
+        "criteria_false": "The code evaluates no XPath expression.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 32000,
+        "state_projection": {
+          "code": "/prior/0/observation/fields/captures/0/text"
+        }
+      },
+      "applicability": {
+        "include": [
+          "xpathi"
+        ],
+        "exclude": []
+      },
+      "falsifier": "The code evaluates an XPath expression.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      }
+    },
+    {
+      "id": "XPATH-FLOW",
+      "revision": "4",
+      "consult": {"rules":["XPATH-SYNTAX"]},
+      "source": "evidence",
+      "group": "a05-injection",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "XPath injection: traced expression",
+      "evidence": "XPATH-FLOW",
+      "evaluator": {
+        "kind": "model",
+        "contract": "extract/1",
+        "role": "helper"
+      },
+      "check": {
+        "kind": "extract/1",
+        "instructions": "The code field holds the complete selected Python function for one HTTP request. Copy the XPath-evaluation calls and existing request reads, assignments, conditions, collection operations, arguments and checks relevant to their expression text and XPath variables. Keep expression-text and XPath-variable excerpts distinct. Return only verbatim contiguous source excerpts in the declared fields, preserving whitespace; use [] when no matching source text exists. Do not invent, repair or reformat code, evaluate expressions, compute resulting values, or claim data origins or executed branches.",
+        "fields": {
+          "calls": {
+            "type": "quote_list",
+            "description": "Each call that evaluates an expression, copied exactly from the code."
+          },
+          "reaching_value": {
+            "type": "quote_list",
+            "description": "Exact existing assignments, conditions, collection operations and arguments connecting request reads with each quoted XPath call's expression text or variables. Preserve that distinction in the source excerpts; no evaluated values or data-origin conclusions."
+          },
+          "request_reads": {
+            "type": "quote_list",
+            "description": "Each read of request data, copied exactly from the code, whose value can reach the expression text. Values passed only as XPath variables are not listed. Empty when none can."
+          },
+          "checks": {
+            "type": "quote_list",
+            "description": "Each check, escape or replacement applied to that value before the call, copied exactly from the code. Empty when there is none."
+          }
+        },
+        "max_request_bytes": 32000,
+        "state_projection": {
+          "code": "/prior/0/observation/fields/captures/0/text"
+        }
+      },
+      "applicability": {
+        "include": [
+          "xpathi"
+        ],
+        "exclude": []
+      },
+      "falsifier": "A relevant XPath call, request read, assignment, condition, collection operation, argument or check is omitted, invented, repaired or quoted inexactly, or XPath-variable excerpts are confused with expression-text excerpts.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      }
+    },
+    {
+      "id": "XPATH-REACH",
+      "revision": "4",
+      "source": "evidence",
+      "group": "a05-injection",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "XPath injection: request data in the expression",
+      "evidence": "XPATH-REACH",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "The code field holds the complete selected Python function for one HTTP request. Request data is any value read from that request, such as query parameters, form fields, headers, cookies, the path or the body. Can request data become part of the text of an XPath expression this code evaluates, rather than an XPath variable? Other fields contain advisory source excerpts. Derive the answer from the complete code, including its assignments, conditions and collection operations; the excerpts do not establish data origin, evaluated values or which branch executes.",
+        "criteria_true": "Request data can be inserted into XPath expression text.",
+        "criteria_false": "Request data reaches expressions only as XPath variables, or not at all.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 32000,
+        "state_projection": {
+          "code": "/prior/1/observation/fields/captures/0/text",
+          "calls": {
+            "pointer": "/prior/0/observation/fields/calls",
+            "optional": true
+          },
+          "reaching_value": {
+            "pointer": "/prior/0/observation/fields/reaching_value",
+            "optional": true
+          },
+          "request_reads": {
+            "pointer": "/prior/0/observation/fields/request_reads",
+            "optional": true
+          }
+        }
+      },
+      "applicability": {
+        "include": [
+          "xpathi"
+        ],
+        "exclude": []
+      },
+      "falsifier": "Request data can be inserted into XPath expression text.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      },
+      "consult": {
+        "rules": [
+          "XPATH-FLOW", "XPATH-SYNTAX"
+        ]
+      }
+    },
+    {
+      "id": "XPATH-OPEN",
+      "revision": "4",
+      "source": "evidence",
+      "group": "a05-injection",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "XPath injection: no check stops a quote",
+      "evidence": "XPATH-OPEN",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "The code field holds the complete selected Python function for one HTTP request. Request data is any value read from that request, such as query parameters, form fields, headers, cookies, the path or the body. After the checks the code applies before each XPath expression is evaluated, can the value in the expression still contain a quote or other XPath syntax that ends the literal it sits in? Other fields contain advisory source excerpts. Derive the answer from the complete code, including its assignments, conditions and collection operations; the excerpts do not establish data origin, evaluated values or which branch executes.",
+        "criteria_true": "No check before the call rejects or escapes such syntax.",
+        "criteria_false": "A check before the call rejects or escapes it, or reduces the value to fixed values.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 32000,
+        "state_projection": {
+          "code": "/prior/1/observation/fields/captures/0/text",
+          "calls": {
+            "pointer": "/prior/0/observation/fields/calls",
+            "optional": true
+          },
+          "checks": {
+            "pointer": "/prior/0/observation/fields/checks",
+            "optional": true
+          }
+        }
+      },
+      "applicability": {
+        "include": [
+          "xpathi"
+        ],
+        "exclude": []
+      },
+      "falsifier": "No check before the call rejects or escapes such syntax.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      },
+      "consult": {
+        "rules": [
+          "XPATH-FLOW", "XPATH-SYNTAX"
+        ]
+      }
+    },
+    {
+      "id": "WEB-XPATH",
+      "revision": "2",
+      "source": "evidence",
+      "group": "a05-injection",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "XPath injection (CWE-643)",
+      "evidence": "WEB-XPATH",
+      "evaluator": {
+        "kind": "answers",
+        "contract": "answers/1"
+      },
+      "check": {
+        "kind": "answers/1",
+        "rules": [
+          "XPATH-CALL",
+          "XPATH-REACH",
+          "XPATH-OPEN"
+        ],
+        "fail_when": "all_fail",
+        "resolution": "decisive",
+        "coverage": "XPath injection needs an evaluated expression, request data in its text, and no check that stops XPath syntax. Any premise that does not hold clears the handler."
+      },
+      "applicability": {
+        "include": [
+          "xpathi"
+        ],
+        "exclude": []
+      },
+      "falsifier": "Request data reaches unchecked XPath expression text.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      }
+    },
+    {
+      "id": "XSS-CALL",
+      "revision": "3",
+      "consult": {"rules":["XSS-SYNTAX"]},
+      "source": "evidence",
+      "group": "a05-injection",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Cross-site scripting: HTML response",
+      "evidence": "XSS-CALL",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "The code field holds Python code that handles one HTTP request. Request data is any value read from that request, such as query parameters, form fields, headers, cookies, the path or the body. Does this code write text into an HTML response?",
+        "criteria_true": "The code writes text into an HTML response.",
+        "criteria_false": "The code writes no text into an HTML response.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 32000,
+        "state_projection": {
+          "code": "/prior/0/observation/fields/captures/0/text"
+        }
+      },
+      "applicability": {
+        "include": [
+          "xss"
+        ],
+        "exclude": []
+      },
+      "falsifier": "The code writes text into an HTML response.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      }
+    },
+    {
+      "id": "XSS-FLOW",
+      "revision": "4",
+      "consult": {"rules":["XSS-SYNTAX"]},
+      "source": "evidence",
+      "group": "a05-injection",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Cross-site scripting: traced response text",
+      "evidence": "XSS-FLOW",
+      "evaluator": {
+        "kind": "model",
+        "contract": "extract/1",
+        "role": "helper"
+      },
+      "check": {
+        "kind": "extract/1",
+        "instructions": "The code field holds the complete selected Python function for one HTTP request. Copy the response-writing statements and existing request reads, assignments, conditions, collection operations, arguments and checks relevant to their response text. Return only verbatim contiguous source excerpts in the declared fields, preserving whitespace; use [] when no matching source text exists. Do not invent, repair or reformat code, evaluate expressions, compute resulting values, or claim data origins or executed branches.",
+        "fields": {
+          "calls": {
+            "type": "quote_list",
+            "description": "Each statement that writes response text, copied exactly from the code."
+          },
+          "reaching_value": {
+            "type": "quote_list",
+            "description": "Exact existing assignments, conditions, collection operations and arguments connecting request reads with each quoted response-writing statement's text. Source excerpts only; no evaluated values or data-origin conclusions."
+          },
+          "request_reads": {
+            "type": "quote_list",
+            "description": "Each read of request data, copied exactly from the code, whose value can reach the response. Empty when none can."
+          },
+          "checks": {
+            "type": "quote_list",
+            "description": "Each check, HTML escape or replacement applied to that value before it is written, copied exactly from the code. Empty when there is none."
+          }
+        },
+        "max_request_bytes": 32000,
+        "state_projection": {
+          "code": "/prior/0/observation/fields/captures/0/text"
+        }
+      },
+      "applicability": {
+        "include": [
+          "xss"
+        ],
+        "exclude": []
+      },
+      "falsifier": "A relevant response-writing statement, request read, assignment, condition, collection operation, argument or check is omitted, invented, repaired or quoted inexactly.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      }
+    },
+    {
+      "id": "XSS-REACH",
+      "revision": "4",
+      "source": "evidence",
+      "group": "a05-injection",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Cross-site scripting: request data in the response",
+      "evidence": "XSS-REACH",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "The code field holds the complete selected Python function for one HTTP request. Request data is any value read from that request, such as query parameters, form fields, headers, cookies, the path or the body. Can request data become part of the HTML response this code writes? Other fields contain advisory source excerpts. Derive the answer from the complete code, including its assignments, conditions and collection operations; the excerpts do not establish data origin, evaluated values or which branch executes.",
+        "criteria_true": "Request data can reach the HTML response.",
+        "criteria_false": "Only fixed values, or values not read from the request, reach the response.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 32000,
+        "state_projection": {
+          "code": "/prior/1/observation/fields/captures/0/text",
+          "calls": {
+            "pointer": "/prior/0/observation/fields/calls",
+            "optional": true
+          },
+          "reaching_value": {
+            "pointer": "/prior/0/observation/fields/reaching_value",
+            "optional": true
+          },
+          "request_reads": {
+            "pointer": "/prior/0/observation/fields/request_reads",
+            "optional": true
+          }
+        }
+      },
+      "applicability": {
+        "include": [
+          "xss"
+        ],
+        "exclude": []
+      },
+      "falsifier": "Request data can reach the HTML response.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      },
+      "consult": {
+        "rules": [
+          "XSS-FLOW", "XSS-SYNTAX"
+        ]
+      }
+    },
+    {
+      "id": "XSS-OPEN",
+      "revision": "4",
+      "source": "evidence",
+      "group": "a05-injection",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Cross-site scripting: no HTML escaping",
+      "evidence": "XSS-OPEN",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "The code field holds the complete selected Python function for one HTTP request. Request data is any value read from that request, such as query parameters, form fields, headers, cookies, the path or the body. After the checks the code applies before writing the response, can the value still contain HTML or script markup, such as < or a quote, that the browser would interpret? Other fields contain advisory source excerpts. Derive the answer from the complete code, including its assignments, conditions and collection operations; the excerpts do not establish data origin, evaluated values or which branch executes.",
+        "criteria_true": "No check before the value is written escapes or rejects markup.",
+        "criteria_false": "A check before the value is written escapes or rejects markup.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 32000,
+        "state_projection": {
+          "code": "/prior/1/observation/fields/captures/0/text",
+          "calls": {
+            "pointer": "/prior/0/observation/fields/calls",
+            "optional": true
+          },
+          "checks": {
+            "pointer": "/prior/0/observation/fields/checks",
+            "optional": true
+          }
+        }
+      },
+      "applicability": {
+        "include": [
+          "xss"
+        ],
+        "exclude": []
+      },
+      "falsifier": "No check before the value is written escapes or rejects markup.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      },
+      "consult": {
+        "rules": [
+          "XSS-FLOW", "XSS-SYNTAX"
+        ]
+      }
+    },
+    {
+      "id": "WEB-XSS",
+      "revision": "2",
+      "source": "evidence",
+      "group": "a05-injection",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Cross-site scripting (CWE-79)",
+      "evidence": "WEB-XSS",
+      "evaluator": {
+        "kind": "answers",
+        "contract": "answers/1"
+      },
+      "check": {
+        "kind": "answers/1",
+        "rules": [
+          "XSS-CALL",
+          "XSS-REACH",
+          "XSS-OPEN"
+        ],
+        "fail_when": "all_fail",
+        "resolution": "decisive",
+        "coverage": "Cross-site scripting needs an HTML response, request data in it, and no HTML escaping. Any premise that does not hold clears the handler."
+      },
+      "applicability": {
+        "include": [
+          "xss"
+        ],
+        "exclude": []
+      },
+      "falsifier": "Request data reaches the response without HTML escaping.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      }
+    },
+    {
+      "id": "TRUST-CALL",
+      "revision": "3",
+      "consult": {"rules":["TRUST-SYNTAX"]},
+      "source": "evidence",
+      "group": "a06-insecure-design",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Trust boundary: session write",
+      "evidence": "TRUST-CALL",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "The code field holds Python code that handles one HTTP request. Request data is any value read from that request, such as query parameters, form fields, headers, cookies, the path or the body. Does this code store a value in the server-side session?",
+        "criteria_true": "The code stores a value in the session.",
+        "criteria_false": "The code stores nothing in the session.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 32000,
+        "state_projection": {
+          "code": "/prior/0/observation/fields/captures/0/text"
+        }
+      },
+      "applicability": {
+        "include": [
+          "trustbound"
+        ],
+        "exclude": []
+      },
+      "falsifier": "The code stores a value in the session.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      }
+    },
+    {
+      "id": "TRUST-FLOW",
+      "revision": "4",
+      "consult": {"rules":["TRUST-SYNTAX"]},
+      "source": "evidence",
+      "group": "a06-insecure-design",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Trust boundary: traced session value",
+      "evidence": "TRUST-FLOW",
+      "evaluator": {
+        "kind": "model",
+        "contract": "extract/1",
+        "role": "helper"
+      },
+      "check": {
+        "kind": "extract/1",
+        "instructions": "The code field holds the complete selected Python function for one HTTP request. Copy the server-side session storage statements and existing request reads, assignments, conditions, collection operations, arguments and checks relevant to their stored keys or values. Return only verbatim contiguous source excerpts in the declared fields, preserving whitespace; use [] when no matching source text exists. Do not invent, repair or reformat code, evaluate expressions, compute resulting values, or claim data origins or executed branches.",
+        "fields": {
+          "calls": {
+            "type": "quote_list",
+            "description": "Each statement that stores in the session, copied exactly from the code."
+          },
+          "reaching_value": {
+            "type": "quote_list",
+            "description": "Exact existing assignments, conditions, collection operations and arguments connecting request reads with each quoted session-storage statement's key or value. Source excerpts only; no evaluated values or data-origin conclusions."
+          },
+          "request_reads": {
+            "type": "quote_list",
+            "description": "Each read of request data, copied exactly from the code, whose value can reach a stored key or value. Empty when none can."
+          },
+          "checks": {
+            "type": "quote_list",
+            "description": "Each check that restricts that value to allowed values before it is stored, copied exactly from the code. Empty when there is none."
+          }
+        },
+        "max_request_bytes": 32000,
+        "state_projection": {
+          "code": "/prior/0/observation/fields/captures/0/text"
+        }
+      },
+      "applicability": {
+        "include": [
+          "trustbound"
+        ],
+        "exclude": []
+      },
+      "falsifier": "A relevant session-storage statement, request read, assignment, condition, collection operation, argument or check is omitted, invented, repaired or quoted inexactly.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      }
+    },
+    {
+      "id": "TRUST-REACH",
+      "revision": "4",
+      "source": "evidence",
+      "group": "a06-insecure-design",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Trust boundary: request data in the session",
+      "evidence": "TRUST-REACH",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "The code field holds the complete selected Python function for one HTTP request. Request data is any value read from that request, such as query parameters, form fields, headers, cookies, the path or the body. Can request data become a key or value this code stores in the server-side session? Other fields contain advisory source excerpts. Derive the answer from the complete code, including its assignments, conditions and collection operations; the excerpts do not establish data origin, evaluated values or which branch executes.",
+        "criteria_true": "Request data can be stored in the session.",
+        "criteria_false": "Only fixed values, or values not read from the request, are stored.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 32000,
+        "state_projection": {
+          "code": "/prior/1/observation/fields/captures/0/text",
+          "calls": {
+            "pointer": "/prior/0/observation/fields/calls",
+            "optional": true
+          },
+          "reaching_value": {
+            "pointer": "/prior/0/observation/fields/reaching_value",
+            "optional": true
+          },
+          "request_reads": {
+            "pointer": "/prior/0/observation/fields/request_reads",
+            "optional": true
+          }
+        }
+      },
+      "applicability": {
+        "include": [
+          "trustbound"
+        ],
+        "exclude": []
+      },
+      "falsifier": "Request data can be stored in the session.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      },
+      "consult": {
+        "rules": [
+          "TRUST-FLOW", "TRUST-SYNTAX"
+        ]
+      }
+    },
+    {
+      "id": "TRUST-OPEN",
+      "revision": "4",
+      "source": "evidence",
+      "group": "a06-insecure-design",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Trust boundary: no allowed-value check",
+      "evidence": "TRUST-OPEN",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "The code field holds the complete selected Python function for one HTTP request. Request data is any value read from that request, such as query parameters, form fields, headers, cookies, the path or the body. After the checks the code applies before storing in the session, can the stored key or value still be any value the client chooses? Other fields contain advisory source excerpts. Derive the answer from the complete code, including its assignments, conditions and collection operations; the excerpts do not establish data origin, evaluated values or which branch executes.",
+        "criteria_true": "No check restricts the stored value to allowed values.",
+        "criteria_false": "A check restricts the stored value to allowed values.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 32000,
+        "state_projection": {
+          "code": "/prior/1/observation/fields/captures/0/text",
+          "calls": {
+            "pointer": "/prior/0/observation/fields/calls",
+            "optional": true
+          },
+          "checks": {
+            "pointer": "/prior/0/observation/fields/checks",
+            "optional": true
+          }
+        }
+      },
+      "applicability": {
+        "include": [
+          "trustbound"
+        ],
+        "exclude": []
+      },
+      "falsifier": "No check restricts the stored value to allowed values.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      },
+      "consult": {
+        "rules": [
+          "TRUST-FLOW", "TRUST-SYNTAX"
+        ]
+      }
+    },
+    {
+      "id": "WEB-TRUST",
+      "revision": "2",
+      "source": "evidence",
+      "group": "a06-insecure-design",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Trust boundary violation (CWE-501)",
+      "evidence": "WEB-TRUST",
+      "evaluator": {
+        "kind": "answers",
+        "contract": "answers/1"
+      },
+      "check": {
+        "kind": "answers/1",
+        "rules": [
+          "TRUST-CALL",
+          "TRUST-REACH",
+          "TRUST-OPEN"
+        ],
+        "fail_when": "all_fail",
+        "resolution": "decisive",
+        "coverage": "A trust boundary violation needs a session write, request data in it, and no check against allowed values. Any premise that does not hold clears the handler."
+      },
+      "applicability": {
+        "include": [
+          "trustbound"
+        ],
+        "exclude": []
+      },
+      "falsifier": "Unchecked request data reaches the session.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      }
+    },
+    {
+      "id": "DESERIALIZE-CALL",
+      "revision": "3",
+      "consult": {"rules":["DESERIALIZE-SYNTAX"]},
+      "source": "evidence",
+      "group": "a08-integrity-failures",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Unsafe deserialization: object-building format",
+      "evidence": "DESERIALIZE-CALL",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "The code field holds Python code that handles one HTTP request. Request data is any value read from that request, such as query parameters, form fields, headers, cookies, the path or the body. Does this code deserialize data with a format that can construct arbitrary Python objects, such as pickle, marshal, shelve or yaml.load without a safe loader?",
+        "criteria_true": "The code deserializes with such a format.",
+        "criteria_false": "The code deserializes only data-only formats such as JSON, or deserializes nothing.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 32000,
+        "state_projection": {
+          "code": "/prior/0/observation/fields/captures/0/text"
+        }
+      },
+      "applicability": {
+        "include": [
+          "deserialization"
+        ],
+        "exclude": []
+      },
+      "falsifier": "The code deserializes with such a format.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      }
+    },
+    {
+      "id": "DESERIALIZE-FLOW",
+      "revision": "4",
+      "consult": {"rules":["DESERIALIZE-SYNTAX"]},
+      "source": "evidence",
+      "group": "a08-integrity-failures",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Unsafe deserialization: traced data",
+      "evidence": "DESERIALIZE-FLOW",
+      "evaluator": {
+        "kind": "model",
+        "contract": "extract/1",
+        "role": "helper"
+      },
+      "check": {
+        "kind": "extract/1",
+        "instructions": "The code field holds the complete selected Python function for one HTTP request. Copy the deserialization calls and existing request reads, assignments, conditions, collection operations, arguments and checks relevant to their data inputs. Return only verbatim contiguous source excerpts in the declared fields, preserving whitespace; use [] when no matching source text exists. Do not invent, repair or reformat code, evaluate expressions, compute resulting values, or claim data origins or executed branches.",
+        "fields": {
+          "calls": {
+            "type": "quote_list",
+            "description": "Each deserializing call, copied exactly from the code."
+          },
+          "reaching_value": {
+            "type": "quote_list",
+            "description": "Exact existing assignments, conditions, collection operations and arguments connecting request reads with each quoted deserialization call's data input. Source excerpts only; no evaluated values or data-origin conclusions."
+          },
+          "request_reads": {
+            "type": "quote_list",
+            "description": "Each read of request data, copied exactly from the code, whose value can reach deserialized data. Empty when none can."
+          },
+          "checks": {
+            "type": "quote_list",
+            "description": "Each check applied to that data before the call, copied exactly from the code. Empty when there is none."
+          }
+        },
+        "max_request_bytes": 32000,
+        "state_projection": {
+          "code": "/prior/0/observation/fields/captures/0/text"
+        }
+      },
+      "applicability": {
+        "include": [
+          "deserialization"
+        ],
+        "exclude": []
+      },
+      "falsifier": "A relevant deserialization call, request read, assignment, condition, collection operation, argument or check is omitted, invented, repaired or quoted inexactly.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      }
+    },
+    {
+      "id": "DESERIALIZE-REACH",
+      "revision": "4",
+      "source": "evidence",
+      "group": "a08-integrity-failures",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Unsafe deserialization: request data is deserialized",
+      "evidence": "DESERIALIZE-REACH",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "The code field holds the complete selected Python function for one HTTP request. Request data is any value read from that request, such as query parameters, form fields, headers, cookies, the path or the body. Can request data become the data that an object-constructing deserializer in this code reads? Other fields contain advisory source excerpts. Derive the answer from the complete code, including its assignments, conditions and collection operations; the excerpts do not establish data origin, evaluated values or which branch executes.",
+        "criteria_true": "Request data can reach an object-constructing deserializer.",
+        "criteria_false": "Only fixed data, or data not read from the request, reaches it.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 32000,
+        "state_projection": {
+          "code": "/prior/1/observation/fields/captures/0/text",
+          "calls": {
+            "pointer": "/prior/0/observation/fields/calls",
+            "optional": true
+          },
+          "reaching_value": {
+            "pointer": "/prior/0/observation/fields/reaching_value",
+            "optional": true
+          },
+          "request_reads": {
+            "pointer": "/prior/0/observation/fields/request_reads",
+            "optional": true
+          }
+        }
+      },
+      "applicability": {
+        "include": [
+          "deserialization"
+        ],
+        "exclude": []
+      },
+      "falsifier": "Request data can reach an object-constructing deserializer.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      },
+      "consult": {
+        "rules": [
+          "DESERIALIZE-FLOW", "DESERIALIZE-SYNTAX"
+        ]
+      }
+    },
+    {
+      "id": "WEB-DESERIALIZE",
+      "revision": "2",
+      "source": "evidence",
+      "group": "a08-integrity-failures",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Unsafe deserialization (CWE-502)",
+      "evidence": "WEB-DESERIALIZE",
+      "evaluator": {
+        "kind": "answers",
+        "contract": "answers/1"
+      },
+      "check": {
+        "kind": "answers/1",
+        "rules": [
+          "DESERIALIZE-CALL",
+          "DESERIALIZE-REACH"
+        ],
+        "fail_when": "all_fail",
+        "resolution": "decisive",
+        "coverage": "Unsafe deserialization needs an object-constructing format and request data as its input. Either premise that does not hold clears the handler."
+      },
+      "applicability": {
+        "include": [
+          "deserialization"
+        ],
+        "exclude": []
+      },
+      "falsifier": "Request data reaches an object-constructing deserializer.",
+      "fixtures": {
+        "pass": [],
+        "fail": []
+      }
+    }
+  ],
+  "profiles": [
+    {
+      "id": "all",
+      "select": [
+        "*"
+      ],
+      "block_on": [
+        "fail",
+        "review",
+        "error",
+        "not_evaluated"
+      ],
+      "allowed_egress": [
+        "https://api.typesafe.ai",
+        "loopback"
+      ]
+    },
+    {
+      "id": "a01-access-control",
+      "select": [
+        "a01-access-control/*"
+      ],
+      "block_on": [
+        "fail",
+        "review",
+        "error",
+        "not_evaluated"
+      ],
+      "allowed_egress": [
+        "https://api.typesafe.ai",
+        "loopback"
+      ]
+    },
+    {
+      "id": "a04-cryptographic-failures",
+      "select": [
+        "a04-cryptographic-failures/*"
+      ],
+      "block_on": [
+        "fail",
+        "review",
+        "error",
+        "not_evaluated"
+      ],
+      "allowed_egress": [
+        "https://api.typesafe.ai",
+        "loopback"
+      ]
+    },
+    {
+      "id": "a02-security-misconfiguration",
+      "select": [
+        "a02-security-misconfiguration/*"
+      ],
+      "block_on": [
+        "fail",
+        "review",
+        "error",
+        "not_evaluated"
+      ],
+      "allowed_egress": [
+        "https://api.typesafe.ai",
+        "loopback"
+      ]
+    },
+    {
+      "id": "a05-injection",
+      "select": [
+        "a05-injection/*"
+      ],
+      "block_on": [
+        "fail",
+        "review",
+        "error",
+        "not_evaluated"
+      ],
+      "allowed_egress": [
+        "https://api.typesafe.ai",
+        "loopback"
+      ]
+    },
+    {
+      "id": "a06-insecure-design",
+      "select": [
+        "a06-insecure-design/*"
+      ],
+      "block_on": [
+        "fail",
+        "review",
+        "error",
+        "not_evaluated"
+      ],
+      "allowed_egress": [
+        "https://api.typesafe.ai",
+        "loopback"
+      ]
+    },
+    {
+      "id": "a08-integrity-failures",
+      "select": [
+        "a08-integrity-failures/*"
+      ],
+      "block_on": [
+        "fail",
+        "review",
+        "error",
+        "not_evaluated"
+      ],
+      "allowed_egress": [
+        "https://api.typesafe.ai",
+        "loopback"
+      ]
+    }
+  ]
+}

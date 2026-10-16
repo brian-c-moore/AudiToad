@@ -1,0 +1,1 @@
+{"subject":{"source":"---- MODULE M ----\nVARIABLE done\nFinish == done' = TRUE\nProgress == WF_done(Finish)\n====","operator":"Progress","action":"Finish","subscript":"done"}}

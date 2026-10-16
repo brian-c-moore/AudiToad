@@ -1,0 +1,8 @@
+{"source":"---- MODULE A ----\nRoot == TRUE\nOther == FALSE\nAlias == Root\n====","operator":"Alias","dependency":"Root"}
+{"source":"---- MODULE A ----\nRoot == TRUE\nOther == FALSE\nAlias == Other\n====","operator":"Alias","dependency":"Root"}
+{"source":"---- MODULE A ----\nRoot == TRUE\nAlias == (Root)\n====","operator":"Alias","dependency":"Root"}
+{"source":"---- MODULE A ----\nRoot == TRUE\nAlias == Root /\\ TRUE\n====","operator":"Alias","dependency":"Root"}
+{"source":"---- MODULE A ----\nRoot == TRUE\nMiddle == Root\nAlias == Middle\n====","operator":"Alias","dependency":"Root"}
+{"source":"---- MODULE A ----\nRoot == TRUE\nAlias == Root\n\\* Alias == FALSE\n====","operator":"Alias","dependency":"Root"}
+{"source":"---- MODULE A ----\nRoot == TRUE\nAlias == \"Root\"\n====","operator":"Alias","dependency":"Root"}
+{"source":"---- MODULE A ----\nRoot == TRUE\nAlias ==\n  Root\n====","operator":"Alias","dependency":"Root"}

@@ -1,0 +1,9 @@
+{
+  "schema": "auditoad-inventory/1",
+  "snapshot_id": "example-inventory-r1",
+  "items": [
+    { "id": "disk/boot", "kind": "host.property", "facts": { "encrypted": true } },
+    { "id": "disk/backup", "kind": "host.property", "facts": { "encrypted": false } },
+    { "id": "disk/unknown", "kind": "host.property", "facts": {} }
+  ]
+}

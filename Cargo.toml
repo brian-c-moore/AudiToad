@@ -1,0 +1,114 @@
+[package]
+name = "auditoad"
+version = "0.0.1-beta.1"
+edition = "2024"
+rust-version = "1.95"
+description = "Bounded baseline scans with explicit evidence, coverage, and unresolved results"
+readme = "README.md"
+repository = "https://github.com/brian-c-moore/auditoad"
+documentation = "https://docs.rs/auditoad"
+keywords = ["audit", "compliance", "baseline", "scanner"]
+categories = ["command-line-utilities", "development-tools"]
+license = "MIT OR Apache-2.0"
+build = "build.rs"
+include = [
+    "src/**", "tests/**", "docs/**", "vendor/tree-sitter-verus/**", "build.rs",
+    "examples/README.md", "examples/*/*.md", "examples/*/*.py",
+    "examples/evaluators.json", "examples/evaluators.local.json",
+    "examples/evaluators.helpers.json",
+    "examples/audit.json", "examples/*/labels.json",
+    "examples/*/baseline.json", "examples/*/bundle.json", "examples/*/observations.json",
+    "examples/no-slop/punctuation.baseline.json",
+    "examples/no-slop/local-checks-pass.json", "examples/no-slop/local-checks-fail.json",
+    "examples/related-events/inputs.json", "examples/related-events/dns.jsonl",
+    "examples/related-events/processes.json", "examples/related-events/allowlist.json",
+    "examples/related-events/listed-a.json", "examples/related-events/unlisted-txt.json",
+    "examples/related-events/encoded-invocation.json", "examples/related-events/printed-mention.json",
+    "examples/related-events/script-argument.json", "examples/related-events/nested-code.json",
+    "examples/windows-memory/inputs.json", "examples/windows-memory/events.jsonl",
+    "examples/windows-memory/LICENSE-OTRF.txt", "examples/windows-memory/known-*.json",
+    "examples/language-helpers/inputs.json", "examples/language-helpers/example.bash",
+    "examples/language-helpers/example.zsh", "examples/language-helpers/example.ps1",
+    "examples/language-helpers/example.rs",
+    "examples/language-helpers/example.tla",
+    "examples/jev-images/baseline.json", "examples/jev-images/bundle.json",
+    "examples/jev-images/evaluators.json", "examples/jev-images/labels.json",
+    "examples/jev-images/range-pass.json", "examples/jev-images/range-fail.json",
+    "examples/jev-images/README.md",
+    "examples/jev-images/*.png", "examples/jev-images/*.jpg", "examples/jev-images/*.jpeg",
+    "examples/formal-claims/inputs.json", "examples/formal-claims/*.jsonl",
+    "examples/formal-claims/status-*.json",
+    "examples/formal-relations/*.json", "examples/formal-relations/*.jsonl",
+    "examples/disk-encryption/inventory.json",
+    "examples/disk-encryption/encrypted.json", "examples/disk-encryption/unencrypted.json",
+    "examples/scanner-policy/*.json",
+    "audit/*.md", "audit/baseline.json", "audit/bundle.json", "audit/observations.json",
+    "Cargo.toml", "Cargo.lock", "rust-toolchain.toml", ".cargo/config.toml",
+    "README.md", "BASELINES.md", "ROADMAP.md", "CHANGELOG.md", "CONTRIBUTING.md", "LICENSE-*",
+]
+
+[workspace]
+
+[dependencies]
+automation-structures = "=0.4.0"
+base64 = "=0.23.1"
+clap = { version = "=4.6.1", features = ["derive"] }
+serde = { version = "=1.0.229", features = ["derive"] }
+serde_json = "=1.0.151"
+sha2 = "=0.10.9"
+uuid = { version = "=1.18.1", features = ["v4"] }
+tempfile = "=3.23.0"
+ureq = { version = "=3.4.2", default-features = false, features = ["rustls"] }
+pulldown-cmark = { version = "=0.13.4", default-features = false }
+unicode-segmentation = "=1.13.3"
+tree-sitter = "=0.27.0"
+tree-sitter-language = "=0.1.8"
+tree-sitter-bash = "=0.25.1"
+tree-sitter-zsh = "=0.63.4"
+tree-sitter-powershell = "=0.26.4"
+tree-sitter-python = "=0.25.0"
+tree-sitter-rust = "=0.24.2"
+tree-sitter-tlaplus = "=1.5.0"
+yara-x = { version = "=1.20.0", default-features = false, features = ["constant-folding", "exact-atoms", "fast-regexp"] }
+
+[build-dependencies]
+cc = "=1.5.1"
+
+[lints.rust]
+warnings = "deny"
+unsafe_code = "deny"
+unused_must_use = "forbid"
+
+[lints.clippy]
+unwrap_used = "deny"
+expect_used = "deny"
+unwrap_in_result = "deny"
+panic = "deny"
+panic_in_result_fn = "deny"
+unreachable = "deny"
+todo = "deny"
+unimplemented = "deny"
+indexing_slicing = "deny"
+string_slice = "deny"
+arithmetic_side_effects = "deny"
+cast_possible_truncation = "deny"
+cast_possible_wrap = "deny"
+cast_sign_loss = "deny"
+integer_division = "deny"
+await_holding_lock = "deny"
+await_holding_refcell_ref = "deny"
+mem_forget = "deny"
+exit = "deny"
+fallible_impl_from = "deny"
+dbg_macro = "deny"
+clone_on_ref_ptr = "deny"
+large_enum_variant = "deny"
+unnecessary_box_returns = "deny"
+disallowed_methods = "deny"
+disallowed_types = "deny"
+
+[profile.dev]
+debug = 0
+
+[profile.test]
+debug = 0

@@ -1,0 +1,450 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AudiToad baseline",
+  "description": "Document shape. The CLI additionally checks installed bindings, unique identities, scope compatibility, dependency order, profile closure and admission rules.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "baseline", "sources", "evidence", "groups", "rules", "profiles"],
+  "properties": {
+    "$schema": {"type": "string", "minLength": 1},
+    "schema": {"enum": ["auditoad-baseline/1", "checkwarden-baseline/1"]},
+    "default_profile": {"type":"string", "minLength":1, "description":"Profile used when the operator does not supply one. Must name an existing profile."},
+    "baseline": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "version", "title", "publisher", "status"],
+      "properties": {
+        "id": {"$ref": "#/$defs/text"}, "version": {"$ref": "#/$defs/text"},
+        "title": {"$ref": "#/$defs/text"}, "publisher": {"$ref": "#/$defs/text"},
+        "status": {"enum": ["draft", "admitted", "retired"]}
+      }
+    },
+    "sources": {"type": "object", "additionalProperties": {"$ref": "#/$defs/source"}},
+    "evidence": {"type": "object", "additionalProperties": {"$ref": "#/$defs/evidence"}},
+    "groups": {"type": "array", "items": {"$ref": "#/$defs/group"}},
+    "requirements": {
+      "description": "Requirements the audit must cover. Each scan reports whether every required one was checked and decided.",
+      "type": "array", "items": {"$ref": "#/$defs/requirement"}
+    },
+    "command_grammars": {
+      "description": "Named program grammars referenced by command-line/1 checks.",
+      "type": "object",
+      "additionalProperties": {"type": "object", "minProperties": 1, "additionalProperties": {"$ref": "#/$defs/command_program"}}
+    },
+    "rules": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/rule"}},
+    "profiles": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/profile"}}
+  },
+  "$defs": {
+    "text": {"type": "string", "minLength": 1},
+    "strings": {"type": "array", "uniqueItems": true, "items": {"$ref": "#/$defs/text"}},
+    "state_projection": {
+      "type": ["object", "null"], "minProperties": 1,
+      "propertyNames": {"type": "string", "minLength": 1, "pattern": "\\S"},
+      "additionalProperties": {
+        "anyOf": [
+          {"type": "string", "pattern": "^/"},
+          {"type": "object", "additionalProperties": false, "required": ["pointer", "optional"],
+           "description": "An optional field is sent as null when absent. With capture, the pointer names a syntax capture array and exactly one matching label must supply nonempty source text; duplicates or malformed selected text refuse dispatch.",
+           "properties": {"pointer": {"type": "string", "pattern": "^/"}, "optional": {"type": "boolean"},
+             "capture": {"type": "string", "minLength": 1, "pattern": "\\S"}}}
+        ]
+      }
+    },
+    "state_required_any": {
+      "description": "Every group names projected fields and requires at least one non-null value before provider dispatch. The CLI checks field names against state_projection.",
+      "type": "array",
+      "items": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/text"}}
+    },
+    "source": {
+      "type": "object", "additionalProperties": false, "required": ["adapter", "media"],
+      "properties": {
+        "adapter": {"enum": ["raw-bytes/1", "inventory-json/1", "evidence-bundle/1", "text/1", "json/1", "json-lines/1", "collection/1"]},
+        "media": {"$ref": "#/$defs/strings", "minItems": 1},
+        "include_provenance": {"type": "boolean", "default": false, "description": "For collection/1 only, expose computed subject and selected related-file identities in the evidence frame."}
+      }
+    },
+    "evidence": {
+      "type": "object", "additionalProperties": false, "required": ["builder", "builder_revision"],
+      "properties": {
+        "builder": {"enum": ["bytes/1", "item-json/1", "declared-parts/1", "scoped-input/1", "answers/1"]},
+        "builder_revision": {"enum": ["r1"]},
+        "required_roles": {"anyOf": [{"$ref": "#/$defs/strings"}, {"type": "null"}]}
+      }
+    },
+    "group": {
+      "type": "object", "additionalProperties": false, "required": ["id", "title"],
+      "properties": {"id": {"$ref": "#/$defs/text"}, "title": {"$ref": "#/$defs/text"}}
+    },
+    "requirement": {
+      "type": "object", "additionalProperties": false, "required": ["id", "revision", "title"],
+      "properties": {
+        "id": {"$ref": "#/$defs/text"}, "revision": {"$ref": "#/$defs/text"},
+        "title": {"$ref": "#/$defs/text"},
+        "reference": {"description": "Where the requirement is stated, such as a policy section or standard clause.", "$ref": "#/$defs/text"}
+      }
+    },
+    "scope": {
+      "type": "object", "additionalProperties": false, "required": ["unit", "context"],
+      "properties": {
+        "unit": {"enum": ["document", "paragraph", "sentence", "record"]},
+        "context": {"enum": ["none", "document"]},
+        "input": {"$ref": "#/$defs/text"},
+        "related": {"type": "array", "uniqueItems": true, "items": {"$ref": "#/$defs/related"}}
+      }
+    },
+    "related": {
+      "type": "object", "additionalProperties": false,
+      "required": ["role", "input", "unit", "on", "allow_empty"],
+      "properties": {
+        "role": {"$ref": "#/$defs/text"}, "input": {"$ref": "#/$defs/text"},
+        "unit": {"enum": ["document", "paragraph", "sentence", "record"]},
+        "allow_empty": {"type": "boolean"},
+        "on": {
+          "type": "array", "uniqueItems": true,
+          "items": {
+            "type": "object", "additionalProperties": false, "required": ["subject", "related"],
+            "properties": {
+              "subject": {"type": "string", "pattern": "^/"},
+              "related": {"type": "string", "pattern": "^/"}
+            }
+          }
+        }
+      }
+    },
+    "rule": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "revision", "source", "group", "risk", "scope_kind", "title", "evidence", "evaluator", "check", "applicability", "falsifier", "fixtures"],
+      "properties": {
+        "id": {"$ref": "#/$defs/text"}, "revision": {"$ref": "#/$defs/text"},
+        "source": {"$ref": "#/$defs/text"}, "group": {"$ref": "#/$defs/text"},
+        "risk": {"enum": ["low", "medium", "high", "critical"]},
+        "scope_kind": {"enum": ["site", "relation", "whole"]},
+        "scope": {"description": "Automatic input scope. Omit for declared bundle packets; answers/1 then combines only the same packet and requires matching prerequisite scope_kind values.", "anyOf": [{"$ref": "#/$defs/scope"}, {"type": "null"}]},
+        "title": {"$ref": "#/$defs/text"}, "evidence": {"$ref": "#/$defs/text"},
+        "evaluator": {
+          "type": "object", "additionalProperties": false, "required": ["kind", "contract"],
+          "properties": {
+            "kind": {"$ref": "#/$defs/text"}, "contract": {"$ref": "#/$defs/text"},
+            "role": {"description": "For model questions: the evaluator-file role that answers this rule. Default: default.", "$ref": "#/$defs/text"}
+          }
+        },
+        "check": {"$ref": "#/$defs/check"},
+        "consult": {
+          "description": "Earlier rules whose answers and observations are added to this rule's evidence under prior. run_when decides whether this rule is evaluated: always, or only when a consulted rule fails, passes or is unresolved, or when all are resolved.",
+          "type": "object", "additionalProperties": false, "required": ["rules"],
+          "properties": {
+            "rules": {"$ref": "#/$defs/strings", "minItems": 1},
+            "run_when": {"enum": ["always", "any_fail", "any_pass", "any_unresolved", "all_resolved"]}
+          }
+        },
+        "applicability": {
+          "type": "object", "additionalProperties": false, "required": ["include", "exclude"],
+          "properties": {"include": {"$ref": "#/$defs/strings", "minItems": 1}, "exclude": {"$ref": "#/$defs/strings"}}
+        },
+        "falsifier": {"$ref": "#/$defs/text"},
+        "fixtures": {
+          "type": "object", "additionalProperties": false, "required": ["pass", "fail"],
+          "properties": {
+            "pass": {"type": "array", "items": {"$ref": "#/$defs/fixture"}},
+            "fail": {"type": "array", "items": {"$ref": "#/$defs/fixture"}}
+          }
+        },
+        "requirements": {
+          "description": "Requirement id to the requirement revision this rule was written against. A different current revision reports the requirement as stale.",
+          "type": "object", "additionalProperties": {"$ref": "#/$defs/text"}
+        }
+      }
+    },
+    "check": {
+      "if": {
+        "required": ["state_required_any"],
+        "properties": {"state_required_any": {"minItems": 1}}
+      },
+      "then": {
+        "required": ["state_projection"],
+        "properties": {"state_projection": {"type": "object"}}
+      },
+      "oneOf": [
+        {
+          "type": "object", "additionalProperties": false,
+          "required": ["kind", "language", "query"],
+          "properties": {
+            "kind": {"const": "syntax/1"},
+            "language": {"enum": ["bash", "zsh", "powershell", "python", "rust", "verus", "tlaplus"]},
+            "query": {"type": "string", "minLength": 1},
+            "json_string_pointer": {"type": "string", "pattern": "^/"},
+            "limits": {"$ref": "#/$defs/syntax_limits"}
+          }
+        },
+        {
+          "type": "object", "additionalProperties": false,
+          "required": ["kind", "json_string_pointer", "operator_pointer", "predicate", "fail_when"],
+          "properties": {
+            "kind": {"const": "tlaplus-relation/1"},
+            "json_string_pointer": {"type": "string", "pattern": "^/"},
+            "operator_pointer": {"type": "string", "pattern": "^/"},
+            "predicate": {"$ref": "#/$defs/tlaplus_predicate"},
+            "fail_when": {"type": "boolean"},
+            "limits": {"$ref": "#/$defs/syntax_limits"}
+          }
+        },
+        {
+          "type": "object", "additionalProperties": false,
+          "required": ["kind", "source", "rule_name", "fail_when"],
+          "properties": {
+            "kind": {"const": "yara-x/1.20.0"}, "source": {"$ref": "#/$defs/text"},
+            "rule_name": {"$ref": "#/$defs/text"}, "fail_when": {"enum": ["match", "no_match"]},
+            "json_string_pointer": {"type": ["string", "null"], "pattern": "^/"}
+          }
+        },
+        {
+          "type": "object", "additionalProperties": false,
+          "required": ["kind", "pointer", "expected", "fail_when"],
+          "properties": {
+            "kind": {"const": "json-pointer-equals/1"}, "pointer": {"type": "string", "pattern": "^/"},
+            "expected": {}, "fail_when": {"enum": ["equal", "unequal"]}
+          }
+        },
+        {
+          "type": "object", "additionalProperties": false,
+          "required": ["kind", "left", "right", "fail_when"],
+          "properties": {
+            "kind": {"const": "json-pointer-compare/1"},
+            "left": {"type": "string", "pattern": "^/"},
+            "right": {"type": "string", "pattern": "^/"},
+            "fail_when": {"enum": ["equal", "unequal"]}
+          }
+        },
+        {
+          "type": "object", "additionalProperties": false,
+          "required": ["kind", "array_pointer", "value_pointer", "fail_when"],
+          "properties": {
+            "kind": {"const": "json-pointer-contains/1"},
+            "array_pointer": {"type": "string", "pattern": "^/"},
+            "value_pointer": {"type": "string", "pattern": "^/"},
+            "fail_when": {"type": "boolean"}
+          }
+        },
+        {
+          "type": "object", "additionalProperties": false,
+          "required": ["kind", "predicate"],
+          "properties": {
+            "kind": {"const": "markdown/1"},
+            "json_string_pointer": {"type": ["string", "null"], "pattern": "^/"},
+            "predicate": {
+              "oneOf": [
+                {"type": "object", "additionalProperties": false, "required": ["kind", "terms"],
+                 "properties": {"kind": {"const": "forbidden_terms"},
+                   "terms": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}}}},
+                {"type": "object", "additionalProperties": false, "required": ["kind"],
+                 "properties": {"kind": {"const": "prose_bold"}}},
+                {"type": "object", "additionalProperties": false, "required": ["kind", "forbidden_length"],
+                 "properties": {"kind": {"const": "list_length"}, "forbidden_length": {"type": "integer", "minimum": 1}}},
+                {"type": "object", "additionalProperties": false, "required": ["kind", "shorter_than", "longer_than"],
+                 "properties": {"kind": {"const": "paragraph_sentence_lengths"},
+                   "shorter_than": {"type": "integer", "minimum": 2}, "longer_than": {"type": "integer", "minimum": 2}}}
+              ]
+            }
+          }
+        },
+        {
+          "type": "object", "additionalProperties": false,
+          "required": ["kind", "pointer", "minimum", "maximum", "fail_when_outside"],
+          "properties": {
+            "kind": {"const": "json-number-range/1"},
+            "pointer": {"type": "string", "pattern": "^/"},
+            "minimum": {"type": "number"}, "maximum": {"type": "number"},
+            "fail_when_outside": {"type": "boolean"}
+          }
+        },
+        {
+          "type": "object", "additionalProperties": false,
+          "required": ["kind", "instructions", "pass_below", "fail_at_or_above"],
+          "properties": {
+            "kind": {"const": "mock-model/1"}, "instructions": {"$ref": "#/$defs/text"},
+            "pass_below": {"$ref": "#/$defs/probability"}, "fail_at_or_above": {"$ref": "#/$defs/probability"}
+          }
+        },
+        {
+          "type": "object", "additionalProperties": false,
+          "required": ["kind", "grammar", "predicate"],
+          "properties": {
+            "kind": {"const": "command-line/1"},
+            "json_string_pointer": {"type": ["string", "null"], "pattern": "^/"},
+            "json_array_pointer": {"type": ["string", "null"], "pattern": "^/"},
+            "item_string_pointer": {"type": ["string", "null"], "pattern": "^/"},
+            "grammar": {"$ref": "#/$defs/text"},
+            "predicate": {
+              "oneOf": [
+                {"type": "object", "additionalProperties": false, "required": ["kind", "programs"],
+                 "properties": {"kind": {"const": "invokes"}, "programs": {"$ref": "#/$defs/strings", "minItems": 1}}},
+                {"type": "object", "additionalProperties": false, "required": ["kind", "programs", "option"],
+                 "properties": {"kind": {"const": "option"}, "programs": {"$ref": "#/$defs/strings", "minItems": 1},
+                   "option": {"$ref": "#/$defs/text"}}}
+              ]
+            }
+          }
+        },
+        {
+          "type": "object", "additionalProperties": false,
+          "required": ["kind", "instructions", "criteria_true", "criteria_false", "pass_below", "fail_at_or_above"],
+          "properties": {
+            "kind": {"const": "yes-no/1"},
+            "image_assets": {"$ref": "#/$defs/image_assets"},
+            "state_projection": {"$ref": "#/$defs/state_projection"},
+            "state_required_any": {"$ref": "#/$defs/state_required_any"},
+            "instructions": {"$ref": "#/$defs/text"}, "criteria_true": {"$ref": "#/$defs/text"}, "criteria_false": {"$ref": "#/$defs/text"},
+            "pass_below": {"$ref": "#/$defs/probability"}, "fail_at_or_above": {"$ref": "#/$defs/probability"},
+            "max_request_bytes": {"type": ["integer", "null"], "minimum": 1}
+          }
+        },
+        {
+          "type": "object", "additionalProperties": false,
+          "required": ["kind", "rules", "fail_when", "coverage"],
+          "properties": {
+            "kind": {"const": "answers/1"}, "rules": {"$ref": "#/$defs/strings", "minItems": 1},
+            "resolution": {"enum": ["all_answers", "decisive"], "default": "all_answers"},
+            "fail_when": {"description": "first_resolved takes the first dependency, in declared order, with a pass or fail decision.", "enum": ["any_fail", "all_fail", "first_resolved"]}, "coverage": {"$ref": "#/$defs/text"}
+          }
+        },
+        {
+          "type": "object", "additionalProperties": false,
+          "required": ["kind", "instructions", "options", "min_choice_probability", "min_confidence"],
+          "properties": {
+            "kind": {"const": "choice/1"},
+            "image_assets": {"$ref": "#/$defs/image_assets"},
+            "state_projection": {"$ref": "#/$defs/state_projection"},
+            "state_required_any": {"$ref": "#/$defs/state_required_any"},
+            "instructions": {"$ref": "#/$defs/text"},
+            "options": {
+              "type": "object", "minProperties": 2, "maxProperties": 255,
+              "propertyNames": {"$ref": "#/$defs/text"},
+              "additionalProperties": {
+                "type": "object", "additionalProperties": false, "required": ["description", "result"],
+                "properties": {"description": {"$ref": "#/$defs/text"}, "result": {"enum": ["pass", "fail", "review"]}}
+              }
+            },
+            "min_choice_probability": {"$ref": "#/$defs/probability"},
+            "min_confidence": {"$ref": "#/$defs/probability"},
+            "max_request_bytes": {"type": ["integer", "null"], "minimum": 1}
+          }
+        },
+        {
+          "type": "object", "additionalProperties": false,
+          "description": "A helper task: a model returns the declared fields for later questions to consult. It makes no pass or fail suggestion.",
+          "required": ["kind", "instructions", "fields"],
+          "properties": {
+            "kind": {"const": "extract/1"},
+            "image_assets": {"$ref": "#/$defs/image_assets"},
+            "state_projection": {"$ref": "#/$defs/state_projection"},
+            "state_required_any": {"$ref": "#/$defs/state_required_any"},
+            "instructions": {"$ref": "#/$defs/text"},
+            "fields": {
+              "type": "object", "minProperties": 1,
+              "propertyNames": {"$ref": "#/$defs/text"},
+              "additionalProperties": {
+                "type": "object", "additionalProperties": false, "required": ["type", "description"],
+                "properties": {
+                  "type": {"description": "A quote must occur verbatim in the evidence sent to the model.", "enum": ["string", "boolean", "number", "string_list", "quote", "quote_list"]},
+                  "description": {"$ref": "#/$defs/text"}
+                }
+              }
+            },
+            "max_request_bytes": {"type": ["integer", "null"], "minimum": 1}
+          }
+        },
+        {
+          "type": "object", "additionalProperties": false,
+          "description": "Experimental helper returning normalized image location and confidence, without a pass/fail suggestion.",
+          "required": ["kind", "instructions", "image_assets"],
+          "properties": {
+            "kind": {"const": "box/1"}, "instructions": {"$ref": "#/$defs/text"},
+            "image_assets": {"$ref": "#/$defs/image_assets"},
+            "state_projection": {"$ref": "#/$defs/state_projection"},
+            "state_required_any": {"$ref": "#/$defs/state_required_any"},
+            "max_request_bytes": {"type": ["integer", "null"], "minimum": 1}
+          }
+        }
+      ]
+    },
+    "image_assets": {
+      "description": "Reference to JSON Pointer selecting a complete frozen PNG/JPEG evidence part. References must be nonoverlapping and used in state/instructions/criteria; total reference bytes <=65536.",
+      "type": "object", "minProperties": 1,
+      "propertyNames": {"type": "string", "minLength": 16, "maxLength": 1024, "pattern": "^[A-Za-z0-9_-]+$"},
+      "additionalProperties": {"type": "string", "pattern": "^/"}
+    },
+    "probability": {"type": "number", "minimum": 0, "maximum": 1},
+    "fixture": {
+      "type": "object", "additionalProperties": false,
+      "required": ["path", "corpus_revision", "source_sha256", "evidence_sha256"],
+      "properties": {
+        "path": {"$ref": "#/$defs/text"}, "corpus_revision": {"$ref": "#/$defs/text"},
+        "source_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "evidence_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+      }
+    },
+    "profile": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "select", "block_on", "allowed_egress"],
+      "properties": {
+        "id": {"$ref": "#/$defs/text"}, "select": {"$ref": "#/$defs/strings", "minItems": 1},
+        "block_on": {"type": "array", "uniqueItems": true, "items": {"enum": ["fail", "review", "error", "not_evaluated"]}},
+        "allowed_egress": {
+          "description": "Destinations a live model call may reach: https origins without a path, or loopback for a model on this machine.",
+          "type": "array", "uniqueItems": true,
+          "items": {"anyOf": [{"const": "loopback"}, {"type": "string", "pattern": "^https://[^/?#@]+$"}]}
+        },
+        "requirements": {
+          "description": "Requirements this profile must cover. Omit to require every declared requirement.",
+          "$ref": "#/$defs/strings", "minItems": 1
+        }
+      }
+    },
+    "syntax_limits": {
+      "type": "object", "additionalProperties": false,
+      "properties": {
+        "input_bytes": {"type": "integer", "minimum": 1},
+        "nodes": {"type": "integer", "minimum": 1},
+        "captures": {"type": "integer", "minimum": 1},
+        "output_bytes": {"type": "integer", "minimum": 1},
+        "timeout_ms": {"type": "integer", "minimum": 1},
+        "match_limit": {"type": "integer", "minimum": 1, "maximum": 65536}
+      }
+    },
+    "tlaplus_predicate": {
+      "oneOf": [
+        {"type":"object","additionalProperties":false,"required":["kind","reference_pointer"],
+          "properties":{"kind":{"enum":["direct_alias","positive_conjunct"]},"reference_pointer":{"type":"string","pattern":"^/"}}},
+        {"type":"object","additionalProperties":false,"required":["kind","action_pointer","subscript_pointer"],
+          "properties":{"kind":{"const":"weak_fairness"},"action_pointer":{"type":"string","pattern":"^/"},"subscript_pointer":{"type":"string","pattern":"^/"}}}
+      ]
+    },
+    "command_value": {"enum": ["none", "value", "rest", "launch", "cmd_command", "cmd_strip_quotes"]},
+    "command_program": {
+      "type": "object", "additionalProperties": false,
+      "required": ["executables", "option_prefixes", "repeated_prefix", "options", "unmatched", "positional"],
+      "properties": {
+        "executables": {"type": "array", "minItems": 1, "items": {"type": "string", "pattern": "^[^A-Z/\\\\]+$"}},
+        "option_prefixes": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1, "maxLength": 1}},
+        "repeated_prefix": {"type": "boolean"},
+        "options": {
+          "type": "array",
+          "items": {
+            "type": "object", "additionalProperties": false, "required": ["name", "matches", "value"],
+            "properties": {
+              "name": {"$ref": "#/$defs/text"},
+              "matches": {
+                "type": "array", "minItems": 1,
+                "items": {"type": "object", "additionalProperties": false, "required": ["word", "shortest"],
+                  "properties": {"word": {"type": "string", "pattern": "^[!-@\\[-~]+$"}, "shortest": {"type": "string", "pattern": "^[!-@\\[-~]+$"}}}
+              },
+              "value": {"$ref": "#/$defs/command_value"}
+            }
+          }
+        },
+        "unmatched": {"$ref": "#/$defs/command_value"},
+        "positional": {"$ref": "#/$defs/command_value"},
+        "title_argument": {"type": "boolean"}
+      }
+    }
+  }
+}

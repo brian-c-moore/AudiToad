@@ -1,0 +1,17 @@
+/target/
+*.rs.bk
+/.secrets/
+/.env*
+# Generated reports from the documented commands.
+/report.json
+/prepared.json
+/inventory-report.json
+/shipping-report.json
+/shipping-prepared.json
+/examples/*/report.json
+/examples/*/prepared.json
+/examples/*-report.json
+/examples/no-slop/punctuation-a.json
+/examples/no-slop/punctuation-b.json
+/audit/report.json
+/audit/prepared.json

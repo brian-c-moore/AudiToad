@@ -1,0 +1,105 @@
+{
+  "schema": "auditoad-evidence-bundle/1",
+  "files": {
+    "src/scan.rs": "b884dea0d2028f5eb0242f7b457b05a05015ae1f99fed506377639740ca6d4b6",
+    "audit/policy.md": "5cc55000ffeeef88ba580e386bb2862e04f71e9d8d309c65b1142f78a55ad8fb",
+    "src/evaluators.rs": "fbf4ab63f6d9c38edad137685ef3ca4d341e56467405b0fb39579aab82cec886",
+    "src/json.rs": "340d162d164331dc2ad4fe023e14a50298ab086decfca106c118cc96b15d1308"
+  },
+  "packets": [
+    {
+      "id": "provider-entry",
+      "kind": "egress",
+      "scope_kind": "site",
+      "parts": [
+        {
+          "role": "subject",
+          "path": "src/scan.rs"
+        },
+        {
+          "role": "policy",
+          "path": "audit/policy.md"
+        }
+      ]
+    },
+    {
+      "id": "response-decoder",
+      "kind": "response",
+      "scope_kind": "site",
+      "parts": [
+        {
+          "role": "subject",
+          "path": "src/evaluators.rs"
+        },
+        {
+          "role": "policy",
+          "path": "audit/policy.md"
+        }
+      ]
+    },
+    {
+      "id": "scan-accounting",
+      "kind": "coverage",
+      "scope_kind": "site",
+      "parts": [
+        {
+          "role": "subject",
+          "path": "src/scan.rs"
+        },
+        {
+          "role": "policy",
+          "path": "audit/policy.md"
+        }
+      ]
+    },
+    {
+      "id": "draft-result",
+      "kind": "draft",
+      "scope_kind": "site",
+      "parts": [
+        {
+          "role": "subject",
+          "path": "src/scan.rs"
+        },
+        {
+          "role": "policy",
+          "path": "audit/policy.md"
+        }
+      ]
+    },
+    {
+      "id": "report-publication",
+      "kind": "publication",
+      "scope_kind": "site",
+      "parts": [
+        {
+          "role": "subject",
+          "path": "src/scan.rs"
+        },
+        {
+          "role": "credentials",
+          "path": "src/evaluators.rs"
+        },
+        {
+          "role": "policy",
+          "path": "audit/policy.md"
+        }
+      ]
+    },
+    {
+      "id": "json-decoder",
+      "kind": "json",
+      "scope_kind": "site",
+      "parts": [
+        {
+          "role": "subject",
+          "path": "src/json.rs"
+        },
+        {
+          "role": "policy",
+          "path": "audit/policy.md"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "schema": "auditoad-collection/1",
+  "inputs": {
+    "dns": {"adapter": "json-lines/1", "path": "dns.jsonl"},
+    "processes": {"adapter": "json/1", "path": "processes.json"},
+    "allowlist": {"adapter": "json/1", "path": "allowlist.json"}
+  }
+}

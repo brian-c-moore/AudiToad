@@ -1,0 +1,1 @@
+{"schema":"auditoad-inventory/1","snapshot_id":"scanner-policy-wrong-scope-r1","items":[{"id":"disk","kind":"host.property","facts":{"encrypted":true}}]}

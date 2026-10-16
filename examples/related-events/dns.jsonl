@@ -1,0 +1,4 @@
+{"host":"workstation-01","process_instance":"proc-01","query":"status.example.net","type":"TXT"}
+{"host":"workstation-01","process_instance":"proc-02","query":"status.example.net","type":"TXT"}
+{"host":"workstation-01","process_instance":"proc-03","query":"status.example.net","type":"A"}
+{"host":"workstation-01","process_instance":"proc-04","query":"status.example.net","type":"TXT"}

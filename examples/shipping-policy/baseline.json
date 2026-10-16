@@ -1,0 +1,71 @@
+{
+  "schema": "auditoad-baseline/1",
+  "baseline": {
+    "id": "shipping-policy",
+    "version": "2",
+    "title": "Shipping fee policy audit",
+    "publisher": "AudiToad examples",
+    "status": "draft"
+  },
+  "sources": {
+    "project": {
+      "adapter": "evidence-bundle/1",
+      "media": ["application/vnd.auditoad.bundle+json"]
+    }
+  },
+  "evidence": {
+    "context": {
+      "builder": "declared-parts/1",
+      "builder_revision": "r1",
+      "required_roles": ["subject", "policy"]
+    }
+  },
+  "groups": [
+    {
+      "id": "SHIPPING",
+      "title": "Shipping charges"
+    }
+  ],
+  "rules": [
+    {
+      "id": "SHIPPING-FREE-THRESHOLD",
+      "revision": "r1",
+      "source": "project",
+      "group": "SHIPPING",
+      "risk": "medium",
+      "scope_kind": "site",
+      "title": "Shipping fee disagrees with the written policy",
+      "evidence": "context",
+      "evaluator": {
+        "kind": "model",
+        "contract": "yes-no/1"
+      },
+      "check": {
+        "kind": "yes-no/1",
+        "instructions": "The Python function is the text of the subject part; its requirements are in the policy part. In Python comparisons, < and > exclude equality; <= and >= include equality. Does the free-shipping condition exclude an order exactly at the policy's threshold?",
+        "criteria_true": "An order at the threshold is excluded from free shipping.",
+        "criteria_false": "An order at the threshold qualifies for free shipping.",
+        "pass_below": 0.1,
+        "fail_at_or_above": 0.9,
+        "max_request_bytes": 8192
+      },
+      "applicability": {
+        "include": ["python-function"],
+        "exclude": []
+      },
+      "falsifier": "An order total of exactly 5,000 cents is charged a fee even though the policy requires free shipping.",
+      "fixtures": {
+        "fail": [],
+        "pass": []
+      }
+    }
+  ],
+  "profiles": [
+    {
+      "id": "experiment",
+      "select": ["*"],
+      "block_on": ["fail", "review", "error", "not_evaluated"],
+      "allowed_egress": ["https://api.typesafe.ai", "loopback"]
+    }
+  ]
+}

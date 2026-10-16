@@ -1,0 +1,54 @@
+{
+  "schema":"auditoad-baseline/1",
+  "baseline":{"id":"scanner-policy","version":"2","title":"Supplied scanner declarations","publisher":"AudiToad examples","status":"admitted"},
+  "sources":{"scans":{"adapter":"inventory-json/1","media":["scanner.result"]}},
+  "evidence":{"item":{"builder":"item-json/1","builder_revision":"r1"}},
+  "groups":[{"id":"SCAN","title":"Export policy"}],
+  "requirements":[
+    {"id":"POLICY-1","revision":"1","title":"Each scan declares that it completed","reference":"README policy"},
+    {"id":"POLICY-2","revision":"1","title":"Each scan declares complete target coverage","reference":"README policy"},
+    {"id":"POLICY-3","revision":"1","title":"Each scan reports no findings","reference":"README policy"}
+  ],
+  "rules":[
+    {
+      "id":"SCAN-COMPLETED","revision":"r1","source":"scans","group":"SCAN","risk":"high","scope_kind":"site",
+      "title":"Scanner record declares completion","evidence":"item",
+      "evaluator":{"kind":"json-pointer-equals","contract":"json-pointer-equals/1"},
+      "check":{"kind":"json-pointer-equals/1","pointer":"/facts/status","expected":"complete","fail_when":"unequal"},
+      "applicability":{"include":["scanner.result"],"exclude":[]},
+      "falsifier":"The supplied status exists and differs from complete. Missing status remains unresolved; this does not independently verify scanner execution.",
+      "fixtures":{
+        "pass":[{"path":"clear.json","corpus_revision":"1","source_sha256":"7d6947e9530d58973da38f47f94dbc0fff1ea6d4446f7a0b420556ab818a056b","evidence_sha256":"1aae263a670c2f433868e64401894c516d1105015b65bc7db66fbc00b47f60c4"}],
+        "fail":[{"path":"not-clear.json","corpus_revision":"1","source_sha256":"6e6911c7325c7b4825f286df6c10cf8285ce76d4203ca043c80b7cfc1fa38c93","evidence_sha256":"00b224776100c32d45f85063853bbcd9fdb9adb42dd89bf88fc7bdb507ff8956"}]
+      },
+      "requirements":{"POLICY-1":"1"}
+    },
+    {
+      "id":"SCOPE-DECLARED","revision":"r1","source":"scans","group":"SCAN","risk":"high","scope_kind":"site",
+      "title":"Scanner record declares complete target coverage","evidence":"item",
+      "evaluator":{"kind":"json-pointer-equals","contract":"json-pointer-equals/1"},
+      "check":{"kind":"json-pointer-equals/1","pointer":"/facts/scope_complete","expected":true,"fail_when":"unequal"},
+      "applicability":{"include":["scanner.result"],"exclude":[]},
+      "falsifier":"The supplied scope_complete fact exists and differs from true. Missing coverage remains unresolved; the declared target is not independently inventoried.",
+      "fixtures":{
+        "pass":[{"path":"clear.json","corpus_revision":"1","source_sha256":"7d6947e9530d58973da38f47f94dbc0fff1ea6d4446f7a0b420556ab818a056b","evidence_sha256":"1aae263a670c2f433868e64401894c516d1105015b65bc7db66fbc00b47f60c4"}],
+        "fail":[{"path":"not-clear.json","corpus_revision":"1","source_sha256":"6e6911c7325c7b4825f286df6c10cf8285ce76d4203ca043c80b7cfc1fa38c93","evidence_sha256":"00b224776100c32d45f85063853bbcd9fdb9adb42dd89bf88fc7bdb507ff8956"}]
+      },
+      "requirements":{"POLICY-2":"1"}
+    },
+    {
+      "id":"NO-FINDINGS","revision":"r1","source":"scans","group":"SCAN","risk":"high","scope_kind":"site",
+      "title":"Scanner record contains an empty findings list","evidence":"item",
+      "evaluator":{"kind":"json-pointer-equals","contract":"json-pointer-equals/1"},
+      "check":{"kind":"json-pointer-equals/1","pointer":"/facts/findings","expected":[],"fail_when":"unequal"},
+      "applicability":{"include":["scanner.result"],"exclude":[]},
+      "falsifier":"The supplied findings value exists and differs from the empty array. Missing findings remain unresolved. This literal check alone does not clear an incomplete scan.",
+      "fixtures":{
+        "pass":[{"path":"clear.json","corpus_revision":"1","source_sha256":"7d6947e9530d58973da38f47f94dbc0fff1ea6d4446f7a0b420556ab818a056b","evidence_sha256":"1aae263a670c2f433868e64401894c516d1105015b65bc7db66fbc00b47f60c4"}],
+        "fail":[{"path":"not-clear.json","corpus_revision":"1","source_sha256":"6e6911c7325c7b4825f286df6c10cf8285ce76d4203ca043c80b7cfc1fa38c93","evidence_sha256":"00b224776100c32d45f85063853bbcd9fdb9adb42dd89bf88fc7bdb507ff8956"}]
+      },
+      "requirements":{"POLICY-3":"1"}
+    }
+  ],
+  "profiles":[{"id":"exports","select":["*"],"block_on":["fail","review","error","not_evaluated"],"allowed_egress":[]}]
+}

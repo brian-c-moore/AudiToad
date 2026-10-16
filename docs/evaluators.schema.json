@@ -1,0 +1,113 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AudiToad evaluator file",
+  "description": "Names the models an operator uses and how each question role named by a baseline uses them. Baselines never name models; swap models or change how they cooperate by editing this file.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "evaluators"],
+  "properties": {
+    "$schema": {"type": "string", "minLength": 1},
+    "schema": {"const": "auditoad-evaluators/1"},
+    "evaluators": {
+      "description": "Named models. Without roles, each name is also a role; rules without a role use the role named default.",
+      "type": "object",
+      "minProperties": 1,
+      "propertyNames": {"type": "string", "minLength": 1, "pattern": "\\S"},
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["backend", "model", "endpoint"],
+        "properties": {
+          "backend": {
+            "description": "The request and response protocol. typesafe-jev speaks TypeSafe's question API. openai-compatible uses chat completions with first-token log-probabilities (llama.cpp, Ollama, vLLM or a hosted API); it answers choice/1 questions of up to 26 options.",
+            "enum": ["typesafe-jev", "openai-compatible", "auditoad-compatible"]
+          },
+          "model": {"type": "string", "minLength": 1},
+          "allow_images": {
+            "description": "Explicit typesafe-jev opt-in to the image preview header. Omitted/false preserves ordinary text bindings. This policy participates in evaluator/reuse identity.",
+            "type": "boolean", "default": false
+          },
+          "response_model": {
+            "description": "openai-compatible only. Exact expected response model identifier when the request uses an alias. Defaults to model. The response must name it; this decoding policy participates in evaluator and reuse identity.",
+            "type": "string", "minLength": 1, "pattern": "\\S"
+          },
+          "capabilities": {
+            "description": "Optional explicit supported tasks. Omitted means the backend's installed tasks. Cannot enable a task the backend lacks; policy is retained in evaluator and reuse identities.",
+            "type": "array", "minItems": 1, "uniqueItems": true,
+            "items": {"enum": ["yes-no/1", "choice/1", "extract/1", "box/1", "image/png", "image/jpeg"]}
+          },
+          "max_output_tokens": {
+            "description": "Largest generated answer for an extract/1 task. Default 2048.",
+            "type": "integer", "minimum": 1
+          },
+          "max_request_bytes": {
+            "description": "Largest request this endpoint accepts. Requests are also bounded by the scan limit and the question's own limit.",
+            "type": "integer", "minimum": 1
+          },
+          "max_provider_calls": {
+            "description":"Per-run call ceiling for this model across all its roles. Zero disables calls. CLI --max-provider-calls overrides it and also caps the entire scan.",
+            "type":"integer", "minimum":0
+          },
+          "max_evidence_bytes": {
+            "description":"Per-run request bytes plus reserved response bytes for this model. Zero refuses requests. CLI --max-evidence-bytes overrides it and also caps all scan evidence.",
+            "type":"integer", "minimum":0
+          },
+          "timeout_seconds": {
+            "description":"Timeout for one provider exchange, default 30. CLI --provider-timeout-seconds overrides it.",
+            "type":"integer", "minimum":1, "maximum":120
+          },
+          "choice_probability_sum_tolerance": {
+            "description": "typesafe-jev only. Absolute tolerance around a Choice probability sum of 1; default 0.000001. An explicit value up to 0.01 can admit rounded distributions. Raw probabilities are retained without normalization; a nondefault policy changes evaluator identity.",
+            "type": "number", "minimum": 0, "maximum": 0.01
+          },
+          "endpoint": {
+            "description": "Full request URL. https, or http on a loopback host.",
+            "type": "string", "pattern": "^(https://|http://(127\\.0\\.0\\.1|localhost|\\[::1\\])(:[0-9]+)?/)"
+          },
+          "key": {
+            "description": "Where the API key comes from. Omit for a keyless local server.",
+            "oneOf": [
+              {"type": "object", "additionalProperties": false, "required": ["env"], "properties": {"env": {"type": "string", "minLength": 1}}},
+              {"type": "object", "additionalProperties": false, "required": ["file"], "properties": {"file": {"type": "string", "minLength": 1}}}
+            ]
+          }
+        },
+        "allOf": [
+          {"if": {"required": ["response_model"]},
+           "then": {"properties": {"backend": {"const": "openai-compatible"}}}},
+          {"if": {"required": ["choice_probability_sum_tolerance"]},
+           "then": {"properties": {"backend": {"const": "typesafe-jev"}}}},
+          {"properties": {"capabilities": {"contains": {"enum": ["yes-no/1", "choice/1", "extract/1", "box/1"]}}}},
+          {"if": {"required": ["allow_images"], "properties": {"allow_images": {"const": true}}},
+           "then": {"properties": {"backend": {"const": "typesafe-jev"}}}},
+          {"if": {"required": ["capabilities"], "properties": {"capabilities": {"contains": {"enum": ["image/png", "image/jpeg", "box/1"]}}}},
+           "then": {"properties": {"backend": {"enum": ["auditoad-compatible", "typesafe-jev"]}}}},
+          {"if": {"required": ["backend"], "properties": {"backend": {"const": "typesafe-jev"}}},
+           "then": {"properties": {"capabilities": {"items": {"enum": ["yes-no/1", "choice/1", "box/1", "image/png", "image/jpeg"]}}}}}
+        ]
+      }
+    },
+    "roles": {
+      "description": "How each question role uses the named models: use one, ask several and combine their answers, or switch the role off so its questions are not asked.",
+      "type": "object",
+      "minProperties": 1,
+      "propertyNames": {"type": "string", "minLength": 1, "pattern": "\\S"},
+      "additionalProperties": {
+        "oneOf": [
+          {"type": "object", "additionalProperties": false, "required": ["use"],
+           "properties": {"use": {"type": "string", "minLength": 1}}},
+          {"type": "object", "additionalProperties": false, "required": ["ask", "combine"],
+           "properties": {
+             "ask": {"type": "array", "minItems": 2, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+             "combine": {
+               "description": "first_resolved asks in order and stops at the first pass or fail answer; agreement needs every model to give the same pass or fail answer; any_fail fails on any fail answer; all_fail fails only when every answer fails.",
+               "enum": ["first_resolved", "agreement", "any_fail", "all_fail"]
+             }
+           }},
+          {"type": "object", "additionalProperties": false, "required": ["off"],
+           "properties": {"off": {"const": true}}}
+        ]
+      }
+    }
+  }
+}

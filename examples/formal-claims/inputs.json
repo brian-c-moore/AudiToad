@@ -1,0 +1,14 @@
+{
+  "schema":"auditoad-collection/1",
+  "inputs":{
+    "tla-fairness":{"adapter":"json-lines/1","path":"tla-fairness.jsonl"},
+    "tla-vacuity":{"adapter":"json-lines/1","path":"tla-vacuity.jsonl"},
+    "tla-selection":{"adapter":"json-lines/1","path":"tla-selection.jsonl"},
+    "tlaps-obligations":{"adapter":"json-lines/1","path":"tlaps-obligations.jsonl"},
+    "tlaps-assumptions":{"adapter":"json-lines/1","path":"tlaps-assumptions.jsonl"},
+    "tlaps-quantifiers":{"adapter":"json-lines/1","path":"tlaps-quantifiers.jsonl"},
+    "verus-domain":{"adapter":"json-lines/1","path":"verus-domain.jsonl"},
+    "verus-trust":{"adapter":"json-lines/1","path":"verus-trust.jsonl"},
+    "verus-contract":{"adapter":"json-lines/1","path":"verus-contract.jsonl"}
+  }
+}

@@ -1,0 +1,39 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  cargo:
+    strategy:
+      fail-fast: false
+      max-parallel: 1
+      matrix:
+        os: [windows-latest, ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
+    env:
+      CARGO_BUILD_JOBS: 2
+      RUST_TEST_THREADS: 1
+      RUSTDOCFLAGS: -D warnings
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          persist-credentials: false
+      - name: Install pinned toolchain
+        run: rustup toolchain install 1.99.1 --profile minimal --component rustfmt --component clippy
+      - name: Formatting
+        run: cargo fmt --all -- --check
+      - name: Tests
+        run: cargo test --locked -- --test-threads=1
+      - name: Lints
+        run: cargo clippy --locked --all-targets -- -D warnings
+      - name: Library documentation
+        run: cargo doc --locked --no-deps
+      - name: Package verification
+        run: cargo package --locked

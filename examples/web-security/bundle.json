@@ -1,0 +1,162 @@
+{
+  "schema": "auditoad-evidence-bundle/1",
+  "files": {
+    "handlers.py": "89dd1c5351599dcc3bd12aa52408f16eee6aa8d3f796a51dcdec41228de999b5"
+  },
+  "packets": [
+    {
+      "id": "read_report",
+      "kind": "pathtraver",
+      "scope_kind": "site",
+      "parts": [
+        {
+          "role": "subject",
+          "path": "handlers.py"
+        }
+      ]
+    },
+    {
+      "id": "ping_host",
+      "kind": "cmdi",
+      "scope_kind": "site",
+      "parts": [
+        {
+          "role": "subject",
+          "path": "handlers.py"
+        }
+      ]
+    },
+    {
+      "id": "calculate",
+      "kind": "codeinj",
+      "scope_kind": "site",
+      "parts": [
+        {
+          "role": "subject",
+          "path": "handlers.py"
+        }
+      ]
+    },
+    {
+      "id": "restore_cart",
+      "kind": "deserialization",
+      "scope_kind": "site",
+      "parts": [
+        {
+          "role": "subject",
+          "path": "handlers.py"
+        }
+      ]
+    },
+    {
+      "id": "fingerprint",
+      "kind": "hash",
+      "scope_kind": "site",
+      "parts": [
+        {
+          "role": "subject",
+          "path": "handlers.py"
+        }
+      ]
+    },
+    {
+      "id": "find_user",
+      "kind": "ldapi",
+      "scope_kind": "site",
+      "parts": [
+        {
+          "role": "subject",
+          "path": "handlers.py"
+        }
+      ]
+    },
+    {
+      "id": "continue_to",
+      "kind": "redirect",
+      "scope_kind": "site",
+      "parts": [
+        {
+          "role": "subject",
+          "path": "handlers.py"
+        }
+      ]
+    },
+    {
+      "id": "remember_theme",
+      "kind": "securecookie",
+      "scope_kind": "site",
+      "parts": [
+        {
+          "role": "subject",
+          "path": "handlers.py"
+        }
+      ]
+    },
+    {
+      "id": "list_orders",
+      "kind": "sqli",
+      "scope_kind": "site",
+      "parts": [
+        {
+          "role": "subject",
+          "path": "handlers.py"
+        }
+      ]
+    },
+    {
+      "id": "login_hint",
+      "kind": "trustbound",
+      "scope_kind": "site",
+      "parts": [
+        {
+          "role": "subject",
+          "path": "handlers.py"
+        }
+      ]
+    },
+    {
+      "id": "reset_token",
+      "kind": "weakrand",
+      "scope_kind": "site",
+      "parts": [
+        {
+          "role": "subject",
+          "path": "handlers.py"
+        }
+      ]
+    },
+    {
+      "id": "catalog_lookup",
+      "kind": "xpathi",
+      "scope_kind": "site",
+      "parts": [
+        {
+          "role": "subject",
+          "path": "handlers.py"
+        }
+      ]
+    },
+    {
+      "id": "greet",
+      "kind": "xss",
+      "scope_kind": "site",
+      "parts": [
+        {
+          "role": "subject",
+          "path": "handlers.py"
+        }
+      ]
+    },
+    {
+      "id": "import_feed",
+      "kind": "xxe",
+      "scope_kind": "site",
+      "parts": [
+        {
+          "role": "subject",
+          "path": "handlers.py"
+        }
+      ]
+    }
+  ]
+}

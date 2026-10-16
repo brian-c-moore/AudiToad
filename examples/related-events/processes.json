@@ -1,0 +1,7 @@
+[
+  {"host":"workstation-01","instance":"proc-04","image":"powershell.exe","command":"powershell.exe -NoProfile -Command Get-Date"},
+  {"host":"workstation-01","instance":"proc-02","image":"powershell.exe","command":"powershell.exe -NoProfile -EncodedCommand VwByAGkAdABlAC0ATwB1AHQAcAB1AHQAIAAiAHAAaQBuAGcAIgA="},
+  {"host":"workstation-01","instance":"proc-01","image":"powershell.exe","command":"powershell.exe -NoProfile -EncodedCommand VwByAGkAdABlAC0ATwB1AHQAcAB1AHQAIAAiAHAAaQBuAGcAIgA="},
+  {"host":"workstation-01","instance":"proc-03","image":"powershell.exe","command":"powershell.exe -NoProfile -EncodedCommand VwByAGkAdABlAC0ATwB1AHQAcAB1AHQAIAAiAHAAaQBuAGcAIgA="},
+  {"host":"workstation-02","instance":"proc-04","image":"powershell.exe","command":"powershell.exe -EncodedCommand VwByAGkAdABlAC0ATwB1AHQAcAB1AHQAIAAiAHAAaQBuAGcAIgA="}
+]

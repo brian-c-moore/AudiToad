@@ -1,0 +1,159 @@
+{
+  "schema": "auditoad-evidence-bundle/1",
+  "files": {
+    "orders.py": "e3ab94c88f113cb765931fe5f0007160d2a77f48d6458a39e5fb4282ce3d3c95",
+    "policy.md": "a74cb96539c724b76f5787d5cb73611fad335e769005c7e8a5ffa2f7e94357af"
+  },
+  "packets": [
+    {
+      "id": "shipping_fee",
+      "kind": "shipping_fee",
+      "scope_kind": "site",
+      "parts": [
+        {
+          "role": "subject",
+          "path": "orders.py"
+        },
+        {
+          "role": "policy",
+          "path": "policy.md"
+        }
+      ]
+    },
+    {
+      "id": "express_shipping_fee",
+      "kind": "express_shipping_fee",
+      "scope_kind": "site",
+      "parts": [
+        {
+          "role": "subject",
+          "path": "orders.py"
+        },
+        {
+          "role": "policy",
+          "path": "policy.md"
+        }
+      ]
+    },
+    {
+      "id": "discount_rate",
+      "kind": "discount_rate",
+      "scope_kind": "site",
+      "parts": [
+        {
+          "role": "subject",
+          "path": "orders.py"
+        },
+        {
+          "role": "policy",
+          "path": "policy.md"
+        }
+      ]
+    },
+    {
+      "id": "renewal_discount",
+      "kind": "renewal_discount",
+      "scope_kind": "site",
+      "parts": [
+        {
+          "role": "subject",
+          "path": "orders.py"
+        },
+        {
+          "role": "policy",
+          "path": "policy.md"
+        }
+      ]
+    },
+    {
+      "id": "decode_order",
+      "kind": "decode_order",
+      "scope_kind": "site",
+      "parts": [
+        {
+          "role": "subject",
+          "path": "orders.py"
+        },
+        {
+          "role": "policy",
+          "path": "policy.md"
+        }
+      ]
+    },
+    {
+      "id": "decode_return",
+      "kind": "decode_return",
+      "scope_kind": "site",
+      "parts": [
+        {
+          "role": "subject",
+          "path": "orders.py"
+        },
+        {
+          "role": "policy",
+          "path": "policy.md"
+        }
+      ]
+    },
+    {
+      "id": "contact_email",
+      "kind": "contact_email",
+      "scope_kind": "site",
+      "parts": [
+        {
+          "role": "subject",
+          "path": "orders.py"
+        },
+        {
+          "role": "policy",
+          "path": "policy.md"
+        }
+      ]
+    },
+    {
+      "id": "billing_email",
+      "kind": "billing_email",
+      "scope_kind": "site",
+      "parts": [
+        {
+          "role": "subject",
+          "path": "orders.py"
+        },
+        {
+          "role": "policy",
+          "path": "policy.md"
+        }
+      ]
+    },
+    {
+      "id": "add_note",
+      "kind": "add_note",
+      "scope_kind": "site",
+      "parts": [
+        {
+          "role": "subject",
+          "path": "orders.py"
+        },
+        {
+          "role": "policy",
+          "path": "policy.md"
+        }
+      ]
+    },
+    {
+      "id": "add_message",
+      "kind": "add_message",
+      "scope_kind": "site",
+      "parts": [
+        {
+          "role": "subject",
+          "path": "orders.py"
+        },
+        {
+          "role": "policy",
+          "path": "policy.md"
+        }
+      ]
+    }
+  ]
+}

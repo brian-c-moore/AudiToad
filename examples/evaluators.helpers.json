@@ -1,0 +1,28 @@
+{
+  "$schema": "../docs/evaluators.schema.json",
+  "schema": "auditoad-evaluators/1",
+  "evaluators": {
+    "text-helper": {
+      "backend": "openai-compatible",
+      "model": "qwen2.5-coder-7b-instruct-q4_k_m",
+      "endpoint": "http://127.0.0.1:8080/v1/chat/completions",
+      "capabilities": ["extract/1"],
+      "max_provider_calls": 100,
+      "max_request_bytes": 120000,
+      "max_output_tokens": 4096,
+      "timeout_seconds": 60
+    },
+    "judge": {
+      "backend": "typesafe-jev",
+      "model": "jev-1.13.0",
+      "endpoint": "https://api.typesafe.ai/v1/systemone",
+      "key": {"env": "TYPESAFE_API_KEY"},
+      "capabilities": ["yes-no/1", "choice/1"]
+    }
+  },
+  "roles": {
+    "helper": {"use": "text-helper"},
+    "default": {"use": "judge"},
+    "judge": {"use": "judge"}
+  }
+}

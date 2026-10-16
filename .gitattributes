@@ -1,0 +1,3 @@
+# Evidence, known-answer inputs and source packets bind exact file bytes.
+# Preserve those bytes on every platform, including newly added audit inputs.
+* -text

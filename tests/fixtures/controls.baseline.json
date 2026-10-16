@@ -1,0 +1,43 @@
+{
+  "schema": "auditoad-baseline/1",
+  "baseline": { "id": "example-controls", "version": "1", "title": "Deterministic example controls", "publisher": "AudiToad examples", "status": "admitted" },
+  "sources": {
+    "bytes": { "adapter": "raw-bytes/1", "media": ["application/octet-stream"] },
+    "inventory": { "adapter": "inventory-json/1", "media": ["host.property"] }
+  },
+  "evidence": {
+    "bytes": { "builder": "bytes/1", "builder_revision": "r1" },
+    "item": { "builder": "item-json/1", "builder_revision": "r1" }
+  },
+  "groups": [ { "id": "BYTES", "title": "Byte predicate" }, { "id": "INVENTORY", "title": "Inventory predicate" } ],
+  "rules": [
+    {
+      "id": "BYTES-001", "revision": "r1", "source": "bytes", "group": "BYTES", "risk": "low", "scope_kind": "site",
+      "title": "Find the exact ASCII marker bad", "evidence": "bytes",
+      "evaluator": { "kind": "yara-x", "contract": "yara-x/1.20.0" },
+      "check": { "kind": "yara-x/1.20.0", "source": "rule violation { strings: $a = \"bad\" condition: $a }", "rule_name": "violation", "fail_when": "match" },
+      "applicability": { "include": ["*"], "exclude": [] },
+      "falsifier": "An input contains the exact ASCII byte sequence bad.",
+      "fixtures": {
+        "fail": [{ "path": "fixtures/marker-present.txt", "corpus_revision": "examples-r1", "source_sha256": "1d7a363ce12430881ec56c9cf1409c49c491043618e598c356e2959040872f5a", "evidence_sha256": "1d7a363ce12430881ec56c9cf1409c49c491043618e598c356e2959040872f5a" }],
+        "pass": [{ "path": "fixtures/marker-absent.txt", "corpus_revision": "examples-r1", "source_sha256": "106675dc1490d5cdd6d1f0410731316ce93fc964c6cf6726e2b0d53e19688feb", "evidence_sha256": "106675dc1490d5cdd6d1f0410731316ce93fc964c6cf6726e2b0d53e19688feb" }]
+      }
+    },
+    {
+      "id": "INVENTORY-001", "revision": "r1", "source": "inventory", "group": "INVENTORY", "risk": "medium", "scope_kind": "site",
+      "title": "Supplied disk record declares encryption", "evidence": "item",
+      "evaluator": { "kind": "json-pointer-equals", "contract": "json-pointer-equals/1" },
+      "check": { "kind": "json-pointer-equals/1", "pointer": "/facts/encrypted", "expected": true, "fail_when": "unequal" },
+      "applicability": { "include": ["host.property"], "exclude": [] },
+      "falsifier": "The supplied item's encrypted property exists and is unequal to true. Missing facts remain unevaluated.",
+      "fixtures": {
+        "fail": [{ "path": "fixtures/unencrypted.json", "corpus_revision": "examples-r1", "source_sha256": "f231cba500bb10a1ffc1e756c77ff97d2f9de9d3d07f39166e7fe77ec46d534e", "evidence_sha256": "f231cba500bb10a1ffc1e756c77ff97d2f9de9d3d07f39166e7fe77ec46d534e" }],
+        "pass": [{ "path": "fixtures/encrypted.json", "corpus_revision": "examples-r1", "source_sha256": "de8ebb24f7304eefe76148f53df9c8504c67162971f8d4272b569b85f903f5db", "evidence_sha256": "de8ebb24f7304eefe76148f53df9c8504c67162971f8d4272b569b85f903f5db" }]
+      }
+    }
+  ],
+  "profiles": [
+    { "id": "bytes", "select": ["BYTES/*"], "block_on": ["fail", "review", "error", "not_evaluated"], "allowed_egress": [] },
+    { "id": "inventory", "select": ["INVENTORY/*"], "block_on": ["fail", "review", "error", "not_evaluated"], "allowed_egress": [] }
+  ]
+}

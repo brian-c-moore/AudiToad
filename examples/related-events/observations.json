@@ -1,0 +1,664 @@
+{
+  "schema": "auditoad-example-observations/1",
+  "scan_id": "be11741b-12e7-4ba5-bef4-e5b20b73e9d6",
+  "report_sha256": "02a72fc9cebc5cbe68c1e5179d8ffdd8d2d5daba5c039a07c87e30c4a442296c",
+  "baseline": {
+    "id": "related-events",
+    "version": "2",
+    "sha256": "5ea17c169749b807c125de8c20e71c061a75823ec79f3c15f759e419a6e537ef"
+  },
+  "source": {
+    "binding": "collection/1",
+    "snapshot_id": "448fd0667b54bffb9004fc13665f73c2f2dec14bf081f43a50a337da945d36d5",
+    "input_sha256": "0e422b29356091b5072058174de04f9bf6eb5767514f375b565f1d119f6fa311",
+    "serializer": "serde-json/1.0.151/declared-fields-sorted-maps/1"
+  },
+  "input_sha256": {
+    "inputs.json": "0e422b29356091b5072058174de04f9bf6eb5767514f375b565f1d119f6fa311",
+    "dns.jsonl": "205396f030fa42653eb2a70b8f11fa19c20b87b02277777a39ef0facdbc40b5f",
+    "processes.json": "959e4bb7abef9605ae8b419598ac385011cc4575b1501d3873d205f9274c6731",
+    "allowlist.json": "cab379ad3a6f140a64c22658a3b5f239ad8dc983bff03062e0da498f5123bd32",
+    "baseline.json": "5ea17c169749b807c125de8c20e71c061a75823ec79f3c15f759e419a6e537ef"
+  },
+  "usage": {
+    "checks": 33,
+    "evidence_bytes": 89885,
+    "provider_calls": 1
+  },
+  "timing_ms": {
+    "min": 278,
+    "max": 278,
+    "sum": 278
+  },
+  "comparisons": {
+    "answers/1": {
+      "match": 9,
+      "mismatch": 0,
+      "unresolved": 0
+    },
+    "command-line/1": {
+      "match": 4,
+      "mismatch": 0,
+      "unresolved": 0
+    },
+    "json-pointer-equals/1": {
+      "match": 8,
+      "mismatch": 0,
+      "unresolved": 0
+    }
+  },
+  "provider_modes": [
+    "live",
+    "unissued_or_failed"
+  ],
+  "by_rule": {
+    "ANY-RELATED-ACTIVITY": {
+      "total": 1,
+      "matches": 1,
+      "match_percent": 100.0,
+      "true_positive": 1,
+      "true_negative": 0,
+      "false_positive": 0,
+      "false_negative": 0,
+      "unresolved_positive": 0,
+      "unresolved_negative": 0,
+      "true_positive_rate": 1.0,
+      "false_positive_rate": null,
+      "scorecard": null
+    },
+    "ENCODED-COMMAND": {
+      "total": 4,
+      "matches": 4,
+      "match_percent": 100.0,
+      "true_positive": 3,
+      "true_negative": 1,
+      "false_positive": 0,
+      "false_negative": 0,
+      "unresolved_positive": 0,
+      "unresolved_negative": 0,
+      "true_positive_rate": 1.0,
+      "false_positive_rate": 0.0,
+      "scorecard": 1.0
+    },
+    "OUTSIDE-ALLOWLIST": {
+      "total": 4,
+      "matches": 4,
+      "match_percent": 100.0,
+      "true_positive": 3,
+      "true_negative": 1,
+      "false_positive": 0,
+      "false_negative": 0,
+      "unresolved_positive": 0,
+      "unresolved_negative": 0,
+      "true_positive_rate": 1.0,
+      "false_positive_rate": 0.0,
+      "scorecard": 1.0
+    },
+    "POWERSHELL-RUNS": {
+      "total": 4,
+      "matches": 4,
+      "match_percent": 100.0,
+      "true_positive": 4,
+      "true_negative": 0,
+      "false_positive": 0,
+      "false_negative": 0,
+      "unresolved_positive": 0,
+      "unresolved_negative": 0,
+      "true_positive_rate": 1.0,
+      "false_positive_rate": null,
+      "scorecard": null
+    },
+    "RELATED-ACTIVITY": {
+      "total": 4,
+      "matches": 4,
+      "match_percent": 100.0,
+      "true_positive": 1,
+      "true_negative": 3,
+      "false_positive": 0,
+      "false_negative": 0,
+      "unresolved_positive": 0,
+      "unresolved_negative": 0,
+      "true_positive_rate": 1.0,
+      "false_positive_rate": 0.0,
+      "scorecard": 1.0
+    },
+    "TXT-QUERY": {
+      "total": 4,
+      "matches": 4,
+      "match_percent": 100.0,
+      "true_positive": 3,
+      "true_negative": 1,
+      "false_positive": 0,
+      "false_negative": 0,
+      "unresolved_positive": 0,
+      "unresolved_negative": 0,
+      "true_positive_rate": 1.0,
+      "false_positive_rate": 0.0,
+      "scorecard": 1.0
+    }
+  },
+  "rows": [
+    {
+      "rule": "TXT-QUERY",
+      "input": "dns",
+      "ordinal": 0,
+      "target": "collection/scope/1/unit/0",
+      "evaluation": "json-pointer-equals/1",
+      "expected_violation": true,
+      "probability": null,
+      "mock": null,
+      "suggested": "unobserved",
+      "decision": "fail",
+      "terminal_result": "fail",
+      "comparison": "match",
+      "evidence_sha256": "34f9126a7dd0ea6854e1db266455af32f87c0ebc9f91d99f00aeda50ecf79cb8",
+      "reason": null,
+      "location": {
+        "line": 1
+      },
+      "related": {}
+    },
+    {
+      "rule": "TXT-QUERY",
+      "input": "dns",
+      "ordinal": 1,
+      "target": "collection/scope/1/unit/1",
+      "evaluation": "json-pointer-equals/1",
+      "expected_violation": true,
+      "probability": null,
+      "mock": null,
+      "suggested": "unobserved",
+      "decision": "fail",
+      "terminal_result": "fail",
+      "comparison": "match",
+      "evidence_sha256": "34ca40473fc194a1814d6db2c6de946fcbe1e9d59989dfe82589633c49cabffc",
+      "reason": null,
+      "location": {
+        "line": 2
+      },
+      "related": {}
+    },
+    {
+      "rule": "TXT-QUERY",
+      "input": "dns",
+      "ordinal": 2,
+      "target": "collection/scope/1/unit/2",
+      "evaluation": "json-pointer-equals/1",
+      "expected_violation": false,
+      "probability": null,
+      "mock": null,
+      "suggested": "unobserved",
+      "decision": "pass",
+      "terminal_result": "pass",
+      "comparison": "match",
+      "evidence_sha256": "bb808b84c6374228f4c8b66f9bfd030a10a296e4b3784363a02354355b371beb",
+      "reason": null,
+      "location": {
+        "line": 3
+      },
+      "related": {}
+    },
+    {
+      "rule": "TXT-QUERY",
+      "input": "dns",
+      "ordinal": 3,
+      "target": "collection/scope/1/unit/3",
+      "evaluation": "json-pointer-equals/1",
+      "expected_violation": true,
+      "probability": null,
+      "mock": null,
+      "suggested": "unobserved",
+      "decision": "fail",
+      "terminal_result": "fail",
+      "comparison": "match",
+      "evidence_sha256": "860ee50998c7035e139de5cf055b2e4bb333d686903c3d97bf9eb508d2265286",
+      "reason": null,
+      "location": {
+        "line": 4
+      },
+      "related": {}
+    },
+    {
+      "rule": "POWERSHELL-RUNS",
+      "input": "dns",
+      "ordinal": 0,
+      "target": "collection/scope/3/unit/0",
+      "evaluation": "command-line/1",
+      "expected_violation": true,
+      "probability": null,
+      "mock": null,
+      "suggested": "unobserved",
+      "decision": "fail",
+      "terminal_result": "fail",
+      "comparison": "match",
+      "evidence_sha256": "9ff9a9ba10f808f45353124a6ea59da62082818fd67eaf934e962c38071f8fa6",
+      "reason": null,
+      "location": {
+        "line": 1
+      },
+      "related": {
+        "process": [
+          {
+            "input": "processes",
+            "location": {
+              "pointer": "/2"
+            },
+            "input_sha256": "959e4bb7abef9605ae8b419598ac385011cc4575b1501d3873d205f9274c6731"
+          }
+        ]
+      }
+    },
+    {
+      "rule": "POWERSHELL-RUNS",
+      "input": "dns",
+      "ordinal": 1,
+      "target": "collection/scope/3/unit/1",
+      "evaluation": "command-line/1",
+      "expected_violation": true,
+      "probability": null,
+      "mock": null,
+      "suggested": "unobserved",
+      "decision": "fail",
+      "terminal_result": "fail",
+      "comparison": "match",
+      "evidence_sha256": "3f679832422abb06683b1babf6eff1a1710b5ff79eeabb1ff792cf53a66cd62b",
+      "reason": null,
+      "location": {
+        "line": 2
+      },
+      "related": {
+        "process": [
+          {
+            "input": "processes",
+            "location": {
+              "pointer": "/1"
+            },
+            "input_sha256": "959e4bb7abef9605ae8b419598ac385011cc4575b1501d3873d205f9274c6731"
+          }
+        ]
+      }
+    },
+    {
+      "rule": "POWERSHELL-RUNS",
+      "input": "dns",
+      "ordinal": 2,
+      "target": "collection/scope/3/unit/2",
+      "evaluation": "command-line/1",
+      "expected_violation": true,
+      "probability": null,
+      "mock": null,
+      "suggested": "unobserved",
+      "decision": "fail",
+      "terminal_result": "fail",
+      "comparison": "match",
+      "evidence_sha256": "177a7e3a85bfac8ded03bb73980a57ec92952746b315d2bb4b37f875187bf071",
+      "reason": null,
+      "location": {
+        "line": 3
+      },
+      "related": {
+        "process": [
+          {
+            "input": "processes",
+            "location": {
+              "pointer": "/3"
+            },
+            "input_sha256": "959e4bb7abef9605ae8b419598ac385011cc4575b1501d3873d205f9274c6731"
+          }
+        ]
+      }
+    },
+    {
+      "rule": "POWERSHELL-RUNS",
+      "input": "dns",
+      "ordinal": 3,
+      "target": "collection/scope/3/unit/3",
+      "evaluation": "command-line/1",
+      "expected_violation": true,
+      "probability": null,
+      "mock": null,
+      "suggested": "unobserved",
+      "decision": "fail",
+      "terminal_result": "fail",
+      "comparison": "match",
+      "evidence_sha256": "9b69713bf07bb5d03b35c74ec0932d6e3fd5637f5e10a5cce45a7bac198a365f",
+      "reason": null,
+      "location": {
+        "line": 4
+      },
+      "related": {
+        "process": [
+          {
+            "input": "processes",
+            "location": {
+              "pointer": "/0"
+            },
+            "input_sha256": "959e4bb7abef9605ae8b419598ac385011cc4575b1501d3873d205f9274c6731"
+          }
+        ]
+      }
+    },
+    {
+      "rule": "ENCODED-COMMAND",
+      "input": "dns",
+      "ordinal": 0,
+      "target": "collection/scope/1/unit/0",
+      "evaluation": "answers/1",
+      "expected_violation": true,
+      "probability": null,
+      "mock": null,
+      "suggested": "fail",
+      "decision": "fail",
+      "terminal_result": "not_evaluated",
+      "comparison": "match",
+      "evidence_sha256": "e0b0f1b6756b8dea7165675fcfb22a26acc88d6673c7b437f6966c1fa7cfd76c",
+      "reason": "experimental combination of all declared dependency answers; not an admitted audit decision",
+      "location": {
+        "line": 1
+      },
+      "related": {},
+      "passed": 1,
+      "failed": 1,
+      "unresolved": 0,
+      "resolution": "decisive",
+      "fail_when": "any_fail"
+    },
+    {
+      "rule": "ENCODED-COMMAND",
+      "input": "dns",
+      "ordinal": 1,
+      "target": "collection/scope/1/unit/1",
+      "evaluation": "answers/1",
+      "expected_violation": true,
+      "probability": null,
+      "mock": null,
+      "suggested": "fail",
+      "decision": "fail",
+      "terminal_result": "not_evaluated",
+      "comparison": "match",
+      "evidence_sha256": "e625ad09d1d41b2ff93a88eb0f781223d8f8e897611fb7124a32503fc0a4f7c6",
+      "reason": "experimental combination of all declared dependency answers; not an admitted audit decision",
+      "location": {
+        "line": 2
+      },
+      "related": {},
+      "passed": 1,
+      "failed": 1,
+      "unresolved": 0,
+      "resolution": "decisive",
+      "fail_when": "any_fail"
+    },
+    {
+      "rule": "ENCODED-COMMAND",
+      "input": "dns",
+      "ordinal": 2,
+      "target": "collection/scope/1/unit/2",
+      "evaluation": "answers/1",
+      "expected_violation": true,
+      "probability": null,
+      "mock": null,
+      "suggested": "fail",
+      "decision": "fail",
+      "terminal_result": "not_evaluated",
+      "comparison": "match",
+      "evidence_sha256": "594427633aa9acf89dd063d31e17cd608a81595aeb3c840c3852eb0a6063e1d5",
+      "reason": "experimental combination of all declared dependency answers; not an admitted audit decision",
+      "location": {
+        "line": 3
+      },
+      "related": {},
+      "passed": 1,
+      "failed": 1,
+      "unresolved": 0,
+      "resolution": "decisive",
+      "fail_when": "any_fail"
+    },
+    {
+      "rule": "ENCODED-COMMAND",
+      "input": "dns",
+      "ordinal": 3,
+      "target": "collection/scope/1/unit/3",
+      "evaluation": "answers/1",
+      "expected_violation": false,
+      "probability": null,
+      "mock": null,
+      "suggested": "pass",
+      "decision": "pass",
+      "terminal_result": "not_evaluated",
+      "comparison": "match",
+      "evidence_sha256": "755f126be475e0f2ff29c644f107141ff9b7d735ba2a2c07637e798ea0834b95",
+      "reason": "experimental combination of all declared dependency answers; not an admitted audit decision",
+      "location": {
+        "line": 4
+      },
+      "related": {},
+      "passed": 2,
+      "failed": 0,
+      "unresolved": 0,
+      "resolution": "decisive",
+      "fail_when": "any_fail"
+    },
+    {
+      "rule": "OUTSIDE-ALLOWLIST",
+      "input": "dns",
+      "ordinal": 0,
+      "target": "collection/scope/2/unit/0",
+      "evaluation": "json-pointer-equals/1",
+      "expected_violation": true,
+      "probability": null,
+      "mock": null,
+      "suggested": "unobserved",
+      "decision": "fail",
+      "terminal_result": "fail",
+      "comparison": "match",
+      "evidence_sha256": "7d9ac9e481e494fcce37731e9843eafb56beecea9d6f300df39706cfc07a268a",
+      "reason": null,
+      "location": {
+        "line": 1
+      },
+      "related": {
+        "allowlist": []
+      }
+    },
+    {
+      "rule": "OUTSIDE-ALLOWLIST",
+      "input": "dns",
+      "ordinal": 1,
+      "target": "collection/scope/2/unit/1",
+      "evaluation": "json-pointer-equals/1",
+      "expected_violation": false,
+      "probability": null,
+      "mock": null,
+      "suggested": "unobserved",
+      "decision": "pass",
+      "terminal_result": "pass",
+      "comparison": "match",
+      "evidence_sha256": "fe211aff87490d5a72cd46b6187158d09927cb6939427f15f4079bfd2218fd7c",
+      "reason": null,
+      "location": {
+        "line": 2
+      },
+      "related": {
+        "allowlist": [
+          {
+            "input": "allowlist",
+            "location": {
+              "pointer": "/0"
+            },
+            "input_sha256": "cab379ad3a6f140a64c22658a3b5f239ad8dc983bff03062e0da498f5123bd32"
+          }
+        ]
+      }
+    },
+    {
+      "rule": "OUTSIDE-ALLOWLIST",
+      "input": "dns",
+      "ordinal": 2,
+      "target": "collection/scope/2/unit/2",
+      "evaluation": "json-pointer-equals/1",
+      "expected_violation": true,
+      "probability": null,
+      "mock": null,
+      "suggested": "unobserved",
+      "decision": "fail",
+      "terminal_result": "fail",
+      "comparison": "match",
+      "evidence_sha256": "63c904a14dac1f1275d841cdcdc7d8b11d5bd09d333d24894f81a30a10932a97",
+      "reason": null,
+      "location": {
+        "line": 3
+      },
+      "related": {
+        "allowlist": []
+      }
+    },
+    {
+      "rule": "OUTSIDE-ALLOWLIST",
+      "input": "dns",
+      "ordinal": 3,
+      "target": "collection/scope/2/unit/3",
+      "evaluation": "json-pointer-equals/1",
+      "expected_violation": true,
+      "probability": null,
+      "mock": null,
+      "suggested": "unobserved",
+      "decision": "fail",
+      "terminal_result": "fail",
+      "comparison": "match",
+      "evidence_sha256": "dd203e446234ba38cc2f61030eabe379b5bb0f546661010feb8a943785fbeb59",
+      "reason": null,
+      "location": {
+        "line": 4
+      },
+      "related": {
+        "allowlist": []
+      }
+    },
+    {
+      "rule": "RELATED-ACTIVITY",
+      "input": "dns",
+      "ordinal": 0,
+      "target": "collection/scope/1/unit/0",
+      "evaluation": "answers/1",
+      "expected_violation": true,
+      "probability": null,
+      "mock": null,
+      "suggested": "fail",
+      "decision": "fail",
+      "terminal_result": "not_evaluated",
+      "comparison": "match",
+      "evidence_sha256": "df86ce8beffc6c8877e89f8741e1e6e2ce30e9bde4bb9e595a6afaa90bf67090",
+      "reason": "experimental combination of all declared dependency answers; not an admitted audit decision",
+      "location": {
+        "line": 1
+      },
+      "related": {},
+      "passed": 0,
+      "failed": 4,
+      "unresolved": 0,
+      "resolution": "all_answers",
+      "fail_when": "all_fail"
+    },
+    {
+      "rule": "RELATED-ACTIVITY",
+      "input": "dns",
+      "ordinal": 1,
+      "target": "collection/scope/1/unit/1",
+      "evaluation": "answers/1",
+      "expected_violation": false,
+      "probability": null,
+      "mock": null,
+      "suggested": "pass",
+      "decision": "pass",
+      "terminal_result": "not_evaluated",
+      "comparison": "match",
+      "evidence_sha256": "a2c3ecc264b97de64f5db01432d575f444d74528a97b70acb69b1bb48c8bfc50",
+      "reason": "experimental combination of all declared dependency answers; not an admitted audit decision",
+      "location": {
+        "line": 2
+      },
+      "related": {},
+      "passed": 1,
+      "failed": 3,
+      "unresolved": 0,
+      "resolution": "all_answers",
+      "fail_when": "all_fail"
+    },
+    {
+      "rule": "RELATED-ACTIVITY",
+      "input": "dns",
+      "ordinal": 2,
+      "target": "collection/scope/1/unit/2",
+      "evaluation": "answers/1",
+      "expected_violation": false,
+      "probability": null,
+      "mock": null,
+      "suggested": "pass",
+      "decision": "pass",
+      "terminal_result": "not_evaluated",
+      "comparison": "match",
+      "evidence_sha256": "6c24c5c1bc13db1aa21f69211b9bf21ba040a2725bd56d0c22a5c84708126a0d",
+      "reason": "experimental combination of all declared dependency answers; not an admitted audit decision",
+      "location": {
+        "line": 3
+      },
+      "related": {},
+      "passed": 1,
+      "failed": 3,
+      "unresolved": 0,
+      "resolution": "all_answers",
+      "fail_when": "all_fail"
+    },
+    {
+      "rule": "RELATED-ACTIVITY",
+      "input": "dns",
+      "ordinal": 3,
+      "target": "collection/scope/1/unit/3",
+      "evaluation": "answers/1",
+      "expected_violation": false,
+      "probability": null,
+      "mock": null,
+      "suggested": "pass",
+      "decision": "pass",
+      "terminal_result": "not_evaluated",
+      "comparison": "match",
+      "evidence_sha256": "1a6f720d9e56e0757ac4e8e8deccb0dca647f850831a0d474ab20a358e4f8631",
+      "reason": "experimental combination of all declared dependency answers; not an admitted audit decision",
+      "location": {
+        "line": 4
+      },
+      "related": {},
+      "passed": 1,
+      "failed": 3,
+      "unresolved": 0,
+      "resolution": "all_answers",
+      "fail_when": "all_fail"
+    },
+    {
+      "rule": "ANY-RELATED-ACTIVITY",
+      "input": "dns",
+      "ordinal": 0,
+      "target": "collection/scope/0/unit/0",
+      "evaluation": "answers/1",
+      "expected_violation": true,
+      "probability": null,
+      "mock": null,
+      "suggested": "fail",
+      "decision": "fail",
+      "terminal_result": "not_evaluated",
+      "comparison": "match",
+      "evidence_sha256": "2e0ab2d51ac521178c8d48e3a524f11f1e198b9caf9610e2652ef08a6718d8c4",
+      "reason": "experimental combination of all declared dependency answers; not an admitted audit decision",
+      "location": {
+        "whole_input": true
+      },
+      "related": {},
+      "passed": 3,
+      "failed": 1,
+      "unresolved": 0,
+      "resolution": "all_answers",
+      "fail_when": "any_fail"
+    }
+  ],
+  "scope": "One recorded run. Provider modes distinguish live responses from local mocks; a mock is not fresh inference. Leaf decisions and local combinations are counted separately. These results are not an independent accuracy estimate."
+}

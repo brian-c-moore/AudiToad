@@ -1,0 +1,19 @@
+{
+  "schema": "auditoad-evidence-bundle/1",
+  "files": {
+    "scene.png": {
+      "sha256": "7c680de82a55ea662609e880c0bbe2e6bd4cc7b7b53398c362f9955a711371c3",
+      "media": "image/png"
+    }
+  },
+  "packets": [{
+    "id": "mug-and-book",
+    "kind": "controlled-image",
+    "scope_kind": "whole",
+    "parts": [{
+      "role": "subject",
+      "path": "scene.png",
+      "region": {"x": 0, "y": 0, "width": 1254, "height": 1254}
+    }]
+  }]
+}
