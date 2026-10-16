@@ -10,6 +10,10 @@ MSVC builds require the Visual Studio C++ build tools and Windows SDK. Linux bui
 native C/C++ toolchain. The CI configuration lists the tested commands for Windows and Linux;
 a configured CI job is not evidence that a particular revision passed it.
 
+The Verus grammar is bundled under `vendor/tree-sitter-verus/` with its upstream license,
+revision and file hashes. Cargo compiles those sources during ordinary source and package
+builds; a separate Git dependency or grammar-generation command is not needed.
+
 ```console
 rustup toolchain install 1.99.1 --profile minimal --component rustfmt --component clippy
 cargo build --locked

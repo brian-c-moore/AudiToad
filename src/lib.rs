@@ -46,6 +46,7 @@ mod score;
 mod source;
 mod syntax;
 mod tlaplus;
+mod verus;
 
 pub use baseline::ValidatedBaseline;
 pub use evaluator::MockModel;

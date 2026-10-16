@@ -48,6 +48,7 @@ and `Reduction` for result totals. Baseline content and evaluator bindings use t
 | `tests/fixtures/` | Fixed inputs for deterministic and mock evaluator tests |
 | `docs/`, `audit/` | User/developer guides, construction case study and public self-audit baseline |
 | `Cargo.toml`, `Cargo.lock`, `rust-toolchain.toml`, `.cargo/` | Dependencies and build configuration |
+| `build.rs`, `src/verus.rs`, `vendor/tree-sitter-verus/` | Bundled upstream Verus grammar, license, provenance and native binding |
 | `.gitignore`, `.gitattributes`, `.github/` | Repository exclusions, fixture byte preservation and CI |
 | `README.md`, `BASELINES.md`, `CONTRIBUTING.md`, `CHANGELOG.md`, `LICENSE-*` | Usage, authoring, development, releases and licenses |
 

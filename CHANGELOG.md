@@ -9,6 +9,8 @@
 - Collection baselines can expose computed file identities to local checks, allowing direct receipt-to-file hash comparisons without a preprocessing script.
 - Collection manifests can pin complete input files and source dependencies before any model question is dispatched.
 - Add explicit `verus` syntax helpers through an immutable upstream grammar. Verus operators and contracts retain their original bytes and capture offsets; incomplete parses still withhold fields.
+- Bundle the pinned Verus grammar and its license so package builds retain Verus support without a Git dependency.
+- Preserve exact repository file bytes during Git checkout on Windows and Linux, including hashed example inputs.
 
 - Baselines can declare the `requirements` an audit must cover; rules name the requirement
   revisions they check, and profiles can narrow which requirements they must cover. Reports

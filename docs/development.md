@@ -44,7 +44,10 @@ execution path that bypasses scan ownership. Keep effect identity and refusal be
 
 Use checked conversions and arithmetic at identity and size boundaries. Reject unknown fields
 and unsupported combinations. Return an explicit unresolved or invalid result when evidence is
-missing; do not invent a passing default. Keep unsafe code forbidden and dependencies locked.
+missing; do not invent a passing default. Keep dependencies locked and unsafe code denied.
+The only unsafe-code exceptions are the foreign declaration and static language-function
+construction in `src/verus.rs`, which bind the bundled upstream Verus grammar. Keep those
+exceptions confined to that binding; scanner, evaluator and test code retain the denial.
 
 ## Test behavior and refusal
 

@@ -10,8 +10,9 @@ documentation = "https://docs.rs/auditoad"
 keywords = ["audit", "compliance", "baseline", "scanner"]
 categories = ["command-line-utilities", "development-tools"]
 license = "MIT OR Apache-2.0"
+build = "build.rs"
 include = [
-    "src/**", "tests/**", "docs/**",
+    "src/**", "tests/**", "docs/**", "vendor/tree-sitter-verus/**", "build.rs",
     "examples/README.md", "examples/*/*.md", "examples/*/*.py",
     "examples/evaluators.json", "examples/evaluators.local.json",
     "examples/evaluators.helpers.json",
@@ -61,18 +62,21 @@ ureq = { version = "=3.4.2", default-features = false, features = ["rustls"] }
 pulldown-cmark = { version = "=0.13.4", default-features = false }
 unicode-segmentation = "=1.13.3"
 tree-sitter = "=0.27.0"
+tree-sitter-language = "=0.1.8"
 tree-sitter-bash = "=0.25.1"
 tree-sitter-zsh = "=0.63.4"
 tree-sitter-powershell = "=0.26.4"
 tree-sitter-python = "=0.25.0"
 tree-sitter-rust = "=0.24.2"
-tree-sitter-verus = { package = "tree-sitter-rust", git = "https://github.com/secure-foundations/tree-sitter-verus", rev = "0c939ef2ec0a188c3cf24518474fb8082db02ec4" }
 tree-sitter-tlaplus = "=1.5.0"
 yara-x = { version = "=1.20.0", default-features = false, features = ["constant-folding", "exact-atoms", "fast-regexp"] }
 
+[build-dependencies]
+cc = "=1.5.1"
+
 [lints.rust]
 warnings = "deny"
-unsafe_code = "forbid"
+unsafe_code = "deny"
 unused_must_use = "forbid"
 
 [lints.clippy]

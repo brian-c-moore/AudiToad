@@ -30,7 +30,7 @@ fn grammar(language: SyntaxLanguage) -> (Language, &'static str) {
         ),
         SyntaxLanguage::Rust => (tree_sitter_rust::LANGUAGE.into(), "tree-sitter-rust/0.24.2"),
         SyntaxLanguage::Verus => (
-            tree_sitter_verus::LANGUAGE.into(),
+            crate::verus::language(),
             "tree-sitter-verus/0c939ef2ec0a188c3cf24518474fb8082db02ec4",
         ),
         SyntaxLanguage::Tlaplus => (
